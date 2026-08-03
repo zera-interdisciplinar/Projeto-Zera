@@ -6,7 +6,7 @@ package br.com.zera.model;
  *
  * @author Pedro Rufino
  */
-public class FuncionarioModel {
+public class Funcionario {
 //    Atributos
     private int codigo;
     private String nome;
@@ -25,7 +25,7 @@ public class FuncionarioModel {
      * @param telefone número de contato
      * @param codUnidade chave estrangeira da unidade pertencente
      */
-    public FuncionarioModel(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
+    public Funcionario(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
         this.codigo = codigo;
         this.nome = nome;
         this.email = email;
