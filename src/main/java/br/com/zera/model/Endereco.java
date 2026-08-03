@@ -6,7 +6,7 @@ package br.com.zera.model;
  *
  * @author Pedro Rufino
  */
-public class EnderecoModel {
+public class Endereco {
 //    Atributos
     private int codigo;
     private String bairro;
@@ -29,7 +29,7 @@ public class EnderecoModel {
      * @param estado estado da empresa
      * @param codUnidade chave estrangeira da unidade pertencente
      */
-    public EnderecoModel(int codigo, String bairro, int numero, String cep, String logradouro, String cidade, String estado, int codUnidade) {
+    public Endereco(int codigo, String bairro, int numero, String cep, String logradouro, String cidade, String estado, int codUnidade) {
         this.codigo = codigo;
         this.bairro = bairro;
         this.numero = numero;

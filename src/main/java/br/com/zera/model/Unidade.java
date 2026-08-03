@@ -6,7 +6,7 @@ package br.com.zera.model;
  *
  * @author Pedro Rufino
  */
-public class UnidadeModel {
+public class Unidade {
 //    Atributos
     private int codigo;
     private String cnpj;
@@ -21,7 +21,7 @@ public class UnidadeModel {
      * @param email email da unidade
      * @param codOrganizacao chave estrangeira da organização pertencente
      */
-    public UnidadeModel(int codigo, String cnpj, String email, int codOrganizacao) {
+    public Unidade(int codigo, String cnpj, String email, int codOrganizacao) {
         this.codigo = codigo;
         this.cnpj = cnpj;
         this.email = email;
