@@ -5,7 +5,7 @@ package br.com.zera.model;
  *
  * @author Pedro Rufino
  */
-public class GestorModel extends FuncionarioModel {
+public class Gestor extends Funcionario {
     /**
      * Construtor do GestorModel.
      * Repassa os parâmetros para a superclasse FuncionarioModel.
@@ -17,7 +17,7 @@ public class GestorModel extends FuncionarioModel {
      * @param telefone número de contato
      * @param codUnidade chave estrangeira da unidade associada
      */
-    public GestorModel(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
+    public Gestor(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
         super(codigo, nome, email, senha, telefone, codUnidade);
     }
 }

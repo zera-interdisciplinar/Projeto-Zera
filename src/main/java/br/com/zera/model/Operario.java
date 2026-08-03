@@ -6,7 +6,7 @@ package br.com.zera.model;
  *
  * @autor Pedro Rufino
  */
-public class OperarioModel extends FuncionarioModel {
+public class Operario extends Funcionario {
     /**
      * Construtor do OperarioModel.
      * Repassa os parâmetros para a superclasse FuncionarioModel.
@@ -18,7 +18,7 @@ public class OperarioModel extends FuncionarioModel {
      * @param telefone número de contato
      * @param codUnidade chave estrangeira da unidade associada
      */
-    public OperarioModel(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
+    public Operario(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
         super(codigo, nome, email, senha, telefone, codUnidade);
     }
 }
