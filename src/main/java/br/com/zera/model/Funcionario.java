@@ -6,7 +6,7 @@ package br.com.zera.model;
  *
  * @author Pedro Rufino
  */
-public class Funcionario {
+public class Funcionario extends Model {
 //    Atributos
     private int codigo;
     private String nome;
