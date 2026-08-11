@@ -20,5 +20,5 @@ public interface Model {
      * @return objeto que representa o ID da entidade
      */
 
-    Object getCodigo()
+    Object getCodigo();
 }
