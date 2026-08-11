@@ -98,6 +98,6 @@ public class Assinatura{
         "/nData de Fim: "+this.dataFim+
         "/nStatus: "+this.status+
         "/nCódigo da tabela Organização: "+this.codOrganizacao+
-        "/nCódigo da tabela Plano: "+this.codPlano
+        "/nCódigo da tabela Plano: "+this.codPlano;
     }
 }
