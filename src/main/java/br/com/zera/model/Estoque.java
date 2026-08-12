@@ -72,6 +72,6 @@ public class Estoque{
         "Código: "+this.codigo+
         "/nData de chegada do Item: "+this.dataChegadaItem+
         "/nStatus do Item: "+this.statusItem+
-        "/nCódigo da tabela Unidade: "+this.codUnidade
+        "/nCódigo da tabela Unidade: "+this.codUnidade;
     }
 }
