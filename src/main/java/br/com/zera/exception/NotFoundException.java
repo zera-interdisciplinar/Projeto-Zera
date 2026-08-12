@@ -20,7 +20,7 @@ public class NotFoundException extends ZeraException {
      * @param entidade Nome da tabela ou entidade (ex: "Endereco", "Unidade").
      * @param id Código identificador que não foi localizado.
      */
-    public NotFoundException(String entidade, int id) {
-        super(entidade + " com o código " + id + " não foi encontrado(a) no sistema.");
+    public NotFoundException(String entidade, int codigo) {
+        super(entidade + " com o código " + codigo + " não foi encontrado(a) no sistema.");
     }
 }
