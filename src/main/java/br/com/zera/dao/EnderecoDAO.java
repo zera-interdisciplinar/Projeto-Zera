@@ -66,7 +66,7 @@ public class EnderecoDAO {
             stmt.setString(5, endereco.getCidade());
             stmt.setString(6, endereco.getBairro());
             stmt.setString(7, endereco.getEstado());
-            stmt.setInt(8, endereco.getCodigo()); // Aqui entra o codigo do WHERE
+            stmt.setInt(8, endereco.getCodigo());
 
             int linhasAfetadas = stmt.executeUpdate();
 
