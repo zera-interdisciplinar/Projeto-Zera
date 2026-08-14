@@ -34,7 +34,6 @@ public class OrganizacaoDAO {
 
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
-            // Uso correto para enviar LocalDate para o banco de dados moderno
             stmt.setObject(3, organizacao.getDataCadastro());
 
             stmt.executeUpdate();
