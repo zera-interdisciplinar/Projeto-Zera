@@ -87,7 +87,7 @@ public class EnderecoDAO {
      * @throws NotFoundException se nenhum endereço com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public Endereco findById(int codigo) {
+    public Endereco findByCodigo(int codigo) {
         String sql = "SELECT * FROM Endereco WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
