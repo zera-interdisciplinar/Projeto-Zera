@@ -91,11 +91,11 @@ public class OrganizacaoDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    // Retornando a classe certa (Organizacao) e adicionando o getObject para a data
+
                     return new Organizacao(
                             rs.getInt("codigo"),
                             rs.getString("cnpj"),
-                            rs.getString("nome"), // <-- Faltava a coluna nome
+                            rs.getString("nome"),
                             rs.getObject("data_cadastro", LocalDate.class)
                     );
                 } else {
