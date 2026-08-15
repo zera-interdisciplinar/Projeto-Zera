@@ -3,12 +3,13 @@ package br.com.zera.dao;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Plano;
+import br.com.zera.util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class PlanoDAO {
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDouble(1, plano.getValor());
+            stmt.setBigDecimal(1, plano.getValor());
             stmt.setString(2, plano.getNome());
             stmt.setObject(3, plano.getTempo());
 
@@ -57,7 +58,7 @@ public class PlanoDAO {
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDouble(1, plano.getValor());
+            stmt.setBigDecimal(1, plano.getValor());
             stmt.setString(2, plano.getNome());
             stmt.setObject(3, plano.getTempo());
             stmt.setInt(4, plano.getCodigo()); // CORRIGIDO: Faltava enviar o código do WHERE!
@@ -93,9 +94,9 @@ public class PlanoDAO {
                 if (rs.next()) {
                     return new Plano(
                             rs.getInt("codigo"),
-                            rs.getDouble("valor"),
+                            rs.getBigDecimal("valor"),
                             rs.getString("nome"),
-                            rs.getObject("tempo", LocalTime.class)
+                            rs.getObject("tempo", LocalDate.class)
                     );
                 } else {
                     throw new NotFoundException("Plano", codigo);
@@ -124,9 +125,9 @@ public class PlanoDAO {
             while (rs.next()) {
                 Plano plano = new Plano(
                         rs.getInt("codigo"),
-                        rs.getDouble("valor"),
+                        rs.getBigDecimal("valor"),
                         rs.getString("nome"),
-                        rs.getObject("tempo", LocalTime.class)
+                        rs.getObject("tempo", LocalDate.class)
                 );
                 lista.add(plano);
             }
