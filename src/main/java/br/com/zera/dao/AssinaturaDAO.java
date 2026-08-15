@@ -54,7 +54,7 @@ public class AssinaturaDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Assinatura assinatura) {
-        // CORRIGIDO: Nome da tabela alterado de Organizacao para Assinatura
+
         String sql = "UPDATE Assinatura SET data_inicio = ?, data_fim = ?, status = ?, cod_organizacao = ?, cod_plano = ? WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
@@ -86,7 +86,6 @@ public class AssinaturaDAO {
      * @throws NotFoundException se nenhuma assinatura com o código informado for encontrada
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    // CORRIGIDO: Retorno alterado de Organizacao para Assinatura
     public Assinatura findByCodigo(int codigo) {
         String sql = "SELECT * FROM Assinatura WHERE codigo = ?";
 
