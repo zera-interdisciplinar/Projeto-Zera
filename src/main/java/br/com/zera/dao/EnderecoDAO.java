@@ -3,6 +3,7 @@ package br.com.zera.dao;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Endereco;
+import br.com.zera.util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,13 +100,13 @@ public class EnderecoDAO {
                 if (rs.next()) {
                     return new Endereco(
                             rs.getInt("codigo"),
-                            rs.getString("logradouro"),
+                            rs.getString("bairro"),
                             rs.getInt("numero"),
                             rs.getString("cep"),
-                            rs.getInt("cod_unidade"),
+                            rs.getString("logradouro"),
                             rs.getString("cidade"),
-                            rs.getString("bairro"),
-                            rs.getString("estado")
+                            rs.getString("estado"),
+                            rs.getInt("cod_unidade")
                     );
                 } else {
                     throw new NotFoundException("Endereco", codigo);
@@ -135,13 +136,13 @@ public class EnderecoDAO {
             while (rs.next()) {
                 Endereco endereco = new Endereco(
                         rs.getInt("codigo"),
-                        rs.getString("logradouro"),
+                        rs.getString("bairro"),
                         rs.getInt("numero"),
                         rs.getString("cep"),
-                        rs.getInt("cod_unidade"),
+                        rs.getString("logradouro"),
                         rs.getString("cidade"),
-                        rs.getString("bairro"),
-                        rs.getString("estado")
+                        rs.getString("estado"),
+                        rs.getInt("cod_unidade")
                 );
                 lista.add(endereco);
             }
