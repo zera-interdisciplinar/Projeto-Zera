@@ -3,6 +3,7 @@ package br.com.zera.dao;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Assinatura;
+import br.com.zera.util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
