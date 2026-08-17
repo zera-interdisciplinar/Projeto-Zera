@@ -18,7 +18,7 @@ public class NotFoundException extends ZeraException {
      * Constrói a mensagem de erro formatada informando a entidade e o código buscado.
      *
      * @param entidade Nome da tabela ou entidade (ex: "Endereco", "Unidade").
-     * @param id Código identificador que não foi localizado.
+     * @param codigo Código identificador que não foi localizado.
      */
     public NotFoundException(String entidade, int codigo) {
         super(entidade + " com o código " + codigo + " não foi encontrado(a) no sistema.");
