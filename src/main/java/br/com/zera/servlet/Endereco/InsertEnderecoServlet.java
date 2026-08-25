@@ -20,7 +20,7 @@ import java.io.IOException;
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
-     * Processa o POST para inserir um Endereço
+     * Processa o POST para inserir um novo Endereço
      *
      * @param request objeto HttpServletRequest contendo os parâmetros do formulário
      * @param response objeto HttpResponse para redirecionamento ou foward
@@ -29,6 +29,10 @@ public class InsertEnderecoServlet extends HttpServlet{
      * */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
        throws jakarta.servlet.ServletException, IOException {
+
+        //instancia DAO responsável por persistir objetos no banco de dados
+        EnderecoDao dao = new EnderecoDao();
+
 
     }
 }
