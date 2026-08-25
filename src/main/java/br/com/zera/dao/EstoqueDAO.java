@@ -42,10 +42,6 @@ public class EstoqueDAO {
             while (rs.next()) {
                 int retorno = pstmt.executeUpdate();
             }
-            rs.close();
-            pstmt.close();
-            conn.close();
-
         } catch (SQLException sqle) {
             throw new ConnectionFailedException(sqle.getMessage());
 
@@ -73,11 +69,6 @@ public class EstoqueDAO {
             while(rs.next()) {
                 int retorno = psmt.executeUpdate();
             }
-
-            rs.close();
-            psmt.close();
-            conn.close();
-
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
         }
@@ -101,10 +92,6 @@ public class EstoqueDAO {
             while(rs.next()) {
                 int retorno = psmt.executeUpdate();
             }
-            rs.close();
-            psmt.close();
-            conn.close();
-
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
         }
