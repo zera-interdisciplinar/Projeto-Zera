@@ -1,0 +1,180 @@
+package br.com.zera.dao;
+
+import br.com.zera.exception.ConnectionFailedException;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Estoque;
+import br.com.zera.model.Organizacao;
+import br.com.zera.util.Conexao;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe DAO responsável pelas operações de acesso ao banco de dados
+ * para a entidade {@link Estoque}.
+ *
+ * @author Mayte B
+ */
+public class EstoqueDAO {
+
+    /**
+     * Insere um novo item de estoque no banco de dados.
+     *
+     * @param estoque Objeto {@link Estoque} contendo os dados a serem persistidos
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public void insert(Estoque estoque) {
+        String sql = "insert into estoque (codigo, data_chegada_item, status_item, cod_unidade) values (?, ?, ?, ?)";
+
+        try(Connection conn = Conexao.getConexao();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, estoque.getCodigo());
+
+            //java.sql.Date.valueOf(LocalDate date): ponte de compatibilidade entre API antiga (java.sql) e API moderna (java.time);
+            pstmt.setDate(2, Date.valueOf(estoque.getDataChegadaItem()));
+
+            pstmt.setString(3, estoque.getStatusItem());
+            pstmt.setInt(4, estoque.getCodUnidade());
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int retorno = pstmt.executeUpdate();
+            }
+            rs.close();
+            pstmt.close();
+            conn.close();
+
+        } catch (SQLException sqle) {
+            throw new ConnectionFailedException(sqle.getMessage());
+
+        }
+
+    }
+    /**
+     * Atualiza registros de estoque no banco de dados.
+     *
+     * @param estoque Objeto {@link Estoque} contendo os dados a serem atualizados
+     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     */
+    public void update(Estoque estoque) {
+        String sql = "Update estoque set codigo = ?, data_chegada_item = ?, status_item = ?, cod_unidade = ? where codigo = ? ";
+
+        try(Connection conn = Conexao.getConexao();
+            PreparedStatement psmt = conn.prepareStatement(sql)){
+
+            psmt.setInt(1, estoque.getCodigo());
+            psmt.setDate(2, Date.valueOf(estoque.getDataChegadaItem()));
+            psmt.setString(3, estoque.getStatusItem());
+            psmt.setInt(4, estoque.getCodUnidade());
+
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()) {
+                int retorno = psmt.executeUpdate();
+            }
+
+            rs.close();
+            psmt.close();
+            conn.close();
+
+        } catch (SQLException sqle){
+            throw new ConnectionFailedException(sqle.getMessage());
+        }
+    }
+
+    /**
+     * Apaga registros de estoque no banco de dados.
+     *
+     * @param estoque Objeto {@link Estoque} contendo os dados a serem excluídos
+     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     */
+    public void delete(Estoque estoque) {
+        String sql = "delete from estoque where codigo = ?";
+
+        try(Connection conn = Conexao.getConexao();
+        PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+            psmt.setInt(1, estoque.getCodigo());
+
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()) {
+                int retorno = psmt.executeUpdate();
+            }
+            rs.close();
+            psmt.close();
+            conn.close();
+
+        } catch (SQLException sqle){
+            throw new ConnectionFailedException(sqle.getMessage());
+        }
+    }
+
+    /**
+     * Consulta registros de estoque no banco de dados
+     *
+     * @param estoque Codigo (Primary Key) da organização procurada
+     *
+     * @return o {@link Estoque} correspondente ao código
+     * @throws NotFoundException() para informações não encontradas
+     * @throws ConnectionFailedException() para erros de conexão com o banco
+     */
+    public Estoque findByCodigo(Estoque estoque) {
+        String sql = "select * from estoque where codigo = ?";
+
+        try(Connection conn = Conexao.getConexao();
+        PreparedStatement psmt = conn.prepareStatement(sql)){
+
+            psmt.setInt(1, estoque.getCodigo());
+
+            try (ResultSet rs = psmt.executeQuery()){
+                if (rs.next()) {
+                    return new Estoque(
+                    rs.getInt("codigo"),
+                    rs.getDate("data_chegada_item").toLocalDate(),
+                    rs.getString("status_item"),
+                    rs.getInt("cod_unidade")
+                    );
+                } else {
+                    throw new NotFoundException("Estoque", estoque.getCodigo());
+                }
+            } catch(SQLException sqle){
+                throw new ConnectionFailedException(sqle.getMessage());
+            }
+        } catch(SQLException sqle){
+            throw new ConnectionFailedException(sqle.getMessage());
+        }
+    }
+
+    /**
+     * Consulta todos os registros da tabela Estoque
+     *
+     * @throws ConnectionFailedException() para erros de conexão com o banco
+     * @return uma {@link List} com todas as {@link Estoque} encontradas;
+     */
+    public List<Estoque> findAll() {
+        String sql = "select * from estoque";
+        List<Estoque> retorno = new ArrayList<>();
+        try(Connection conn = Conexao.getConexao();
+        PreparedStatement psmt =  conn.prepareStatement(sql)){
+
+            try(ResultSet rs = psmt.executeQuery()){
+                if (rs.next()) {
+                    Estoque estoque = new Estoque (
+                            rs.getInt("codigo"),
+                            rs.getDate("data_chegada_item").toLocalDate(),
+                            rs.getString("status_item"),
+                            rs.getInt("cod_unidade")
+                    );
+                    retorno.add(estoque);
+                }
+            } catch (ConnectionFailedException cfe){
+                throw new ConnectionFailedException(cfe.getMessage());
+            }
+        } catch(SQLException sqle){
+            throw new ConnectionFailedException(sqle.getMessage());
+        }
+        return retorno;
+    }
+}
