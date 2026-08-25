@@ -17,7 +17,7 @@ import java.util.List;
 public class UnidadeDAO {
 
     /**
-     * Insere novo registro de informações em {@link Unidade}
+     * Insere nova unidade em {@link Unidade}
      *
      * @param unidade Objeto {@link Unidade} contendo as informações a serem persistidas
      * @throws ConnectionFailedException para caso de erro na conexão com o banco de dados
@@ -58,7 +58,7 @@ public class UnidadeDAO {
             pstm.setString(2, unidade.getCnpj());
             pstm.setString(3, unidade.getEmail());
             pstm.setInt(4, unidade.getCodOrganizacao());
-            pstm.setInt(1, unidade.getCodigo());
+            pstm.setInt(5, unidade.getCodigo());
 
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
@@ -144,7 +144,7 @@ public class UnidadeDAO {
     }
 
     /**
-     * Apaga registros da unidade da empresa no banco de dados.
+     * Apaga registros da unidade no banco de dados.
      *
      * @param unidade Objeto {@link Unidade} contendo os dados a serem excluídos
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
