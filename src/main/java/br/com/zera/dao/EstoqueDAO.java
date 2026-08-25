@@ -100,7 +100,7 @@ public class EstoqueDAO {
                             rs.getInt("cod_unidade")
                     );
                 } else {
-                    return null;
+                    throw new NotFoundException("Registro não encontrado em Estoque", estoque.getCodigo());
                 }
             } catch (SQLException sqle) {
                 throw new ConnectionFailedException(sqle.getMessage());
@@ -113,6 +113,7 @@ public class EstoqueDAO {
     /**
      * Consulta todos os registros da tabela Estoque
      *
+     * @throws NotFoundException() para retornos vazios no retorno de dados
      * @throws ConnectionFailedException() para erros de conexão com o banco
      * @return uma {@link List} com todas as {@link Estoque} encontradas;
      */
@@ -131,6 +132,8 @@ public class EstoqueDAO {
                             rs.getInt("cod_unidade")
                     );
                     retorno.add(estoque);
+                } else {
+                    throw new NotFoundException("Nenhum registro encontrado");
                 }
             } catch (ConnectionFailedException cfe){
                 throw new ConnectionFailedException(cfe.getMessage());
