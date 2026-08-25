@@ -75,29 +75,6 @@ public class EstoqueDAO {
     }
 
     /**
-     * Apaga registros de estoque no banco de dados.
-     *
-     * @param estoque Objeto {@link Estoque} contendo os dados a serem excluídos
-     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
-     */
-    public void delete(Estoque estoque) {
-        String sql = "delete from estoque where codigo = ?";
-
-        try(Connection conn = Conexao.getConexao();
-        PreparedStatement psmt = conn.prepareStatement(sql)) {
-
-            psmt.setInt(1, estoque.getCodigo());
-
-            ResultSet rs = psmt.executeQuery();
-            while(rs.next()) {
-                int retorno = psmt.executeUpdate();
-            }
-        } catch (SQLException sqle){
-            throw new ConnectionFailedException(sqle.getMessage());
-        }
-    }
-
-    /**
      * Consulta registros de estoque no banco de dados
      *
      * @param estoque Codigo (Primary Key) da organização procurada
@@ -109,26 +86,26 @@ public class EstoqueDAO {
     public Estoque findByCodigo(Estoque estoque) {
         String sql = "select * from estoque where codigo = ?";
 
-        try(Connection conn = Conexao.getConexao();
-        PreparedStatement psmt = conn.prepareStatement(sql)){
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement psmt = conn.prepareStatement(sql)) {
 
             psmt.setInt(1, estoque.getCodigo());
 
-            try (ResultSet rs = psmt.executeQuery()){
+            try (ResultSet rs = psmt.executeQuery()) {
                 if (rs.next()) {
                     return new Estoque(
-                    rs.getInt("codigo"),
-                    rs.getDate("data_chegada_item").toLocalDate(),
-                    rs.getString("status_item"),
-                    rs.getInt("cod_unidade")
+                            rs.getInt("codigo"),
+                            rs.getDate("data_chegada_item").toLocalDate(),
+                            rs.getString("status_item"),
+                            rs.getInt("cod_unidade")
                     );
                 } else {
-                    throw new NotFoundException("Estoque", estoque.getCodigo());
+                    return null;
                 }
-            } catch(SQLException sqle){
+            } catch (SQLException sqle) {
                 throw new ConnectionFailedException(sqle.getMessage());
             }
-        } catch(SQLException sqle){
+        } catch (SQLException sqle) {
             throw new ConnectionFailedException(sqle.getMessage());
         }
     }
@@ -162,5 +139,28 @@ public class EstoqueDAO {
             throw new ConnectionFailedException(sqle.getMessage());
         }
         return retorno;
+    }
+
+    /**
+     * Apaga registros de estoque no banco de dados.
+     *
+     * @param estoque Objeto {@link Estoque} contendo os dados a serem excluídos
+     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     */
+    public void delete(Estoque estoque) {
+        String sql = "delete from estoque where codigo = ?";
+
+        try(Connection conn = Conexao.getConexao();
+            PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+            psmt.setInt(1, estoque.getCodigo());
+
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()) {
+                int retorno = psmt.executeUpdate();
+            }
+        } catch (SQLException sqle){
+            throw new ConnectionFailedException(sqle.getMessage());
+        }
     }
 }
