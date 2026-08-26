@@ -1,12 +1,12 @@
 package br.com.zera.model;
 
 /**
- * Modelo base que representa a entidade Funcionario no sistema.
- * Serve como superclasse para Gestor e Operario.
+ * Modelo base que representa a entidade Gestor no sistema.
+ * Cada instancia corresponde a um registro na tabela "Gestor"
  *
  * @author Pedro Rufino
  */
-public class Funcionario {
+public class Gestor {
 //    Atributos
     private int codigo;
     private String nome;
@@ -16,7 +16,7 @@ public class Funcionario {
     private int codUnidade;
 
     /**
-     * Construtor completo para inicialização do Funcionario.
+     * Construtor completo para inicialização do Gestor.
      *
      * @param codigo identificador único do funcionário no banco
      * @param nome nome completo do funcionário
@@ -25,7 +25,7 @@ public class Funcionario {
      * @param telefone número de contato
      * @param codUnidade chave estrangeira da unidade pertencente
      */
-    public Funcionario(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
+    public Gestor(int codigo, String nome, String email, String senha, String telefone, int codUnidade) {
         this.codigo = codigo;
         this.nome = nome;
         this.email = email;
