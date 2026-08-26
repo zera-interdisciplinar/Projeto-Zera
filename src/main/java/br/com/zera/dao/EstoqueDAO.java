@@ -25,17 +25,16 @@ public class EstoqueDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Estoque estoque) {
-        String sql = "insert into estoque (codigo, data_chegada_item, status_item, cod_unidade) values (?, ?, ?, ?)";
+        String sql = "insert into estoque (codigo, espaco_na_unidade, cod_responsavel, cod_unidade) values (?, ?, ?, ?)";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, estoque.getCodigo());
 
-            //java.sql.Date.valueOf(LocalDate date): ponte de compatibilidade entre API antiga (java.sql) e API moderna (java.time);
-            pstmt.setDate(2, Date.valueOf(estoque.getDataChegadaItem()));
+            pstmt.setString(2, estoque.getEspacoNaUnidade());
 
-            pstmt.setString(3, estoque.getStatusItem());
+            pstmt.setInt(3, estoque.getCodResponsavel());
             pstmt.setInt(4, estoque.getCodUnidade());
 
             ResultSet rs = pstmt.executeQuery();
@@ -55,14 +54,14 @@ public class EstoqueDAO {
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void update(Estoque estoque) {
-        String sql = "Update estoque set codigo = ?, data_chegada_item = ?, status_item = ?, cod_unidade = ? where codigo = ? ";
+        String sql = "Update estoque set codigo = ?,  espaco_na_unidade = ?, cod_reponsavel = ?, cod_unidade = ? where codigo = ? ";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement psmt = conn.prepareStatement(sql)){
 
             psmt.setInt(1, estoque.getCodigo());
-            psmt.setDate(2, Date.valueOf(estoque.getDataChegadaItem()));
-            psmt.setString(3, estoque.getStatusItem());
+            psmt.setString(2, estoque.getEspacoNaUnidade());
+            psmt.setInt(3, estoque.getCodResponsavel());
             psmt.setInt(4, estoque.getCodUnidade());
 
             ResultSet rs = psmt.executeQuery();
@@ -95,8 +94,8 @@ public class EstoqueDAO {
                 if (rs.next()) {
                     return new Estoque(
                             rs.getInt("codigo"),
-                            rs.getDate("data_chegada_item").toLocalDate(),
-                            rs.getString("status_item"),
+                            rs.getString("espaco_na_unidade"),
+                            rs.getInt("cod_reponsavel"),
                             rs.getInt("cod_unidade")
                     );
                 } else {
@@ -127,8 +126,8 @@ public class EstoqueDAO {
                 if (rs.next()) {
                     Estoque estoque = new Estoque (
                             rs.getInt("codigo"),
-                            rs.getDate("data_chegada_item").toLocalDate(),
-                            rs.getString("status_item"),
+                            rs.getString("espaco_na_unidade"),
+                            rs.getInt("cod_reponsavel"),
                             rs.getInt("cod_unidade")
                     );
                     retorno.add(estoque);
