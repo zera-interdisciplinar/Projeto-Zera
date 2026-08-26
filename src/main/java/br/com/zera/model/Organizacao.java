@@ -74,6 +74,6 @@ public class Organizacao{
         "Código: "+this.codigo+
         "/nCNPJ: "+this.cnpj+
         "/nNome: "+this.nome+
-        "/nData de cadastro: "+this.dataCadastro
+        "/nData de cadastro: "+this.dataCadastro;
     }
 }
