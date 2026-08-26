@@ -49,7 +49,7 @@ public class Estoque{
     public void setEspacoNaUnidade(String espacoNaUnidade) {
         this.espacoNaUnidade = espacoNaUnidade;
     }
-
+""
     public int getCodResponsavel() {
         return codResponsavel;
     }
