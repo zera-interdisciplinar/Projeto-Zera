@@ -75,6 +75,6 @@ public class Plano{
         "Código: "+this.codigo+
         "/nValor: "+this.valor+
         "/nNome: "+this.nome+
-        "/nTempo: "+this.tempo
+        "/nTempo: "+this.tempo;
     }
 }

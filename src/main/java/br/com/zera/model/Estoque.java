@@ -10,10 +10,10 @@ import java.time.LocalDate;
 
 //classe Estoque
 public class Estoque{
-    int codigo;
-    LocalDate dataChegadaItem;
-    String statusItem;
-    int codUnidade;
+    private int codigo;
+    private LocalDate dataChegadaItem;
+    private String statusItem;
+    private int codUnidade;
 
     //construtor padrão vazio
     public Estoque(){}
