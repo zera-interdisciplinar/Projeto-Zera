@@ -22,7 +22,7 @@ public class Plano{
     public Plano(){}
 
     /**
-     * Construtor de Assinatura.
+     * Construtor do Plano.
      * 
      * @param codigo identificador único do endereco no banco
      * @param valor custo do plano
