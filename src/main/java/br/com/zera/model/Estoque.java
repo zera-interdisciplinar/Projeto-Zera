@@ -11,25 +11,25 @@ import java.time.LocalDate;
 //classe Estoque
 public class Estoque{
     private int codigo;
-    private LocalDate dataChegadaItem;
-    private String statusItem;
+    private String espacoNaUnidade;
+    private int codResponsavel;
     private int codUnidade;
 
     //construtor padrão vazio
     public Estoque(){}
-    
+
     /**
-     * Construtor de Assinatura.
+     * Construtor de Estoque.
      *
      * @param codigo identificador único do endereco no banco
-     * @param dataChegadaItem data de entrada no Item no Estoque
-     * @param statusItem status do Item em Estoque 
+     * @param espacoNaUnidade espaço do item na Unidade
+     * @param codResponsavel identificador da tabela Gestor (chave estrangeira)
      * @param codUnidade identificador da tabela Unidade (chave estrangeira)
     */
-    public Estoque(int codigo, LocalDate dataChegadaItem, String statusItem, int codUnidade) {
+    public Estoque(int codigo, String espacoNaUnidade, int codResponsavel, int codUnidade) {
         this.codigo = codigo;
-        this.dataChegadaItem = dataChegadaItem;
-        this.statusItem = statusItem;
+        this.espacoNaUnidade = espacoNaUnidade;
+        this.codResponsavel = codResponsavel;
         this.codUnidade = codUnidade;
     }
 
@@ -42,20 +42,20 @@ public class Estoque{
         this.codigo = codigo;
     }
 
-    public LocalDate getDataChegadaItem() {
-        return dataChegadaItem;
+    public String getEspacoNaUnidade() {
+        return espacoNaUnidade;
     }
 
-    public void setDataChegadaItem(LocalDate dataChegadaItem) {
-        this.dataChegadaItem = dataChegadaItem;
+    public void setEspacoNaUnidade(String espacoNaUnidade) {
+        this.espacoNaUnidade = espacoNaUnidade;
     }
 
-    public String getStatusItem() {
-        return statusItem;
+    public int getCodResponsavel() {
+        return codResponsavel;
     }
 
-    public void setStatusItem(String statusItem) {
-        this.statusItem = statusItem;
+    public void setCodResponsavel(int codResponsavel) {
+        this.codResponsavel = codResponsavel;
     }
 
     public int getCodUnidade() {
@@ -70,8 +70,8 @@ public class Estoque{
     public String toString(){
         return "Estoque /n"+
         "Código: "+this.codigo+
-        "/nData de chegada do Item: "+this.dataChegadaItem+
-        "/nStatus do Item: "+this.statusItem+
+        "/nEspaço na unidade: "+this.espacoNaUnidade+
+        "/nCódigo responsável: "+this.codResponsavel+
         "/nCódigo da tabela Unidade: "+this.codUnidade;
     }
 }
