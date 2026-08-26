@@ -21,7 +21,7 @@ public class Organizacao{
     public Organizacao(){}
 
     /**
-     * Construtor de Assinatura.
+     * Construtor da Organização.
      *
      * @param codigo identificador único do endereco no banco
      * @param cnpj cnpj do cliente
