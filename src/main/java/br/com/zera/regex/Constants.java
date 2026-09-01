@@ -12,7 +12,7 @@ public class Constants {
         throw new UnsupportedOperationException("Classe Constants não deve ser instanciada");
     }
 
-    //e-mail, CNPJ, CEP, telefone e senha
+    //e-mail, CNPJ, CEP, telefone
 
     //Formato padrão de recebimento de email
     public static final String EMAIL_REGEX = "^[áéíóúâêîôûãõça-zA-Z0-9._%+-]+@[áéíóúâêîôûãõça-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
