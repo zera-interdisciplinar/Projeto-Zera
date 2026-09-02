@@ -1,6 +1,9 @@
 package br.com.zera.servlet.Endereco;
 
+import br.com.zera.regex.*;
+
 import br.com.zera.dao.EnderecoDAO;
+import br.com.zera.model.Endereco;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
@@ -8,6 +11,7 @@ import jakarta.servlet.ServletException;
 import java.io.IOException;
 
 @WebServlet(name = "InsertEndereco", value = "/areaRestrita/cadastroEndereco")
+
  /**
  * Servlet responsável por processar o cadastro de endereços
  *
@@ -31,8 +35,6 @@ public class InsertEnderecoServlet extends HttpServlet{
        throws jakarta.servlet.ServletException, IOException {
 
         //instancia DAO responsável por persistir objetos no banco de dados
-        EnderecoDao dao = new EnderecoDao();
-
-
+        EnderecoDAO dao = new EnderecoDAO();
     }
 }
