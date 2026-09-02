@@ -5,8 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zera: Plataforma de gestão de resíduos eletrônicos</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <img src="images/logo_completa.svg" alt="Logo Zera">
+        <nav>
+            <a href="#carrosel">Funcionalidades</a>
+            <a href="#utilizacao">Como utilizar</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#planos">Planos</a>
+        </nav>
+        <div class="botoes-login">
+            <a href="#">Fazer login</a>
+            <a href="#">Cadastrar-se</a>
+        </div>
+    </header>
 
+    <main>
+        <section id="principal">
+            <h1>Gerencie <span class="laranja">resíduos</span> <span class="verde">eletrônicos</span> com inteligência</h1>
+            <p>Controle o seu armazenamento e descarte-o com praticidade, segurança e responsabilidade ambiental.</p>
+            <a href="#">Começar agora</a>
+        </section>
+        <section id="carrossel">
+            <div class="slide">
+                <h2>Armazenamento inteligente</h2>
+                <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
+            </div>
+            <div class="slide">
+                <h2>Scanner e cadastro fácil</h2>
+                <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
+            </div>
+            <div class="slide">
+                <h2>Alertas de lotes críticos</h2>
+                <p>Seja avisado quando um equipamento está armazenado por muito tempo.</p>
+
+            </div>
+            <div class="slide">
+                <h2>Relatórios completos</h2>
+                <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
+            </div>
+        </section>
+        <section id="utilizacao">
+            <div class="seta">
+                <h2>Como utilizar?</h2>
+            </div>
+            <div class="seta">
+                <h3>Cadastre</h3>
+                <p>Adicione equipamentos com leitura de código ou manualmente</p>
+            </div>
+            <div class="seta">
+                <h3>Armazene</h3>
+                <p>Organize e monitore seus equipamentos de forma inteligente</p>
+            </div>
+            <div class="seta">
+                <h3>Receba alertas</h3>
+                <p>Seja avisado sobre prazos críticos e riscos de armazenamento</p>
+            </div>
+            <div class="seta">
+                <h3>Gere relatórios</h3>
+                <p>Exporte relatórios completos para auditorias e parcerias</p>
+            </div>
+        </section>
+        <section id="sobre">
+            <h2>Sobre <span class="laranja">nós</span></h2>
+            <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
+            <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
+            <p>Desenvolvemos uma plataforma prática que ajuda empresas a organizar, acompanhar e garantir o descarte correto do seu lixo eletrônico.</p>
+            <div class="accordion" id="responsabilidade">
+                <h3>01. Responsabilidade</h3>
+                <p>Garantimos que cada etapa do descarte seja feita de forma consciente, segura e transparente.</p>
+            </div>
+            <div class="accordion" id="organizacao">
+                <h3>02. Organização</h3>
+                <p>Centralizamos informações e processos para tornar a gestão dos resíduos mais clara e eficiente.</p>
+            </div>
+            <div class="accordion" id="praticidade">
+                <h3>03. Praticidade</h3>
+                <p>Simplificamos a rotina da empresa com soluções intuitivas que facilitam a tomada de decisões.</p>
+            </div>
+        </section>
+        <section id="planos">
+            <div id="caixa-azul">
+                <p>Nossos planos, desde o Free até o Empresarial.</p>
+            </div>
+            <h2>Escolha o melhor plano para você</h2>
+            <h3>Planos para todas as necessidades, sempre pensando em você.</h3>
+            <div class="card-sec">
+                <h4>Free</h4>
+                <p class="preco">R$0,00</p>
+                <p>/ Mês</p>
+                <ul class="lista-plano">
+                    <li>Scanner</li>
+                    <li>Dashboard</li>
+                    <li>Estoque (até 50 itens)</li>
+                    <li class="nao-tem">Relatórios</li>
+                    <li class="nao-tem">Alertas</li>
+                    <li class="nao-tem">Multiusuários</li>
+                    <li class="nao-tem">Suporte</li>
+                </ul>
+                <a href="#">Testar agora</a>
+            </div>
+            <div class="card-prim">
+                <div id="recomendado">
+                    <p>Mais recomendado</p>
+                </div>
+                <h4>Profissional</h4>
+                <p class="preco">R$49,90</p>
+                <p>/ Mês</p>
+                <ul class="lista-plano">
+                    <li>Tudo do plano Free</li>
+                    <li>Estoque (250 itens)</li>
+                    <li>Relatórios</li>
+                    <li>Alertas</li>
+                    <li>Multiusuários</li>
+                    <li class="nao-tem">Suporte</li>
+                    <li class="nao-tem">Cadastros ilimitados</li>
+                </ul>
+                <a href="#" id="botao-profissional">Assinar agora</a>
+            </div>
+            <div class="card-sec">
+                <h4>Empresarial</h4>
+                <p>Valor personalizado</p>
+                <p>Entre em contato conosco para valores e condições especiais.</p>
+                <ul class="lista-plano">
+                    <li>Tudo do plano Profissional</li>
+                    <li>Estoque ilimitado</li>
+                    <li>Suporte dedicado</li>
+                    <li>Scanner multidispositivo</li>
+                    <li>E muito mais!</li>
+                </ul>
+                <a href="#">Fale conosco</a>
+            </div>
+        </section>
+        <section id="perguntas">
+            <h2>Perguntas frequentes</h2>
+            <details>
+                <summary>Quem pode utilizar o Zera?</summary>
+                <p>O sistema é indicado para uma ampla variedade de setores, incluindo empresas de tecnologia, indústrias, escolas, universidades, hospitais, clínicas, órgãos públicos e assistências técnicas. Ele atende desde instituições que precisam controlar laboratórios, ativos e prontuários com rastreabilidade, até organizações públicas que necessitam de facilidade em auditorias e prestação de contas, além de empresas que buscam gerenciar e acompanhar o histórico de armazenamento de seus equipamentos.</p>
+            </details>
+            <details>
+                <summary>Por que fazer a gestão correta dos resíduos eletrônicos?</summary>
+                <p>A gestão adequada dos resíduos eletrônicos é essencial para promover a sustentabilidade e garantir a destinação responsável de descartes e materiais obsoletos. Além de evitar os problemas causados pela falta de controle, como equipamentos perdidos no estoque e a dependência de planilhas manuais, o uso de um sistema dedicado proporciona um inventário centralizado, localização rápida de itens, alertas automáticos e maior controle sobre todo o ciclo de vida dos eletrônicos.</p>
+            </details>
+            <details>
+                <summary>Por que sua empresa precisa de um sistema de gestão?</summary>
+                <p>Sem um controle adequado, as empresas enfrentam desorganização, equipamentos perdidos no estoque, dificuldades na localização de materiais e dependência de planilhas manuais. Em contrapartida, ao adotar o ZERA, a empresa passa a contar com um inventário centralizado, localização rápida de itens, alertas automáticos e a emissão de relatórios completos em poucos cliques.</p>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <img src="images/logo_completa.svg" alt="Logo Zera">
+        <a href="https://www.instagram.com/zera.app_/">
+
+        </a>
+        <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!">
+
+        </a>
+        <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!">
+
+        </a>
+        <a id="botao-restrita">
+
+        </a>
+        <p>&copy; 2026. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
