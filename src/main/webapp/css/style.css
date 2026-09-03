@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Inria Sans';
+    src: url(../fonts/Inria_Sans/InriaSans-Bold.ttf);
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inria Sans';
+    src: url(../fonts/Inria_Sans/InriaSans-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inria Sans';
+    src: url(../fonts/Inria_Sans/InriaSans-Light.ttf);
+    font-weight: light;
+    font-style: normal;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --fonte1: 'Inria Sans', sans-serif;
+    --cor1: #f5f1e6;
+    --cor1-rgb: 241 245 230;
+    --cor2: #152D6B;
+    --cor3: #2958D1;
+    --cor4: #F59E0B;
+    --cor5: #10B981;
+}
+
+body{
+    background-color: var(--cor1);
+    font-family: var(--fonte1);
+}
+
+header{
+    /*position: fixed;*/
+    width: 100%;
+    height: 60px;
+    background-color: rgb(var(--cor1-rgb) / 40%);
+    font-size: 16px;
+}
+
+img{
+    display: inline-block;
+}
+
+.logo{
+    max-width: 130px;
+}
+
+.botoes-login{
+    display: flex;
+    font-size: 17px;
+}
+
+#principal{
+    display: ;
+    background-color: var(--cor3);
+    width: 1398.62px;
+    height: 712.87px;
+    border-radius: 50.45px;
+
+}
+
+#principal p{
+    font-size: 22px;
+    color: rgb(var(--cor1-rgb)/70%);
+}
+
+#botao-comecar{
+    display: flex;
+    background-color: var(--cor5);
+    width: 267px;
+    height: 53px;
+    justify-content: center;
+    align-items: center;
+    gap: 27px;
+    border-radius: 6.35px;
+}
+
+#botao-comecar a{
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--cor1);
+    text-decoration: none;
+
+    margin: 17px;
+}
+
+#principal h1{
+    color: var(--cor1);
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+h1{
+    font-size: 60px;
+    text-transform: uppercase;
+}
+
+h2{
+    font-size: 55px;
+    text-transform: uppercase;
+}
+
+#carrossel h2::first-letter{
+    text-transform: uppercase;
+}
+
+#carrossel h2{
+    text-transform: lowercase;
+}
+
+.laranja{
+    color: var(--cor4);
+}
+
+.verde{
+    color: var(--cor5);
+}
+.azul{
+    color: var(--cor3)
+}
+
+
+
+
+
