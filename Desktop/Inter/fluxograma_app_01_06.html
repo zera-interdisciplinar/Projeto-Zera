@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartaz - Árvore de Fluxo do App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-canvas: #0b0f19;
+            --bg-node: #1e2538;
+            --bg-root: #1e1b4b;
+            --accent-gestor: #06b6d4;
+            --accent-func: #10b981;
+            --accent-alert: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --line-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #02040a;
+            font-family: 'Urbanist', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* TAMANHO DE CARTAZ/POSTER (PROPORÇÃO VERTICAL INTEGRADA) */
+        .poster-canvas {
+            background-color: var(--bg-canvas);
+            width: 1000px;
+            min-height: 1400px;
+            border: 2px solid #1e293b;
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        /* GRID DE FUNDO ESTILO ENGENHARIA/BLUEPRINT */
+        .poster-canvas::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .poster-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 60px;
+        }
+
+        .poster-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .poster-header p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--accent-gestor);
+            margin-top: 10px;
+        }
+
+        /* ARVORE E RAMIFICAÇÕES */
+        .tree-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        }
+
+        /* NÓ RAIZ (ROOT) */
+        .root-node {
+            background: var(--bg-root);
+            border: 2px solid #4f46e5;
+            padding: 20px 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            position: relative;
+        }
+
+        .root-node h2 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .root-node p { font-size: 14px; color: #a5b4fc; }
+
+        /* LINHA TRUNK (TRONCO DA ÁRVORE) */
+        .root-node::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 2px;
+            height: 52px;
+            background: var(--line-color);
+        }
+
+        /* DIVISÃO DOS DOIS RAMOS PRINCIPAIS */
+        .branches-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* LINHA HORIZONTAL CONECTORA DE RAMOS */
+        .branches-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: var(--line-color);
+        }
+
+        .branch {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+        }
+
+        /* AJUSTE DAS LINHAS VERTICAIS PARA OS RAMOS */
+        .branch::before {
+            content: '';
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            width: 2px;
+            height: 24px;
+            background: var(--line-color);
+        }
+
+        /* APARÊNCIA DOS CARDS (NODES) */
+        .node {
+            background: var(--bg-node);
+            border: 1px solid #2d3748;
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .branch-gestor .node { border-left: 4px solid var(--accent-gestor); }
+        .branch-func .node { border-left: 4px solid var(--accent-func); }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .node-header i { font-size: 20px; }
+        .branch-gestor .node-header i { color: var(--accent-gestor); }
+        .branch-func .node-header i { color: var(--accent-func); }
+        .node-header h3 { font-size: 18px; font-weight: 700; }
+
+        .node-content {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .node-content ul {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .node-content li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 6px;
+        }
+
+        .node-content li::before {
+            content: '•';
+            position: absolute;
+            left: 5px;
+            color: #4a5568;
+        }
+
+        /* SUB-RAMOS DE FLUXO INTERNO (SETAS CURTAS) */
+        .sub-arrow {
+            text-align: center;
+            color: var(--line-color);
+            font-size: 18px;
+            margin: -10px 0;
+        }
+
+        /* ATRIBUTOS BOX (ESPECÍFICO DO GESTOR) */
+        .attributes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed #2d3748;
+        }
+        
+        .attr-tag {
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            background: #141b2d;
+            padding: 4px 6px;
+            border-radius: 4px;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        /* PONTE DE CRITICIDADE (A REGRA DA SETA DO MEIO) */
+        .critical-bridge {
+            grid-column: 1 / -1;
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px dashed var(--accent-alert);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.05);
+        }
+
+        .bridge-info {
+            max-width: 70%;
+        }
+
+        .bridge-info h4 {
+            color: var(--accent-alert);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bridge-info p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .bridge-badge {
+            background: var(--accent-alert);
+            color: #02040a;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        /* NOTA DE RODAPÉ DO CARTAZ */
+        .poster-footer {
+            margin-top: 5px;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #4a5568;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="poster-canvas">
+    
+    <div class="poster-header">
+        <h1>Mapeamento Estrutural de Processos</h1>
+        <p>// ARQUITETURA DA ÁRVORE DE NAVEGAÇÃO DO APLICATIVO</p>
+    </div>
+
+    <div class="tree-container">
+        
+        <div class="root-node">
+            <h2>TELA DE LOGIN</h2>
+            <p>Ponto de Entrada Único do Sistema</p>
+        </div>
+
+        <div class="branches-wrapper">
+            
+            <div class="branch branch-gestor">
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <h3>Autenticação Administrativa</h3>
+                    </div>
+                    <div class="node-content">
+                        <p><strong>Credenciais exigidas:</strong></p>
+                        <ul>
+                            <li>E-mail corporativo</li>
+                            <li>Senha criptografada</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-table-columns"></i>
+                        <h3>Painel de Controle (Home)</h3>
+                    </div>
+                    <div class="node-content">
+                        <p>Módulos centrais de supervisão:</p>
+                        <ul>
+                            <li><strong>Alertas:</strong> Notificações de inconsistências</li>
+                            <li><strong>Análises:</strong> Relatórios consolidados gráficos</li>
+                            <li><strong>Cadastro:</strong> Inicialização de novos fluxos de itens</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <h3>Gerenciamento de Ativos</h3>
+                    </div>
+                    <div class="node-content">
+                        <p>Ações diretas sobre a base de dados:</p>
+                        <ul>
+                            <li>Consulta detalhada de itens registrados</li>
+                            <li>Criação/modificação de Categorias e Modelos</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 13px; color: var(--accent-gestor)">Atributos obrigatórios do Objeto (Visíveis):</p>
+                        <div class="attributes-grid">
+                            <span class="attr-tag">Categoria</span>
+                            <span class="attr-tag">Modelo</span>
+                            <span class="attr-tag">Tempo Estoque</span>
+                            <span class="attr-tag">Nº Patrimônio</span>
+                            <span class="attr-tag" style="grid-column: span 2">Localização</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch branch-func">
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                        <h3>Autenticação Operacional</h3>
+                    </div>
+                    <div class="node-content">
+                        <p><strong>Credenciais de Campo:</strong></p>
+                        <ul>
+                            <li>E-mail funcional + Senha</li>
+                            <li><strong>Código do Gestor</strong> (Vínculo de equipe)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-house-user"></i>
+                        <h3>Menu Principal (Home)</h3>
+                    </div>
+                    <div class="node-content">
+                        <p>Ações sequenciais da rotina de campo:</p>
+                        <ul>
+                            <li><strong>Scan de Itens:</strong> Abre ficha técnica / Info produto</li>
+                            <li><strong>Triagem:</strong> Barra de pesquisa rápida de itens</li>
+                            <li><strong>Inventário:</strong> Dashboard local de progresso</li>
+                            <li><strong>Cria Modelo:</strong> Inserção de observações para rejeitar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                <div class="node">
+                    <div class="node-header">
+                        <i class="fa-solid fa-file-shield"></i>
+                        <h3>Fechamento de Lote</h3>
+                    </div>
+                    <div class="node-content">
+                        <p><strong>Geração do Relatório:</strong></p>
+                        <ul>
+                            <li>Compilação automática de dados coletados</li>
+                            <li>Envio direto para validação da gerência</li>
+                        </ul>
+                        <div style="margin-top: 10px; padding: 8px; background: rgba(16,185,129,0.1); border-radius: 6px; font-size: 12px; color: #a7f3d0">
+                            <i class="fa-solid fa-circle-info"></i> Regra: Inclui todos os itens selecionados para a coleta.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="critical-bridge">
+                <div class="bridge-info">
+                    <h4>Intercorrência Crítica de Validação</h4>
+                    <p>Qualquer tentativa do funcionário de modificar a <strong>Quantidade</strong> ou a <strong>Identidade (ID)</strong> de um item trava o fluxo padrão e exige obrigatoriamente a liberação imediata do perfil do Gestor.</p>
+                </div>
+                <span class="bridge-badge"><i class="fa-solid fa-lock"></i> REQUER AUTORIZAÇÃO</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="poster-footer">
+        <span>PROJETO: APP INVENTÁRIO LOGÍSTICO</span>
+        <span>V 1.0 - BLUEPRINT DE FLUXO</span>
+    </div>
+</div>
+
+</body>
+</html>
