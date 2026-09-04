@@ -25,6 +25,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root{
@@ -64,17 +65,54 @@ img{
 }
 
 #principal{
-    display: ;
-    background-color: var(--cor3);
-    width: 1398.62px;
-    height: 712.87px;
+    position: relative;
+    display: flex;
+    width: 98%;
+    margin: auto;
     border-radius: 50.45px;
+    background-image: radial-gradient(var(--cor3) 25%, var(--cor2) 100%);
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 8%;
+    overflow: hidden;
+    min-height: 712px;
+    margin: auto;
+}
 
+#z-transparente{
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    max-height: auto;
+    object-fit: cover;
+    opacity: 20%;
+    z-index: 1;   
+    object-position: left center;
+    margin-left: 40px;;
+}
+
+#conteudo-principal{
+    position: relative;
+    z-index: 2;    
+    max-width: 50%;
+}
+
+#principal::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/overlay-principal.png") center / cover;
+    mix-blend-mode: overlay;
+    opacity: 0%;
 }
 
 #principal p{
-    font-size: 22px;
+    font-size: 1.375rem;
     color: rgb(var(--cor1-rgb)/70%);
+    max-width: 70%; 
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 #botao-comecar{
@@ -93,12 +131,12 @@ img{
     font-weight: bold;
     color: var(--cor1);
     text-decoration: none;
-
     margin: 17px;
 }
 
 #principal h1{
     color: var(--cor1);
+    font-size: 3.75rem;
 }
 
 a{
@@ -108,6 +146,7 @@ a{
 a:hover{
     text-decoration: underline;
 }
+
 
 h1{
     font-size: 60px;
@@ -127,15 +166,15 @@ h2{
     text-transform: lowercase;
 }
 
-.laranja{
+.texto-laranja{
     color: var(--cor4);
 }
 
-.verde{
+.texto-verde{
     color: var(--cor5);
 }
-.azul{
-    color: var(--cor3)
+.texto-azul{
+    color: var(--cor3);
 }
 
 
