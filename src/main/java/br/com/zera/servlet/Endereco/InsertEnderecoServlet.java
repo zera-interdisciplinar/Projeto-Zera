@@ -31,7 +31,7 @@ public class InsertEnderecoServlet extends HttpServlet{
        throws jakarta.servlet.ServletException, IOException {
 
         //instancia DAO responsável por persistir objetos no banco de dados
-        EnderecoDao dao = new EnderecoDao();
+        EnderecoDAO dao = new EnderecoDAO();
 
 
     }

@@ -1,5 +1,5 @@
 package br.com.zera.model;
-import java.time.LocalDate;
+
 
 /**
  * Modelo que representa a entidade Estoque no sistema.
@@ -49,7 +49,7 @@ public class Estoque{
     public void setEspacoNaUnidade(String espacoNaUnidade) {
         this.espacoNaUnidade = espacoNaUnidade;
     }
-""
+
     public int getCodResponsavel() {
         return codResponsavel;
     }
