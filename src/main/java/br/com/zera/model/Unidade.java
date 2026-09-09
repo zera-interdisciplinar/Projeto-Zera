@@ -65,11 +65,12 @@ public class Unidade {
     }
 
 //  Saída em texto da tabela Unidade
+    @Override
     public String toString(){
         return "Unidade \n" +
                 "Código: " + getCodigo() +
                 "\nCNPJ: " + getCnpj() +
                 "\nEmail: " + getEmail() +
-                "\nCódigo Organização: " + getCodOrganizacao();
+                "\nCódigo da Organização: " + getCodOrganizacao();
     }
 }
