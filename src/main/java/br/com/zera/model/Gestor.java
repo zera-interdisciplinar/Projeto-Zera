@@ -87,6 +87,7 @@ public class Gestor {
     }
 
 //    Saída em texto da tabela Gestor
+    @Override
     public String toString(){
         return "Gestor \n" +
                 "Código: " + getCodigo() +
@@ -94,6 +95,6 @@ public class Gestor {
                 "\nEmail: " + getEmail() +
                 "\nSenha: " + getSenha() +
                 "\nTelefone: " + getTelefone() +
-                "\nCódigo unidade: " + getCodUnidade();
+                "\nCódigo da Unidade: " + getCodUnidade();
     }
 }
