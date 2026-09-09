@@ -89,11 +89,11 @@ public class Gestor {
 //    Saída em texto da tabela Gestor
     public String toString(){
         return "Gestor \n" +
-                "Código: " + this.codigo +
-                "\nNome: " + this.nome +
-                "\nEmail: " + this.email +
-                "\nSenha: " + this.senha +
-                "\nTelefone: " + this.telefone +
-                "\nCódigo unidade: " + this.codUnidade;
+                "Código: " + getCodigo() +
+                "\nNome: " + getNome() +
+                "\nEmail: " + getEmail() +
+                "\nSenha: " + getSenha() +
+                "\nTelefone: " + getTelefone() +
+                "\nCódigo unidade: " + getCodUnidade();
     }
 }
