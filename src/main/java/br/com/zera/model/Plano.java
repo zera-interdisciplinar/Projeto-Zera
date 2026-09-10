@@ -70,11 +70,12 @@ public class Plano{
     }
 
     //saída em texto da tabela Organizacao
+    @Override
     public String toString(){
-        return "Plano: /n"+
-        "Código: "+this.codigo+
-        "/nValor: "+this.valor+
-        "/nNome: "+this.nome+
-        "/nTempo: "+this.tempo;
+        return "Plano: \n"+
+        "Código: "+getCodigo()+
+        "\nValor: "+getValor()+
+        "\nNome: "+getNome()+
+        "\nTempo: "+getTempo();
     }
 }
