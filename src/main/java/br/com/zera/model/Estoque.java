@@ -69,9 +69,9 @@ public class Estoque{
     //saída em texto da tabela Assinatura
     public String toString(){
         return "Estoque /n"+
-        "Código: "+this.codigo+
-        "/nEspaço na unidade: "+this.espacoNaUnidade+
-        "/nCódigo responsável: "+this.codResponsavel+
-        "/nCódigo da tabela Unidade: "+this.codUnidade;
+        "Código: "+getCodigo()+
+        "/nEspaço na unidade: "+getEspacoNaUnidade()+
+        "/nCódigo responsável: "+getCodResponsavel()+
+        "/nCódigo da tabela Unidade: "+getCodUnidade();
     }
 }
