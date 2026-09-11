@@ -7,8 +7,13 @@ import br.com.zera.model.Endereco;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
+import br.com.zera.regex.Constants.ERROR_PAGE;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static br.com.zera.regex.Constants.ERROR_PAGE;
 
 @WebServlet(name = "InsertEndereco", value = "/areaRestrita/cadastroEndereco")
 
@@ -36,5 +41,12 @@ public class InsertEnderecoServlet extends HttpServlet{
 
         //instancia DAO responsável por persistir objetos no banco de dados
         EnderecoDAO dao = new EnderecoDAO();
+        String Erro = ERROR_PAGE;
+
+        // Mapeia os parâmetros recebidos do formulário para um Map<String, String>
+        Map<String, String> params = new LinkedHashMap<>();
+        request.getParameterMap().forEach((key, values) -> params.put(key, values[0]));
+
+
     }
 }
