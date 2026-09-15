@@ -17,6 +17,9 @@ public class Endereco {
     private String estado;
     private int codUnidade;
 
+//    Construtor padrão vazio
+    public Endereco() {}
+
     /**
      * Construtor do Endereço.
      *
@@ -104,5 +107,18 @@ public class Endereco {
 
     public void setCodUnidade(int codUnidade) {
         this.codUnidade = codUnidade;
+    }
+
+//    Sáida em texto da tabela Endereco
+    @Override
+    public String toString() {
+        return "Código: " + getCodigo() +
+                "\nBairro: " + getBairro() +
+                "\nNúmero: " + getNumero() +
+                "\nCEP: " + getCep() +
+                "\nLogradouro: " + getLogradouro() +
+                "\nCidade: " + getCep() +
+                "\nEstado: " + getEstado() +
+                "\nCódigo da Unidade: " + getCodUnidade();
     }
 }
