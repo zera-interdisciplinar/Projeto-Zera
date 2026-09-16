@@ -9,31 +9,40 @@
 </head>
 <body>
     <header>
-        <nav>
-            <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
-            <a href="#carrosel">Funcionalidades</a>
-            <a href="#utilizacao">Como utilizar</a>
-            <a href="#sobre">Sobre nós</a>
-            <a href="#planos">Planos</a>
-        </nav>
-        <div class="botoes-login">
-            <a href="#">Fazer login</a>
-            <a href="#">Cadastrar</a>
+        <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
+
+        <div id="header-completo">
+            <nav>
+                <a href="#carrossel">Funcionalidades</a>
+                <a href="#utilizacao">Como utilizar</a>
+                <a href="#sobre">Sobre nós</a>
+                <a href="#planos">Planos</a>
+            </nav>
+
+            <div class="botoes-login">
+                <a href="#">Fazer login</a>
+                <a href="#">Cadastrar</a>
+            </div>
+        </div>
+
+        <div id="header-resumido">
+            <img src="images/menu.png" alt="Barras de menu">
         </div>
     </header>
 
     <main>
-        <section id="principal">
+        <section id="principal" class="fundo-azul">
             <img id="z-transparente" src="images/z-transparente.png" alt="'Z' da logo Zera transparente">
             <div id="conteudo-principal">
                 <h1>Gerencie <span class="texto-laranja">resíduos</span> <span class="texto-verde">eletrônicos</span> com inteligência</h1>
                 <p>Controle o seu armazenamento e descarte-o com praticidade, segurança e responsabilidade ambiental.</p>
-                    <div id="botao-comecar">
-                    <a href="#planos">Começar agora</a>
+                <div id="botao-comecar">
+                        <a href="#planos">Começar agora</a>
                     <img src="images/seta-comecar.png" alt="Seta">
                 </div>
             </div>
-            
+            <img id="celulares" src="images/celulares.png" alt="Imagem de celulares mostrando o aplicativo móvel">
+            </div> 
         </section>
         <section id="carrossel">
             <div class="slide">
@@ -75,7 +84,7 @@
                 <p>Exporte relatórios completos para auditorias e parcerias</p>
             </div>
         </section>
-        <section id="sobre">
+        <section id="sobre" class="fundo-azul">
             <h2>Sobre <span class="texto-laranja">nós</span></h2>
             <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
             <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
