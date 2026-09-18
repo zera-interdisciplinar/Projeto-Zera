@@ -24,7 +24,7 @@ public class Constants {
     public static final String NOME_REGEX = "^[A-Za-záéíóúâêîôûãõç]$";
 
     //Formato padrão de recebimento de CEP
-    public static final String CEP_REGEX = "^[0-9]{5}\\-?[0-9]{3}$";
+    public static final String CEP_REGEX = "^[0-9]{5}\\-[0-9]{3}$";
 
     //Formato padrão de recebimento de CNPJ
     public static final String CNPJ_REGEX = "^[0-9A-Z]{2}\\.?[0-9A-Z]{3}\\.?[0-9A-Z]{3}\\/?[0-9A-Z]{4}\\-?[0-9]{2}$";
