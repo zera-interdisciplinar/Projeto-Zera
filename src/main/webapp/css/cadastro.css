@@ -1,0 +1,444 @@
+@charset "UTF-8";
+
+/* cadastro.css
+   Estilos das telas de cadastro, verificação e pagamento do Zera.
+   Depende das variáveis e da fonte definidas em style.css (linkar os dois). */
+
+.tela-auth{
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+}
+
+@media (max-width: 900px){
+    .tela-auth{
+        flex-direction: column;
+    }
+
+    .painel-esquerda{
+        width: 100%;
+        min-width: 0;
+        padding: 30px 0;
+        border-radius: 0;
+        flex-shrink: 0;
+    }
+
+    .painel-direita{
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 30px 20px 50px;
+        overflow: visible;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    .voltar{
+        position: relative;
+        top: auto;
+        left: auto;
+        display: block;
+        align-self: flex-start;
+        margin: 0 0 25px 0;
+        z-index: 3;
+    }
+
+    .card{
+        width: 100%;
+        max-width: 700px;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 24px 20px;
+    }
+
+    .planos-lista{
+        flex-direction: column;
+    }
+}
+
+:root{
+    --fonte2: 'InstrumentSans', sans-serif;
+
+}
+
+/* Painel esquerdo (logo) */
+
+.painel-esquerda{
+    background-color: var(--cor1);
+    width: 33%;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 50.45px 50.45px 0;
+    overflow: hidden;
+}
+
+.logo-zera{
+    width: 340px;
+    height: auto;
+}
+
+.slogan{
+    margin-top: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: medium;
+    letter-spacing: 0.5px;
+    color: var(--cor2);
+    text-transform: uppercase;
+    font-family: var(--fonte2);
+}
+
+/* Painel direito (fundo azul + card) */
+
+.painel-direita{
+    flex: 1;
+    position: relative;
+    background-color: var(--cor2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    overflow: hidden;
+}
+
+/* Z gigante semi-transparente ao fundo (mesma imagem usada na landing) */
+.z-marca-dagua{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    opacity: 20%;
+    z-index: 1;
+}
+
+/* overlay por cima, igual ao #principal::before da landing */
+.painel-direita::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/overlay-principal.png") center / cover;
+    mix-blend-mode: overlay;
+    z-index: 1;
+}
+
+.voltar{
+    position: absolute;
+    top: 70px;     
+    left: 150px;
+    color: var(--cor1);
+    font-size: 26px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.voltar:hover{
+    text-decoration: underline;
+}
+
+/* Card do formulário */
+
+.card{
+    position: relative;
+    z-index: 2;
+    background-color: var(--cor1);
+    border-radius: 18px;
+    width: 700px;
+    max-width: 90%;
+    padding: 40px 46px 34px;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 25%);
+}
+
+.card h1{
+    text-transform: none;
+    font-size: 41px;
+    text-align: center;
+    color: var(--cor2);
+    margin-bottom: 6px;
+}
+
+.card .subtitulo{
+    text-align: center;
+    color: var(--cor2);
+    font-size: 23.5px;
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+
+/* Campos de formulário */
+
+.campo{
+    margin-bottom: 14px;
+}
+
+.campo label{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--cor2);
+    margin-bottom: 6px;
+}
+
+.campo input{
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid var(--cor2);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 19px;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    background-color: var(--cor1);
+
+}
+
+.campo input::placeholder{
+    color: rgb(21 45 107 / 45%);
+}
+
+/* Botões */
+
+.botao-primario{
+    display: inline-block;
+    background-color: var(--cor3);
+    color: var(--cor1) !important;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    
+}
+
+.botao-primario:hover{
+    background-color: var(--cor2);
+    text-decoration: none;
+}
+
+.linha-botao{
+    text-align: center;
+    margin-top: 22px;
+}
+
+.trocar-link{
+    font-size: 12px;
+    color: var(--cor3);
+    margin-left: 8px;
+}
+
+/* Resumo de plano / pagamento */
+
+.resumo-plano p{
+    font-size: 13px;
+    color: var(--cor2);
+    margin-bottom: 4px;
+}
+
+.total{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--cor2);
+    margin: 16px 0 4px;
+}
+
+.aviso-cobranca{
+    font-size: 11px;
+    color: rgb(21 45 107 / 60%);
+    margin-bottom: 16px;
+}
+
+hr.separador{
+    border: none;
+    border-top: 1px solid rgb(21 45 107 / 20%);
+    margin: 18px 0;
+}
+
+/* Cards de plano (tela Planos) */
+
+.planos-lista{
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.plano-card{
+    flex: 1;
+    border-radius: 10px;
+    padding: 16px 12px;
+    color: var(--cor1);
+    text-align: center;
+}
+
+.plano-free{ background-color: var(--cor5); }
+.plano-professional{ background-color: var(--cor3); }
+.plano-empresarial{ background-color: var(--cor2); }
+
+.plano-card h3{
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: none;
+}
+
+.plano-card p{
+    font-size: 11px;
+    margin-bottom: 12px;
+}
+
+.plano-card a{
+    color: var(--cor1);
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Código de verificação */
+
+.codigo-verificacao{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.codigo-verificacao input{
+    width: 40px;
+    height: 48px;
+    text-align: center;
+    font-size: 18px;
+    border: 1.5px solid var(--cor2);
+    border-radius: 8px;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    background-color: var(--cor1);
+}
+
+/* Escolha de método de pagamento */
+
+.metodo-pagamento{
+    display: flex;
+    gap: 12px;
+    margin: 16px 0 20px;
+}
+
+.metodo-pagamento a{
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: 1.5px solid var(--cor3);
+    border-radius: 8px;
+    color: var(--cor3);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.metodo-pagamento a:hover{
+    background-color: var(--cor3);
+    color: var(--cor1);
+    text-decoration: none;
+}
+
+/* Pix */
+
+.qr-code{
+    display: block;
+    margin: 16px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* Tela de sucesso (senha alterada) */
+
+.sucesso-icone{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: var(--cor5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.sucesso-icone svg{
+    width: 40px;
+    height: 40px;
+    stroke: var(--cor1);
+}
+
+.card-central{
+    text-align: center;
+}
+
+@media (max-width: 600px){
+    .painel-esquerda{
+        width: 100%;
+        min-width: 0;
+        padding: 20px 0;
+        border-radius: 0;
+    }
+
+    .logo-zera{
+        width: 220px;
+    }
+
+    .slogan{
+        font-size: 15px;
+        margin-top: 8px;
+    }
+
+    .painel-direita{
+        width: 100%;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 25px 15px 50px;
+        overflow: visible;
+    }
+
+    .voltar{
+        position: relative;
+        top: auto;
+        left: auto;
+        z-index: 10;
+
+        display: block;
+        width: fit-content;
+
+        margin: 0 0 20px 5px;
+        font-size: 22px;
+    }
+
+    .card{
+        position: relative;
+        z-index: 2;
+
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        margin: 0;
+        padding: 25px 20px 30px;
+    }
+
+    .card h1{
+        font-size: 34px;
+    }
+
+    .card .subtitulo{
+        font-size: 20px;
+    }
+
+    .campo input{
+        box-sizing: border-box;
+    }
+}

@@ -2,42 +2,54 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Cadastro da Organização</title>
+<title>Cadastro da Organização - Zera</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/cadastro.css">
 </head>
 <body>
 
-<h2>ZERA</h2>
-<p>TRANSFORMANDO DESCARTE EM SOLUÇÃO</p>
+<div class="tela-auth">
 
-<hr>
+  <div class="painel-esquerda">
+    <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+    <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
+  </div>
 
-<p><a href="verificacao-cadastro.html">&#8592; Voltar</a></p>
+  <div class="painel-direita">
+    <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+    <a href="verificacao-cadastro.html" class="voltar">
+      <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
+       Voltar</a>
 
-<h1>Dados da organização</h1>
-<p>Preencha os dados para prosseguir</p>
+    <div class="card">
+      <h1>Dados da organização</h1>
+      <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-<form>
+      <form>
+        <div class="campo">
+          <label for="nome-organizacao">Nome da organização</label>
+          <input type="text" id="nome-organizacao" name="nome-organizacao" placeholder="Digite o nome">
+        </div>
 
-  <p>
-    <label for="nome-organizacao">Nome da organização</label><br>
-    <input type="text" id="nome-organizacao" name="nome-organizacao" placeholder="Digite o nome">
-  </p>
+        <div class="campo">
+          <label for="email-organizacao">Email da organização</label>
+          <input type="email" id="email-organizacao" name="email-organizacao" placeholder="emailorganizacao@exemplo.com">
+        </div>
 
-  <p>
-    <label for="email-organizacao">Email da organização</label><br>
-    <input type="email" id="email-organizacao" name="email-organizacao" placeholder="emailorganizacao@exemplo.com">
-  </p>
+        <div class="campo">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00">
+        </div>
 
-  <p>
-    <label for="cnpj">CNPJ</label><br>
-    <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00">
-  </p>
+        <div class="linha-botao">
+          <a href="cadastro-unidade.html" class="botao-primario">Continuar</a>
+        </div>
+      </form>
+    </div>
 
-  <p>
-    <a href="cadastro-unidade.html">Continuar</a>
-  </p>
+  </div>
 
-</form>
+</div>
 
 </body>
 </html>
