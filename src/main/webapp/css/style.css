@@ -20,6 +20,24 @@
     font-weight: light;
     font-style: normal;
 }
+@font-face{
+    font-family: 'Instrument Sans';
+    src: url(../fonts/Instrument_Sans/InstrumentSans-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Instrument Sans';
+    src: url(../fonts/Instrument_Sans/InstrumentSans-Bold.ttf);
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Instrument Sans';
+    src: url(../fonts/Instrument_Sans/InstrumentSans-Medium.ttf);
+    font-weight: medium;
+    font-style: normal;
+}
 
 
 *{
