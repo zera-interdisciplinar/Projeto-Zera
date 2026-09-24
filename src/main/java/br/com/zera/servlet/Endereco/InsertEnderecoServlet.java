@@ -2,26 +2,21 @@ package br.com.zera.servlet.Endereco;
 
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
-import br.com.zera.exception.ErroServlet;
 import br.com.zera.exception.NotFoundException;
-import br.com.zera.model.Unidade;
+import br.com.zera.model.*;
 import br.com.zera.regex.*;
 
 import br.com.zera.dao.EnderecoDAO;
 import br.com.zera.model.Endereco;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.ServletException;
-import br.com.zera.regex.Constants;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "InsertEndereco", value = "/areaRestrita/cadastroEndereco")
+@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
 
  /**
  * Servlet responsável por processar o cadastro de endereços
@@ -35,15 +30,14 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
-     * Processa o POST para inserir um novo Endereço
+     * Processa POST para inserir um novo Endereço
      *
      * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
-     * @throws ServletException caso haja um erro ou exceção no Servlet
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-       throws jakarta.servlet.ServletException, IOException {
+       throws IOException {
 
         /**
          * Instancia DAO responsável por persistir objetos no banco de dados
@@ -53,11 +47,17 @@ public class InsertEnderecoServlet extends HttpServlet{
         EnderecoDAO dao = new EnderecoDAO();
         UnidadeDAO unidadeDAO = new UnidadeDAO();
 
-//        /**
-//         * Cria Arraylist<>() que recebe os parametros do model Empresa
-//         */
-//        Array
         try {
+
+            /**
+             * Salva o login/sign in do {@link Gestor} para manter a sessão tiva
+             */
+            HttpSession session = request.getSession();
+            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            if (gestorLogado == null) {
+                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+                return;
+            }
 
             /**
              * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
@@ -65,7 +65,6 @@ public class InsertEnderecoServlet extends HttpServlet{
              * @throws  caso não tenha o código procurado
              */
             String codEndereco = request.getParameter("codigo");
-            String codUnidade = request.getParameter("codUnidade");
 
 
             int codigoEndereco = Integer.parseInt(codEndereco);
@@ -76,18 +75,34 @@ public class InsertEnderecoServlet extends HttpServlet{
             String logradouro = request.getParameter("logradouro");
             String cidade = request.getParameter("cidade");
             String estado = request.getParameter("estado");
-            int codigoUnidade = Integer.parseInt(codUnidade);
 
-            Unidade unidade = unidadeDAO.findByCodigo(codigoUnidade);
+            int codUnidade = gestorLogado.getCodUnidade();
+            if(unidadeDAO.findByCodigo(codUnidade) != null) {
+                Unidade capUnidade = unidadeDAO.findByCodigo(codUnidade);
+            } else {
+                exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
+            }
 
             /**
              * Cria objeto {@link Endereco}
              */
-            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codigoUnidade);
+            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
+            /**
+             * Instancia página de erro caso o CPF inserido seja inválido
+             */
             if(Regex.validarCEP(cep) == false){
                 exibirErro(request, response, "CEP inválido", ERROR_PAGE);
+                return;
             }
+
+            /**
+             * Instancia as informações recebidas no {@link Endereco} com o método
+             */
+            EnderecoDAO.insert(model);
+
+            // Redireciona para a lista de endereços após a inserção bem-sucedida
+            response.sendRedirect(request.getContextPath() + "/endereco/signIn");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();
