@@ -1,37 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Verificação</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação - Zera</title>
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/cadastro.css">
 </head>
 <body>
-<h2>ZERA</h2>
-<p>TRANSFORMANDO DESCARTE EM SOLUÇÃO</p>
-<hr>
+<main class="tela-auth">
 
-<p><a href="verificar-email-senha.html">&#8592; Voltar</a></p>
+  <!--Painel esquerda-->
+<div class="painel-esquerda">
+    <div class="painel-esquerda-conteudo">
+      <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+      <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
+    </div>
 
-<h1>Redefinir senha</h1>
-<p>Um código foi enviado para seuemail@exemplo.com</p>
+    <!-- Redes Sociais no rodapé do painel -->
+    <div class="painel-contatos">
+      <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
+        <img src="../../images/instagram.svg" class="contato-item" alt="">
+        <span>@zera.app</span>
+      </a>
 
-<form>
+      <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
+        <img src="../../images/whatsapp.svg" class="contato-item" alt="">
+        <span>+55 (11) 93304-5181</span>
+      </a>
 
-  <p>Insira o código de verificação</p>
+      <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
+        <img src="../../images/email.svg" class="contato-item" alt="">
+        <span>zera.institutojef@gmail.com</span>
+      </a>
+    </div>
+</div>
 
-  <p>
-    <input type="text" name="codigo1" maxlength="1" size="1">
-    <input type="text" name="codigo2" maxlength="1" size="1">
-    <input type="text" name="codigo3" maxlength="1" size="1">
-    <input type="text" name="codigo4" maxlength="1" size="1">
-    <input type="text" name="codigo5" maxlength="1" size="1">
-    <input type="text" name="codigo6" maxlength="1" size="1">
-  </p>
+    <!-- Painel direito -->
+    <section class="painel-direita">
+        <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
-  <p>
-    <a href="nova.senha.html">Confirmar</a>
-  </p>
+        <div class="container-card">
+            <a href="login.html" class="voltar">
+                <img src="../../images/seta-voltar.svg" alt="">
+                Voltar
+            </a>
 
-</form>
+            <div class="card card-central">
+                <h1>Redefinir senha</h1>
+                <p class="subtitulo">Um código foi enviado para seuemail@exemplo.com</p>
 
+                <p class="instrucao-codigo">Insira o código de verificação</p>
+
+                <div class="codigo-verificacao">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 1">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 2">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 3">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 4">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 5">
+                    <input type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 6">
+                </div>
+
+                <div class="linha-botao">
+                    <a href="nova-senha.html" class="botao-primario">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
 </body>
 </html>
