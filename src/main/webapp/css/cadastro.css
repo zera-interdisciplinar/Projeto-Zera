@@ -1,111 +1,127 @@
 @charset "UTF-8";
 
 /* cadastro.css
-   Estilos das telas de cadastro, verificação e pagamento do Zera.
-   Depende das variáveis e da fonte definidas em style.css (linkar os dois). */
+   Estilos das telas de cadastro, verificação, pagamento do Zera e login.*/
 
-.tela-auth{
+:root {
+    --fonte2: 'Instrument Sans', sans-serif;
+}
+
+/* =========================================================
+   ESTRUTURA GERAL (LAYOUT PRINCIPAL)
+   ========================================================= */
+
+.tela-auth {
     min-height: 100vh;
     display: flex;
     align-items: stretch;
+    width: 100%;
+    position: relative;
+    background-color: var(--cor2);
+    overflow-x: hidden;
 }
 
-@media (max-width: 900px){
-    .tela-auth{
-        flex-direction: column;
-    }
+/* =========================================================
+   PAINEL ESQUERDO
+   ========================================================= */
 
-    .painel-esquerda{
-        width: 100%;
-        min-width: 0;
-        padding: 30px 0;
-        border-radius: 0;
-        flex-shrink: 0;
-    }
-
-    .painel-direita{
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        padding: 30px 20px 50px;
-        overflow: visible;
-        min-height: 100vh;
-        box-sizing: border-box;
-    }
-
-    .voltar{
-        position: relative;
-        top: auto;
-        left: auto;
-        display: block;
-        align-self: flex-start;
-        margin: 0 0 25px 0;
-        z-index: 3;
-    }
-
-    .card{
-        width: 100%;
-        max-width: 700px;
-        box-sizing: border-box;
-        margin: 0 auto;
-        padding: 24px 20px;
-    }
-
-    .planos-lista{
-        flex-direction: column;
-    }
-}
-
-:root{
-    --fonte2: 'InstrumentSans', sans-serif;
-
-}
-
-/* Painel esquerdo (logo) */
-
-.painel-esquerda{
+.painel-esquerda {
     background-color: var(--cor1);
-    width: 33%;
-    min-width: 280px;
+    width: 34%;
+    min-width: 320px;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 60px 48px 45px;
+    border-radius: 0 48px 48px 0;
+    position: relative;
+    z-index: 3;
+    box-shadow: 6px 0 25px rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
+}
+
+.painel-esquerda-conteudo {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 0 50.45px 50.45px 0;
-    overflow: hidden;
+    flex: 1;
 }
 
-.logo-zera{
-    width: 340px;
+.logo-zera {
+    width: 100%;
+    max-width: 290px;
     height: auto;
 }
 
-.slogan{
-    margin-top: 12px;
+.slogan {
+    margin-top: 14px;
     text-align: center;
-    font-size: 18px;
-    font-weight: medium;
-    letter-spacing: 0.5px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
     color: var(--cor2);
     text-transform: uppercase;
     font-family: var(--fonte2);
+    line-height: 1.35;
 }
 
-/* Painel direito (fundo azul + card) */
 
-.painel-direita{
+.painel-contatos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.contato-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--cor2);
+    font-family: var(--fonte2);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.contato-item:hover {
+    opacity: 0.75;
+    text-decoration: none;
+}
+
+.contato-icone {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    stroke: var(--cor2);
+}
+
+/* =========================================================
+   PAINEL DIREITO 
+   ========================================================= */
+
+.painel-direita {
     flex: 1;
     position: relative;
     background-color: var(--cor2);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 40px;
+    padding: 50px 40px;
     overflow: hidden;
+    min-height: 100vh;
+    margin-left: -48px;     
+    padding-left: 88px; 
 }
 
-/* Z gigante semi-transparente ao fundo (mesma imagem usada na landing) */
-.z-marca-dagua{
+/* Z gigante semi-transparente ao fundo */
+.z-marca-dagua {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -114,331 +130,541 @@
     max-width: none;
     transform: translate(-50%, -50%);
     object-fit: contain;
-    opacity: 20%;
+    opacity: 0.50;
+    pointer-events: none;
     z-index: 1;
 }
 
-/* overlay por cima, igual ao #principal::before da landing */
-.painel-direita::before{
+/*overlay*/
+.painel-direita::before {
     content: "";
     position: absolute;
     inset: 0;
     background: url("../images/overlay-principal.png") center / cover;
     mix-blend-mode: overlay;
+    opacity: 0.35;
+    pointer-events: none;
     z-index: 1;
 }
 
-.voltar{
-    position: absolute;
-    top: 70px;     
-    left: 150px;
+.container-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     color: var(--cor1);
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-decoration: none;
+    width: fit-content;
+    transition: transform 0.2s, opacity 0.2s;
     z-index: 2;
 }
 
-.voltar:hover{
-    text-decoration: underline;
+.painel-direita > .voltar {
+    position: absolute;
+    top: 50px;
+    left: 60px;
 }
 
-/* Card do formulário */
+.container-card .voltar {
+    position: static;
+    margin-bottom: 18px;
+    align-self: flex-start;
+}
 
-.card{
+.voltar img,
+.voltar svg {
+    width: 22px;
+    height: auto;
+    stroke: var(--cor1);
+}
+
+.voltar:hover {
+    opacity: 0.85;
+    transform: translateX(-3px);
+    text-decoration: none;
+}
+
+/* =========================================================
+   CARD DO FORMULÁRIO 
+   ========================================================= */
+
+.card {
     position: relative;
     z-index: 2;
     background-color: var(--cor1);
-    border-radius: 18px;
-    width: 700px;
-    max-width: 90%;
-    padding: 40px 46px 34px;
-    box-shadow: 0 20px 40px rgb(0 0 0 / 25%);
-}
-
-.card h1{
-    text-transform: none;
-    font-size: 41px;
-    text-align: center;
-    color: var(--cor2);
-    margin-bottom: 6px;
-}
-
-.card .subtitulo{
-    text-align: center;
-    color: var(--cor2);
-    font-size: 23.5px;
-    font-weight: bold;
-    margin-bottom: 22px;
-}
-
-/* Campos de formulário */
-
-.campo{
-    margin-bottom: 14px;
-}
-
-.campo label{
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--cor2);
-    margin-bottom: 6px;
-}
-
-.campo input{
+    border-radius: 28px;
     width: 100%;
-    height: 45px;
+    max-width: 620px;
+    padding: 42px 48px 38px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+    box-sizing: border-box;
+}
+
+.card h1 {
+    text-transform: none;
+    font-size: 34px;
+    text-align: center;
+    color: var(--cor2);
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-family: var(--fonte1);
+}
+
+.card .subtitulo {
+    text-align: center;
+    color: var(--cor2);
+    font-size: 17.5px;
+    font-weight: 600;
+    margin-bottom: 26px;
+    font-family: var(--fonte1);
+}
+
+/* =========================================================
+   CAMPOS DE FORMULÁRIO 
+   ========================================================= */
+
+.campo {
+    margin-bottom: 16px;
+}
+
+.campo label {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--cor2);
+    margin-bottom: 6px;
+    font-family: var(--fonte1);
+}
+
+.campo input {
+    width: 100%;
+    height: 46px;
     border: 1.5px solid var(--cor2);
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-size: 19px;
+    border-radius: 12px;
+    padding: 0 16px;
+    font-size: 16px;
     font-family: var(--fonte1);
     color: var(--cor2);
     background-color: var(--cor1);
-
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.campo input::placeholder{
-    color: rgb(21 45 107 / 45%);
+.campo input:focus {
+    border-width: 2px;
 }
 
-/* Botões */
+.campo input::placeholder {
+    color: var(--cor2);
+    font-size: 15px;
+}
 
-.botao-primario{
+.linha-campos {
+    display: flex;
+    gap: 14px;
+}
+
+.campo-numero { flex: 1; }
+.campo-cep    { flex: 1.4; }
+.campo-estado { flex: 1; }
+
+
+.campo-icone {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.campo-icone .icone-input {
+    position: absolute;
+    left: 14px;
+    width: 20px;
+    height: 20px;
+    stroke: var(--cor2);
+    pointer-events: none;
+}
+
+.campo-icone input {
+    padding-left: 44px;
+}
+
+/* =========================================================
+   BOTÕES 
+   ========================================================= */
+
+.linha-botao {
+    text-align: center;
+    margin-top: 26px;
+}
+
+.botao-primario {
     display: inline-block;
     background-color: var(--cor3);
     color: var(--cor1) !important;
     border: none;
-    padding: 12px 30px;
-    border-radius: 15px;
-    font-size: 20px;
-    font-weight: bold;
+    padding: 12px 52px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: var(--fonte1);
     text-align: center;
     cursor: pointer;
-    
-}
-
-.botao-primario:hover{
-    background-color: var(--cor2);
+    box-shadow: 0 3px 8px var(--cor2);
+    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
     text-decoration: none;
 }
 
-.linha-botao{
-    text-align: center;
-    margin-top: 22px;
+.botao-primario:hover {
+    background-color: var(--cor2);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 29px var(--cor2);
+    text-decoration: none;
 }
 
-.trocar-link{
+.botao-primario:active {
+    transform: translateY(0);
+}
+
+.trocar-link {
     font-size: 12px;
-    color: var(--cor3);
+    color: var(--cor2);
+    font-weight: 700;
+    text-decoration: underline;
     margin-left: 8px;
 }
 
-/* Resumo de plano / pagamento */
+/* =========================================================
+   DEMAIS TELAS 
+   ========================================================= */
 
-.resumo-plano p{
+.resumo-plano p {
     font-size: 13px;
     color: var(--cor2);
     margin-bottom: 4px;
+    padding-left: 12px;
 }
 
-.total{
-    font-size: 16px;
+.resumo-titulo {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cor2);
+    text-transform: none;
+    margin-bottom: 8px;
+}
+
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total {
+    font-size: 22px;
     font-weight: bold;
     color: var(--cor2);
-    margin: 16px 0 4px;
+    margin: 14px 0 4px;
 }
 
-.aviso-cobranca{
+.aviso-cobranca {
     font-size: 11px;
-    color: rgb(21 45 107 / 60%);
+    color: var(--cor2);
     margin-bottom: 16px;
 }
 
-hr.separador{
+hr.separador {
     border: none;
-    border-top: 1px solid rgb(21 45 107 / 20%);
+    border-top: 1px solid var(--cor2);
     margin: 18px 0;
 }
 
-/* Cards de plano (tela Planos) */
+/* =========================================================
+   TELA DE PLANOS
+   ========================================================= */
 
-.planos-lista{
+.planos-lista {
     display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 22px;
+    margin: 36px 0 50px;
 }
 
-.plano-card{
+.plano-opcao {
     flex: 1;
-    border-radius: 10px;
-    padding: 16px 12px;
+    display: flex;
+    cursor: pointer;
+}
+
+.plano-opcao input {
+    display: none; 
+}
+
+.plano-card {
+    position: relative;
+    flex: 1;
+    min-height: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 22px;
+    padding: 24px 14px;
     color: var(--cor1);
     text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.plano-free{ background-color: var(--cor5); }
-.plano-professional{ background-color: var(--cor3); }
-.plano-empresarial{ background-color: var(--cor2); }
+.plano-free { 
+    background-color: var(--cor5); 
+}
+.plano-profissional { 
+    background-color: var(--cor3); 
+}
+.plano-empresarial { 
+    background-color: var(--cor2); 
+}
 
-.plano-card h3{
-    font-size: 14px;
-    margin-bottom: 8px;
+.plano-card h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    margin-top: 10px;
     text-transform: none;
 }
 
-.plano-card p{
-    font-size: 11px;
-    margin-bottom: 12px;
-}
-
-.plano-card a{
+.plano-card p {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.4;
     color: var(--cor1);
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: underline;
+    margin-bottom: 0;
 }
 
-/* Código de verificação */
+.plano-opcao:hover .plano-card {
+    transform: translateY(-3px);
+}
 
-.codigo-verificacao{
+.plano-card .plano-check {
+    display: none;
+    position: absolute;
+    top: 8px;      
+    right: 10px;    
+    width: 22px;   
+    height: 22px;
+}
+
+.plano-opcao input:checked + .plano-card {
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.plano-opcao input:checked + .plano-card .plano-check {
+    display: block;
+}
+
+.codigo-verificacao {
     display: flex;
     gap: 8px;
     justify-content: center;
     margin: 20px 0;
 }
 
-.codigo-verificacao input{
+.codigo-verificacao input {
     width: 40px;
     height: 48px;
     text-align: center;
     font-size: 18px;
     border: 1.5px solid var(--cor2);
-    border-radius: 8px;
+    border-radius: 10px;
     font-family: var(--fonte1);
     color: var(--cor2);
     background-color: var(--cor1);
 }
 
-/* Escolha de método de pagamento */
-
-.metodo-pagamento{
-    display: flex;
-    gap: 12px;
-    margin: 16px 0 20px;
-}
-
-.metodo-pagamento a{
-    flex: 1;
+.instrucao-codigo {
     text-align: center;
-    padding: 10px;
-    border: 1.5px solid var(--cor3);
-    border-radius: 8px;
-    color: var(--cor3);
-    font-weight: bold;
-    font-size: 13px;
+    color: var(--cor2);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 22px;
 }
 
-.metodo-pagamento a:hover{
-    background-color: var(--cor3);
-    color: var(--cor1);
-    text-decoration: none;
+.card-central {
+    text-align: center;
 }
 
-/* Pix */
-
-.qr-code{
+.link-pequeno {
     display: block;
-    margin: 16px auto;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 8px;
+    width: fit-content;
+    margin: 28px auto 0;
+    font-size: 12px;
+    color: var(--cor2);
+    text-decoration: underline;
 }
 
-/* Tela de sucesso (senha alterada) */
-
-.sucesso-icone{
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background-color: var(--cor5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
+.link-pequeno:hover {
+    opacity: 0.75;
 }
 
-.sucesso-icone svg{
-    width: 40px;
-    height: 40px;
-    stroke: var(--cor1);
+.sucesso-icone {
+    width: 100px;
+    height: auto;
+    margin-left: 108px;
 }
 
-.card-central{
-    text-align: center;
-}
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
 
-@media (max-width: 600px){
-    .painel-esquerda{
+@media (max-width: 992px) {
+    .tela-auth {
+        flex-direction: column;
+    }
+
+    .painel-esquerda {
         width: 100%;
         min-width: 0;
-        padding: 20px 0;
-        border-radius: 0;
+        max-width: 100%;
+        padding: 40px 24px 30px;
+        border-radius: 0 0 36px 36px;
+        align-items: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .logo-zera{
-        width: 220px;
+    .painel-esquerda-conteudo {
+        flex: none;
     }
 
-    .slogan{
-        font-size: 15px;
-        margin-top: 8px;
+    .logo-zera {
+        max-width: 250px;
     }
 
-    .painel-direita{
-        width: 100%;
-        box-sizing: border-box;
+    .painel-contatos {
+        margin-top: 24px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .painel-direita {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         justify-content: flex-start;
-        padding: 25px 15px 50px;
+        padding: 35px 20px 60px;
         overflow: visible;
+        min-height: auto;
     }
 
-    .voltar{
-        position: relative;
-        top: auto;
-        left: auto;
-        z-index: 10;
+    .container-card {
+        max-width: 580px;
+    }
 
-        display: block;
-        width: fit-content;
+    .card {
+        padding: 34px 28px 30px;
+        border-radius: 24px;
+    }
 
-        margin: 0 0 20px 5px;
+    .card h1 {
+        font-size: 30px;
+    }
+
+    .card .subtitulo {
+        font-size: 17px;
+    }
+
+    .planos-lista {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .painel-esquerda {
+        padding: 28px 16px 22px;
+        border-radius: 0 0 28px 28px;
+    }
+
+    .logo-zera {
+        max-width: 200px;
+    }
+
+    .slogan {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .painel-contatos {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .contato-item {
+        font-size: 13px;
+    }
+
+    .painel-direita {
+        padding: 24px 14px 45px;
+    }
+
+    .voltar {
+        font-size: 18px;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .voltar img,
+    .voltar svg {
+        width: 18px;
+    }
+
+    .card {
+        padding: 26px 18px 24px;
+        border-radius: 20px;
+    }
+
+    .card h1 {
+        font-size: 24px;
+    }
+
+    .card .subtitulo {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .campo input {
+        height: 44px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+    .botao-primario {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 17px;
+    }
+        .plano-card {
+        min-height: 150px;
+    }
+
+    .plano-card h3 {
         font-size: 22px;
     }
 
-    .card{
-        position: relative;
-        z-index: 2;
-
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-
-        margin: 0;
-        padding: 25px 20px 30px;
-    }
-
-    .card h1{
-        font-size: 34px;
-    }
-
-    .card .subtitulo{
-        font-size: 20px;
-    }
-
-    .campo input{
-        box-sizing: border-box;
+    .plano-card p {
+        font-size: 15px;
     }
 }
