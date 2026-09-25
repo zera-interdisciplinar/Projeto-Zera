@@ -63,19 +63,20 @@ public class UpdateEnderecoServlet extends HttpServlet {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-
             /**
              * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
              *
              * @throws caso não tenha o código procurado
              */
-            String codEndereco = request.getParameter("codigo");
-            if (codEndereco == null || codEndereco.isEmpty()) {
-                exibirErro(request, response, "Código do endereço não informado.", ERROR_PAGE);
+            int codUnidade = gestorLogado.getCodUnidade();
+            Endereco enderecoExistente = dao.findByCodigoUnidade(codUnidade);
+
+            if (enderecoExistente == null) {
+                exibirErro(request, response, "Endereço não encontrado.", ERROR_PAGE);
                 return;
             }
 
-            int codigoEndereco = Integer.parseInt(codEndereco);
+            int codigoEndereco = enderecoExistente.getCodigo();
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
@@ -87,22 +88,6 @@ public class UpdateEnderecoServlet extends HttpServlet {
             String logradouro = request.getParameter("logradouro");
             String cidade = request.getParameter("cidade");
             String estado = request.getParameter("estado");
-
-            Endereco enderecoExistente = dao.findByCodigo(codigoEndereco);
-            if (enderecoExistente == null) {
-                exibirErro(request, response, "Endereço não encontrado.", ERROR_PAGE);
-                return;
-            }
-
-            int codUnidade = gestorLogado.getCodUnidade();
-            if (unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
-                return;
-            }
-            if (enderecoExistente.getCodUnidade() != codUnidade) {
-                exibirErro(request, response, "Você não tem permissão para alterar este endereço.", ERROR_PAGE);
-                return;
-            }
 
             /**
              * Instancia página de erro caso o CPF inserido seja inválido

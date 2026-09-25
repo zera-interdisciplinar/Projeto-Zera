@@ -7,7 +7,6 @@ import br.com.zera.model.*;
 import br.com.zera.regex.*;
 
 import br.com.zera.dao.EnderecoDAO;
-import br.com.zera.model.Endereco;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -65,11 +64,18 @@ public class InsertEnderecoServlet extends HttpServlet{
              * @throws  caso não tenha o código procurado
              */
             String codEndereco = request.getParameter("codigo");
-
+            if (codEndereco == null || codEndereco.isEmpty()) {
+                exibirErro(request, response, "Código do endereço não informado.", ERROR_PAGE);
+                return;
+            }
 
             int codigoEndereco = Integer.parseInt(codEndereco);
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
+            if (num == null || num.isEmpty()) {
+                exibirErro(request, response, "Número não informado.", ERROR_PAGE);
+                return;
+            }
             int numero = Integer.parseInt(num);
             String cep = request.getParameter("cep");
             String logradouro = request.getParameter("logradouro");
@@ -77,16 +83,10 @@ public class InsertEnderecoServlet extends HttpServlet{
             String estado = request.getParameter("estado");
 
             int codUnidade = gestorLogado.getCodUnidade();
-            if(unidadeDAO.findByCodigo(codUnidade) != null) {
-                Unidade capUnidade = unidadeDAO.findByCodigo(codUnidade);
-            } else {
+            if(unidadeDAO.findByCodigo(codUnidade) == null) {
                 exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
+                return;
             }
-
-            /**
-             * Cria objeto {@link Endereco}
-             */
-            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
             /**
              * Instancia página de erro caso o CPF inserido seja inválido
@@ -97,12 +97,17 @@ public class InsertEnderecoServlet extends HttpServlet{
             }
 
             /**
+             * Cria objeto {@link Endereco}
+             */
+            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
+
+            /**
              * Instancia as informações recebidas no {@link Endereco} com o método
              */
-            EnderecoDAO.insert(model);
+            dao.insert(model);
 
-            // Redireciona para a lista de endereços após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/endereco/signIn");
+            // Redireciona para o perfil após a inserção bem-sucedida
+            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();
