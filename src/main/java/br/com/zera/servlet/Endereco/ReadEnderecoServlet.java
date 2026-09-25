@@ -30,15 +30,11 @@ public class ReadEnderecoServlet extends HttpServlet {
      * Processa requisições GET para exibir endereços da empresa.
      *
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-            /**
-             * Instancia DAO responsável por persistir objetos no banco de dados
-             *
-             * Instancia Chave estrangeira da tabela Unidade
-             */
             HttpSession session = request.getSession();
             Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
 
@@ -48,8 +44,8 @@ public class ReadEnderecoServlet extends HttpServlet {
             }
 
             int codUnidade = gestorLogado.getCodUnidade();
-            EnderecoDAO dao = new EnderecoDAO();
-            Endereco endereco = dao.findByCodigoUnidade(codUnidade);
+            EnderecoDAO enderecoDao = new EnderecoDAO();
+            Endereco endereco = enderecoDao.findByCodigoUnidade(codUnidade);
 
             if (endereco == null) {
                 exibirErro(request, response, "Endereço não cadastrado.", ERROR_PAGE);
@@ -63,13 +59,17 @@ public class ReadEnderecoServlet extends HttpServlet {
             request.setAttribute("cidade", endereco.getCidade());
             request.setAttribute("estado", endereco.getEstado());
 
+
             request.getRequestDispatcher("/WEB-INF/perfil.jsp").forward(request, response);
         } catch (ServletException se) {
             exibirErro(request, response, se, ERROR_PAGE);
+            se.printStackTrace();
         }catch(IOException ioe){
             exibirErro(request, response, ioe, ERROR_PAGE);
+            ioe.printStackTrace();
         }catch (Exception e) {
             exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+            e.printStackTrace();
         }
     }
 }
