@@ -32,7 +32,7 @@
 
     <main>
         <section id="principal" class="fundo-azul">
-            <img id="z-transparente" src="images/z-transparente.png" alt="'Z' da logo Zera transparente">
+            <img class="item-transparente" id="z-transparente" src="images/z-transparente.png" alt="'Z' da logo Zera transparente">
             <div id="conteudo-principal">
                 <h1>Gerencie <span class="texto-laranja">resíduos</span> <span class="texto-verde">eletrônicos</span> com inteligência</h1>
                 <p>Controle o seu armazenamento e descarte-o com praticidade, segurança e responsabilidade ambiental.</p>
@@ -45,23 +45,28 @@
             </div> 
         </section>
         <section id="carrossel">
-            <div class="slide">
+            <div class="slide-direita" id="slide-rel">
+                <img src="images/img-relatorio.png" alt="Imagem de uma prancheta com relatório">
+                <h2>Relatórios completos</h2>
+                <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
+            </div>
+            <div class="slide-centro" id="slide-amz">
+                <img src="images/img-armazenamento.png" alt="Imagem de prateleira com caixas">
                 <h2>Armazenamento inteligente</h2>
                 <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
             </div>
-            <div class="slide">
+            <div class="slide-esquerda" id="slide-scan">
+                <img src="images/img-scaneia.png" alt="Imagem de mão com aparelho escaneando código de barras em caixa">
                 <h2>Scanner e cadastro fácil</h2>
                 <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
             </div>
-            <div class="slide">
+            <div class="slide-centro" id="slide-alert">
+                <img src="images/img-alerta.png" alt="Imagem do símbolo de alerta">
                 <h2>Alertas de lotes críticos</h2>
                 <p>Seja avisado quando um equipamento está armazenado por muito tempo.</p>
 
             </div>
-            <div class="slide">
-                <h2>Relatórios completos</h2>
-                <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
-            </div>
+            
         </section>
         <section id="utilizacao">
             <div class="seta">
@@ -84,7 +89,8 @@
                 <p>Exporte relatórios completos para auditorias e parcerias</p>
             </div>
         </section>
-        <section id="sobre" class="fundo-azul">
+        <section id="sobre" class="fundo-azul" >
+            <img id="setas-sobre" class="item-transparente" src="images/setas-sobre.png" alt="Setas transparentes">
             <h2>Sobre <span class="texto-laranja">nós</span></h2>
             <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
             <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
@@ -108,53 +114,59 @@
             </div>
             <h2>Escolha o <span class="texto-azul">melhor</span> plano para <span class="texto-verde">você</span></h2>
             <h3>Planos para <span class="texto-laranja">todas</span> as necessidades, sempre pensando em <span class="texto-laranja">você</span>.</h3>
-            <div class="card-sec">
-                <h4>Free</h4>
-                <p class="preco">R$0,00</p>
-                <p>/ Mês</p>
-                <ul class="lista-plano">
-                    <li>Scanner</li>
-                    <li>Dashboard</li>
-                    <li>Estoque (até 50 itens)</li>
-                    <li class="nao-tem">Relatórios</li>
-                    <li class="nao-tem">Alertas</li>
-                    <li class="nao-tem">Multiusuários</li>
-                    <li class="nao-tem">Suporte</li>
-                </ul>
-                <a href="#">Testar agora</a>
-            </div>
-            <div class="card-prim">
-                <div id="recomendado">
-                    <p>Mais recomendado</p>
+            <div class="flex">
+                <div class="card-sec">
+                    <h4>Free</h4>
+                    <p class="preco">R$0,00</p>
+                    <p>/ Mês</p>
+                    <ul class="lista-plano">
+                        <li>Scanner</li>
+                        <li>Dashboard</li>
+                        <li>Estoque (até 50 itens)</li>
+                        <li class="nao-tem">Relatórios</li>
+                        <li class="nao-tem">Alertas</li>
+                        <li class="nao-tem">Multiusuários</li>
+                        <li class="nao-tem">Suporte</li>
+                    </ul>
+                    <a href="#">Testar agora</a>
                 </div>
-                <h4>Profissional</h4>
-                <p class="preco">R$49,90</p>
-                <p>/ Mês</p>
-                <ul class="lista-plano">
-                    <li>Tudo do plano Free</li>
-                    <li>Estoque (250 itens)</li>
-                    <li>Relatórios</li>
-                    <li>Alertas</li>
-                    <li>Multiusuários</li>
-                    <li class="nao-tem">Suporte</li>
-                    <li class="nao-tem">Cadastros ilimitados</li>
-                </ul>
-                <a href="#" id="botao-profissional">Assinar agora</a>
-            </div>
-            <div class="card-sec">
-                <h4>Empresarial</h4>
-                <p>Valor personalizado</p>
-                <p>Entre em contato conosco para valores e condições especiais.</p>
-                <ul class="lista-plano">
-                    <li>Tudo do plano Profissional</li>
-                    <li>Estoque ilimitado</li>
-                    <li>Suporte dedicado</li>
-                    <li>Scanner multidispositivo</li>
-                    <li>E muito mais!</li>
-                </ul>
-                <a href="#">Fale conosco</a>
+                <div class="card-prim">
+                    <div id="recomendado">
+                        <img src="images/estrela-recomendado.svg" alt="Símbolo de estrela">
+                        <p>Mais recomendado</p>
+                    </div>
+                    <h4>Profissional</h4>
+                    <p class="preco">R$49,90</p>
+                    <p>/ Mês</p>
+                    <ul class="lista-plano">
+                        <li>Tudo do plano Free</li>
+                        <li>Estoque (250 itens)</li>
+                        <li>Relatórios</li>
+                        <li>Alertas</li>
+                        <li>Multiusuários</li>
+                        <li class="nao-tem">Suporte</li>
+                        <li class="nao-tem">Cadastros ilimitados</li>
+                    </ul>
+                    <a href="#" id="botao-profissional">Assinar agora</a>
+                </div>
+                <div class="card-sec">
+                    <h4>Empresarial</h4>
+                    <p>Valor personalizado</p>
+                    <p>Entre em contato conosco para valores e condições especiais.</p>
+                    <ul class="lista-plano">
+                        <li>Tudo do plano Profissional</li>
+                        <li>Estoque ilimitado</li>
+                        <li>Suporte dedicado</li>
+                        <li>Scanner multidispositivo</li>
+                        <li>E muito mais!</li>
+                    </ul>
+                    <a href="#">Fale conosco</a>
+                </div>
             </div>
         </section>
+    </main>
+
+    <footer class="fundo-azul">
         <section id="perguntas">
             <h2>Perguntas frequentes</h2>
             <details>
@@ -170,23 +182,26 @@
                 <p>Sem um controle adequado, as empresas enfrentam desorganização, equipamentos perdidos no estoque, dificuldades na localização de materiais e dependência de planilhas manuais. Em contrapartida, ao adotar o ZERA, a empresa passa a contar com um inventário centralizado, localização rápida de itens, alertas automáticos e a emissão de relatórios completos em poucos cliques.</p>
             </details>
         </section>
-    </main>
-
-    <footer>
-        <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
-        <a href="https://www.instagram.com/zera.app_/">
-
-        </a>
-        <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!">
-
-        </a>
-        <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!">
-
-        </a>
-        <a id="botao-restrita">
-
-        </a>
-        <p>&copy; 2026. Todos os direitos reservados.</p>
+        <div id="footer"> 
+            <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
+            <a href="https://www.instagram.com/zera.app_/">
+                <img>
+            </a>
+            <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!">
+                <img>
+            </a>
+            <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!">
+                <img>
+            </a>
+            <div class="right">
+                <div id="botao-restrita">
+                    <a href="#">
+                        <img src="images/cadeado-restrita.svg" alt="Imagem de cadeado">
+                    </a>
+                </div>
+                <p>&copy; 2026. Todos os direitos reservados.</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
