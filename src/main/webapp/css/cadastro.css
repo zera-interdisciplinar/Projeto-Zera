@@ -236,6 +236,7 @@
 
 .campo {
     margin-bottom: 16px;
+    position: relative;
 }
 
 .campo label {
@@ -299,6 +300,33 @@
 
 .campo-icone input {
     padding-left: 44px;
+}
+
+.campo .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+    
+}
+
+.campo.erro .mensagem-erro{
+    display: block;
+    
+}
+
+.campo.erro label{
+    color:#FF0000;   
+}
+
+.campo.erro input{
+    border-color:#FF0000;
 }
 
 /* =========================================================
@@ -474,6 +502,8 @@ hr.separador {
     display: block;
 }
 
+
+
 .codigo-verificacao {
     display: flex;
     gap: 8px;
@@ -503,6 +533,29 @@ hr.separador {
 
 .card-central {
     text-align: center;
+}
+
+.mensagem-erro{
+    display: none;
+    margin-top: 8px;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+}
+
+.codigo-verificacao input {
+    transition: border-color;
+}
+
+.card.erro .codigo-verificacao input {
+    border-color: #FF0000;
+}
+
+.card.erro .mensagem-erro {
+    display: block;
+}
+.card.erro .instrucao-codigo{
+    color: #FF0000;
 }
 
 .link-pequeno {
