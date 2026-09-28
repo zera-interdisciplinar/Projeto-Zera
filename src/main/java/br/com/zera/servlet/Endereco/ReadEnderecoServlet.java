@@ -23,6 +23,9 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  *
  * @author Mayte B
  * @since 2026-09-18
+ *
+ * @param request objeto que contém os dados enviados pelo formulário (JSP)
+ * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
  */
 public class ReadEnderecoServlet extends HttpServlet {
 
