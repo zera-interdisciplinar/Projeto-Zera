@@ -37,7 +37,6 @@ public class UpdateEnderecoServlet extends HttpServlet {
      * @param request  objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
-     *
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
