@@ -15,6 +15,9 @@ public class Gestor {
     private String telefone;
     private int codUnidade;
 
+//    Construtor padrão vazio
+    public Gestor(){}
+
     /**
      * Construtor completo para inicialização do Gestor.
      *
@@ -81,5 +84,17 @@ public class Gestor {
 
     public void setCodUnidade(int cod_unidade) {
         this.codUnidade = cod_unidade;
+    }
+
+//    Saída em texto da tabela Gestor
+    @Override
+    public String toString(){
+        return "Gestor \n" +
+                "Código: " + getCodigo() +
+                "\nNome: " + getNome() +
+                "\nEmail: " + getEmail() +
+                "\nSenha: " + getSenha() +
+                "\nTelefone: " + getTelefone() +
+                "\nCódigo da Unidade: " + getCodUnidade();
     }
 }

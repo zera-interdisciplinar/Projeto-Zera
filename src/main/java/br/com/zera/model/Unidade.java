@@ -13,6 +13,9 @@ public class Unidade {
     private String email;
     private int codOrganizacao;
 
+//    Construtor padrão vazio
+    public Unidade() {}
+
     /**
      * Construtor da Unidade.
      *
@@ -59,5 +62,15 @@ public class Unidade {
 
     public void setCodOrganizacao(int codOrganizacao) {
         this.codOrganizacao = codOrganizacao;
+    }
+
+//  Saída em texto da tabela Unidade
+    @Override
+    public String toString(){
+        return "Unidade \n" +
+                "Código: " + getCodigo() +
+                "\nCNPJ: " + getCnpj() +
+                "\nEmail: " + getEmail() +
+                "\nCódigo da Organização: " + getCodOrganizacao();
     }
 }
