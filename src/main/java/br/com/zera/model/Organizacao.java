@@ -71,9 +71,9 @@ public class Organizacao{
     //saída em texto da tabela Organizacao
     public String toString(){
         return "Organizacao /n"+
-        "Código: "+this.codigo+
-        "/nCNPJ: "+this.cnpj+
-        "/nNome: "+this.nome+
-        "/nData de cadastro: "+this.dataCadastro;
+        "Código: "+getCodigo()+
+        "/nCNPJ: "+getCnpj()+
+        "/nNome: "+getNome()+
+        "/nData de cadastro: "+getDataCadastro();
     }
 }

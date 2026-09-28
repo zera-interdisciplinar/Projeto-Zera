@@ -92,12 +92,12 @@ public class Assinatura{
 
     //saída em texto da tabela Assinatura
     public String toString(){
-        return "Assinatura /n"+
+        return "Assinatura \n"+
         "Código: "+this.codigo+
-        "/nData de Início: "+this.dataInicio+
-        "/nData de Fim: "+this.dataFim+
-        "/nStatus: "+this.status+
-        "/nCódigo da tabela Organização: "+this.codOrganizacao+
-        "/nCódigo da tabela Plano: "+this.codPlano;
+        "\nData de Início: "+this.dataInicio+
+        "\nData de Fim: "+this.dataFim+
+        "\nStatus: "+this.status+
+        "\nCódigo da tabela Organização: "+this.codOrganizacao+
+        "\nCódigo da tabela Plano: "+this.codPlano;
     }
 }
