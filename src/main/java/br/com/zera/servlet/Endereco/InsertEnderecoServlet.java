@@ -63,13 +63,7 @@ public class InsertEnderecoServlet extends HttpServlet{
              *
              * @throws  caso não tenha o código procurado
              */
-            String codEndereco = request.getParameter("codigo");
-            if (codEndereco == null || codEndereco.isEmpty()) {
-                exibirErro(request, response, "Código do endereço não informado.", ERROR_PAGE);
-                return;
-            }
-
-            int codigoEndereco = Integer.parseInt(codEndereco);
+            int codigoEndereco = gestorLogado.getCodigo();
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
