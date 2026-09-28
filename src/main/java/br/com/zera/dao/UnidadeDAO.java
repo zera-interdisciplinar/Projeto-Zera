@@ -72,19 +72,19 @@ public class UnidadeDAO {
     /**
      * Consulta unidades no banco de dados
      *
-     * @param unidade Codigo (Primary Key) da organização procurada
+     * @param codigo Codigo (Primary Key) da organização procurada
      *
      * @return o {@link Unidade} correspondente ao código
      * @throws NotFoundException() para informações não encontradas
      * @throws ConnectionFailedException() para erros de conexão com o banco
      */
-    public Unidade findByCodigo(Unidade unidade){
+    public Unidade findByCodigo(int codigo){
         String sql = "select * from Unidade where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
         PreparedStatement pstm = conn.prepareStatement(sql)){
 
-            pstm.setInt(1, unidade.getCodigo());
+            pstm.setInt(1, codigo);
 
             try {
                 ResultSet rs = pstm.executeQuery();
@@ -96,7 +96,7 @@ public class UnidadeDAO {
                             rs.getInt("cod_organizacao")
                     );
                 } else {
-                    throw new NotFoundException("Nenhum registro encontrado", unidade.getCodigo());
+                    throw new NotFoundException("Nenhum registro encontrado", codigo);
                 }
             } catch (SQLException sqle) {
                 throw new ConnectionFailedException(sqle.getMessage());
