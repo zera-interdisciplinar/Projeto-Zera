@@ -51,8 +51,6 @@ public class UpdateEnderecoServlet extends HttpServlet {
 
         try {
 
-
-
             /**
              * Salva o login/sign in do {@link Gestor} para manter a sessão tiva
              */
