@@ -1,13 +1,22 @@
 package br.com.zera.servlet.Endereco;
 
+import br.com.zera.dao.UnidadeDAO;
+import br.com.zera.exception.ConnectionFailedException;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.*;
+import br.com.zera.regex.*;
+
 import br.com.zera.dao.EnderecoDAO;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 
-@WebServlet(name = "InsertEndereco", value = "/areaRestrita/cadastroEndereco")
+import static br.com.zera.exception.ErroServlet.exibirErro;
+import static br.com.zera.regex.Constants.ERROR_PAGE;
+
+@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
+
  /**
  * Servlet responsável por processar o cadastro de endereços
  *
@@ -20,19 +29,97 @@ import java.io.IOException;
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
-     * Processa o POST para inserir um novo Endereço
+     * Processa POST para inserir um novo Endereço
      *
-     * @param request objeto HttpServletRequest contendo os parâmetros do formulário
+     * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
-     * @throws ServletException caso haja um erro ou exceção no Servlet
-     * @throws java.io.IOException caso haja um erro de input/output
+     * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-       throws jakarta.servlet.ServletException, IOException {
+       throws IOException {
 
-        //instancia DAO responsável por persistir objetos no banco de dados
-        EnderecoDao dao = new EnderecoDao();
+        /**
+         * Instancia DAO responsável por persistir objetos no banco de dados
+         *
+         * Instancia Chave estrangeira da tabela Unidade
+         */
+        EnderecoDAO dao = new EnderecoDAO();
+        UnidadeDAO unidadeDAO = new UnidadeDAO();
 
+        try {
 
+            /**
+             * Salva o login/sign in do {@link Gestor} para manter a sessão tiva
+             */
+            HttpSession session = request.getSession();
+            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            if (gestorLogado == null) {
+                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+                return;
+            }
+
+            /**
+             * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
+             *
+             * @throws  caso não tenha o código procurado
+             */
+            String codEndereco = request.getParameter("codigo");
+            if (codEndereco == null || codEndereco.isEmpty()) {
+                exibirErro(request, response, "Código do endereço não informado.", ERROR_PAGE);
+                return;
+            }
+
+            int codigoEndereco = Integer.parseInt(codEndereco);
+            String bairro = request.getParameter("bairro");
+            String num = request.getParameter("numero");
+            if (num == null || num.isEmpty()) {
+                exibirErro(request, response, "Número não informado.", ERROR_PAGE);
+                return;
+            }
+            int numero = Integer.parseInt(num);
+            String cep = request.getParameter("cep");
+            String logradouro = request.getParameter("logradouro");
+            String cidade = request.getParameter("cidade");
+            String estado = request.getParameter("estado");
+
+            int codUnidade = gestorLogado.getCodUnidade();
+            if(unidadeDAO.findByCodigo(codUnidade) == null) {
+                exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
+                return;
+            }
+
+            /**
+             * Instancia página de erro caso o CPF inserido seja inválido
+             */
+            if(Regex.validarCEP(cep) == false){
+                exibirErro(request, response, "CEP inválido", ERROR_PAGE);
+                return;
+            }
+
+            /**
+             * Cria objeto {@link Endereco}
+             */
+            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
+
+            /**
+             * Instancia as informações recebidas no {@link Endereco} com o método
+             */
+            dao.insert(model);
+
+            // Redireciona para o perfil após a inserção bem-sucedida
+            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
+
+        } catch(ConnectionFailedException cfe){
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
+        }catch(NotFoundException nfe){
+            nfe.printStackTrace();
+            exibirErro(request, response, nfe, ERROR_PAGE);
+        }catch(NumberFormatException nmfe){
+            nmfe.printStackTrace();
+            exibirErro(request, response, nmfe, ERROR_PAGE);
+        } catch (Exception e) {
+            exibirErro(request, response, e, ERROR_PAGE);
+        }
     }
 }
