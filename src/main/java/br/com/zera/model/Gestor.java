@@ -1,4 +1,5 @@
 package br.com.zera.model;
+import java.time.LocalDateTime;
 
 /**
  * Modelo base que representa a entidade Gestor no sistema.
@@ -7,15 +8,17 @@ package br.com.zera.model;
  * @author Pedro Rufino
  */
 public class Gestor {
-//    Atributos
+    //    Atributos
     private int codigo;
     private String nome;
     private String email;
     private String senha;
     private String telefone;
     private int codUnidade;
+    private LocalDateTime criadoEm;
+    private LocalDateTime atualizadoEm;
 
-//    Construtor padrão vazio
+    //    Construtor padrão vazio
     public Gestor(){}
 
     /**
@@ -37,7 +40,7 @@ public class Gestor {
         this.codUnidade = codUnidade;
     }
 
-//    Getters e Setters
+    //    Getters e Setters
     public int getCodigo() {
         return codigo;
     }
@@ -86,7 +89,23 @@ public class Gestor {
         this.codUnidade = cod_unidade;
     }
 
-//    Saída em texto da tabela Gestor
+    public LocalDateTime getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(LocalDateTime criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public LocalDateTime getAtualizadoEm() {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
+        this.atualizadoEm = atualizadoEm;
+    }
+
+    //    Saída em texto da tabela Gestor
     @Override
     public String toString(){
         return "Gestor \n" +
@@ -95,6 +114,8 @@ public class Gestor {
                 "\nEmail: " + getEmail() +
                 "\nSenha: " + getSenha() +
                 "\nTelefone: " + getTelefone() +
-                "\nCódigo da Unidade: " + getCodUnidade();
+                "\nCódigo da Unidade: " + getCodUnidade() +
+                "\nCriado em: " + getCriadoEm() +
+                "\nAtualizado em: " + getAtualizadoEm();
     }
 }
