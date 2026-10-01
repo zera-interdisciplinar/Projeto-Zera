@@ -1,4 +1,5 @@
 package br.com.zera.model;
+import java.time.LocalDateTime;
 
 /**
  * Modelo que representa a entidade Unidade no sistema.
@@ -7,13 +8,15 @@ package br.com.zera.model;
  * @author Pedro Rufino
  */
 public class Unidade {
-//    Atributos
+    //    Atributos
     private int codigo;
     private String cnpj;
     private String email;
     private int codOrganizacao;
+    private LocalDateTime criadoEm;
+    private LocalDateTime atualizadoEm;
 
-//    Construtor padrão vazio
+    //    Construtor padrão vazio
     public Unidade() {}
 
     /**
@@ -31,7 +34,7 @@ public class Unidade {
         this.codOrganizacao = codOrganizacao;
     }
 
-//    Getters e Setters
+    //    Getters e Setters
     public int getCodigo() {
         return codigo;
     }
@@ -64,13 +67,31 @@ public class Unidade {
         this.codOrganizacao = codOrganizacao;
     }
 
-//  Saída em texto da tabela Unidade
+    public LocalDateTime getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(LocalDateTime criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public LocalDateTime getAtualizadoEm() {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
+        this.atualizadoEm = atualizadoEm;
+    }
+
+    //  Saída em texto da tabela Unidade
     @Override
     public String toString(){
         return "Unidade \n" +
                 "Código: " + getCodigo() +
                 "\nCNPJ: " + getCnpj() +
                 "\nEmail: " + getEmail() +
-                "\nCódigo da Organização: " + getCodOrganizacao();
+                "\nCódigo da Organização: " + getCodOrganizacao() +
+                "\nCriado em: " + getCriadoEm() +
+                "\nAtualizado em: " + getAtualizadoEm();
     }
 }
