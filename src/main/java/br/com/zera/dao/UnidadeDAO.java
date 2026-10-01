@@ -17,62 +17,56 @@ import java.util.List;
 public class UnidadeDAO {
 
     /**
-     * Insere nova unidade em {@link Unidade}
+     * Insere nova unidade no banco de dados.
      *
      * @param unidade Objeto {@link Unidade} contendo as informações a serem persistidas
      * @throws ConnectionFailedException para caso de erro na conexão com o banco de dados
      */
     public void insert(Unidade unidade) {
-        String sql = "insert into unidade values(?, ?, ?, ?)";
+        String sql = "insert into unidade (cnpj, email, cod_organizacao) values (?, ?, ?)";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement pstm = conn.prepareStatement(sql)){
 
-                pstm.setInt(1,unidade.getCodigo());
-                pstm.setString(2, unidade.getCnpj());
-                pstm.setString(3, unidade.getEmail());
-                pstm.setInt(4, unidade.getCodOrganizacao());
+            pstm.setString(1, unidade.getCnpj());
+            pstm.setString(2, unidade.getEmail());
+            pstm.setInt(3, unidade.getCodOrganizacao());
 
-                ResultSet rs = pstm.executeQuery();
-                while(rs.next()){
-                    int retorno = pstm.executeUpdate();
-                }
+            pstm.executeUpdate();
+
         } catch(SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
         }
     }
 
     /**
-     * Atualiza a Unidade da empresa no banco de dados.
+     * Atualiza a Unidade no banco de dados.
      *
      * @param unidade Objeto {@link Unidade} contendo os dados a serem atualizados
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void update(Unidade unidade) {
-        String sql = "update Unidade set codigo = ?, cnpj =  ?, email = ?, cod_organizacao = ? where codigo = ?";
+        String sql = "update Unidade set cnpj = ?, email = ?, cod_organizacao = ? where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
-        PreparedStatement pstm = conn.prepareStatement(sql)){
+            PreparedStatement pstm = conn.prepareStatement(sql)){
 
-            pstm.setInt(1, unidade.getCodigo());
-            pstm.setString(2, unidade.getCnpj());
-            pstm.setString(3, unidade.getEmail());
-            pstm.setInt(4, unidade.getCodOrganizacao());
-            pstm.setInt(5, unidade.getCodigo());
+            pstm.setString(1, unidade.getCnpj());
+            pstm.setString(2, unidade.getEmail());
+            pstm.setInt(3, unidade.getCodOrganizacao());
+            pstm.setInt(4, unidade.getCodigo());
 
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                int retorno = pstm.executeUpdate();
-            }
+            pstm.executeUpdate();
+
         }catch(SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
         }
     }
 
     /**
-     * Consulta unidades no banco de dados
+     * Consulta uma unidade no banco de dados pelo código.
      *
-     * @param unidade Codigo (Primary Key) da organização procurada
+     * @param unidade objeto {@link Unidade} contendo o código a ser buscado
      *
      * @return o {@link Unidade} correspondente ao código
      * @throws NotFoundException() para informações não encontradas
@@ -82,24 +76,29 @@ public class UnidadeDAO {
         String sql = "select * from Unidade where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
-        PreparedStatement pstm = conn.prepareStatement(sql)){
+            PreparedStatement pstm = conn.prepareStatement(sql)){
 
             pstm.setInt(1, unidade.getCodigo());
 
-            try {
-                ResultSet rs = pstm.executeQuery();
+            try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    return new Unidade(
+                    Unidade encontrada = new Unidade(
                             rs.getInt("codigo"),
-                            rs.getString("CNPJ"),
+                            rs.getString("cnpj"),
                             rs.getString("email"),
                             rs.getInt("cod_organizacao")
                     );
+
+                    Timestamp criadoEm = rs.getTimestamp("criado_em");
+                    if (criadoEm != null) encontrada.setCriadoEm(criadoEm.toLocalDateTime());
+
+                    Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
+                    if (atualizadoEm != null) encontrada.setAtualizadoEm(atualizadoEm.toLocalDateTime());
+
+                    return encontrada;
                 } else {
                     throw new NotFoundException("Nenhum registro encontrado", unidade.getCodigo());
                 }
-            } catch (SQLException sqle) {
-                throw new ConnectionFailedException(sqle.getMessage());
             }
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
@@ -107,9 +106,8 @@ public class UnidadeDAO {
     }
 
     /**
-     * Consulta todos os registros da tabela Unidade
+     * Consulta todos os registros da tabela Unidade.
      *
-     * @throws NotFoundException() para retornos vazios no retorno de dados
      * @throws ConnectionFailedException() para erros de conexão com o banco
      * @return uma {@link List} com todas as {@link Unidade} encontradas;
      */
@@ -118,23 +116,24 @@ public class UnidadeDAO {
         List<Unidade> unidades = new ArrayList<>();
 
         try(Connection conn = Conexao.getConexao();
-        PreparedStatement pstm = conn.prepareStatement(sql)){
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery()){
 
-            try(ResultSet rs = pstm.executeQuery()){
-                if (rs.next()) {
+            while (rs.next()) {
+                Unidade unidade = new Unidade(
+                        rs.getInt("codigo"),
+                        rs.getString("cnpj"),
+                        rs.getString("email"),
+                        rs.getInt("cod_organizacao")
+                );
 
-                    unidades.add(new Unidade(
-                            rs.getInt("codigo"),
-                            rs.getString("Cnpj"),
-                            rs.getString("Email"),
-                            rs.getInt("cod_organizacao")
-                    ));
+                Timestamp criadoEm = rs.getTimestamp("criado_em");
+                if (criadoEm != null) unidade.setCriadoEm(criadoEm.toLocalDateTime());
 
-                } else {
-                    throw new NotFoundException("Nenhum item encontrado");
-                }
-            } catch(ConnectionFailedException cfe){
-                throw new ConnectionFailedException(cfe.getMessage());
+                Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
+                if (atualizadoEm != null) unidade.setAtualizadoEm(atualizadoEm.toLocalDateTime());
+
+                unidades.add(unidade);
             }
 
         } catch(SQLException sqle){
@@ -144,23 +143,21 @@ public class UnidadeDAO {
     }
 
     /**
-     * Apaga registros da unidade no banco de dados.
+     * Apaga um registro de unidade no banco de dados.
      *
-     * @param unidade Objeto {@link Unidade} contendo os dados a serem excluídos
+     * @param unidade Objeto {@link Unidade} contendo o código a ser excluído
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void delete(Unidade unidade) {
         String sql = "delete from Unidade where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
-        PreparedStatement pstm = conn.prepareStatement(sql)){
+            PreparedStatement pstm = conn.prepareStatement(sql)){
 
             pstm.setInt(1, unidade.getCodigo());
 
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                int retorno = pstm.executeUpdate();
-            }
+            pstm.executeUpdate();
+
         }catch(SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
         }
