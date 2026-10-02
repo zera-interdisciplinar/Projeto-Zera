@@ -32,7 +32,7 @@ public class DeleteEnderecoServlet extends HttpServlet {
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
      * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso
+     * @throws IOException caso a entrada do usuário esteja incorreta
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
