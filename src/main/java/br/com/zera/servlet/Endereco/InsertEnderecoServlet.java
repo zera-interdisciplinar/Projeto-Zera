@@ -60,8 +60,6 @@ public class InsertEnderecoServlet extends HttpServlet{
 
             /**
              * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
-             *
-             * @throws  caso não tenha o código procurado
              */
             int codigoEndereco = unidadeLogada.getCodigo();
             String bairro = request.getParameter("bairro");
