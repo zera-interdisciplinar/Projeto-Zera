@@ -66,38 +66,30 @@ public class UnidadeDAO {
     /**
      * Consulta uma unidade no banco de dados pelo código.
      *
-     * @param unidade objeto {@link Unidade} contendo o código a ser buscado
+     * @param codigo Código (Primary Key) da unidade procurada
      *
      * @return o {@link Unidade} correspondente ao código
      * @throws NotFoundException() para informações não encontradas
      * @throws ConnectionFailedException() para erros de conexão com o banco
      */
-    public Unidade findByCodigo(Unidade unidade){
+    public Unidade findByCodigo(int codigo){
         String sql = "select * from Unidade where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement pstm = conn.prepareStatement(sql)){
 
-            pstm.setInt(1, unidade.getCodigo());
+            pstm.setInt(1, codigo);
 
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    Unidade encontrada = new Unidade(
+                    return new Unidade(
                             rs.getInt("codigo"),
                             rs.getString("cnpj"),
                             rs.getString("email"),
                             rs.getInt("cod_organizacao")
                     );
-
-                    Timestamp criadoEm = rs.getTimestamp("criado_em");
-                    if (criadoEm != null) encontrada.setCriadoEm(criadoEm.toLocalDateTime());
-
-                    Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
-                    if (atualizadoEm != null) encontrada.setAtualizadoEm(atualizadoEm.toLocalDateTime());
-
-                    return encontrada;
                 } else {
-                    throw new NotFoundException("Nenhum registro encontrado", unidade.getCodigo());
+                    throw new NotFoundException("Nenhum registro encontrado", codigo);
                 }
             }
         } catch (SQLException sqle){
@@ -120,20 +112,12 @@ public class UnidadeDAO {
             ResultSet rs = pstm.executeQuery()){
 
             while (rs.next()) {
-                Unidade unidade = new Unidade(
+                unidades.add(new Unidade(
                         rs.getInt("codigo"),
                         rs.getString("cnpj"),
                         rs.getString("email"),
                         rs.getInt("cod_organizacao")
-                );
-
-                Timestamp criadoEm = rs.getTimestamp("criado_em");
-                if (criadoEm != null) unidade.setCriadoEm(criadoEm.toLocalDateTime());
-
-                Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
-                if (atualizadoEm != null) unidade.setAtualizadoEm(atualizadoEm.toLocalDateTime());
-
-                unidades.add(unidade);
+                ));
             }
 
         } catch(SQLException sqle){
@@ -145,16 +129,16 @@ public class UnidadeDAO {
     /**
      * Apaga um registro de unidade no banco de dados.
      *
-     * @param unidade Objeto {@link Unidade} contendo o código a ser excluído
+     * @param codigo Código (Primary Key) da unidade a ser excluída
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
-    public void delete(Unidade unidade) {
+    public void delete(int codigo) {
         String sql = "delete from Unidade where codigo = ?";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement pstm = conn.prepareStatement(sql)){
 
-            pstm.setInt(1, unidade.getCodigo());
+            pstm.setInt(1, codigo);
 
             pstm.executeUpdate();
 
