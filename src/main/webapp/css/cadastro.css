@@ -238,6 +238,17 @@
     margin-bottom: 16px;
 }
 
+
+.card form {
+    width: 80%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.card form .campo input {
+    width: 100%;
+}
+
 .campo label {
     display: block;
     font-size: 14.5px;
@@ -248,7 +259,7 @@
 }
 
 .campo input {
-    width: 100%;
+    width: 80%;
     height: 46px;
     border: 1.5px solid var(--cor2);
     border-radius: 12px;
