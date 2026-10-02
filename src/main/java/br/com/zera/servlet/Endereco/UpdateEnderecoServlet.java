@@ -6,6 +6,7 @@ import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Endereco;
 import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -55,8 +56,8 @@ public class UpdateEnderecoServlet extends HttpServlet {
              * Salva o login/sign in do {@link Gestor} para manter a sessão tiva
              */
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
-            if (gestorLogado == null) {
+            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
@@ -65,8 +66,8 @@ public class UpdateEnderecoServlet extends HttpServlet {
              *
              * @throws caso não tenha o código procurado
              */
-            int codUnidade = gestorLogado.getCodUnidade();
-            Endereco enderecoExistente = dao.findByCodigoUnidade(codUnidade);
+            int codUnidade = unidadeLogada.getCodigo();
+            Endereco enderecoExistente = dao.findByCodigo(codUnidade);
 
             if (enderecoExistente == null) {
                 exibirErro(request, response, "Endereço não encontrado.", ERROR_PAGE);
