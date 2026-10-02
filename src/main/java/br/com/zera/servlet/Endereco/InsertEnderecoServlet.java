@@ -49,11 +49,11 @@ public class InsertEnderecoServlet extends HttpServlet{
         try {
 
             /**
-             * Salva o login/sign in do {@link Gestor} para manter a sessão ativa
+             * Salva o login/signin da {@link Unidade} para manter a sessão ativa
              */
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
-            if (gestorLogado == null) {
+            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
@@ -63,7 +63,7 @@ public class InsertEnderecoServlet extends HttpServlet{
              *
              * @throws  caso não tenha o código procurado
              */
-            int codigoEndereco = gestorLogado.getCodigo();
+            int codigoEndereco = unidadeLogada.getCodigo();
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
@@ -76,7 +76,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             String cidade = request.getParameter("cidade");
             String estado = request.getParameter("estado");
 
-            int codUnidade = gestorLogado.getCodUnidade();
+            int codUnidade = unidadeLogada.getCodigo();
             if(unidadeDAO.findByCodigo(codUnidade) == null) {
                 exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
                 return;
