@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,15 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Organizacao organizacao) {
-        String sql = "INSERT INTO Organizacao (cnpj, nome, data_cadastro) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Organizacao (cnpj, nome, email, data_cadastro) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
-            stmt.setObject(3, organizacao.getDataCadastro());
+            stmt.setString(3, organizacao.getEmail());
+            stmt.setObject(4, organizacao.getDataCadastro());
 
             stmt.executeUpdate();
 
@@ -53,15 +55,16 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, data_cadastro = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, data_cadastro = ? WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
-            stmt.setObject(3, organizacao.getDataCadastro());
-            stmt.setInt(4, organizacao.getCodigo());
+            stmt.setString(3, organizacao.getEmail());
+            stmt.setObject(4, organizacao.getDataCadastro());
+            stmt.setInt(5, organizacao.getCodigo());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -92,13 +95,7 @@ public class OrganizacaoDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-
-                    return new Organizacao(
-                            rs.getInt("codigo"),
-                            rs.getString("cnpj"),
-                            rs.getString("nome"),
-                            rs.getObject("data_cadastro", LocalDate.class)
-                    );
+                    return mapearOrganizacao(rs);
                 } else {
                     throw new NotFoundException("Organização", codigo);
                 }
@@ -124,13 +121,7 @@ public class OrganizacaoDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Organizacao organizacao = new Organizacao(
-                        rs.getInt("codigo"),
-                        rs.getString("cnpj"),
-                        rs.getString("nome"),
-                        rs.getObject("data_cadastro", LocalDate.class)
-                );
-                lista.add(organizacao);
+                lista.add(mapearOrganizacao(rs));
             }
 
         } catch (SQLException e) {
@@ -164,5 +155,31 @@ public class OrganizacaoDAO {
         } catch (SQLException e) {
             throw new ConnectionFailedException("Erro ao deletar a organização do banco de dados.", e);
         }
+    }
+
+    /**
+     * Converte a linha atual do {@link ResultSet} em um objeto {@link Organizacao},
+     * incluindo os campos de auditoria (criado_em/atualizado_em), que podem ser nulos.
+     *
+     * @param rs ResultSet posicionado na linha a ser convertida
+     * @return a {@link Organizacao} correspondente
+     * @throws SQLException se ocorrer erro ao ler os dados do ResultSet
+     */
+    private Organizacao mapearOrganizacao(ResultSet rs) throws SQLException {
+        Organizacao organizacao = new Organizacao(
+                rs.getInt("codigo"),
+                rs.getString("cnpj"),
+                rs.getString("nome"),
+                rs.getString("email"),
+                rs.getObject("data_cadastro", LocalDate.class)
+        );
+
+        Timestamp criadoEm = rs.getTimestamp("criado_em");
+        if (criadoEm != null) organizacao.setCriadoEm(criadoEm.toLocalDateTime());
+
+        Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
+        if (atualizadoEm != null) organizacao.setAtualizadoEm(atualizadoEm.toLocalDateTime());
+
+        return organizacao;
     }
 }
