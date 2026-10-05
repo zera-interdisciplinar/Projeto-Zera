@@ -56,7 +56,6 @@ public class ReadUnidadeServlet extends HttpServlet {
             request.setAttribute("cnpj", unidade.getCnpj());
             request.setAttribute("email", unidade.getEmail());
 
-
             request.getRequestDispatcher("/WEB-INF/perfil.jsp").forward(request, response);
         } catch (ServletException se) {
             exibirErro(request, response, se, ERROR_PAGE);
