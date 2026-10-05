@@ -14,9 +14,9 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 
 
 /**
- * Servlet responsável por mostrar as informações de endereço cadastradas
+ * Servlet responsável por mostrar as informações de unidade cadastradas
  *
- * Esta classe recebe a requisição de visualização do endereço cadastrado pelo gestor via formulário HTTP,
+ * Esta classe recebe a requisição de visualização da unidade cadastrado pelo gestor via formulário HTTP,
  * e as exibe com uma tela de resposta
  *
  * @author Mayte B
@@ -44,12 +44,15 @@ public class DeleteUnidadeServlet extends HttpServlet {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
+            Unidade excluir = (Unidade) session.getAttribute("excluir");
             //instancia dao de unidade
             UnidadeDAO dao = new UnidadeDAO();
-            //captura o código do dal instanciado
+            //captura o código do dao instanciado
             int codigo = unidadeLogada.getCodigo();
-            //caham função de deletar o endereço baseado no código da sessão
+            //chama função de deletar o endereço baseado no código da sessão
             dao.delete(codigo);
+            // encerra a sessão, já que o gestor dela não existe mais
+            session.invalidate();
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
         }catch(IOException ioe){
