@@ -17,9 +17,6 @@ public class Organizacao{
     private String cnpj;
     private String nome;
     private String email;
-    private LocalDate dataCadastro;
-    private LocalDateTime criadoEm;
-    private LocalDateTime atualizadoEm;
     private int codCadastro;
 
     //construtor padrão vazio
@@ -32,14 +29,12 @@ public class Organizacao{
      * @param cnpj cnpj do cliente
      * @param nome nome do cliente
      * @param email email da organização
-     * @param dataCadastro data de cadastro na tabela
      */
-    public Organizacao(int codigo, String cnpj, String nome, String email, LocalDate dataCadastro, int codCadastro) {
+    public Organizacao(int codigo, String cnpj, String nome, String email, int codCadastro) {
         this.codigo = codigo;
         this.cnpj = cnpj;
         this.nome = nome;
         this.email = email;
-        this.dataCadastro = dataCadastro;
         this.codCadastro = codCadastro;
     }
 
@@ -76,30 +71,6 @@ public class Organizacao{
         this.email = email;
     }
 
-    public LocalDate getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getAtualizadoEm() {
-        return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-        this.atualizadoEm = atualizadoEm;
-    }
-
     public int getCodCadastro() {return codCadastro;}
 
     public void setCodCadastro(int codCadastro) {this.codCadastro = codCadastro;}
@@ -111,9 +82,6 @@ public class Organizacao{
                 "/nCNPJ: "+getCnpj()+
                 "/nNome: "+getNome()+
                 "/nEmail: "+getEmail()+
-                "/nData de cadastro: "+getDataCadastro()+
-                "/nCriado em: "+getCriadoEm()+
-                "/nAtualizado em: "+getAtualizadoEm()+
                 "/nCódigo de cadastro: "+getCodCadastro();
     }
 }
