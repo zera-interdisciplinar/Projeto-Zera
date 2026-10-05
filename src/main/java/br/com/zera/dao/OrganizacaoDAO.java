@@ -29,7 +29,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Organizacao organizacao) {
-        String sql = "INSERT INTO Organizacao (cnpj, nome, email, data_cadastro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Organizacao (cnpj, nome, email, data_cadastro, codCadastro) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -38,6 +38,7 @@ public class OrganizacaoDAO {
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
             stmt.setObject(4, organizacao.getDataCadastro());
+            stmt.setObject(4, organizacao.getCodCadastro());
 
             stmt.executeUpdate();
 
@@ -55,7 +56,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, data_cadastro = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, data_cadastro = ?, codCadastro = ? WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -65,6 +66,7 @@ public class OrganizacaoDAO {
             stmt.setString(3, organizacao.getEmail());
             stmt.setObject(4, organizacao.getDataCadastro());
             stmt.setInt(5, organizacao.getCodigo());
+            stmt.setObject(4, organizacao.getCodCadastro());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -158,7 +160,7 @@ public class OrganizacaoDAO {
     }
 
     /**
-     * Converte a linha atual do {@link ResultSet} em um objeto {@link Organizacao},
+     * Converte a linha atual do {@link ResultSet} num objeto {@link Organizacao},
      * incluindo os campos de auditoria (criado_em/atualizado_em), que podem ser nulos.
      *
      * @param rs ResultSet posicionado na linha a ser convertida
@@ -171,8 +173,9 @@ public class OrganizacaoDAO {
                 rs.getString("cnpj"),
                 rs.getString("nome"),
                 rs.getString("email"),
-                rs.getObject("data_cadastro", LocalDate.class)
-        );
+                rs.getObject("data_cadastro", LocalDate.class),
+                rs.getInt("codOrganizacao")
+                );
 
         Timestamp criadoEm = rs.getTimestamp("criado_em");
         if (criadoEm != null) organizacao.setCriadoEm(criadoEm.toLocalDateTime());
