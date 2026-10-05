@@ -29,7 +29,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Organizacao organizacao) {
-        String sql = "INSERT INTO Organizacao (cnpj, nome, email, data_cadastro, codCadastro) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Organizacao (cnpj, nome, email, codCadastro) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,6 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setObject(4, organizacao.getDataCadastro());
             stmt.setObject(4, organizacao.getCodCadastro());
 
             stmt.executeUpdate();
@@ -64,7 +63,6 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setObject(4, organizacao.getDataCadastro());
             stmt.setInt(5, organizacao.getCodigo());
             stmt.setObject(4, organizacao.getCodCadastro());
 
@@ -173,16 +171,8 @@ public class OrganizacaoDAO {
                 rs.getString("cnpj"),
                 rs.getString("nome"),
                 rs.getString("email"),
-                rs.getObject("data_cadastro", LocalDate.class),
                 rs.getInt("codOrganizacao")
                 );
-
-        Timestamp criadoEm = rs.getTimestamp("criado_em");
-        if (criadoEm != null) organizacao.setCriadoEm(criadoEm.toLocalDateTime());
-
-        Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
-        if (atualizadoEm != null) organizacao.setAtualizadoEm(atualizadoEm.toLocalDateTime());
-
         return organizacao;
     }
 }
