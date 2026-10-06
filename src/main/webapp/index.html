@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
     <header>
         <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
 
@@ -25,10 +27,30 @@
             </div>
         </div>
 
-        <div id="header-resumido">
+        <label for="menu-toggle" id="header-resumido" aria-label="Abrir menu">
             <img src="images/menu.png" alt="Barras de menu">
-        </div>
+        </label>
     </header>
+
+    <label for="menu-toggle" id="menu-fundo" aria-hidden="true"></label>
+    <aside id="menu-lateral" aria-label="Menu">
+        <div class="menu-lateral-topo">
+            <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
+            <label for="menu-toggle" id="menu-fechar" aria-label="Fechar menu">&#10005;</label>
+        </div>
+
+        <nav>
+            <a href="#carrossel">Funcionalidades</a>
+            <a href="#utilizacao">Como utilizar</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#planos">Planos</a>
+        </nav>
+
+        <div class="botoes-login">
+            <a href="#">Fazer login</a>
+            <a href="#">Cadastrar</a>
+        </div>
+    </aside>
 
     <main>
         <section id="principal" class="fundo-azul">
@@ -37,166 +59,237 @@
                 <h1>Gerencie <span class="texto-laranja">resíduos</span> <span class="texto-verde">eletrônicos</span> com inteligência</h1>
                 <p>Controle o seu armazenamento e descarte-o com praticidade, segurança e responsabilidade ambiental.</p>
                 <div id="botao-comecar">
-                        <a href="#planos">Começar agora</a>
+                    <a href="#planos">Começar agora</a>
                     <img src="images/seta-comecar.png" alt="Seta">
                 </div>
             </div>
             <img id="celulares" src="images/celulares.png" alt="Imagem de celulares mostrando o aplicativo móvel">
-            </div> 
         </section>
-        <section id="carrossel">
-            <div class="slide-direita" id="slide-rel">
-                <img src="images/img-relatorio.png" alt="Imagem de uma prancheta com relatório">
-                <h2>Relatórios completos</h2>
-                <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
-            </div>
-            <div class="slide-centro" id="slide-amz">
-                <img src="images/img-armazenamento.png" alt="Imagem de prateleira com caixas">
-                <h2>Armazenamento inteligente</h2>
-                <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
-            </div>
-            <div class="slide-esquerda" id="slide-scan">
-                <img src="images/img-scaneia.png" alt="Imagem de mão com aparelho escaneando código de barras em caixa">
-                <h2>Scanner e cadastro fácil</h2>
-                <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
-            </div>
-            <div class="slide-centro" id="slide-alert">
-                <img src="images/img-alerta.png" alt="Imagem do símbolo de alerta">
-                <h2>Alertas de lotes críticos</h2>
-                <p>Seja avisado quando um equipamento está armazenado por muito tempo.</p>
 
+        <section id="carrossel-container">
+            <div id="carrossel">
+                <div class="slide slide-lateral" id="slide-rel">
+                    <div class="slide-img">
+                        <img src="images/img-relatorio.png" alt="Relatórios completos">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Relatórios completos</h2>
+                        <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
+                    </div>
+                </div>
+                <div class="slide slide-centro" id="slide-amz">
+                    <button class="nav-arrow prev" type="button" aria-label="Slide anterior">
+                        <img src="images/seta.svg" alt="Seta esquerda">
+                    </button>
+                    <div class="slide-img">
+                        <img src="images/img-armazenamento.png" alt="Armazenamento inteligente">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Armazenamento inteligente</h2>
+                        <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
+                    </div>
+                    <button class="nav-arrow next" type="button" aria-label="Próximo slide">
+                        <img src="images/seta.svg" alt="Seta direita">
+                    </button>
+                    <div class="indicadores">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+                <div class="slide slide-lateral" id="slide-scan">
+                    <div class="slide-img">
+                        <img src="images/img-scaneia.png" alt="Scanner e cadastro fácil">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Scanner e cadastro fácil</h2>
+                        <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
+                    </div>
+                </div>
             </div>
-            
         </section>
+
         <section id="utilizacao">
-            <div class="seta">
-                <h2>Como utilizar?</h2>
+            <div class="passo-inicio">
+                <h2>Como<br>utilizar?</h2>
             </div>
-            <div class="seta">
-                <h3>Cadastre</h3>
-                <p>Adicione equipamentos com leitura de código ou manualmente</p>
+
+            <div class="passo">
+                <span class="numero">01</span>
+                <div class="passo-texto">
+                    <h3>Cadastre</h3>
+                    <p>Adicione equipamentos com leitura de código ou manualmente</p>
+                </div>
             </div>
-            <div class="seta">
-                <h3>Armazene</h3>
-                <p>Organize e monitore seus equipamentos de forma inteligente</p>
+
+            <div class="passo">
+                <span class="numero">02</span>
+                <div class="passo-texto">
+                    <h3>Armazene</h3>
+                    <p>Organize e monitore seus equipamentos de forma inteligente</p>
+                </div>
             </div>
-            <div class="seta">
-                <h3>Receba alertas</h3>
-                <p>Seja avisado sobre prazos críticos e riscos de armazenamento</p>
+
+            <div class="passo">
+                <span class="numero">03</span>
+                <div class="passo-texto">
+                    <h3>Receba alertas</h3>
+                    <p>Seja avisado sobre prazos críticos e riscos de armazenamento</p>
+                </div>
             </div>
-            <div class="seta">
-                <h3>Gere relatórios</h3>
-                <p>Exporte relatórios completos para auditorias e parcerias</p>
+
+            <div class="passo">
+                <span class="numero">04</span>
+                <div class="passo-texto">
+                    <h3>Gere relatórios</h3>
+                    <p>Exporte relatórios completos para auditorias e parcerias</p>
+                </div>
             </div>
         </section>
-        <section id="sobre" class="fundo-azul" >
+
+        <section id="sobre" class="fundo-azul">
             <img id="setas-sobre" class="item-transparente" src="images/setas-sobre.png" alt="Setas transparentes">
-            <h2>Sobre <span class="texto-laranja">nós</span></h2>
-            <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
-            <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
-            <p>Desenvolvemos uma plataforma prática que ajuda empresas a organizar, acompanhar e garantir o descarte correto do seu lixo eletrônico.</p>
-            <div class="accordion" id="responsabilidade">
-                <h3>01. Responsabilidade</h3>
-                <p>Garantimos que cada etapa do descarte seja feita de forma consciente, segura e transparente.</p>
+
+            <div class="sobre-container">
+                <div class="sobre-texto">
+                    <h2>Sobre <span class="texto-laranja">nós</span></h2>
+                    <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
+                    <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
+                    <p>Desenvolvemos uma plataforma prática que ajuda empresas a organizar, acompanhar e garantir o descarte correto do seu lixo eletrônico.</p>
+                </div>
+                <div class="sobre-cards">
+                    <div class="card-sobre card-verde" id="responsabilidade">
+                        <h3><span class="numero-card">01.</span> RESPONSABILIDADE</h3>
+                        <p>Garantimos que cada etapa do descarte seja feita de forma consciente, segura e transparente.</p>
+                    </div>
+                    <div class="card-sobre card-laranja" id="organizacao">
+                        <h3><span class="numero-card">02.</span> ORGANIZAÇÃO</h3>
+                        <p>Centralizamos informações e processos para tornar a gestão dos resíduos mais clara e eficiente.</p>
+                    </div>
+                    <div class="card-sobre card-creme" id="praticidade">
+                        <h3><span class="numero-card">03.</span> PRATICIDADE</h3>
+                        <p>Simplificamos a rotina da empresa com soluções intuitivas que facilitam a tomada de decisões.</p>
+                    </div>
+                </div>
             </div>
-            <div class="accordion" id="organizacao">
-                <h3>02. Organização</h3>
-                <p>Centralizamos informações e processos para tornar a gestão dos resíduos mais clara e eficiente.</p>
-            </div>
-            <div class="accordion" id="praticidade">
-                <h3>03. Praticidade</h3>
-                <p>Simplificamos a rotina da empresa com soluções intuitivas que facilitam a tomada de decisões.</p>
-            </div>
+            <img src="images/seta-verde.svg" alt="Seta verde decorativa" class="seta-verde-topo">
         </section>
+
         <section id="planos">
             <div id="caixa-azul">
                 <p>Nossos planos, desde o Free até o Empresarial.</p>
             </div>
             <h2>Escolha o <span class="texto-azul">melhor</span> plano para <span class="texto-verde">você</span></h2>
             <h3>Planos para <span class="texto-laranja">todas</span> as necessidades, sempre pensando em <span class="texto-laranja">você</span>.</h3>
+
             <div class="flex">
-                <div class="card-sec">
+
+                <div class="card-sec" id="free">
                     <h4>Free</h4>
-                    <p class="preco">R$0,00</p>
-                    <p>/ Mês</p>
+                    <div class="preco-container">
+                        <span class="preco">R$0,00</span>
+                        <span class="periodo">/ Mês</span>
+                    </div>
                     <ul class="lista-plano">
-                        <li>Scanner</li>
-                        <li>Dashboard</li>
-                        <li>Estoque (até 50 itens)</li>
+                        <li class="tem">Scanner</li>
+                        <li class="tem">Dashboard</li>
+                        <li class="tem">Estoque (até 50 itens)</li>
                         <li class="nao-tem">Relatórios</li>
                         <li class="nao-tem">Alertas</li>
                         <li class="nao-tem">Multiusuários</li>
                         <li class="nao-tem">Suporte</li>
                     </ul>
-                    <a href="#">Testar agora</a>
+                    <a href="#" class="btn-card btn-creme">Testar agora</a>
                 </div>
+
                 <div class="card-prim">
                     <div id="recomendado">
-                        <img src="images/estrela-recomendado.svg" alt="Símbolo de estrela">
-                        <p>Mais recomendado</p>
+                        <img src="images/estrela-recomendado.svg" alt="Estrela">
+                        <span>Mais recomendado</span>
                     </div>
                     <h4>Profissional</h4>
-                    <p class="preco">R$49,90</p>
-                    <p>/ Mês</p>
+                    <div class="preco-container">
+                        <span class="preco">R$49,90</span>
+                        <span class="periodo">/ Mês</span>
+                    </div>
                     <ul class="lista-plano">
-                        <li>Tudo do plano Free</li>
-                        <li>Estoque (250 itens)</li>
-                        <li>Relatórios</li>
-                        <li>Alertas</li>
-                        <li>Multiusuários</li>
+                        <li class="tem">Tudo do plano Free</li>
+                        <li class="tem">Estoque (250 itens)</li>
+                        <li class="tem">Relatórios</li>
+                        <li class="tem">Alertas</li>
+                        <li class="tem">Multiusuários</li>
                         <li class="nao-tem">Suporte</li>
                         <li class="nao-tem">Cadastros ilimitados</li>
                     </ul>
-                    <a href="#" id="botao-profissional">Assinar agora</a>
+                    <a href="#" class="btn-card btn-verde">Assinar agora</a>
                 </div>
-                <div class="card-sec">
+
+                <div class="card-sec" id="empresa">
                     <h4>Empresarial</h4>
-                    <p>Valor personalizado</p>
-                    <p>Entre em contato conosco para valores e condições especiais.</p>
+                    <div class="preco-container">
+                        <span class="preco">R$999,90</span>
+                        <span class="periodo">/ Ano</span>
+                    </div>
+                    <p class="subtitulo-card">Plano completo e exclusivo para empresas que buscam ir além.</p>
                     <ul class="lista-plano">
-                        <li>Tudo do plano Profissional</li>
-                        <li>Estoque ilimitado</li>
-                        <li>Suporte dedicado</li>
-                        <li>Scanner multidispositivo</li>
-                        <li>E muito mais!</li>
+                        <li class="tem">Tudo do plano Profissional</li>
+                        <li class="tem">Estoque ilimitado</li>
+                        <li class="tem">Suporte dedicado</li>
+                        <li class="tem">Scanner multidispositivo</li>
+                        <li class="tem">E muito mais!</li>
                     </ul>
-                    <a href="#">Fale conosco</a>
+                    <a href="#" class="btn-card btn-creme">Solicitar agora</a>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="fundo-azul">
+        <img src="images/seta-verde.svg" alt="Seta verde decorativa" class="seta-verde-topo">
+
         <section id="perguntas">
             <h2>Perguntas frequentes</h2>
+
             <details>
-                <summary>Quem pode utilizar o Zera?</summary>
+                <summary>
+                    <span>Quem pode utilizar o Zera?</span>
+                    <span class="seta-accordion">&#10095;</span>
+                </summary>
                 <p>O sistema é indicado para uma ampla variedade de setores, incluindo empresas de tecnologia, indústrias, escolas, universidades, hospitais, clínicas, órgãos públicos e assistências técnicas. Ele atende desde instituições que precisam controlar laboratórios, ativos e prontuários com rastreabilidade, até organizações públicas que necessitam de facilidade em auditorias e prestação de contas, além de empresas que buscam gerenciar e acompanhar o histórico de armazenamento de seus equipamentos.</p>
             </details>
+
             <details>
-                <summary>Por que fazer a gestão correta dos resíduos eletrônicos?</summary>
+                <summary>
+                    <span>Por que fazer a gestão correta dos resíduos eletrônicos?</span>
+                    <span class="seta-accordion">&#10095;</span>
+                </summary>
                 <p>A gestão adequada dos resíduos eletrônicos é essencial para promover a sustentabilidade e garantir a destinação responsável de descartes e materiais obsoletos. Além de evitar os problemas causados pela falta de controle, como equipamentos perdidos no estoque e a dependência de planilhas manuais, o uso de um sistema dedicado proporciona um inventário centralizado, localização rápida de itens, alertas automáticos e maior controle sobre todo o ciclo de vida dos eletrônicos.</p>
             </details>
+
             <details>
-                <summary>Por que sua empresa precisa de um sistema de gestão?</summary>
+                <summary>
+                    <span>Por que sua empresa precisa de um sistema de gestão?</span>
+                    <span class="seta-accordion">&#10095;</span>
+                </summary>
                 <p>Sem um controle adequado, as empresas enfrentam desorganização, equipamentos perdidos no estoque, dificuldades na localização de materiais e dependência de planilhas manuais. Em contrapartida, ao adotar o ZERA, a empresa passa a contar com um inventário centralizado, localização rápida de itens, alertas automáticos e a emissão de relatórios completos em poucos cliques.</p>
             </details>
         </section>
-        <div id="footer"> 
-            <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
-            <a href="https://www.instagram.com/zera.app_/">
-                <img>
-            </a>
-            <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!">
-                <img>
-            </a>
-            <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!">
-                <img>
-            </a>
-            <div class="right">
+
+        <div id="footer">
+            <div class="footer-esquerda">
+                <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
+                <div class="redes-sociais">
+                    <a href="https://www.instagram.com/zera.app_/" target="_blank"><img src="images/insta-vector.svg" alt="Instagram"></a>
+                    <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank"><img src="images/whats-vector.svg" alt="WhatsApp"></a>
+                    <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!"><img src="images/email-vector.svg" alt="E-mail"></a>
+                </div>
+            </div>
+
+            <div class="footer-direita">
                 <div id="botao-restrita">
                     <a href="#">
-                        <img src="images/cadeado-restrita.svg" alt="Imagem de cadeado">
+                        <img src="images/cadeado-restrita.svg" alt="Área restrita">
                     </a>
                 </div>
                 <p>&copy; 2026. Todos os direitos reservados.</p>
