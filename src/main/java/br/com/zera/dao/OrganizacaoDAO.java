@@ -37,7 +37,6 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setObject(4, organizacao.getCodCadastro());
 
             stmt.executeUpdate();
 
@@ -55,7 +54,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, data_cadastro = ?, codCadastro = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ? WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -64,7 +63,6 @@ public class OrganizacaoDAO {
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
             stmt.setInt(5, organizacao.getCodigo());
-            stmt.setObject(4, organizacao.getCodCadastro());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -103,6 +101,35 @@ public class OrganizacaoDAO {
 
         } catch (SQLException e) {
             throw new ConnectionFailedException("Erro ao buscar a organização pelo código.", e);
+        }
+    }
+
+    /**
+     * Busca uma organização no banco de dados a partir do seu código identificador.
+     *
+     * @param cnpj cnpj da organização a ser buscada
+     * @return a {@link Organizacao} correspondente ao código informado
+     * @throws NotFoundException se nenhuma organização com o código informado for encontrada
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public Organizacao findByCnpj(int cnpj) {
+        String sql = "SELECT * FROM Organizacao WHERE cnpj = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, cnpj);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapearOrganizacao(rs);
+                } else {
+                    throw new NotFoundException("Organização", cnpj);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar a organização pelo cnpj.", e);
         }
     }
 
@@ -170,8 +197,7 @@ public class OrganizacaoDAO {
                 rs.getInt("codigo"),
                 rs.getString("cnpj"),
                 rs.getString("nome"),
-                rs.getString("email"),
-                rs.getInt("codOrganizacao")
+                rs.getString("email")
                 );
         return organizacao;
     }
