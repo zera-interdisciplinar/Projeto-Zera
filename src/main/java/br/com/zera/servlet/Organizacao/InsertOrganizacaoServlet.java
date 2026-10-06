@@ -11,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
@@ -66,22 +65,17 @@ public class InsertOrganizacaoServlet extends HttpServlet{
             String cnpj = request.getParameter("cnpj");
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
-            String codigoCadastro = request.getParameter("codCadastro");
-            if(!codigoCadastro.equals(null)){
-                exibirErro(request, response, "codigo de cadastro não pode ser null", ERROR_PAGE);
-            }
-            int codCadastro = Integer.parseInt(codigoCadastro);
 
             int codUnidade = unidadeLogada.getCodigo();
             if(unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Organização vinculada ao gestor não foi encontrada.", ERROR_PAGE);
+                exibirErro(request, response, "Organização vinculada a unidade não foi encontrada.", ERROR_PAGE);
                 return;
             }
 
             /**
              * Instancia página de erro caso o CPF inserido seja inválido
              */
-            if(Regex.validarCEP(cnpj) == false){
+            if(Regex.validarCNPJ(cnpj) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
@@ -89,7 +83,7 @@ public class InsertOrganizacaoServlet extends HttpServlet{
             /**
              * Cria objeto {@link Organizacao}
              */
-            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email, codCadastro);
+            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
 
             /**
              * Instancia as informações recebidas no {@link Organizacao} com o método
