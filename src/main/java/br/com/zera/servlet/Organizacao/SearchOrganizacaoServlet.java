@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
@@ -58,13 +57,14 @@ public class SearchOrganizacaoServlet extends HttpServlet {
 
             String cnpjS = request.getParameter("cnpj");
 
+            if (cnpjS == null || cnpjS.isBlank()) {
+                exibirErro(request, response, "Informe o CNPJ da organização.", ERROR_PAGE);
+                return;
+            }
+
             //Instancia página de erro caso o CPF inserido seja inválido
             if(Regex.validarCNPJ(cnpjS) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
-                return;
-            }
-            if (cnpjS == null || cnpjS.isBlank()) {
-                exibirErro(request, response, "Informe o CNPJ da organização.", ERROR_PAGE);
                 return;
             }
             long cnpj = Long.parseLong(cnpjS.trim());
@@ -84,10 +84,10 @@ public class SearchOrganizacaoServlet extends HttpServlet {
             request.setAttribute("organizacao", organizacao);
             request.getRequestDispatcher("/WEB-INF/novaUnidade.jsp").forward(request, response);
 
-        } catch (ServletException e) {
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+        } catch (ServletException se) {
+            exibirErro(request, response, se, ERROR_PAGE);
         } catch (Exception e) {
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+            exibirErro(request, response, e, ERROR_PAGE);
         }
     }
 }
