@@ -7,7 +7,6 @@ import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.*;
 import br.com.zera.regex.*;
 
-import br.com.zera.dao.EnderecoDAO;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
