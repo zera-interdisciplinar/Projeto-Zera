@@ -1,8 +1,9 @@
-package br.com.zera.servlet.Unidade;
+package br.com.zera.servlet.Organizacao;
 
 import java.io.*;
 import br.com.zera.dao.*;
 import br.com.zera.exception.ZeraException.*;
+import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,25 +12,25 @@ import jakarta.servlet.http.*;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "ReadUnidade", value = "/unidade/perfil")
+@WebServlet(name = "ReadOrganizacao", value = "/organizacao/perfil")
 
 
 /**
- * Servlet responsável por mostrar as informações de unidade cadastradas
+ * Servlet responsável por mostrar as informações de organização cadastradas
  *
- * Esta classe recebe a requisição de visualização da unidade cadastrada pela unidade via formulário HTTP,
+ * Esta classe recebe a requisição de visualização da organização cadastrada pelo gestor via formulário HTTP,
  * e as exibe com uma tela de resposta
  *
  * @author Mayte B
- * @since 2026-10-02
+ * @since 2026-10-06
  *
  * @param request objeto que contém os dados enviados pelo formulário (JSP)
  * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
  */
-public class ReadUnidadeServlet extends HttpServlet {
+public class ReadOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir endereços da empresa.
+     * Processa requisições GET para exibir organizações
      *
      */
     @Override
@@ -45,16 +46,19 @@ public class ReadUnidadeServlet extends HttpServlet {
             }
 
             int codUnidade = unidadeLogada.getCodigo();
-            UnidadeDAO dao = new UnidadeDAO();
-            Unidade unidade = dao.findByCodigo(codUnidade);
+            OrganizacaoDAO organizacaoDao = new OrganizacaoDAO();
+            Organizacao organizacao = organizacaoDao.findByCodigo(codUnidade);
 
-            if (unidade == null) {
-                exibirErro(request, response, "Unidade não cadastrada.", ERROR_PAGE);
+            if (organizacao == null) {
+                exibirErro(request, response, "Organização não cadastrado.", ERROR_PAGE);
                 return;
             }
 
-            request.setAttribute("cnpj", unidade.getCnpj());
-            request.setAttribute("email", unidade.getEmail());
+            //confere se a organizacao
+
+            request.setAttribute("cnpj", organizacao.getCnpj());
+            request.setAttribute("nome", organizacao.getNome());
+            request.setAttribute("email", organizacao.getEmail());
 
             request.getRequestDispatcher("/WEB-INF/perfil.jsp").forward(request, response);
         } catch (ServletException se) {

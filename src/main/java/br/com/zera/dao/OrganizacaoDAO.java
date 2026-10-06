@@ -29,7 +29,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Organizacao organizacao) {
-        String sql = "INSERT INTO Organizacao (cnpj, nome, email, data_cadastro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Organizacao (cnpj, nome, email, codCadastro) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,6 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setObject(4, organizacao.getDataCadastro());
 
             stmt.executeUpdate();
 
@@ -55,7 +54,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, data_cadastro = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ? WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -63,7 +62,6 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setObject(4, organizacao.getDataCadastro());
             stmt.setInt(5, organizacao.getCodigo());
 
             int linhasAfetadas = stmt.executeUpdate();
@@ -98,6 +96,35 @@ public class OrganizacaoDAO {
                     return mapearOrganizacao(rs);
                 } else {
                     throw new NotFoundException("Organização", codigo);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar a organização pelo código.", e);
+        }
+    }
+
+    /**
+     * Busca uma organização no banco de dados a partir do seu código identificador.
+     *
+     * @param cnpj cnpj (chave primária) da organização a ser buscada
+     * @return a {@link Organizacao} correspondente ao código informado
+     * @throws NotFoundException se nenhuma organização com o código informado for encontrada
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public Organizacao findByCnpj(long cnpj) {
+        String sql = "SELECT * FROM Organizacao WHERE cnpj = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, cnpj);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapearOrganizacao(rs);
+                } else {
+                    throw new NotFoundException("Organização", cnpj);
                 }
             }
 
@@ -158,7 +185,7 @@ public class OrganizacaoDAO {
     }
 
     /**
-     * Converte a linha atual do {@link ResultSet} em um objeto {@link Organizacao},
+     * Converte a linha atual do {@link ResultSet} num objeto {@link Organizacao},
      * incluindo os campos de auditoria (criado_em/atualizado_em), que podem ser nulos.
      *
      * @param rs ResultSet posicionado na linha a ser convertida
@@ -170,16 +197,8 @@ public class OrganizacaoDAO {
                 rs.getInt("codigo"),
                 rs.getString("cnpj"),
                 rs.getString("nome"),
-                rs.getString("email"),
-                rs.getObject("data_cadastro", LocalDate.class)
-        );
-
-        Timestamp criadoEm = rs.getTimestamp("criado_em");
-        if (criadoEm != null) organizacao.setCriadoEm(criadoEm.toLocalDateTime());
-
-        Timestamp atualizadoEm = rs.getTimestamp("atualizado_em");
-        if (atualizadoEm != null) organizacao.setAtualizadoEm(atualizadoEm.toLocalDateTime());
-
+                rs.getString("email")
+                );
         return organizacao;
     }
 }

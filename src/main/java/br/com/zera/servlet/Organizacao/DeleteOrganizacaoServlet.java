@@ -1,6 +1,6 @@
-package br.com.zera.servlet.Gestor;
+package br.com.zera.servlet.Organizacao;
 
-import br.com.zera.dao.GestorDAO;
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,22 +10,22 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "DeleteGestor", value = "/logOut")
+@WebServlet(name = "DeleteOrganizacao", value = "/logOut")
 
 
 /**
- * Servlet responsável por mostrar as informações de Gestor cadastradas
+ * Servlet responsável por mostrar as informações de organização cadastradas
  *
- * Esta classe recebe a requisição de visualização do gestor cadastrada via formulário HTTP,
+ * Esta classe recebe a requisição de visualização da organização cadastrada pelo gestor via formulário HTTP,
  * e as exibe com uma tela de resposta
  *
  * @author Mayte B
  * @since 2026-10-06
  */
-public class DeleteGestorServlet extends HttpServlet {
+public class DeleteOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão do gestor de uma empresa.
+     * Método responsável por processar a requisição de exclusão da organização uma empresa.
      * É acionado quando o usuário envia a requisição de remoção do sistema.
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
@@ -44,11 +44,11 @@ public class DeleteGestorServlet extends HttpServlet {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-            //instancia dao do gestor
-            GestorDAO dao = new GestorDAO();
+            //instancia dao de endereço
+            OrganizacaoDAO dao = new OrganizacaoDAO();
             //captura o código do dal instanciado
             int codigo = unidadeLogada.getCodigo();
-            //chamam função de deletar o gestor baseado no código da sessão
+            //chamam função de deletar o endereço baseado no código da sessão
             dao.delete(codigo);
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");

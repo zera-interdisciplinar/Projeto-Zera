@@ -1,6 +1,6 @@
-package br.com.zera.servlet.Gestor;
+package br.com.zera.servlet.Unidade;
 
-import br.com.zera.dao.GestorDAO;
+import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,22 +10,22 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "DeleteGestor", value = "/logOut")
+@WebServlet(name = "DeleteUnidade", value = "/logOut")
 
 
 /**
- * Servlet responsável por mostrar as informações de Gestor cadastradas
+ * Servlet responsável por mostrar as informações de unidade cadastradas
  *
- * Esta classe recebe a requisição de visualização do gestor cadastrada via formulário HTTP,
+ * Esta classe recebe a requisição de visualização da unidade cadastrado pelo gestor via formulário HTTP,
  * e as exibe com uma tela de resposta
  *
  * @author Mayte B
- * @since 2026-10-06
+ * @since 2026-10-05
  */
-public class DeleteGestorServlet extends HttpServlet {
+public class DeleteUnidadeServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão do gestor de uma empresa.
+     * Método responsável por processar a requisição de exclusão da unidade de uma empresa.
      * É acionado quando o usuário envia a requisição de remoção do sistema.
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
@@ -44,12 +44,15 @@ public class DeleteGestorServlet extends HttpServlet {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-            //instancia dao do gestor
-            GestorDAO dao = new GestorDAO();
-            //captura o código do dal instanciado
+            Unidade excluir = (Unidade) session.getAttribute("excluir");
+            //instancia dao de unidade
+            UnidadeDAO dao = new UnidadeDAO();
+            //captura o código do dao instanciado
             int codigo = unidadeLogada.getCodigo();
-            //chamam função de deletar o gestor baseado no código da sessão
+            //chama função de deletar o endereço baseado no código da sessão
             dao.delete(codigo);
+            // encerra a sessão, já que o gestor dela não existe mais
+            session.invalidate();
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
         }catch(IOException ioe){

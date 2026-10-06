@@ -1,11 +1,12 @@
-package br.com.zera.servlet.Endereco;
-
+package br.com.zera.servlet.Organizacao;
 import br.com.zera.dao.EnderecoDAO;
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Endereco;
 import br.com.zera.model.Gestor;
+import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,23 +20,23 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-    @WebServlet(name = "UpdateEndereco", value = "/endereco/alterarEndereco")
+@WebServlet(name = "UpdateEndereco", value = "/endereco/alterarEndereco")
+
+/**
+ * Servlet responsável por atualizar o cadastro de organizações
+ *
+ * Esta classe recebe os dados enviados via formulário HTTP, realiza a
+ * validação das informações e delega as atualizações ao {@link OrganizacaoDAO}. *
+ *
+ * @author Mayte B
+ * @since 2026-10-06
+ */
+public class UpdateOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Servlet responsável por atualizar o cadastro de endereços
+     * Processa POST para atualizar a Organização cadastrada baseado no antigo
      *
-     * Esta classe recebe os dados enviados via formulário HTTP, realiza a
-     * validação das informações e delega as atualizações ao {@link EnderecoDAO}. *
-     *
-     * @author Mayte B
-     * @since 2026-08-14
-     */
-public class UpdateEnderecoServlet extends HttpServlet {
-
-    /**
-     * Processa POST para atualizar o Endereço cadastrado baseado no antigo
-     *
-     * @param request  objeto HttpServletRequest contendo os parâmetros da página
+     * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      */
@@ -47,13 +48,13 @@ public class UpdateEnderecoServlet extends HttpServlet {
          *
          * Instancia Chave estrangeira da tabela Unidade
          */
-        EnderecoDAO dao = new EnderecoDAO();
+        OrganizacaoDAO dao = new OrganizacaoDAO();
         UnidadeDAO unidadeDAO = new UnidadeDAO();
 
         try {
 
             /**
-             * Salva o login/sign in do {@link Gestor} para manter a sessão tiva
+             * Salva o login/sign in da {@link Unidade} para manter a sessão ativa
              */
             HttpSession session = request.getSession();
             Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
@@ -62,51 +63,47 @@ public class UpdateEnderecoServlet extends HttpServlet {
                 return;
             }
             /**
-             * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
+             * Capta os atributos (colunas do banco {@link OrganizacaoDAO}) do organização recebido
              *
              * @throws caso não tenha o código procurado
              */
             int codUnidade = unidadeLogada.getCodigo();
-            Endereco enderecoExistente = dao.findByCodigo(codUnidade);
+            Organizacao organizacaoExistente = dao.findByCodigo(codUnidade);
 
-            if (enderecoExistente == null) {
+            if (organizacaoExistente == null) {
                 exibirErro(request, response, "Endereço não encontrado.", ERROR_PAGE);
                 return;
             }
 
-            int codigoEndereco = enderecoExistente.getCodigo();
-            String bairro = request.getParameter("bairro");
-            String num = request.getParameter("numero");
-            if (num == null || num.isEmpty()) {
-                exibirErro(request, response, "Número não informado.", ERROR_PAGE);
-                return;
-            }
-            int numero = Integer.parseInt(num);
-            String cep = request.getParameter("cep");
-            String logradouro = request.getParameter("logradouro");
-            String cidade = request.getParameter("cidade");
-            String estado = request.getParameter("estado");
+            int codigoOrganizacao = organizacaoExistente.getCodigo();
+            String cnpj = request.getParameter("cnpj");
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
 
             /**
-             * Instancia página de erro caso o CPF inserido seja inválido
+             * Instancia página de erro caso o CNPJ inserido seja inválido
              */
-            if (Regex.validarCEP(cep) == false) {
-                exibirErro(request, response, "CEP inválido", ERROR_PAGE);
+            if (Regex.validarCEP(cnpj) == false) {
+                exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
+            if (Regex.validarCEP(email) == false) {
+                exibirErro(request, response, "email inválido", ERROR_PAGE);
+                return;
+            }
             /**
-             * Cria objeto {@link Endereco}
+             * Cria objeto {@link Organizacao}
              */
-            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
+            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
 
             /**
-             * Instancia as informações recebidas no {@link Endereco} com o método
+             * Instancia as informações recebidas no {@link Organizacao} com o método
              */
             dao.update(model);
 
             // Redireciona para a lista de endereços após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
+            response.sendRedirect(request.getContextPath() + "/organizacao/perfil");
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

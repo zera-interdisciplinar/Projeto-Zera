@@ -1,12 +1,12 @@
-package br.com.zera.servlet.Endereco;
+package br.com.zera.servlet.Organizacao;
 
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.*;
 import br.com.zera.regex.*;
 
-import br.com.zera.dao.EnderecoDAO;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -17,33 +17,33 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 
 @WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
 
- /**
- * Servlet responsável por processar o cadastro de endereços
+/**
+ * Servlet responsável por processar o cadastro da organização
  *
  * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega a persistência ao {@link EnderecoDAO}. *
+ * validação das informações e delega a persistência a {@link OrganizacaoDAO}.
  *
  * @author Mayte B
- * @since 2026-08-14
+ * @since 2026-10-05
  */
-public class InsertEnderecoServlet extends HttpServlet{
+public class InsertOrganizacaoServlet extends HttpServlet{
 
     /**
-     * Processa POST para inserir um novo Endereço
+     * Processa POST para inserir uma nova Organização
      *
      * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-       throws IOException {
+            throws IOException {
 
         /**
          * Instancia DAO responsável por persistir objetos no banco de dados
          *
          * Instancia Chave estrangeira da tabela Unidade
          */
-        EnderecoDAO dao = new EnderecoDAO();
+        OrganizacaoDAO dao = new OrganizacaoDAO();
         UnidadeDAO unidadeDAO = new UnidadeDAO();
 
         try {
@@ -59,42 +59,34 @@ public class InsertEnderecoServlet extends HttpServlet{
             }
 
             /**
-             * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
+             * Capta os atributos (colunas do banco {@link OrganizacaoDAO}) da organização recebida
              */
-            int codigoEndereco = unidadeLogada.getCodigo();
-            String bairro = request.getParameter("bairro");
-            String num = request.getParameter("numero");
-            if (num == null || num.isEmpty()) {
-                exibirErro(request, response, "Número não informado.", ERROR_PAGE);
-                return;
-            }
-            int numero = Integer.parseInt(num);
-            String cep = request.getParameter("cep");
-            String logradouro = request.getParameter("logradouro");
-            String cidade = request.getParameter("cidade");
-            String estado = request.getParameter("estado");
+            int codigoOrganizacao = unidadeLogada.getCodigo();
+            String cnpj = request.getParameter("cnpj");
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
 
             int codUnidade = unidadeLogada.getCodigo();
             if(unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
+                exibirErro(request, response, "Organização vinculada a unidade não foi encontrada.", ERROR_PAGE);
                 return;
             }
 
             /**
              * Instancia página de erro caso o CPF inserido seja inválido
              */
-            if(Regex.validarCEP(cep) == false){
-                exibirErro(request, response, "CEP inválido", ERROR_PAGE);
+            if(Regex.validarCNPJ(cnpj) == false){
+                exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
             /**
-             * Cria objeto {@link Endereco}
+             * Cria objeto {@link Organizacao}
              */
-            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
+            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
 
             /**
-             * Instancia as informações recebidas no {@link Endereco} com o método
+             * Instancia as informações recebidas no {@link Organizacao} com o método
              */
             dao.insert(model);
 
