@@ -17,7 +17,6 @@ public class Organizacao{
     private String cnpj;
     private String nome;
     private String email;
-    private int codCadastro;
 
     //construtor padrão vazio
     public Organizacao(){}
@@ -30,12 +29,11 @@ public class Organizacao{
      * @param nome nome do cliente
      * @param email email da organização
      */
-    public Organizacao(int codigo, String cnpj, String nome, String email, int codCadastro) {
+    public Organizacao(int codigo, String cnpj, String nome, String email) {
         this.codigo = codigo;
         this.cnpj = cnpj;
         this.nome = nome;
         this.email = email;
-        this.codCadastro = codCadastro;
     }
 
     //getters e setters
@@ -71,9 +69,6 @@ public class Organizacao{
         this.email = email;
     }
 
-    public int getCodCadastro() {return codCadastro;}
-
-    public void setCodCadastro(int codCadastro) {this.codCadastro = codCadastro;}
 
     //saída em texto da tabela Organizacao
     public String toString(){
@@ -81,7 +76,6 @@ public class Organizacao{
                 "Código: "+getCodigo()+
                 "/nCNPJ: "+getCnpj()+
                 "/nNome: "+getNome()+
-                "/nEmail: "+getEmail()+
-                "/nCódigo de cadastro: "+getCodCadastro();
+                "/nEmail: "+getEmail();
     }
 }
