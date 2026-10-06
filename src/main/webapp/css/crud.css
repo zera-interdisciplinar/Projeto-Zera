@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+:root {
+    --fonte2: 'Instrument Sans', sans-serif;
+}
+
+.tela-auth {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    position: relative;
+    background-color: var(--cor1);
+    overflow-x: hidden;
+}
+
+/*
+PAINEL ESQUERDO
+*/
+
+.painel-esquerda{
+    background-color: var(--cor1);
+    width: 13%;
+    display: flex;
+}
+
+.painel-conteudo{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    flex: 1;
+}
+
+.logo-zera{
+    width: 100%;
+    max-width: 156px;
+    height: auto;
+    margin-top: 23px;
+    margin-left: 30px;
+    padding-bottom: 50px
+}
+
+nav a{
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    padding: 23px;
+    margin: 1px 20px;
+    color: var(--cor2);
+    text-decoration: none;
+    border-radius: 12.8px;
+    font-family: var(--fonte1);
+    font-size: 20px;
+    
+}
+
+hr{
+    margin-left: 20px;
+    width: 150px;
+}
+
+nav .botao-ativo{
+    background-color: var(--cor2);
+    color: var(--cor1);
+    padding: 12px 0px 12px 30px;
+    pointer-events: none;
+    font-weight: bold;
+
+}
+
+/*
+area de informações
+*/
+
+.informacoes{
+    flex: 1;
+    position: relative;
+    background-color: var(--cor2);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 40px;
+    overflow: hidden;
+    min-height: 100vh;
+    margin-left: 5px;
+    margin-top: 100px;
+    padding-left: 0px;
+    padding-right: 125px;
+    border-top-left-radius: 20px;
+    background: linear-gradient( 135deg, #2958D1, var(--cor2));
+
+}
+
+.z-marca-dagua {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    opacity: 0.50;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nome-da-area{
+    font-size: 41.07px;
+    font-family: var(--fonte1);
+    font-weight: bold;
+    color: var(--cor1);
+    padding-bottom: 50px;
+    margin-left: -60px;
+}
+
+.card{
+    background-color: var(--cor1);
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 318px);
+    padding-bottom: 52px;
+
+}
+
+.card .dado{
+    border: 2px solid var(--cor2);
+    width: 210px;
+    height: 210px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 52px;
+    margin-bottom: 0px;
+    
+
+
+}
+
+.card .dado .nome-do-dado{
+    font-size: 23.13px;
+    font-family: var(--fonte1);
+    font-weight: bold;
+    color: var(--cor2);
+    text-align: center;
+    justify-content: center;
+    height: 60px;
+    padding-top: 30px;
+    
+}
+
+.card .dado .numero-do-dado{
+    font-size: 80px;
+    font-family: var(--fonte1);
+    font-weight: bold;
+    color: #2958D1;
+    text-align: center;
+    margin: 0;
+    
+
+}
+
+#alerta{
+    border-color: #F59E0B;
+}
