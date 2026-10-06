@@ -1,7 +1,6 @@
 package br.com.zera.servlet.Gestor;
 
 import br.com.zera.dao.GestorDAO;
-import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
