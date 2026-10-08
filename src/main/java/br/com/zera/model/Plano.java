@@ -1,6 +1,5 @@
 package br.com.zera.model;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 /**
  * Modelo que representa a entidade Organizacao no sistema.
@@ -16,10 +15,24 @@ public class Plano{
     private int codigo;
     private BigDecimal valor;
     private String nome;
-    private LocalDate tempo;
+    private String tempo;
 
     //construtorpadrão vazio
     public Plano(){}
+
+    /**
+     * Construtor do Plano.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param valor custo do plano
+     * @param nome nome cadastrado no plano
+     * @param tempo duração do plano
+     */
+    public Plano(BigDecimal valor, String nome, String tempo) {
+        this.valor = valor;
+        this.nome = nome;
+        this.tempo = tempo;
+    }
 
     /**
      * Construtor do Plano.
@@ -29,7 +42,7 @@ public class Plano{
      * @param nome nome cadastrado no plano
      * @param tempo duração do plano
      */
-    public Plano(int codigo, BigDecimal valor, String nome, LocalDate tempo) {
+    public Plano(int codigo, BigDecimal valor, String nome, String tempo) {
         this.codigo = codigo;
         this.valor = valor;
         this.nome = nome;
@@ -37,20 +50,12 @@ public class Plano{
     }
 
     //getters e setters
-    public int getCodigo() {
-        return codigo;
+    public String getTempo() {
+        return tempo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
     }
 
     public String getNome() {
@@ -61,12 +66,20 @@ public class Plano{
         this.nome = nome;
     }
 
-    public LocalDate getTempo() {
-        return tempo;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public void setTempo(LocalDate tempo) {
-        this.tempo = tempo;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     //saída em texto da tabela Organizacao
