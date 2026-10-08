@@ -19,6 +19,20 @@ public class Estoque{
     public Estoque(){}
 
     /**
+     * Construtor para criar um novo Estoque antes de inserir no banco.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param espacoNaUnidade descrição do espaço ocupado pelo estoque na unidade
+     * @param codResponsavel código do gestor responsável pelo estoque
+     * @param codUnidade código da unidade à qual o estoque pertence
+     */
+    public Estoque(String espacoNaUnidade, int codResponsavel, int codUnidade) {
+        this.espacoNaUnidade = espacoNaUnidade;
+        this.codResponsavel = codResponsavel;
+        this.codUnidade = codUnidade;
+    }
+
+    /**
      * Construtor de Estoque.
      *
      * @param codigo identificador único do endereco no banco
