@@ -16,8 +16,6 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "UpdateEstoque", value = "/estoque/alterarEstoque")
-
 /**
  * Servlet responsável por atualizar o cadastro de estoques
  *
@@ -27,6 +25,7 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  * @author Pedro Rufino
  * @since 2026-10-04
  */
+@WebServlet(name = "UpdateEstoque", value = "/estoque/alterarEstoque")
 public class UpdateEstoqueServlet extends HttpServlet {
 
     /**

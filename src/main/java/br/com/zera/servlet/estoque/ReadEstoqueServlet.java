@@ -15,9 +15,6 @@ import jakarta.servlet.http.*;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "ReadEstoque", value = "/estoque/perfil")
-
-
 /**
  * Servlet responsável por mostrar as informações de estoque cadastradas
  *
@@ -27,6 +24,7 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  * @author Pedro Rufino
  * @since 2026-10-04
  */
+@WebServlet(name = "ReadEstoque", value = "/estoque/perfil")
 public class ReadEstoqueServlet extends HttpServlet {
 
     /**

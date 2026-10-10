@@ -11,9 +11,6 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "DeleteEstoque", value = "/estoque/deletarEstoque")
-
-
 /**
  * Servlet responsável por apagar as informações de estoques cadastradas
  *
@@ -23,6 +20,7 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  * @author Pedro Rufino
  * @since 2026-10-04
  */
+@WebServlet(name = "DeleteEstoque", value = "/estoque/deletarEstoque")
 public class DeleteEstoqueServlet extends HttpServlet {
 
     /**
