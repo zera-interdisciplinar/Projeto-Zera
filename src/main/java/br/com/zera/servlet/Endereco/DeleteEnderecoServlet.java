@@ -2,6 +2,7 @@ package br.com.zera.servlet.Endereco;
 
 import br.com.zera.dao.EnderecoDAO;
 import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -31,7 +32,7 @@ public class DeleteEnderecoServlet extends HttpServlet {
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
      * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso
+     * @throws IOException caso a entrada do usuário esteja incorreta
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,16 +40,16 @@ public class DeleteEnderecoServlet extends HttpServlet {
         try{
             //resgata sessão logada
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
             //checa se tal sessão existe
-            if (gestorLogado == null) {
+            if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
             //instancia dao de endereço
             EnderecoDAO dao = new EnderecoDAO();
             //captura o código do dal instanciado
-            int codigo = gestorLogado.getCodigo();
+            int codigo = unidadeLogada.getCodigo();
             //caham função de deletar o endereço baseado no código da sessão
             dao.delete(codigo);
             //envia página de resposta bem-sucedida da requisição de exclusão

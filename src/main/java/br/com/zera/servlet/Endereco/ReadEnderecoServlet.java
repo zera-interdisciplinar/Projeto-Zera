@@ -5,6 +5,7 @@ import br.com.zera.dao.*;
 import br.com.zera.exception.ZeraException.*;
 import br.com.zera.model.Endereco;
 import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -39,16 +40,16 @@ public class ReadEnderecoServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
 
-            if (gestorLogado == null) {
+            if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            int codUnidade = gestorLogado.getCodUnidade();
+            int codUnidade = unidadeLogada.getCodigo();
             EnderecoDAO enderecoDao = new EnderecoDAO();
-            Endereco endereco = enderecoDao.findByCodigoUnidade(codUnidade);
+            Endereco endereco = enderecoDao.findByCodigo(codUnidade);
 
             if (endereco == null) {
                 exibirErro(request, response, "Endereço não cadastrado.", ERROR_PAGE);
