@@ -17,9 +17,6 @@ public class Organizacao{
     private String cnpj;
     private String nome;
     private String email;
-    private LocalDate dataCadastro;
-    private LocalDateTime criadoEm;
-    private LocalDateTime atualizadoEm;
 
     //construtor padrão vazio
     public Organizacao(){}
@@ -31,14 +28,12 @@ public class Organizacao{
      * @param cnpj cnpj do cliente
      * @param nome nome do cliente
      * @param email email da organização
-     * @param dataCadastro data de cadastro na tabela
      */
-    public Organizacao(int codigo, String cnpj, String nome, String email, LocalDate dataCadastro) {
+    public Organizacao(int codigo, String cnpj, String nome, String email) {
         this.codigo = codigo;
         this.cnpj = cnpj;
         this.nome = nome;
         this.email = email;
-        this.dataCadastro = dataCadastro;
     }
 
     //getters e setters
@@ -74,29 +69,6 @@ public class Organizacao{
         this.email = email;
     }
 
-    public LocalDate getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getAtualizadoEm() {
-        return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-        this.atualizadoEm = atualizadoEm;
-    }
 
     //saída em texto da tabela Organizacao
     public String toString(){
@@ -104,9 +76,6 @@ public class Organizacao{
                 "Código: "+getCodigo()+
                 "/nCNPJ: "+getCnpj()+
                 "/nNome: "+getNome()+
-                "/nEmail: "+getEmail()+
-                "/nData de cadastro: "+getDataCadastro()+
-                "/nCriado em: "+getCriadoEm()+
-                "/nAtualizado em: "+getAtualizadoEm();
+                "/nEmail: "+getEmail();
     }
 }
