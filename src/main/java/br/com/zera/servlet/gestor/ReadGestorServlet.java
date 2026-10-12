@@ -1,9 +1,7 @@
-package br.com.zera.servlet.Gestor;
+package br.com.zera.servlet.gestor;
 import java.io.*;
 import br.com.zera.dao.*;
-import br.com.zera.exception.ZeraException.*;
 import br.com.zera.model.Gestor;
-import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
