@@ -1,4 +1,4 @@
-package br.com.zera.servlet.Gestor;
+package br.com.zera.servlet.gestor;
 
 import br.com.zera.dao.GestorDAO;
 import br.com.zera.dao.UnidadeDAO;
