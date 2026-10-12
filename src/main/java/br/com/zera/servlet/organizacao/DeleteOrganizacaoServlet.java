@@ -1,4 +1,4 @@
-package br.com.zera.servlet.Organizacao;
+package br.com.zera.servlet.organizacao;
 
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.model.Unidade;

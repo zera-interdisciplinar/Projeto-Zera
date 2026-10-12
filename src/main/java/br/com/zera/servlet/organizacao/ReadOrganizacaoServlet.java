@@ -1,8 +1,7 @@
-package br.com.zera.servlet.Organizacao;
+package br.com.zera.servlet.organizacao;
 
 import java.io.*;
 import br.com.zera.dao.*;
-import br.com.zera.exception.ZeraException.*;
 import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
