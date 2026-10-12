@@ -1,10 +1,8 @@
-package br.com.zera.servlet.Endereco;
+package br.com.zera.servlet.endereco;
 
 import java.io.*;
 import br.com.zera.dao.*;
-import br.com.zera.exception.ZeraException.*;
 import br.com.zera.model.Endereco;
-import br.com.zera.model.Gestor;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;

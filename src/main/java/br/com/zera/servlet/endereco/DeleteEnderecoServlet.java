@@ -1,13 +1,11 @@
-package br.com.zera.servlet.Endereco;
+package br.com.zera.servlet.endereco;
 
 import br.com.zera.dao.EnderecoDAO;
-import br.com.zera.model.Gestor;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
