@@ -1,4 +1,4 @@
-package br.com.zera.servlet.Unidade;
+package br.com.zera.servlet.unidade;
 
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.model.Unidade;
