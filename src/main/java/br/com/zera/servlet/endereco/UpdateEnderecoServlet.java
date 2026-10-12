@@ -1,4 +1,4 @@
-package br.com.zera.servlet.Endereco;
+package br.com.zera.servlet.endereco;
 
 import br.com.zera.dao.EnderecoDAO;
 import br.com.zera.dao.UnidadeDAO;
