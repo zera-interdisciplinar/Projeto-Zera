@@ -1,11 +1,8 @@
-package br.com.zera.servlet.Organizacao;
-import br.com.zera.dao.EnderecoDAO;
+package br.com.zera.servlet.organizacao;
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
-import br.com.zera.model.Endereco;
-import br.com.zera.model.Gestor;
 import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
