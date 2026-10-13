@@ -51,9 +51,12 @@ public class UpdateEnderecoServlet extends HttpServlet {
                 return;
             }
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             // busca o endereço atual pela unidade
             int codUnidade = unidadeLogada.getCodigo();
-            Endereco enderecoExistente = EnderecoDAO.findByCodUnidade(codUnidade);
+            Endereco enderecoExistente = dao.findByCodUnidade(codUnidade);
 
             int codigoEndereco = enderecoExistente.getCodigo();
             String bairro = request.getParameter("bairro");
@@ -78,7 +81,7 @@ public class UpdateEnderecoServlet extends HttpServlet {
             Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
             // atualiza o endereço no banco
-            EnderecoDAO.update(model);
+            dao.update(model);
 
             // Redireciona para o perfil do endereço após a atualização bem-sucedida
             response.sendRedirect(request.getContextPath() + "/endereco/perfil");

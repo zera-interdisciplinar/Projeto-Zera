@@ -45,10 +45,13 @@ public class DeleteEnderecoServlet extends HttpServlet {
                 return;
             }
 
+            //instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             //busca o endereço pela unidade
-            Endereco endereco = EnderecoDAO.findByCodUnidade(unidadeLogada.getCodigo());
+            Endereco endereco = dao.findByCodUnidade(unidadeLogada.getCodigo());
             //deleta o endereço pelo código do próprio endereço
-            EnderecoDAO.delete(endereco.getCodigo());
+            dao.delete(endereco.getCodigo());
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
         }catch(NotFoundException nfe){
