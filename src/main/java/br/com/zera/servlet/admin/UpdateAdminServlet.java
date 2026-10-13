@@ -35,6 +35,8 @@ public class UpdateAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         AdminDAO dao = new AdminDAO();
 
         try {

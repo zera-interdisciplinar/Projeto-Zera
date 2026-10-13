@@ -39,6 +39,8 @@ public class InsertGestorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir o gestor no banco de dados
         GestorDAO dao = new GestorDAO();
 
@@ -56,7 +58,7 @@ public class InsertGestorServlet extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             String telefone = request.getParameter("telefone");
-            int codUnidade = unidadeLogada.getCodigo();
+            int codUnidade = gestorLogado.getCodUnidade();
 
             // exibe página de erro caso o email inserido seja inválido
             if (Regex.validarEmail(email) == false) {

@@ -41,6 +41,8 @@ public class UpdateGestorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir o gestor no banco de dados
         GestorDAO dao = new GestorDAO();
 

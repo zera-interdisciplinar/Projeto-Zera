@@ -43,6 +43,9 @@ public class UpdateAssinaturaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+
         try {
             // Recupera o gestor guardado na sessão durante o login
             HttpSession session = request.getSession();
