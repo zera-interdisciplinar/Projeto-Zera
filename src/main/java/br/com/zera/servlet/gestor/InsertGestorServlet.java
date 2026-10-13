@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
  * Servlet responsável por processar o cadastro de gestores
@@ -42,11 +43,10 @@ public class InsertGestorServlet extends HttpServlet {
         GestorDAO dao = new GestorDAO();
 
         try {
-
-            // resgata a unidade logada na sessão
+            //resgata o gestor logado na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Gestor Logado");
-            if (unidadeLogada == null) {
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
+            if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
