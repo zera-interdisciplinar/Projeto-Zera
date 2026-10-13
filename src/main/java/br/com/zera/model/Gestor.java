@@ -23,6 +23,24 @@ public class Gestor {
 
     /**
      * Construtor completo para inicialização do Gestor.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param nome nome completo do funcionário
+     * @param email e-mail para acesso ao sistema
+     * @param senha senha de autenticação
+     * @param telefone número de contato
+     * @param codUnidade chave estrangeira da unidade pertencente
+     */
+    public Gestor(String nome, String email, String senha, String telefone, int codUnidade) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.codUnidade = codUnidade;
+    }
+
+    /**
+     * Construtor completo para inicialização do Gestor.
      *
      * @param codigo identificador único do funcionário no banco
      * @param nome nome completo do funcionário
