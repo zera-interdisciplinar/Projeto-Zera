@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
  * Servlet responsável por processar o cadastro de gestores
@@ -38,15 +39,16 @@ public class InsertGestorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir o gestor no banco de dados
         GestorDAO dao = new GestorDAO();
 
         try {
-
-            // resgata a unidade logada na sessão
+            //resgata o gestor logado na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Gestor Logado");
-            if (unidadeLogada == null) {
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
+            if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
@@ -56,7 +58,7 @@ public class InsertGestorServlet extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             String telefone = request.getParameter("telefone");
-            int codUnidade = unidadeLogada.getCodigo();
+            int codUnidade = gestorLogado.getCodUnidade();
 
             // exibe página de erro caso o email inserido seja inválido
             if (Regex.validarEmail(email) == false) {

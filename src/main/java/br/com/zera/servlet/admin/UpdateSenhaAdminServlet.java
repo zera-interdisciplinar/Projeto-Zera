@@ -1,5 +1,6 @@
 package br.com.zera.servlet.admin;
 
+import br.com.zera.config.HashSenha;
 import br.com.zera.dao.AdminDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_ADMIN;
 
 /**
  * Servlet responsável por trocar a senha do admin logado.
@@ -35,11 +37,14 @@ public class UpdateSenhaAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais da senha cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+
         AdminDAO dao = new AdminDAO();
 
         try {
             HttpSession session = request.getSession();
-            Admin adminLogado = (Admin) session.getAttribute("Admin Logado");
+            Admin adminLogado = (Admin) session.getAttribute(SESSAO_ADMIN);
             if (adminLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
@@ -59,15 +64,17 @@ public class UpdateSenhaAdminServlet extends HttpServlet {
                 return;
             }
 
-            // busca a do banco para comparar
+            // busca o hash salvo no banco para comparar
             Admin admin = dao.findByCodigo(adminLogado.getCodigo());
 
-            if (!senhaAtual.equals(admin.getSenha())) {
+            // o banco guarda o hash, então a comparação é feita pelo BCrypt, e não com equals
+            if (!HashSenha.verificar(senhaAtual, admin.getSenha())) {
                 exibirErro(request, response, "Senha atual incorreta.", ERROR_PAGE);
                 return;
             }
 
-            dao.updateSenha(admin.getCodigo(), novaSenha);
+            // grava o hash da nova senha, nunca o texto puro
+            dao.updateSenha(admin.getCodigo(), HashSenha.gerarHash(novaSenha));
 
             response.sendRedirect(request.getContextPath() + "/admin/perfil");
         } catch (ConnectionFailedException cfe) {

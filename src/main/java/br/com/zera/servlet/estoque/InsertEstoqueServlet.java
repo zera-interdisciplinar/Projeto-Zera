@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
  * Servlet responsável por processar o cadastro de estoques
@@ -38,6 +39,8 @@ public class InsertEstoqueServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         EstoqueDAO dao = new EstoqueDAO();
         // DAOs usados para conferir se as chaves estrangeiras existem no banco
         UnidadeDAO unidadeDAO = new UnidadeDAO();
@@ -46,7 +49,7 @@ public class InsertEstoqueServlet extends HttpServlet{
         try{
             // Recupera o gestor guardado na sessão durante o login
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
             if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;

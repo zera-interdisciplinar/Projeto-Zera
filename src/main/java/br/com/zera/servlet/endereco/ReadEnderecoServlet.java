@@ -11,6 +11,7 @@ import jakarta.servlet.http.*;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por mostrar as informações de endereço cadastradas
@@ -39,14 +40,17 @@ public class ReadEnderecoServlet extends HttpServlet {
         try {
             // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             // busca pela chave estrangeira cod_unidade
-            Endereco endereco = EnderecoDAO.findByCodUnidade(unidadeLogada.getCodigo());
+            Endereco endereco = dao.findByCodUnidade(unidadeLogada.getCodigo());
 
             request.setAttribute("bairro", endereco.getBairro());
             request.setAttribute("numero", endereco.getNumero());

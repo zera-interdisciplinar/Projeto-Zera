@@ -5,7 +5,10 @@ import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Estoque;
 import br.com.zera.util.Conexao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,134 +21,146 @@ import java.util.List;
 public class EstoqueDAO {
 
     /**
-     * Insere um novo item de estoque no banco de dados.
+     * Insere um novo estoque no banco de dados.
      *
      * @param estoque Objeto {@link Estoque} contendo os dados a serem persistidos
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Estoque estoque) {
-        String sql = "INSERT INTO estoque (espaco_na_unidade, cod_responsavel, cod_unidade) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO estoque (espaco_na_unidade, cod_responsavel, cod_unidade) VALUES (?, ?, ?)";
 
-        try(Connection conn = Conexao.getConexao();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, estoque.getEspacoNaUnidade());
-            pstmt.setInt(2, estoque.getCodResponsavel());
-            pstmt.setInt(3, estoque.getCodUnidade());
+            stmt.setString(1, estoque.getEspacoNaUnidade());
+            stmt.setInt(2, estoque.getCodResponsavel());
+            stmt.setInt(3, estoque.getCodUnidade());
 
-            pstmt.executeUpdate();
-        } catch (SQLException sqle) {
-            throw new ConnectionFailedException(sqle.getMessage());
+            stmt.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao cadastrar o estoque no banco de dados.", e);
         }
-
     }
 
     /**
-     * Atualiza registros de um estoque no banco de dados.
+     * Atualiza os dados de um estoque já existente no banco de dados,
+     * identificado pelo seu código.
      *
-     * @param estoque Objeto {@link Estoque} contendo os dados a serem atualizados
-     * @throws NotFoundException se não existir estoque com o código informado
-     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     * @param estoque Objeto {@link Estoque} com os dados atualizados (o código deve estar preenchido)
+     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Estoque estoque) {
-        String sql = "UPDATE estoque SET codigo = ?,  espaco_na_unidade = ?, cod_reponsavel = ?, cod_unidade = ? WHERE codigo = ? ";
+        String sql = "UPDATE estoque SET espaco_na_unidade = ?, cod_responsavel = ?, cod_unidade = ? WHERE codigo = ?";
 
-        try(Connection conn = Conexao.getConexao();
-            PreparedStatement psmt = conn.prepareStatement(sql)){
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            psmt.setString(1, estoque.getEspacoNaUnidade());
-            psmt.setInt(2, estoque.getCodResponsavel());
-            psmt.setInt(3, estoque.getCodUnidade());
-            psmt.setInt(4, estoque.getCodigo());
+            stmt.setString(1, estoque.getEspacoNaUnidade());
+            stmt.setInt(2, estoque.getCodResponsavel());
+            stmt.setInt(3, estoque.getCodUnidade());
+            stmt.setInt(4, estoque.getCodigo());
 
-            if (psmt.executeUpdate() == 0) {
-                throw new NotFoundException("Registro não encontrado em Estoque", estoque.getCodigo());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new NotFoundException("Estoque", estoque.getCodigo());
             }
-        } catch (SQLException sqle){
-            throw new ConnectionFailedException(sqle.getMessage());
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao atualizar os dados do estoque.", e);
         }
     }
 
     /**
-     * Consulta registros de estoque no banco de dados
+     * Busca um estoque no banco de dados a partir do seu código identificador.
      *
-     * @param codigo Codigo (Primary Key) da organização procurada
-     *
-     * @return o {@link Estoque} correspondente ao código
-     * @throws NotFoundException() para informações não encontradas
-     * @throws ConnectionFailedException() para erros de conexão com o banco
+     * @param codigo Código (chave primária) do estoque a ser buscado
+     * @return o {@link Estoque} correspondente ao código informado
+     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public Estoque findByCodigo(int codigo) {
         String sql = "SELECT * FROM estoque WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
-             PreparedStatement psmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            psmt.setInt(1, codigo);
+            stmt.setInt(1, codigo);
 
-            try (ResultSet rs = psmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Estoque(
                             rs.getInt("codigo"),
                             rs.getString("espaco_na_unidade"),
-                            rs.getInt("cod_reponsavel"),
+                            rs.getInt("cod_responsavel"),
                             rs.getInt("cod_unidade")
                     );
+                } else {
+                    throw new NotFoundException("Estoque", codigo);
                 }
-                throw new NotFoundException("Registro não encontrado em Estoque", codigo);
             }
-        } catch (SQLException sqle) {
-            throw new ConnectionFailedException(sqle.getMessage());
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar o estoque pelo código.", e);
         }
     }
 
     /**
-     * Consulta todos os registros da tabela Estoque
+     * Lista todos os estoques cadastrados no banco de dados.
      *
-     * @throws NotFoundException() para retornos vazios no retorno de dados
-     * @throws ConnectionFailedException() para erros de conexão com o banco
-     * @return uma {@link List} com todas as {@link Estoque} encontradas;
+     * @return uma {@link List} com todos os {@link Estoque} encontrados;
+     *         lista vazia caso não existam registros
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public List<Estoque> findAll() {
         String sql = "SELECT * FROM estoque";
-        List<Estoque> retorno = new ArrayList<>();
+        List<Estoque> lista = new ArrayList<>();
 
-        try(Connection conn = Conexao.getConexao();
-        PreparedStatement psmt =  conn.prepareStatement(sql);
-        ResultSet rs = psmt.executeQuery()){
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
-                retorno.add(new Estoque(
+                lista.add(new Estoque(
                         rs.getInt("codigo"),
                         rs.getString("espaco_na_unidade"),
                         rs.getInt("cod_responsavel"),
                         rs.getInt("cod_unidade")
                 ));
             }
-        } catch(SQLException sqle){
-            throw new ConnectionFailedException(sqle.getMessage());
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao listar os estoques.", e);
         }
-        return retorno;
+
+        return lista;
     }
 
     /**
-     * Apaga registros de estoque no banco de dados.
+     * Remove um estoque do banco de dados utilizando o seu código identificador.
      *
-     * @param codigo Código (chave primária) do estoque a ser deletado     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     * @param codigo Código (chave primária) do estoque a ser deletado
+     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void delete(int codigo) {
         String sql = "DELETE FROM estoque WHERE codigo = ?";
 
-        try(Connection conn = Conexao.getConexao();
-            PreparedStatement psmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            psmt.setInt(1, codigo);
+            stmt.setInt(1, codigo);
 
-            if (psmt.executeUpdate() == 0) {
-                throw new NotFoundException("Registro não encontrado em Estoque", codigo);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new NotFoundException("Estoque", codigo);
             }
-        } catch (SQLException sqle){
-            throw new ConnectionFailedException(sqle.getMessage());
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao deletar o estoque do banco de dados.", e);
         }
     }
 }

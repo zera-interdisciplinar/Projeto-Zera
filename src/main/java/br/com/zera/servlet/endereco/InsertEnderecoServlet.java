@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por processar o cadastro de endereços
@@ -37,11 +38,14 @@ public class InsertEnderecoServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+
         try {
 
             // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
@@ -72,8 +76,11 @@ public class InsertEnderecoServlet extends HttpServlet{
             // cria objeto model
             Endereco model = new Endereco(bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             //Instancia as informações recebidas no Endereco com o método
-            EnderecoDAO.insert(model);
+            dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
             response.sendRedirect(request.getContextPath() + "/endereco/perfil");

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por excluir o endereço da unidade logada.
@@ -38,16 +39,19 @@ public class DeleteEnderecoServlet extends HttpServlet {
         try{
             //resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
+            //instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             //busca o endereço pela unidade
-            Endereco endereco = EnderecoDAO.findByCodUnidade(unidadeLogada.getCodigo());
+            Endereco endereco = dao.findByCodUnidade(unidadeLogada.getCodigo());
             //deleta o endereço pelo código do próprio endereço
-            EnderecoDAO.delete(endereco.getCodigo());
+            dao.delete(endereco.getCodigo());
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
         }catch(NotFoundException nfe){
