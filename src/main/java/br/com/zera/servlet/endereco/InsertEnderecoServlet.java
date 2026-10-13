@@ -1,6 +1,5 @@
 package br.com.zera.servlet.endereco;
 
-import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.*;
@@ -15,17 +14,16 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
-
- /**
+/**
  * Servlet responsável por processar o cadastro de endereços
  *
  * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega a persistência ao {@link EnderecoDAO}. *
+ * validação das informações e delega a persistência ao {@link EnderecoDAO}.
  *
  * @author Mayte B
  * @since 2026-08-14
  */
+@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
@@ -35,33 +33,21 @@ public class InsertEnderecoServlet extends HttpServlet{
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-       throws IOException {
-
-        /**
-         * Instancia DAO responsável por persistir objetos no banco de dados
-         *
-         * Instancia Chave estrangeira da tabela Unidade
-         */
-        EnderecoDAO dao = new EnderecoDAO();
-        UnidadeDAO unidadeDAO = new UnidadeDAO();
+            throws IOException {
 
         try {
 
-            /**
-             * Salva o login/signin da {@link Unidade} para manter a sessão ativa
-             */
+            // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Capta os atributos (colunas do banco {@link EnderecoDAO}) do endereço recebido
-             */
-            int codigoEndereco = unidadeLogada.getCodigo();
+            // capta os atributos (colunas do banco) do endereço recebido
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
@@ -74,29 +60,20 @@ public class InsertEnderecoServlet extends HttpServlet{
             String cidade = request.getParameter("cidade");
             String estado = request.getParameter("estado");
 
+            // o endereço pertence à unidade logada (chave estrangeira)
             int codUnidade = unidadeLogada.getCodigo();
-            if(unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Unidade vinculada ao gestor não foi encontrada.", ERROR_PAGE);
-                return;
-            }
 
-            /**
-             * Instancia página de erro caso o CPF inserido seja inválido
-             */
+            // exibe página de erro caso o CEP inserido seja inválido
             if(Regex.validarCEP(cep) == false){
                 exibirErro(request, response, "CEP inválido", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Cria objeto {@link Endereco}
-             */
-            Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
+            // cria objeto model
+            Endereco model = new Endereco(bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
-            /**
-             * Instancia as informações recebidas no {@link Endereco} com o método
-             */
-            dao.insert(model);
+            //Instancia as informações recebidas no Endereco com o método
+            EnderecoDAO.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
             response.sendRedirect(request.getContextPath() + "/endereco/perfil");
