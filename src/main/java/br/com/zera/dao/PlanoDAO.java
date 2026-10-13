@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class PlanoDAO {
             stmt.setBigDecimal(1, plano.getValor());
             stmt.setString(2, plano.getNome());
             stmt.setObject(3, plano.getTempo());
-            stmt.setInt(4, plano.getCodigo()); // CORRIGIDO: Faltava enviar o código do WHERE!
+            stmt.setInt(4, plano.getCodigo());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -96,7 +95,7 @@ public class PlanoDAO {
                             rs.getInt("codigo"),
                             rs.getBigDecimal("valor"),
                             rs.getString("nome"),
-                            rs.getObject("tempo", LocalDate.class)
+                            rs.getString("tempo")
                     );
                 } else {
                     throw new NotFoundException("Plano", codigo);
@@ -127,7 +126,7 @@ public class PlanoDAO {
                         rs.getInt("codigo"),
                         rs.getBigDecimal("valor"),
                         rs.getString("nome"),
-                        rs.getObject("tempo", LocalDate.class)
+                        rs.getString("tempo")
                 );
                 lista.add(plano);
             }

@@ -23,6 +23,20 @@ public class Organizacao{
 
     /**
      * Construtor da Organização.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param cnpj cnpj do cliente
+     * @param nome nome do cliente
+     * @param email email da organização
+     */
+    public Organizacao(String cnpj, String nome, String email) {
+        this.cnpj = cnpj;
+        this.nome = nome;
+        this.email = email;
+    }
+
+    /**
+     * Construtor da Organização.
      *
      * @param codigo identificador único do endereco no banco
      * @param cnpj cnpj do cliente

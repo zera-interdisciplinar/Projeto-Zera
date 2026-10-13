@@ -22,6 +22,28 @@ public class Endereco {
 
     /**
      * Construtor do Endereço.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param bairro bairro da empresa
+     * @param numero número da empresa
+     * @param cep cep da empresa
+     * @param logradouro logradouro da empresa
+     * @param cidade cidade da empresa
+     * @param estado estado da empresa
+     * @param codUnidade chave estrangeira da unidade pertencente
+     */
+    public Endereco(String bairro, int numero, String cep, String logradouro, String cidade, String estado, int codUnidade) {
+        this.bairro = bairro;
+        this.numero = numero;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.codUnidade = codUnidade;
+    }
+
+    /**
+     * Construtor do Endereço.
      *
      * @param codigo identificador único do endereco no banco
      * @param bairro bairro da empresa

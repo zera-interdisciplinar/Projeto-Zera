@@ -1,6 +1,8 @@
-package br.com.zera.servlet.Organizacao;
+package br.com.zera.servlet.endereco;
 
-import br.com.zera.dao.OrganizacaoDAO;
+import br.com.zera.dao.EnderecoDAO;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Endereco;
 import br.com.zera.model.Unidade;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,48 +12,47 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "DeleteOrganizacao", value = "/logOut")
-
-
 /**
- * Servlet responsável por mostrar as informações de organização cadastradas
+ * Servlet responsável por excluir o endereço da unidade logada.
  *
- * Esta classe recebe a requisição de visualização da organização cadastrada pelo gestor via formulário HTTP,
- * e as exibe com uma tela de resposta
+ * Esta classe recebe a requisição de exclusão via formulário HTTP, localiza o
+ * endereço vinculado à unidade da sessão e delega a remoção ao {@link EnderecoDAO}.
  *
  * @author Mayte B
- * @since 2026-10-06
+ * @since 2026-9-28
  */
-public class DeleteOrganizacaoServlet extends HttpServlet {
+@WebServlet(name = "DeleteEndereco", value = "/endereco/excluir")
+public class DeleteEnderecoServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão da organização uma empresa.
+     * Método responsável por processar a requisição de exclusão do endereço da unidade.
      * É acionado quando o usuário envia a requisição de remoção do sistema.
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
      * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso a entrada do usuário esteja incorreta
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException{
         try{
-            //resgata sessão logada
+            //resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
-            //checa se tal sessão existe
+            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-            //instancia dao de endereço
-            OrganizacaoDAO dao = new OrganizacaoDAO();
-            //captura o código do dal instanciado
-            int codigo = unidadeLogada.getCodigo();
-            //chamam função de deletar o endereço baseado no código da sessão
-            dao.delete(codigo);
+
+            //busca o endereço pela unidade
+            Endereco endereco = EnderecoDAO.findByCodUnidade(unidadeLogada.getCodigo());
+            //deleta o endereço pelo código do próprio endereço
+            EnderecoDAO.delete(endereco.getCodigo());
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
+        }catch(NotFoundException nfe){
+            exibirErro(request, response, nfe, ERROR_PAGE);
+            nfe.printStackTrace();
         }catch(IOException ioe){
             exibirErro(request, response, ioe, ERROR_PAGE);
             ioe.printStackTrace();
