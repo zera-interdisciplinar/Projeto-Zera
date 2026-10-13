@@ -21,6 +21,20 @@ public class Unidade {
 
     /**
      * Construtor da Unidade.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param cnpj cnpj da unidade
+     * @param email email da unidade
+     * @param codOrganizacao chave estrangeira da organização pertencente
+     */
+    public Unidade(String cnpj, String email, int codOrganizacao) {
+        this.cnpj = cnpj;
+        this.email = email;
+        this.codOrganizacao = codOrganizacao;
+    }
+
+    /**
+     * Construtor da Unidade.
      *
      * @param codigo identificador único da unidade no banco
      * @param cnpj cnpj da unidade
