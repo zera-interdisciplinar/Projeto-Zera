@@ -5,6 +5,8 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
+import static br.com.zera.regex.Constants.SESSAO_ADMIN;
+
 /**
  * Servlet responsável por encerrar a sessão do usuário logado,
  * seja ele admin ou gestor.
@@ -42,7 +44,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // Lê ANTES do invalidate: depois dele, a sessão não pode mais ser usada
-            if (session.getAttribute("adminLogado") != null) {
+            if (session.getAttribute(SESSAO_ADMIN) != null) {
                 destino = LOGIN_ADMIN;
             }
             session.invalidate();
