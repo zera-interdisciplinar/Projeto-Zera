@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
  * Servlet responsável por atualizar o cadastro de estoques
@@ -42,7 +43,7 @@ public class UpdateEstoqueServlet extends HttpServlet {
         try {
             // Recupera o gestor guardado na sessão durante o login
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("gestorLogado");
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
             if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
