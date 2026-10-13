@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_ADMIN;
 
 /**
  * Servlet responsável por trocar a senha do admin logado.
@@ -39,7 +40,7 @@ public class UpdateSenhaAdminServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Admin adminLogado = (Admin) session.getAttribute("Admin Logado");
+            Admin adminLogado = (Admin) session.getAttribute(SESSAO_ADMIN);
             if (adminLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
