@@ -41,6 +41,9 @@ public class UpdateEnderecoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+
         try {
 
             // resgata a unidade logada na sessão

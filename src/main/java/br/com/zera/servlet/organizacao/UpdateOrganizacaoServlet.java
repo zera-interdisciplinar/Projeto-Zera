@@ -40,6 +40,8 @@ public class UpdateOrganizacaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir a organização no banco de dados
         OrganizacaoDAO dao = new OrganizacaoDAO();
 

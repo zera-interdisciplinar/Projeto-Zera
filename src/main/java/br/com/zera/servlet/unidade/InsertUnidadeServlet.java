@@ -39,6 +39,8 @@ public class InsertUnidadeServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAOs da unidade e da organização (chave estrangeira)
         UnidadeDAO dao = new UnidadeDAO();
         OrganizacaoDAO organizacaoDAO = new OrganizacaoDAO();
