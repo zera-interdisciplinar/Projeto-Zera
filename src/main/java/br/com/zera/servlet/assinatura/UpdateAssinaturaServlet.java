@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por atualizar o cadastro de assinaturas
@@ -45,7 +46,7 @@ public class UpdateAssinaturaServlet extends HttpServlet {
         try {
             // Recupera o gestor guardado na sessão durante o login
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
