@@ -1,7 +1,6 @@
-package br.com.zera.servlet.Organizacao;
+package br.com.zera.servlet.organizacao;
 
 import br.com.zera.dao.OrganizacaoDAO;
-import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.*;
@@ -15,8 +14,6 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
-
 /**
  * Servlet responsável por processar o cadastro da organização
  *
@@ -26,6 +23,7 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  * @author Mayte B
  * @since 2026-10-05
  */
+@WebServlet(name = "InsertOrganizacao", value = "/organizacao/signIn")
 public class InsertOrganizacaoServlet extends HttpServlet{
 
     /**
@@ -35,63 +33,48 @@ public class InsertOrganizacaoServlet extends HttpServlet{
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        /**
-         * Instancia DAO responsável por persistir objetos no banco de dados
-         *
-         * Instancia Chave estrangeira da tabela Unidade
-         */
+        // DAO responsável por persistir a organização no banco de dados
         OrganizacaoDAO dao = new OrganizacaoDAO();
-        UnidadeDAO unidadeDAO = new UnidadeDAO();
 
         try {
 
-            /**
-             * Salva o login/signin da {@link Unidade} para manter a sessão ativa
-             */
+            // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Capta os atributos (colunas do banco {@link OrganizacaoDAO}) da organização recebida
-             */
-            int codigoOrganizacao = unidadeLogada.getCodigo();
+            // capta os atributos (colunas do banco) da organização recebida
             String cnpj = request.getParameter("cnpj");
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
 
-            int codUnidade = unidadeLogada.getCodigo();
-            if(unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Organização vinculada a unidade não foi encontrada.", ERROR_PAGE);
-                return;
-            }
-
-            /**
-             * Instancia página de erro caso o CPF inserido seja inválido
-             */
+            // exibe página de erro caso o CNPJ inserido seja inválido
             if(Regex.validarCNPJ(cnpj) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Cria objeto {@link Organizacao}
-             */
-            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
+            // exibe página de erro caso o email inserido seja inválido
+            if(Regex.validarEmail(email) == false){
+                exibirErro(request, response, "Email inválido", ERROR_PAGE);
+                return;
+            }
 
-            /**
-             * Instancia as informações recebidas no {@link Organizacao} com o método
-             */
+            // cria objeto Organizacao
+            Organizacao model = new Organizacao(cnpj, nome, email);
+
+            // persiste a organização no banco
             dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
+            response.sendRedirect(request.getContextPath() + "/organizacao/perfil");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();

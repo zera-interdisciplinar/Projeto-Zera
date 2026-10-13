@@ -119,6 +119,44 @@ public class EnderecoDAO {
     }
 
     /**
+     * Busca o endereço de uma unidade a partir do código da unidade (chave estrangeira).
+     *
+     * @param codUnidade Código da unidade dona do endereço
+     * @return o {@link Endereco} vinculado à unidade informada
+     * @throws NotFoundException se a unidade não tiver endereço cadastrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public static Endereco findByCodUnidade(int codUnidade) {
+        String sql = "SELECT * FROM Endereco WHERE cod_unidade = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, codUnidade);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Endereco(
+                            rs.getInt("codigo"),
+                            rs.getString("bairro"),
+                            rs.getInt("numero"),
+                            rs.getString("cep"),
+                            rs.getString("logradouro"),
+                            rs.getString("cidade"),
+                            rs.getString("estado"),
+                            rs.getInt("cod_unidade")
+                    );
+                } else {
+                    throw new NotFoundException("Endereço da unidade", codUnidade);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar o endereço pela unidade.", e);
+        }
+    }
+
+    /**
      * Lista todos os endereços cadastrados no banco de dados.
      *
      * @return uma {@link List} com todos os {@link Endereco} encontrados;
