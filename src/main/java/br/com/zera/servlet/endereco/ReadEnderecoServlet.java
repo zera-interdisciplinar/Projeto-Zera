@@ -46,8 +46,11 @@ public class ReadEnderecoServlet extends HttpServlet {
                 return;
             }
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             // busca pela chave estrangeira cod_unidade
-            Endereco endereco = EnderecoDAO.findByCodUnidade(unidadeLogada.getCodigo());
+            Endereco endereco = dao.findByCodUnidade(unidadeLogada.getCodigo());
 
             request.setAttribute("bairro", endereco.getBairro());
             request.setAttribute("numero", endereco.getNumero());

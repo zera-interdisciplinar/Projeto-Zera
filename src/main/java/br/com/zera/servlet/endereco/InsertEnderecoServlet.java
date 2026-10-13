@@ -73,8 +73,11 @@ public class InsertEnderecoServlet extends HttpServlet{
             // cria objeto model
             Endereco model = new Endereco(bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             //Instancia as informações recebidas no Endereco com o método
-            EnderecoDAO.insert(model);
+            dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
             response.sendRedirect(request.getContextPath() + "/endereco/perfil");
