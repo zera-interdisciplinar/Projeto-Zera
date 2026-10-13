@@ -1,6 +1,7 @@
 package br.com.zera.servlet.organizacao;
 
 import br.com.zera.dao.OrganizacaoDAO;
+import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
@@ -12,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
@@ -27,8 +27,6 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
  */
 @WebServlet(name = "SearchOrganizacao", value = "/organizacao/buscar")
 public class SearchOrganizacaoServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(SearchOrganizacaoServlet.class.getName());
 
     /**
      * Processa a requisição de busca de organização pelo CNPJ.
@@ -47,33 +45,32 @@ public class SearchOrganizacaoServlet extends HttpServlet {
         try {
             // Valida se há um gestor logado
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            int codUnidade = unidadeLogada.getCodigo();
+            String cnpj = request.getParameter("cnpj");
 
-            String cnpjS = request.getParameter("cnpj");
-
-            if (cnpjS == null || cnpjS.isBlank()) {
+            if (cnpj == null || cnpj.isBlank()) {
                 exibirErro(request, response, "Informe o CNPJ da organização.", ERROR_PAGE);
                 return;
             }
+            cnpj = cnpj.trim();
 
-            //Instancia página de erro caso o CPF inserido seja inválido
-            if(Regex.validarCNPJ(cnpjS) == false){
+            // exibe página de erro caso o CNPJ inserido seja inválido
+            if(Regex.validarCNPJ(cnpj) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
-            long cnpj = Long.parseLong(cnpjS.trim());
 
             OrganizacaoDAO organizacaoDao = new OrganizacaoDAO();
-            Organizacao organizacao = organizacaoDao.findByCnpj(cnpj);
-
-            if (organizacao == null) {
-                // Não encontrada: a JSP deve oferecer o link para cadastrar uma organização nova
+            Organizacao organizacao;
+            try {
+                organizacao = organizacaoDao.findByCnpj(cnpj);
+            } catch (NotFoundException nfe) {
+                // Não encontrada: a JSP oferece o link para cadastrar uma organização nova
                 request.setAttribute("cnpjBuscado", cnpj);
                 request.setAttribute("organizacaoNaoEncontrada", true);
                 request.getRequestDispatcher("/WEB-INF/buscarOrganizacao.jsp").forward(request, response);
