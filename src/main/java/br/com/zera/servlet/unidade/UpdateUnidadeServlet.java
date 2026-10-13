@@ -40,6 +40,8 @@ public class UpdateUnidadeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir a unidade no banco de dados
         UnidadeDAO dao = new UnidadeDAO();
 
