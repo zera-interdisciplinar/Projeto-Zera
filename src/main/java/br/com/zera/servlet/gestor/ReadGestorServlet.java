@@ -1,8 +1,8 @@
 package br.com.zera.servlet.gestor;
 import java.io.*;
 import br.com.zera.dao.*;
+import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Gestor;
-import br.com.zera.model.Unidade;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,26 +10,24 @@ import jakarta.servlet.http.*;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-@WebServlet(name = "ReadGestor", value = "/gestor/perfil")
-
-
 /**
- * Servlet responsável por mostrar as informações de gestor cadastradas
+ * Servlet responsável por mostrar as informações do gestor cadastrado
  *
- * Esta classe recebe a requisição de visualização do gestor cadastrado via formulário HTTP,
- * e as exibe com uma tela de resposta
+ * Esta classe recebe a requisição de visualização do perfil do gestor logado
+ * e o exibe em uma tela de resposta.
  *
  * @author Mayte B
  * @since 2026-10-06
- *
- * @param request objeto que contém os dados enviados pelo formulário (JSP)
- * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
  */
+@WebServlet(name = "ReadGestor", value = "/gestor/perfil")
 public class ReadGestorServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir gestores das unidades da empresa.
+     * Processa requisições GET para exibir o perfil do gestor logado.
      *
+     * @param request objeto que contém os dados da requisição
+     * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,30 +35,26 @@ public class ReadGestorServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
+            Gestor gestorLogado = (Gestor) session.getAttribute("Gestor Logado");
 
-            if (unidadeLogada == null) {
+            if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            int codUnidade = unidadeLogada.getCodigo();
+            // busca pelo código do próprio gestor
             GestorDAO gestorDao = new GestorDAO();
-            Gestor gestor = gestorDao.findByCodigo(codUnidade);
+            Gestor gestor = gestorDao.findByCodigo(gestorLogado.getCodigo());
 
-            if (gestor == null) {
-                exibirErro(request, response, "Endereço não cadastrado.", ERROR_PAGE);
-                return;
-            }
-
+            // a senha não é enviada para a tela
             request.setAttribute("nome", gestor.getNome());
             request.setAttribute("email", gestor.getEmail());
-            request.setAttribute("senha", gestor.getSenha());
             request.setAttribute("telefone", gestor.getTelefone());
             request.setAttribute("codUnidade", gestor.getCodUnidade());
 
-
-            request.getRequestDispatcher("/WEB-INF/perfil.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/perfil-gestor.jsp").forward(request, response);
+        } catch (NotFoundException nfe) {
+            exibirErro(request, response, "Gestor não cadastrado.", ERROR_PAGE);
         } catch (ServletException se) {
             exibirErro(request, response, se, ERROR_PAGE);
             se.printStackTrace();
@@ -73,3 +67,4 @@ public class ReadGestorServlet extends HttpServlet {
         }
     }
 }
+
