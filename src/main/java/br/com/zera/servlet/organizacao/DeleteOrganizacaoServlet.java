@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por excluir a organização da unidade logada.
@@ -37,7 +38,7 @@ public class DeleteOrganizacaoServlet extends HttpServlet {
         try{
             //resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             //checa se tal sessão existe
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
