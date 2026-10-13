@@ -9,6 +9,7 @@ import jakarta.servlet.http.*;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
  * Servlet responsável por mostrar as informações do gestor cadastrado
@@ -35,8 +36,7 @@ public class ReadGestorServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute("Gestor Logado");
-
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
             if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;

@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por atualizar o cadastro de organizações
@@ -39,6 +40,8 @@ public class UpdateOrganizacaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         // DAO responsável por persistir a organização no banco de dados
         OrganizacaoDAO dao = new OrganizacaoDAO();
 
@@ -46,7 +49,7 @@ public class UpdateOrganizacaoServlet extends HttpServlet {
 
             // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;

@@ -1,15 +1,14 @@
 package br.com.zera.model;
+
 import java.math.BigDecimal;
 
 /**
- * Modelo que representa a entidade Organizacao no sistema.
- * Cada instância corresponde a um registro na tabela "Organizacao"
+ * Modelo que representa a entidade Plano no sistema.
+ * Cada instância corresponde a um registro na tabela "Plano".
  *
  * @author Maytê Bastos
  */
-
-//classe Plano
-public class Plano{
+public class Plano {
 
     //atributos
     private int codigo;
@@ -17,15 +16,15 @@ public class Plano{
     private String nome;
     private String tempo;
 
-    //construtorpadrão vazio
+    //construtor padrão vazio
     public Plano(){}
 
     /**
-     * Construtor do Plano.
+     * Construtor de um plano novo, ainda não salvo no banco.
      * O código não é informado porque é gerado automaticamente (serial).
      *
      * @param valor custo do plano
-     * @param nome nome cadastrado no plano
+     * @param nome nome do plano
      * @param tempo duração do plano
      */
     public Plano(BigDecimal valor, String nome, String tempo) {
@@ -35,11 +34,11 @@ public class Plano{
     }
 
     /**
-     * Construtor do Plano.
-     * 
-     * @param codigo identificador único do endereco no banco
+     * Construtor completo do Plano, usado ao ler um registro do banco.
+     *
+     * @param codigo identificador único do plano no banco
      * @param valor custo do plano
-     * @param nome nome cadastrado no plano
+     * @param nome nome do plano
      * @param tempo duração do plano
      */
     public Plano(int codigo, BigDecimal valor, String nome, String tempo) {
@@ -50,20 +49,12 @@ public class Plano{
     }
 
     //getters e setters
-    public String getTempo() {
-        return tempo;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setTempo(String tempo) {
-        this.tempo = tempo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public BigDecimal getValor() {
@@ -74,21 +65,29 @@ public class Plano{
         this.valor = valor;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    //saída em texto da tabela Organizacao
+    public String getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
+    }
+
+    //saída em texto da tabela Plano
     @Override
     public String toString(){
-        return "Plano: \n"+
-        "Código: "+getCodigo()+
-        "\nValor: "+getValor()+
-        "\nNome: "+getNome()+
-        "\nTempo: "+getTempo();
+        return "Plano \n" +
+                "Código: " + getCodigo() +
+                "\nValor: " + getValor() +
+                "\nNome: " + getNome() +
+                "\nTempo: " + getTempo();
     }
 }

@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por processar o cadastro de assinaturas
@@ -46,6 +47,8 @@ public class InsertAssinaturaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         AssinaturaDAO dao = new AssinaturaDAO();
         UnidadeDAO unidadeDAO = new UnidadeDAO();
         PlanoDAO planoDAO = new PlanoDAO();
@@ -53,7 +56,7 @@ public class InsertAssinaturaServlet extends HttpServlet {
         try {
             // Recupera o gestor guardado na sessão durante o login
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;

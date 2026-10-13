@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por atualizar o cadastro de endereços
@@ -40,19 +41,25 @@ public class UpdateEnderecoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+
         try {
 
             // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
+            // instancia o DAO de endereço (os métodos não são mais static)
+            EnderecoDAO dao = new EnderecoDAO();
+
             // busca o endereço atual pela unidade
             int codUnidade = unidadeLogada.getCodigo();
-            Endereco enderecoExistente = EnderecoDAO.findByCodUnidade(codUnidade);
+            Endereco enderecoExistente = dao.findByCodUnidade(codUnidade);
 
             int codigoEndereco = enderecoExistente.getCodigo();
             String bairro = request.getParameter("bairro");
@@ -77,7 +84,7 @@ public class UpdateEnderecoServlet extends HttpServlet {
             Endereco model = new Endereco(codigoEndereco, bairro, numero, cep, logradouro, cidade, estado, codUnidade);
 
             // atualiza o endereço no banco
-            EnderecoDAO.update(model);
+            dao.update(model);
 
             // Redireciona para o perfil do endereço após a atualização bem-sucedida
             response.sendRedirect(request.getContextPath() + "/endereco/perfil");

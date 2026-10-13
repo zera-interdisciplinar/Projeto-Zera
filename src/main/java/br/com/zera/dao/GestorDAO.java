@@ -45,6 +45,7 @@ public class GestorDAO {
      * Atualiza os dados de um Gestor já existente no banco de dados.
      *
      * @param gestor Objeto {@link Gestor} contendo os dados a serem atualizados
+     * @throws NotFoundException se nenhum gestor com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void update(Gestor gestor) {
@@ -60,7 +61,11 @@ public class GestorDAO {
             pstm.setInt(5, gestor.getCodUnidade());
             pstm.setInt(6, gestor.getCodigo());
 
-            pstm.executeUpdate();
+            int linhasAfetadas = pstm.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new NotFoundException("Gestor", gestor.getCodigo());
+            }
 
         }catch(SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
@@ -95,11 +100,47 @@ public class GestorDAO {
                             rs.getInt("cod_unidade")
                     );
                 } else {
-                    throw new NotFoundException("Nenhum registro encontrado", codigo);
+                    throw new NotFoundException("Gestor", codigo);
                 }
             }
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
+        }
+    }
+
+    /**
+     * Busca um gestor no banco de dados a partir do seu e-mail. Usado no login.
+     *
+     * @param email E-mail do gestor a ser buscado
+     * @return o {@link Gestor} correspondente ao e-mail informado, com o hash da senha
+     * @throws NotFoundException se nenhum gestor com o e-mail informado for encontrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public Gestor findByEmail(String email) {
+        String sql = "select * from Gestor where email = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement pstm = conn.prepareStatement(sql)) {
+
+            pstm.setString(1, email);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    return new Gestor(
+                            rs.getInt("codigo"),
+                            rs.getString("nome"),
+                            rs.getString("email"),
+                            rs.getString("senha"),
+                            rs.getString("telefone"),
+                            rs.getInt("cod_unidade")
+                    );
+                } else {
+                    throw new NotFoundException("Gestor com o e-mail " + email + " não foi encontrado no sistema.");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar o gestor pelo e-mail.", e);
         }
     }
 
@@ -138,6 +179,7 @@ public class GestorDAO {
      * Apaga um registro de gestor no banco de dados baseado no código.
      *
      * @param codigo Código (Primary Key) do gestor a ser excluído
+     * @throws NotFoundException se nenhum gestor com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void delete(int codigo) {
@@ -148,7 +190,11 @@ public class GestorDAO {
 
             pstm.setInt(1, codigo);
 
-            pstm.executeUpdate();
+            int linhasAfetadas = pstm.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new NotFoundException("Gestor", codigo);
+            }
 
         }catch(SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());

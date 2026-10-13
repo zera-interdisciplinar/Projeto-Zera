@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +46,14 @@ public class OrganizacaoDAO {
 
     /**
      * Atualiza os dados de uma organização já existente no banco de dados,
-     * identificada pelo seu código.
+     * identificada pelo seu código. A coluna atualizado_em recebe a data e hora atuais.
      *
      * @param organizacao Objeto {@link Organizacao} com os dados atualizados
      * @throws NotFoundException se nenhuma organização com o código informado for encontrada
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, atualizado_em = CURRENT_TIMESTAMP WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -95,7 +96,9 @@ public class OrganizacaoDAO {
                             rs.getInt("codigo"),
                             rs.getString("cnpj"),
                             rs.getString("nome"),
-                            rs.getString("email")
+                            rs.getString("email"),
+                            rs.getObject("criado_em", LocalDateTime.class),
+                            rs.getObject("atualizado_em", LocalDateTime.class)
                     );
                 } else {
                     throw new NotFoundException("Organização", codigo);
@@ -129,7 +132,9 @@ public class OrganizacaoDAO {
                             rs.getInt("codigo"),
                             rs.getString("cnpj"),
                             rs.getString("nome"),
-                            rs.getString("email")
+                            rs.getString("email"),
+                            rs.getObject("criado_em", LocalDateTime.class),
+                            rs.getObject("atualizado_em", LocalDateTime.class)
                     );
                 } else {
                     throw new NotFoundException("Organização com o CNPJ " + cnpj + " não foi encontrada no sistema.");
@@ -160,7 +165,9 @@ public class OrganizacaoDAO {
                         rs.getInt("codigo"),
                         rs.getString("cnpj"),
                         rs.getString("nome"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getObject("criado_em", LocalDateTime.class),
+                        rs.getObject("atualizado_em", LocalDateTime.class)
                 ));
             }
 
