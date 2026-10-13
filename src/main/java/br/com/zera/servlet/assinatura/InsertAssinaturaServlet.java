@@ -47,6 +47,8 @@ public class InsertAssinaturaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         AssinaturaDAO dao = new AssinaturaDAO();
         UnidadeDAO unidadeDAO = new UnidadeDAO();
         PlanoDAO planoDAO = new PlanoDAO();

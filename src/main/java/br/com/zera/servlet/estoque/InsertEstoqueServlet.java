@@ -39,6 +39,8 @@ public class InsertEstoqueServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
         EstoqueDAO dao = new EstoqueDAO();
         // DAOs usados para conferir se as chaves estrangeiras existem no banco
         UnidadeDAO unidadeDAO = new UnidadeDAO();
