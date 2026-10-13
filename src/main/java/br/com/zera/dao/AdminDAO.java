@@ -135,6 +135,40 @@ public class AdminDAO {
     }
 
     /**
+     * Busca um admin no banco de dados a partir do seu e-mail. Usado no login.
+     *
+     * @param email E-mail do admin a ser buscado
+     * @return o {@link Admin} correspondente ao e-mail informado, com o hash da senha
+     * @throws NotFoundException se nenhum admin com o e-mail informado for encontrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public Admin findByEmail(String email) {
+        String sql = "SELECT * FROM Admin WHERE email = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Admin(
+                            rs.getInt("codigo"),
+                            rs.getString("nome"),
+                            rs.getString("email"),
+                            rs.getString("senha")
+                    );
+                } else {
+                    throw new NotFoundException("Admin com o e-mail " + email + " não foi encontrado no sistema.");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar o admin pelo e-mail.", e);
+        }
+    }
+
+    /**
      * Verifica se já existe um admin cadastrado com o email informado.
      *
      * @param email email a ser verificado
