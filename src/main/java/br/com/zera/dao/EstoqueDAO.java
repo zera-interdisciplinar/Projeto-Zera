@@ -24,7 +24,7 @@ public class EstoqueDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Estoque estoque) {
-        String sql = "INSERT INTO estoque (espaco_na_unidade, cod_responsavel, cod_unidade) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO estoque (espaco_na_unidade, cod_responsavel, cod_unidade) VALUES (?, ?, ?)";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -49,7 +49,7 @@ public class EstoqueDAO {
      * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
      */
     public void update(Estoque estoque) {
-        String sql = "UPDATE estoque SET codigo = ?,  espaco_na_unidade = ?, cod_reponsavel = ?, cod_unidade = ? WHERE codigo = ? ";
+        String sql = "UPDATE estoque SET espaco_na_unidade = ?, cod_responsavel = ?, cod_unidade = ? WHERE codigo = ? ";
 
         try(Connection conn = Conexao.getConexao();
             PreparedStatement psmt = conn.prepareStatement(sql)){
@@ -60,7 +60,7 @@ public class EstoqueDAO {
             psmt.setInt(4, estoque.getCodigo());
 
             if (psmt.executeUpdate() == 0) {
-                throw new NotFoundException("Registro não encontrado em Estoque", estoque.getCodigo());
+                throw new NotFoundException("Estoque", estoque.getCodigo());
             }
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
@@ -89,11 +89,11 @@ public class EstoqueDAO {
                     return new Estoque(
                             rs.getInt("codigo"),
                             rs.getString("espaco_na_unidade"),
-                            rs.getInt("cod_reponsavel"),
+                            rs.getInt("cod_responsavel"),
                             rs.getInt("cod_unidade")
                     );
                 }
-                throw new NotFoundException("Registro não encontrado em Estoque", codigo);
+                throw new NotFoundException("Estoque", codigo);
             }
         } catch (SQLException sqle) {
             throw new ConnectionFailedException(sqle.getMessage());
@@ -142,7 +142,7 @@ public class EstoqueDAO {
             psmt.setInt(1, codigo);
 
             if (psmt.executeUpdate() == 0) {
-                throw new NotFoundException("Registro não encontrado em Estoque", codigo);
+                throw new NotFoundException("Estoque", codigo);
             }
         } catch (SQLException sqle){
             throw new ConnectionFailedException(sqle.getMessage());
