@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por processar o cadastro de endereços
@@ -41,7 +42,7 @@ public class InsertEnderecoServlet extends HttpServlet{
 
             // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("Unidade Logada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
