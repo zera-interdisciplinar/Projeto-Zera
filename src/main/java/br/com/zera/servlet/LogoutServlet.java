@@ -40,10 +40,8 @@ public class LogoutServlet extends HttpServlet {
         // Se não houver ninguém logado, manda para o login do gestor
         String destino = LOGIN_GESTOR;
 
-        // getSession(false) não cria uma sessão nova se não existir nenhuma
         HttpSession session = request.getSession(false);
         if (session != null) {
-            // Lê ANTES do invalidate: depois dele, a sessão não pode mais ser usada
             if (session.getAttribute(SESSAO_ADMIN) != null) {
                 destino = LOGIN_ADMIN;
             }
@@ -51,5 +49,19 @@ public class LogoutServlet extends HttpServlet {
         }
 
         response.sendRedirect(request.getContextPath() + destino);
+    }
+
+    /**
+     * Processa GET para sair do sistema, usado pelo link "Sair" do menu.
+     * Reaproveita a mesma lógica do {@link #doPost}.
+     *
+     * @param request objeto HttpServletRequest da requisição
+     * @param response objeto HttpServletResponse para redirecionamento
+     * @throws IOException caso haja um erro de input/output (entrada/saída)
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        doPost(request, response);
     }
 }
