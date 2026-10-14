@@ -9,8 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class OrganizacaoDAO {
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void insert(Organizacao organizacao) {
-        String sql = "INSERT INTO Organizacao (cnpj, nome, email, codCadastro) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Organizacao (cnpj, nome, email) VALUES (?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -47,14 +46,14 @@ public class OrganizacaoDAO {
 
     /**
      * Atualiza os dados de uma organização já existente no banco de dados,
-     * identificada pelo seu código.
+     * identificada pelo seu código. A coluna atualizado_em recebe a data e hora atuais.
      *
      * @param organizacao Objeto {@link Organizacao} com os dados atualizados
      * @throws NotFoundException se nenhuma organização com o código informado for encontrada
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
     public void update(Organizacao organizacao) {
-        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ? WHERE codigo = ?";
+        String sql = "UPDATE Organizacao SET cnpj = ?, nome = ?, email = ?, atualizado_em = CURRENT_TIMESTAMP WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -62,7 +61,7 @@ public class OrganizacaoDAO {
             stmt.setString(1, organizacao.getCnpj());
             stmt.setString(2, organizacao.getNome());
             stmt.setString(3, organizacao.getEmail());
-            stmt.setInt(5, organizacao.getCodigo());
+            stmt.setInt(4, organizacao.getCodigo());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -93,7 +92,14 @@ public class OrganizacaoDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return mapearOrganizacao(rs);
+                    return new Organizacao(
+                            rs.getInt("codigo"),
+                            rs.getString("cnpj"),
+                            rs.getString("nome"),
+                            rs.getString("email"),
+                            rs.getObject("criado_em", LocalDateTime.class),
+                            rs.getObject("atualizado_em", LocalDateTime.class)
+                    );
                 } else {
                     throw new NotFoundException("Organização", codigo);
                 }
@@ -105,31 +111,38 @@ public class OrganizacaoDAO {
     }
 
     /**
-     * Busca uma organização no banco de dados a partir do seu código identificador.
+     * Busca uma organização no banco de dados a partir do seu CNPJ.
      *
-     * @param cnpj cnpj (chave primária) da organização a ser buscada
-     * @return a {@link Organizacao} correspondente ao código informado
-     * @throws NotFoundException se nenhuma organização com o código informado for encontrada
+     * @param cnpj CNPJ da organização a ser buscada
+     * @return a {@link Organizacao} correspondente ao CNPJ informado
+     * @throws NotFoundException se nenhuma organização com o CNPJ informado for encontrada
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public Organizacao findByCnpj(long cnpj) {
+    public Organizacao findByCnpj(String cnpj) {
         String sql = "SELECT * FROM Organizacao WHERE cnpj = ?";
 
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setLong(1, cnpj);
+            stmt.setString(1, cnpj);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return mapearOrganizacao(rs);
+                    return new Organizacao(
+                            rs.getInt("codigo"),
+                            rs.getString("cnpj"),
+                            rs.getString("nome"),
+                            rs.getString("email"),
+                            rs.getObject("criado_em", LocalDateTime.class),
+                            rs.getObject("atualizado_em", LocalDateTime.class)
+                    );
                 } else {
-                    throw new NotFoundException("Organização", cnpj);
+                    throw new NotFoundException("Organização com o CNPJ " + cnpj + " não foi encontrada no sistema.");
                 }
             }
 
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao buscar a organização pelo código.", e);
+            throw new ConnectionFailedException("Erro ao buscar a organização pelo CNPJ.", e);
         }
     }
 
@@ -148,7 +161,14 @@ public class OrganizacaoDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                lista.add(mapearOrganizacao(rs));
+                lista.add(new Organizacao(
+                        rs.getInt("codigo"),
+                        rs.getString("cnpj"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getObject("criado_em", LocalDateTime.class),
+                        rs.getObject("atualizado_em", LocalDateTime.class)
+                ));
             }
 
         } catch (SQLException e) {
@@ -182,23 +202,5 @@ public class OrganizacaoDAO {
         } catch (SQLException e) {
             throw new ConnectionFailedException("Erro ao deletar a organização do banco de dados.", e);
         }
-    }
-
-    /**
-     * Converte a linha atual do {@link ResultSet} num objeto {@link Organizacao},
-     * incluindo os campos de auditoria (criado_em/atualizado_em), que podem ser nulos.
-     *
-     * @param rs ResultSet posicionado na linha a ser convertida
-     * @return a {@link Organizacao} correspondente
-     * @throws SQLException se ocorrer erro ao ler os dados do ResultSet
-     */
-    private Organizacao mapearOrganizacao(ResultSet rs) throws SQLException {
-        Organizacao organizacao = new Organizacao(
-                rs.getInt("codigo"),
-                rs.getString("cnpj"),
-                rs.getString("nome"),
-                rs.getString("email")
-                );
-        return organizacao;
     }
 }

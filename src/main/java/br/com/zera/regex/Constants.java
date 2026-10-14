@@ -31,4 +31,13 @@ public class Constants {
 
     // Tela de erro
     public static final String ERROR_PAGE = "/WEB-INF/Erro.jsp";
+
+    // Nome do atributo da sessão que guarda a unidade do gestor logado
+    public static final String SESSAO_UNIDADE = "unidadeLogada";
+
+    // Nome do atributo da sessão que guarda o gestor logado
+    public static final String SESSAO_GESTOR = "gestorLogado";
+
+    // Nome do atributo da sessão que guarda o admin logado
+    public static final String SESSAO_ADMIN = "adminLogado";
 }

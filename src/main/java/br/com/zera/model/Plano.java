@@ -1,35 +1,47 @@
 package br.com.zera.model;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 /**
- * Modelo que representa a entidade Organizacao no sistema.
- * Cada instância corresponde a um registro na tabela "Organizacao"
+ * Modelo que representa a entidade Plano no sistema.
+ * Cada instância corresponde a um registro na tabela "Plano".
  *
  * @author Maytê Bastos
  */
-
-//classe Plano
-public class Plano{
+public class Plano {
 
     //atributos
     private int codigo;
     private BigDecimal valor;
     private String nome;
-    private LocalDate tempo;
+    private String tempo;
 
-    //construtorpadrão vazio
+    //construtor padrão vazio
     public Plano(){}
 
     /**
-     * Construtor do Plano.
-     * 
-     * @param codigo identificador único do endereco no banco
+     * Construtor de um plano novo, ainda não salvo no banco.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
      * @param valor custo do plano
-     * @param nome nome cadastrado no plano
+     * @param nome nome do plano
      * @param tempo duração do plano
      */
-    public Plano(int codigo, BigDecimal valor, String nome, LocalDate tempo) {
+    public Plano(BigDecimal valor, String nome, String tempo) {
+        this.valor = valor;
+        this.nome = nome;
+        this.tempo = tempo;
+    }
+
+    /**
+     * Construtor completo do Plano, usado ao ler um registro do banco.
+     *
+     * @param codigo identificador único do plano no banco
+     * @param valor custo do plano
+     * @param nome nome do plano
+     * @param tempo duração do plano
+     */
+    public Plano(int codigo, BigDecimal valor, String nome, String tempo) {
         this.codigo = codigo;
         this.valor = valor;
         this.nome = nome;
@@ -61,21 +73,21 @@ public class Plano{
         this.nome = nome;
     }
 
-    public LocalDate getTempo() {
+    public String getTempo() {
         return tempo;
     }
 
-    public void setTempo(LocalDate tempo) {
+    public void setTempo(String tempo) {
         this.tempo = tempo;
     }
 
-    //saída em texto da tabela Organizacao
+    //saída em texto da tabela Plano
     @Override
     public String toString(){
-        return "Plano: \n"+
-        "Código: "+getCodigo()+
-        "\nValor: "+getValor()+
-        "\nNome: "+getNome()+
-        "\nTempo: "+getTempo();
+        return "Plano \n" +
+                "Código: " + getCodigo() +
+                "\nValor: " + getValor() +
+                "\nNome: " + getNome() +
+                "\nTempo: " + getTempo();
     }
 }

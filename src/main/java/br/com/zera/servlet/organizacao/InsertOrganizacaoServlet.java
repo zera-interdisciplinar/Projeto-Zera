@@ -1,6 +1,6 @@
-package br.com.zera.servlet.Unidade;
+package br.com.zera.servlet.organizacao;
 
-import br.com.zera.dao.UnidadeDAO;
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.*;
@@ -13,86 +13,71 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-
-@WebServlet(name = "InsertUnidade", value = "/unidade/signIn")
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por processar o cadastro de unidades
+ * Servlet responsável por processar o cadastro da organização
  *
  * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega a persistência ao {@link UnidadeDAO}. *
+ * validação das informações e delega a persistência a {@link OrganizacaoDAO}.
  *
  * @author Mayte B
- * @since 2026-10-02
+ * @since 2026-10-05
  */
-public class InsertUnidadeServlet extends HttpServlet{
+@WebServlet(name = "InsertOrganizacao", value = "/organizacao/signIn")
+public class InsertOrganizacaoServlet extends HttpServlet{
 
     /**
-     * Processa POST para inserir uma nova Unidade
+     * Processa POST para inserir uma nova Organização
      *
      * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-         //Instancia DAO responsável por persistir objetos no banco de dados
-        UnidadeDAO dao = new UnidadeDAO();
-        Organizacao organizacao = new Organizacao();
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+        // DAO responsável por persistir a organização no banco de dados
+        OrganizacaoDAO dao = new OrganizacaoDAO();
 
         try {
 
-            /**
-             * Salva o login/signin da {@link Unidade} para manter a sessão ativa
-             */
+            // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Capta os atributos (colunas do banco {@link UnidadeDAO}) do endereço recebido
-             */
+            // capta os atributos (colunas do banco) da organização recebida
             String cnpj = request.getParameter("cnpj");
+            String nome = request.getParameter("nome");
             String email = request.getParameter("email");
 
-            int codOrganizacao = organizacao.getCodigo();
-            if(dao.findByCodigo(codOrganizacao) == null) {
-                exibirErro(request, response, "Organizacao vinculada a unidade não foi encontrada.", ERROR_PAGE);
-                return;
-            }
-
-            /**
-             * Instancia página de erro caso o CNPJ inserido seja inválido
-             */
-            if(Regex.validarCEP(cnpj) == false){
+            // exibe página de erro caso o CNPJ inserido seja inválido
+            if(Regex.validarCNPJ(cnpj) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Instancia página de erro caso o email inserido seja inválido
-             */
-            if(Regex.validarCEP(email) == false){
-                exibirErro(request, response, "email inválido", ERROR_PAGE);
+            // exibe página de erro caso o email inserido seja inválido
+            if(Regex.validarEmail(email) == false){
+                exibirErro(request, response, "Email inválido", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Cria objeto {@link Unidade}
-             */
-            Unidade model = new Unidade();
+            // cria objeto Organizacao
+            Organizacao model = new Organizacao(cnpj, nome, email);
 
-            /**
-             * Instancia as informações recebidas no {@link Endereco} com o método
-             */
+            // persiste a organização no banco
             dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/unidade/perfil");
+            response.sendRedirect(request.getContextPath() + "/organizacao/perfil");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();

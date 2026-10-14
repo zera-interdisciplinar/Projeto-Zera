@@ -56,6 +56,10 @@ nav a{
     
 }
 
+nav a:hover{
+    text-decoration: none;
+}
+
 hr{
     margin-left: 20px;
     width: 150px;
@@ -67,6 +71,8 @@ nav .botao-ativo{
     padding: 12px 0px 12px 30px;
     pointer-events: none;
     font-weight: bold;
+    margin: 0 auto;
+    margin-left: 8px;
 
 }
 
@@ -74,7 +80,7 @@ nav .botao-ativo{
 area de informações
 */
 
-.informacoes{
+#informacoes-gerais{
     flex: 1;
     position: relative;
     background-color: var(--cor2);
@@ -107,13 +113,13 @@ area de informações
     z-index: 1;
 }
 
-.nome-da-area{
+#home{
     font-size: 41.07px;
     font-family: var(--fonte1);
     font-weight: bold;
     color: var(--cor1);
     padding-bottom: 50px;
-    margin-left: -60px;
+    margin-left: -5px;
 }
 
 .card{
@@ -126,7 +132,6 @@ area de informações
     display: grid;
     grid-template-columns: repeat(3, 318px);
     padding-bottom: 52px;
-
 }
 
 .card .dado{
@@ -168,4 +173,184 @@ area de informações
 
 #alerta{
     border-color: #F59E0B;
+}
+
+.informacoes{
+    flex: 1;
+    position: relative;
+    background-color: var(--cor2);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    height: 108vh;
+    justify-content: flex-start;
+    padding: 50px 40px;
+    overflow: hidden;
+    min-height: 0;  
+    margin-left: 5px;
+    margin-top: 100px;
+    padding:50px 125px 40px 0;
+    border-top-left-radius: 20px;
+    background: linear-gradient( 135deg, #2958D1, var(--cor2));
+
+}
+
+.nome-da-area{
+    font-size: 41.07px;
+    font-family: var(--fonte1);
+    font-weight: bold;
+    color: var(--cor1);
+    margin: 0 0 38px 115px;
+    padding: 0;
+    flex-shrink: 0;
+    
+}
+
+.tabela{
+background-color: var(--cor1);
+position: relative;
+z-index: 2;
+border-radius: 20px;
+box-sizing: border-box;
+margin-left: 115px;
+padding: 20.5px 38.5px 20px;
+display: flex;
+flex-direction: column;
+flex: 0 1 auto;
+min-height: 0;
+}
+
+.tabela label{
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+.tabela-filtros{
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.tabela-rolagem{
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: 12;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor2) var(--cor1);
+}
+
+.tabela-filtros input{
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 19.5px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 8px 27px;
+    background-color: var(--cor1);
+    width: auto;
+
+}
+
+.tabela-filtros input:focus {
+    border: 2px solid var(--cor2)
+}
+
+.tabela-filtros input::placeholder {
+    color: #152D6B80;
+    font-size: 19.5px;
+}
+
+.filtrador{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.busca{
+    flex: 1;
+    min-width: 0;
+}
+
+.tabela-filtros select {
+  border-radius: 9px;
+  border: 2px solid var(--cor2);
+  background-color: var(--cor1);
+  color: var(--cor2);
+  font-family: var(--fonte1);
+  font-size: 19.5px;
+  padding: 8px 13px;
+  cursor: pointer;
+}
+
+.adicionar{
+    background-color: #2958D1;
+    color: var(--cor1);
+    padding: 13px 27px;
+    border-radius: 9px;
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    gap: 15px;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    text-decoration: none;
+}
+
+.adicionar:hover{
+    text-decoration: none;
+}
+
+.itens-tabela{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.itens-tabela th{
+    position: sticky;
+    top: 0;
+    background-color: var(--cor1);
+    text-align: left;
+    padding: 12px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.itens-tabela td{
+    text-align: left;
+    padding: 12px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 16px;
+}
+
+.itens-tabela tbody tr{
+    border-top: 2px solid #152D6BAD;
+    font-family: var(--fonte1);
+    font-size: 16px;
+    color: var(--cor2);
+}
+
+.acoes{
+    font-size: 0;
+}
+
+.acoes a{
+    display: inline-block;
+}
+
+.acoes a + a{
+    margin-left: 10px;
+}
+
+.acoes img{
+    display: block;
 }
