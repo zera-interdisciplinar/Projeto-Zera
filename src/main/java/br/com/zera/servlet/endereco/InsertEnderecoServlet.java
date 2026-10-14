@@ -1,4 +1,4 @@
-package br.com.zera.servlet.endereco;
+package br.com.zera.servlet.Endereco;
 
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
