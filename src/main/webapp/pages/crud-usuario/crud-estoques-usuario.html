@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Estoques</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <div class="tela-auth">
+        <!-- PAINEL ESQUERDO -->
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <img src="../images/logo-zera.png" alt="Logo Zera" class="logo-zera">
+
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#" class="botao-ativo">Estoques</a>
+                    <a href="#">Unidade</a>
+                    <a href="#">Endereço</a>
+                    <a href="#">Assinatura</a>
+                    <a href="#">Organização</a>
+
+                    <hr>
+
+                    <a href="#">Configurações</a>
+                    <a href="#">Sair</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ÁREA DE INFORMAÇÕES -->
+        <main class="informacoes">
+            <img src="../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+
+            <h1 class="nome-da-area">Estoques</h1>
+
+            <section class="tabela">
+                <!-- Filtros e Botão Adicionar -->
+                <div class="tabela-filtros">
+                    <div class="filtrador busca">
+                        <label for="buscar">Buscar</label>
+                        <input type="text" id="buscar" placeholder="Nome, CNPJ ou email">
+                    </div>
+                    <a href="#" class="adicionar">+ Novo estoque</a>
+                </div>
+
+                <!-- Tabela com Rolagem -->
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Código</th>
+                                <th style="width: 70%;">Espaço na unidade</th>
+                                <th style="width: 15%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Linha em edição -->
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <input type="text" value="Galpão 3, sala B" style="border: 2px solid var(--cor2); border-radius: 6px; padding: 4px 8px; font-family: var(--fonte1); font-size: 16px; color: var(--cor2); background: transparent; width: 60%;">
+                                </td>
+                                <td class="acoes">
+                                    <a href="#" title="Editar">
+                                        <img src="../images/icone-editar.png" alt="Editar">
+                                    </a>
+                                    <a href="#" title="Excluir">
+                                        <img src="../images/icone-excluir.png" alt="Excluir">
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <!-- Linha comum -->
+                            <tr>
+                                <td>1</td>
+                                <td>Galpão 3, sala B</td>
+                                <td class="acoes">
+                                    <a href="#" title="Editar">
+                                        <img src="../images/icone-editar.png" alt="Editar">
+                                    </a>
+                                    <a href="#" title="Excluir">
+                                        <img src="../images/icone-excluir.png" alt="Excluir">
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <!-- Linha nova sendo inserida -->
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <input type="text" placeholder="Digite o espaço na unidade" style="border: 2px solid var(--cor2); border-radius: 6px; padding: 4px 8px; font-family: var(--fonte1); font-size: 16px; color: var(--cor2); background: transparent; width: 60%;">
+                                </td>
+                                <td class="acoes">
+                                    <a href="#" title="Editar">
+                                        <img src="../images/icone-editar.png" alt="Editar">
+                                    </a>
+                                    <a href="#" title="Excluir">
+                                        <img src="../images/icone-excluir.png" alt="Excluir">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
