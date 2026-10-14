@@ -41,3 +41,4 @@ public class Constants {
     // Nome do atributo da sessão que guarda o admin logado
     public static final String SESSAO_ADMIN = "adminLogado";
 }
+
