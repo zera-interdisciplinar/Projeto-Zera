@@ -1,4 +1,4 @@
-package br.com.zera.servlet.Organizacao;
+package br.com.zera.servlet.unidade;
 
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
@@ -14,84 +14,82 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-
-@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por processar o cadastro da organização
+ * Servlet responsável por processar o cadastro de unidades
  *
  * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega a persistência a {@link OrganizacaoDAO}.
+ * validação das informações e delega a persistência ao {@link UnidadeDAO}.
  *
  * @author Mayte B
- * @since 2026-10-05
+ * @since 2026-10-02
  */
-public class InsertOrganizacaoServlet extends HttpServlet{
+@WebServlet(name = "InsertUnidade", value = "/unidade/signIn")
+public class InsertUnidadeServlet extends HttpServlet{
 
     /**
-     * Processa POST para inserir uma nova Organização
+     * Processa POST para inserir uma nova Unidade
      *
      * @param request objeto HttpServletRequest contendo os parâmetros da página
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      * */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        /**
-         * Instancia DAO responsável por persistir objetos no banco de dados
-         *
-         * Instancia Chave estrangeira da tabela Unidade
-         */
-        OrganizacaoDAO dao = new OrganizacaoDAO();
-        UnidadeDAO unidadeDAO = new UnidadeDAO();
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+        // DAOs da unidade e da organização (chave estrangeira)
+        UnidadeDAO dao = new UnidadeDAO();
+        OrganizacaoDAO organizacaoDAO = new OrganizacaoDAO();
 
         try {
 
-            /**
-             * Salva o login/signin da {@link Unidade} para manter a sessão ativa
-             */
+            // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Capta os atributos (colunas do banco {@link OrganizacaoDAO}) da organização recebida
-             */
-            int codigoOrganizacao = unidadeLogada.getCodigo();
+            // capta os atributos (colunas do banco) da unidade recebida
             String cnpj = request.getParameter("cnpj");
-            String nome = request.getParameter("nome");
             String email = request.getParameter("email");
 
-            int codUnidade = unidadeLogada.getCodigo();
-            if(unidadeDAO.findByCodigo(codUnidade) == null) {
-                exibirErro(request, response, "Organização vinculada a unidade não foi encontrada.", ERROR_PAGE);
+            // código da organização escolhida na busca por CNPJ
+            String codigoOrganizacao = request.getParameter("codOrganizacao");
+            if (codigoOrganizacao == null || codigoOrganizacao.isEmpty()) {
+                exibirErro(request, response, "Organização não informada.", ERROR_PAGE);
                 return;
             }
+            int codOrganizacao = Integer.parseInt(codigoOrganizacao);
 
-            /**
-             * Instancia página de erro caso o CPF inserido seja inválido
-             */
+            // confere se a organização existe
+            organizacaoDAO.findByCodigo(codOrganizacao);
+
+            // exibe página de erro caso o CNPJ inserido seja inválido
             if(Regex.validarCNPJ(cnpj) == false){
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
-            /**
-             * Cria objeto {@link Organizacao}
-             */
-            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
+            // exibe página de erro caso o email inserido seja inválido
+            if(Regex.validarEmail(email) == false){
+                exibirErro(request, response, "email inválido", ERROR_PAGE);
+                return;
+            }
 
-            /**
-             * Instancia as informações recebidas no {@link Organizacao} com o método
-             */
+            // cria objeto Unidade
+            Unidade model = new Unidade(cnpj, email, codOrganizacao);
+
+            // persiste a unidade no banco
             dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
+            response.sendRedirect(request.getContextPath() + "/unidade/perfil");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();

@@ -25,6 +25,26 @@ public class Assinatura{
     /**
      * Construtor de Assinatura.
      *
+     * Construtor para criar um nova Assinatura antes de inserir no banco.
+     * O código não é informado porque é gerado automaticamente (serial).
+     *
+     * @param dataInicio data de registro da assinatura
+     * @param dataFim data de vencimento da assinatura
+     * @param status status definido como "Ativa", "Inativa", "Vencida"
+     * @param codOrganizacao identificador da tabela Organizacao (chave estrangeira)
+     * @param codPlano identificador da tabela Plano (chave estrangeira)
+     */
+    public Assinatura(LocalDate dataInicio, LocalDate dataFim, String status, int codOrganizacao, int codPlano) {
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.status = status;
+        this.codOrganizacao = codOrganizacao;
+        this.codPlano = codPlano;
+    }
+
+    /**
+     * Construtor de Assinatura.
+     *
      * @param codigo identificador único do endereco no banco
      * @param dataInicio data de registro da assinatura
      * @param dataFim data de vencimento da assinatura

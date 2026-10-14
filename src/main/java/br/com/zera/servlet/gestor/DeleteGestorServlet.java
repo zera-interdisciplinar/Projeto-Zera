@@ -1,7 +1,8 @@
-package br.com.zera.servlet.Unidade;
+package br.com.zera.servlet.gestor;
 
-import br.com.zera.dao.UnidadeDAO;
-import br.com.zera.model.Unidade;
+import br.com.zera.dao.GestorDAO;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Gestor;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -9,52 +10,52 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-
-@WebServlet(name = "DeleteUnidade", value = "/logOut")
-
+import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
- * Servlet responsável por mostrar as informações de unidade cadastradas
+ * Servlet responsável por excluir o cadastro do gestor logado.
  *
- * Esta classe recebe a requisição de visualização da unidade cadastrado pelo gestor via formulário HTTP,
- * e as exibe com uma tela de resposta
+ * Esta classe recebe a requisição de exclusão via formulário HTTP, delega a
+ * remoção ao {@link GestorDAO} e encerra a sessão do gestor excluído.
  *
  * @author Mayte B
- * @since 2026-10-05
+ * @since 2026-10-06
  */
-public class DeleteUnidadeServlet extends HttpServlet {
+@WebServlet(name = "DeleteGestor", value = "/gestor/excluir")
+public class DeleteGestorServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão da unidade de uma empresa.
+     * Método responsável por processar a requisição de exclusão do gestor logado.
      * É acionado quando o usuário envia a requisição de remoção do sistema.
      *
      * @param request objeto que contém os dados enviados pelo formulário (JSP)
      * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso a entrada do usuário esteja incorreta
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException{
+
         try{
-            //resgata sessão logada
+            //resgata o gestor logado na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("unidadeLogada");
+            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR   );
             //checa se tal sessão existe
-            if (unidadeLogada == null) {
+            if (gestorLogado == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-            Unidade excluir = (Unidade) session.getAttribute("excluir");
-            //instancia dao de unidade
-            UnidadeDAO dao = new UnidadeDAO();
-            //captura o código do dao instanciado
-            int codigo = unidadeLogada.getCodigo();
-            //chama função de deletar o endereço baseado no código da sessão
-            dao.delete(codigo);
-            // encerra a sessão, já que o gestor dela não existe mais
+            //instancia dao do gestor
+            GestorDAO dao = new GestorDAO();
+            //deleta o gestor pelo código do próprio gestor
+            dao.delete(gestorLogado.getCodigo());
+            // encerra a sessão, já que o gestor não existe mais
             session.invalidate();
             //envia página de resposta bem-sucedida da requisição de exclusão
             response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
+        }catch(NotFoundException nfe){
+            exibirErro(request, response, nfe, ERROR_PAGE);
+            nfe.printStackTrace();
         }catch(IOException ioe){
             exibirErro(request, response, ioe, ERROR_PAGE);
             ioe.printStackTrace();

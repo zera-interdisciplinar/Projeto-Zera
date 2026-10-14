@@ -26,7 +26,7 @@ public class EnderecoDAO {
      * @param endereco Objeto {@link Endereco} contendo os dados a serem persistidos
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public static void insert(Endereco endereco) {
+    public void insert(Endereco endereco) {
         String sql = "INSERT INTO Endereco (logradouro, numero, cep, cod_unidade, cidade, bairro, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConexao();
@@ -55,7 +55,7 @@ public class EnderecoDAO {
      * @throws NotFoundException se nenhum endereço com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public static void update(Endereco endereco) {
+    public void update(Endereco endereco) {
         String sql = "UPDATE Endereco SET logradouro = ?, numero = ?, cep = ?, cod_unidade = ?, cidade = ?, bairro = ?, estado = ? WHERE codigo = ?";
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -88,7 +88,7 @@ public class EnderecoDAO {
      * @throws NotFoundException se nenhum endereço com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public static Endereco findByCodigo(int codigo) {
+    public Endereco findByCodigo(int codigo) {
         String sql = "SELECT * FROM Endereco WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();
@@ -109,12 +109,50 @@ public class EnderecoDAO {
                             rs.getInt("cod_unidade")
                     );
                 } else {
-                    throw new NotFoundException("Endereco", codigo);
+                    throw new NotFoundException("Endereço", codigo);
                 }
             }
 
         } catch (SQLException e) {
             throw new ConnectionFailedException("Erro ao buscar o endereço pelo código.", e);
+        }
+    }
+
+    /**
+     * Busca o endereço de uma unidade a partir do código da unidade (chave estrangeira).
+     *
+     * @param codUnidade Código da unidade dona do endereço
+     * @return o {@link Endereco} vinculado à unidade informada
+     * @throws NotFoundException se a unidade não tiver endereço cadastrado
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public Endereco findByCodUnidade(int codUnidade) {
+        String sql = "SELECT * FROM Endereco WHERE cod_unidade = ?";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, codUnidade);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Endereco(
+                            rs.getInt("codigo"),
+                            rs.getString("bairro"),
+                            rs.getInt("numero"),
+                            rs.getString("cep"),
+                            rs.getString("logradouro"),
+                            rs.getString("cidade"),
+                            rs.getString("estado"),
+                            rs.getInt("cod_unidade")
+                    );
+                } else {
+                    throw new NotFoundException("Endereço da unidade", codUnidade);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar o endereço pela unidade.", e);
         }
     }
 
@@ -125,7 +163,7 @@ public class EnderecoDAO {
      *         lista vazia caso não existam registros
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public static List<Endereco> findAll() {
+    public List<Endereco> findAll() {
         String sql = "SELECT * FROM Endereco";
         List<Endereco> lista = new ArrayList<>();
 
@@ -148,7 +186,7 @@ public class EnderecoDAO {
             }
 
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao listar o endereço.", e);
+            throw new ConnectionFailedException("Erro ao listar os endereços.", e);
         }
 
         return lista;
@@ -161,7 +199,7 @@ public class EnderecoDAO {
      * @throws NotFoundException se nenhum endereço com o código informado for encontrado
      * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
      */
-    public static void delete(int codigo) {
+    public void delete(int codigo) {
         String sql = "DELETE FROM Endereco WHERE codigo = ?";
 
         try (Connection conn = Conexao.getConexao();

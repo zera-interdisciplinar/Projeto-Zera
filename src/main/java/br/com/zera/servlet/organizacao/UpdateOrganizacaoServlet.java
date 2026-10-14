@@ -1,11 +1,7 @@
-package br.com.zera.servlet.Organizacao;
-import br.com.zera.dao.EnderecoDAO;
+package br.com.zera.servlet.organizacao;
 import br.com.zera.dao.OrganizacaoDAO;
-import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
-import br.com.zera.model.Endereco;
-import br.com.zera.model.Gestor;
 import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
@@ -19,18 +15,18 @@ import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-
-@WebServlet(name = "UpdateEndereco", value = "/endereco/alterarEndereco")
+import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
  * Servlet responsável por atualizar o cadastro de organizações
  *
  * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega as atualizações ao {@link OrganizacaoDAO}. *
+ * validação das informações e delega as atualizações ao {@link OrganizacaoDAO}.
  *
  * @author Mayte B
  * @since 2026-10-06
  */
+@WebServlet(name = "UpdateOrganizacao", value = "/organizacao/alterarOrganizacao")
 public class UpdateOrganizacaoServlet extends HttpServlet {
 
     /**
@@ -40,69 +36,52 @@ public class UpdateOrganizacaoServlet extends HttpServlet {
      * @param response objeto HttpResponse para redirecionamento ou foward
      * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        /**
-         * Instancia DAO responsável por persistir objetos no banco de dados
-         *
-         * Instancia Chave estrangeira da tabela Unidade
-         */
+        // garante que caracteres especiais cheguem corretos
+        request.setCharacterEncoding("UTF-8");
+        // DAO responsável por persistir a organização no banco de dados
         OrganizacaoDAO dao = new OrganizacaoDAO();
-        UnidadeDAO unidadeDAO = new UnidadeDAO();
 
         try {
 
-            /**
-             * Salva o login/sign in da {@link Unidade} para manter a sessão ativa
-             */
+            // resgata a unidade logada na sessão
             HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute("UnidadeLogada");
+            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
-            /**
-             * Capta os atributos (colunas do banco {@link OrganizacaoDAO}) do organização recebido
-             *
-             * @throws caso não tenha o código procurado
-             */
-            int codUnidade = unidadeLogada.getCodigo();
-            Organizacao organizacaoExistente = dao.findByCodigo(codUnidade);
 
-            if (organizacaoExistente == null) {
-                exibirErro(request, response, "Endereço não encontrado.", ERROR_PAGE);
-                return;
-            }
+            // a organização é a chave estrangeira da unidade
+            Organizacao organizacaoExistente = dao.findByCodigo(unidadeLogada.getCodOrganizacao());
 
             int codigoOrganizacao = organizacaoExistente.getCodigo();
             String cnpj = request.getParameter("cnpj");
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
 
-            /**
-             * Instancia página de erro caso o CNPJ inserido seja inválido
-             */
-            if (Regex.validarCEP(cnpj) == false) {
+            // exibe página de erro caso o CNPJ inserido seja inválido
+            if (Regex.validarCNPJ(cnpj) == false) {
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
-            if (Regex.validarCEP(email) == false) {
+            // exibe página de erro caso o email inserido seja inválido
+            if (Regex.validarEmail(email) == false) {
                 exibirErro(request, response, "email inválido", ERROR_PAGE);
                 return;
             }
-            /**
-             * Cria objeto {@link Organizacao}
-             */
+
+            // cria objeto Organizacao com os dados atualizados
             Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
 
-            /**
-             * Instancia as informações recebidas no {@link Organizacao} com o método
-             */
+            // atualiza a organização no banco
             dao.update(model);
 
-            // Redireciona para a lista de endereços após a inserção bem-sucedida
+            // Redireciona para o perfil da organização após a atualização bem-sucedida
             response.sendRedirect(request.getContextPath() + "/organizacao/perfil");
 
         } catch (ConnectionFailedException cfe) {
