@@ -40,12 +40,19 @@ public class ErroServlet extends RuntimeException {
      *
      * @throws RuntimeException caso o forward para {@code paginaErro} lance uma {@link ErroServlet}, indicando falha no processamento do recurso de destino.
      */
-    public static void exibirErro(HttpServletRequest req, HttpServletResponse resp, Exception excecao, String paginaErro) throws IOException {
+    public static void exibirErro(HttpServletRequest req, HttpServletResponse resp, Exception excecao, String paginaErro)
+            throws IOException {
         try {
                 req.setAttribute("mensagemErro", excecao.getMessage());
                 req.getRequestDispatcher(paginaErro).forward(req, resp);
         } catch (ServletException se) {
             throw new RuntimeException("Erro na comunicação HTTP (ServletException)");
         }
+    }
+
+    public static void voltarAoFormulario(HttpServletRequest request, HttpServletResponse response,String mensagem, String paginaJsp)
+            throws ServletException, IOException {
+        request.setAttribute("erroInterno", mensagem);
+        request.getRequestDispatcher(paginaJsp).forward(request, response);
     }
 }
