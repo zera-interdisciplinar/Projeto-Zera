@@ -6,6 +6,7 @@ import br.com.zera.model.*;
 import br.com.zera.regex.*;
 
 import br.com.zera.dao.EnderecoDAO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -25,7 +26,7 @@ import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
  * @author Mayte B
  * @since 2026-08-14
  */
-@WebServlet(name = "InsertEndereco", value = "src/main/webapp/pages/cadastro/cadastro-endereco.html")
+@WebServlet(name = "InsertEndereco", value = "src/main/webapp/pages/cadastro/cadastro-endereco.jsp")
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
@@ -37,7 +38,7 @@ public class InsertEnderecoServlet extends HttpServlet{
      * */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
 
         // garante que caracteres especiais cheguem corretos
         request.setCharacterEncoding("UTF-8");
@@ -48,7 +49,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             HttpSession session = request.getSession();
             Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
-                voltarAoFormulario(request, response, "sessão expirada, por favor recarregar", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
+                voltarAoFormulario(request, response, "sessão expirada, por favor recarregar", "src/main/webapp/pages/cadastro/cadastro-endereco.jsp");
                 return;
             }
 
@@ -56,7 +57,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
-                voltarAoFormulario(request, response, "Número não informado.", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
+                voltarAoFormulario(request, response, "Número não informado.", "src/main/webapp/pages/cadastro/cadastro-endereco.jsp");
                 return;
             }
             int numero = Integer.parseInt(num);
@@ -70,7 +71,7 @@ public class InsertEnderecoServlet extends HttpServlet{
 
             // exibe página de erro caso o CEP inserido seja inválido
             if(Regex.validarCEP(cep) == false){
-                voltarAoFormulario(request, response, "CEP inválido.", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
+                voltarAoFormulario(request, response, "CEP inválido.", "src/main/webapp/pages/cadastro/cadastro-endereco.jsp");
                 return;
             }
 
@@ -84,7 +85,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "src/main/webapp/pages/cadastro/cadastro-endereco.html");
+            response.sendRedirect(request.getContextPath() + "src/main/webapp/pages/cadastro/cadastro-endereco.jsp");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();
@@ -94,7 +95,9 @@ public class InsertEnderecoServlet extends HttpServlet{
             exibirErro(request, response, nfe, ERROR_PAGE);
         }catch(NumberFormatException nmfe){
             nmfe.printStackTrace();
-            exibirErro(request, response, nmfe, ERROR_PAGE);
+            voltarAoFormulario(request, response, "entrada numérica inválida.", "src/main/webapp/pages/cadastro/cadastro-endereco.jsp");
+        }catch(ServletException se){
+            se.printStackTrace();
         } catch (Exception e) {
             exibirErro(request, response, e, ERROR_PAGE);
         }
