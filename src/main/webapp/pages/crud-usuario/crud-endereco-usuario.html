@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Endereço</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <div class="tela-auth">
+        <!-- PAINEL ESQUERDO -->
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo-zera">
+
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">Estoques</a>
+                    <a href="#">Unidade</a>
+                    <a href="#" class="botao-ativo">Endereço</a>
+                    <a href="#">Assinatura</a>
+                    <a href="#">Organização</a>
+
+                    <hr>
+
+                    <a href="#">Configurações</a>
+                    <a href="#">Sair</a>
+                </nav>
+
+                <!-- Perfil Mariana Almeida -->
+                <div style="background-color: var(--cor2); border-radius: 12px; padding: 10px 14px; margin: 20px; display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 28px; height: 28px; background-color: var(--cor5); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">MA</div>
+                    <span style="color: var(--cor1); font-size: 14px; font-weight: bold;">Mariana Almeida</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ÁREA DE INFORMAÇÕES -->
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+
+            <h1 class="nome-da-area">Endereço</h1>
+
+            <section class="tabela">
+                <!-- Título da Seção -->
+                <label style="margin-bottom: 20px; display: block;">Dados endereço</label>
+
+                <!-- Tabela de Dados do Endereço -->
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Logradouro</th>
+                                <th style="width: 25%;">CEP</th>
+                                <th style="width: 25%;">Cidade/UF</th>
+                                <th style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rua João Bertoci, 67</td>
+                                <td>12345678</td>
+                                <td>Lins/SP</td>
+                                <td class="acoes">
+                                    <a href="#" title="Editar">
+                                        <img src="../../images/icone-editar.png" alt="Editar">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
