@@ -84,7 +84,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             dao.insert(model);
 
             // Redireciona para o perfil após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/endereco/perfil");
+            response.sendRedirect(request.getContextPath() + "src/main/webapp/pages/cadastro/cadastro-endereco.html");
 
         } catch(ConnectionFailedException cfe){
             cfe.printStackTrace();
