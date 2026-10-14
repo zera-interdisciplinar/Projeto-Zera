@@ -12,6 +12,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
+import static br.com.zera.exception.ErroServlet.voltarAoFormulario;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
@@ -24,7 +25,7 @@ import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
  * @author Mayte B
  * @since 2026-08-14
  */
-@WebServlet(name = "InsertEndereco", value = "/endereco/signIn")
+@WebServlet(name = "InsertEndereco", value = "src/main/webapp/pages/cadastro/cadastro-endereco.html")
 public class InsertEnderecoServlet extends HttpServlet{
 
     /**
@@ -47,7 +48,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             HttpSession session = request.getSession();
             Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
             if (unidadeLogada == null) {
-                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+                voltarAoFormulario(request, response, "sessão expirada, por favor recarregar", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
                 return;
             }
 
@@ -55,7 +56,7 @@ public class InsertEnderecoServlet extends HttpServlet{
             String bairro = request.getParameter("bairro");
             String num = request.getParameter("numero");
             if (num == null || num.isEmpty()) {
-                exibirErro(request, response, "Número não informado.", ERROR_PAGE);
+                voltarAoFormulario(request, response, "Número não informado.", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
                 return;
             }
             int numero = Integer.parseInt(num);
@@ -69,7 +70,7 @@ public class InsertEnderecoServlet extends HttpServlet{
 
             // exibe página de erro caso o CEP inserido seja inválido
             if(Regex.validarCEP(cep) == false){
-                exibirErro(request, response, "CEP inválido", ERROR_PAGE);
+                voltarAoFormulario(request, response, "CEP inválido.", "src/main/webapp/pages/cadastro/cadastro-endereco.html");
                 return;
             }
 
