@@ -1,12 +1,13 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Endereço da unidade - Zera</title>
-  <link rel="icon" type="image/png" href="../../images/favicon.png">
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="stylesheet" href="../../css/cadastro.css">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon.png">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cadastro.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -42,7 +43,7 @@
     <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
     <div class="container-card">
-      <a href="cadastro-unidade.html" class="voltar">
+      <a href="${pageContext.request.contextPath}/endereco/perfil" class="voltar">
         <img src="../../images/seta-voltar.svg" alt="">
         <span>Voltar</span>
       </a>
@@ -51,7 +52,7 @@
         <h1>Endereço da unidade</h1>
         <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-        <form>
+        <form action="${pageContext.request.contextPath}/endereco/signIn" method="post">
           <div class="campo">
             <label for="logradouro">Logradouro</label>
             <input type="text" id="logradouro" name="logradouro" placeholder="Digite o endereço (rua, avenida...)">
@@ -88,7 +89,7 @@
           </div>
 
           <div class="linha-botao">
-            <a href="planos.html" class="botao-primario">Continuar</a>
+            <button type="submit" class="botao-primario">Continuar</button>
           </div>
         </form>
       </div>
