@@ -10,91 +10,87 @@
 </head>
 <body>
 
+    <header class="cabecalho-topo">
+        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+        <div class="avatar-topo">MA</div>
+    </header>
+
     <div class="tela-auth">
-        <!-- PAINEL ESQUERDO -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
-                <img src="../../images/logo_completa.svg" alt="Logo Zera" class="logo-zera">
-
                 <nav>
-                    <a href="#">Home</a>
-                    <a href="#">Estoques</a>
-                    <a href="#">Unidade</a>
-                    <a href="#">Endereço</a>
-                    <a href="#">Assinatura</a>
-                    <a href="#">Organização</a>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
 
                     <hr>
 
-                    <a href="#">Configurações</a>
-                    <a href="#">Sair</a>
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
                 </nav>
 
-                <!-- Perfil Ativo -->
-                <a href="#" style="background-color: var(--cor2); border-radius: 12px; padding: 10px 14px; margin: 20px; display: flex; align-items: center; gap: 10px; text-decoration: none;">
-                    <div style="width: 28px; height: 28px; background-color: var(--cor5); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">MA</div>
-                    <span style="color: var(--cor1); font-size: 14px; font-weight: bold;">Mariana Almeida</span>
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
                 </a>
             </div>
         </aside>
 
-        <!-- ÁREA DE INFORMAÇÕES -->
         <main class="informacoes">
             <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
 
             <h1 class="nome-da-area">Meu perfil</h1>
 
-            <!-- Card 1: Meu Perfil -->
             <section class="tabela">
-                <label style="margin-bottom: 20px; display: block;">Meu perfil</label>
+                <label class="tabela-titulo">Meu perfil</label>
 
                 <form action="#" method="POST">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                    <div class="form-grid-duplo">
                         <div class="filtrador">
-                            <label for="nome" style="font-size: 16px;">Nome</label>
-                            <input type="text" id="nome" name="nome" value="Mariana Almeida" style="width: 100%; box-sizing: border-box;">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" value="Mariana Almeida" class="form-campo-total">
                         </div>
                         <div class="filtrador">
-                            <label for="email" style="font-size: 16px;">E-mail</label>
-                            <input type="email" id="email" name="email" value="mariana@gmail.com" style="width: 100%; box-sizing: border-box;">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" value="mariana@gmail.com" class="form-campo-total">
                         </div>
                     </div>
 
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button type="submit" class="adicionar" style="border: none; cursor: pointer; padding: 10px 32px; border-radius: 20px;">
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
                             Salvar perfil
                         </button>
                     </div>
                 </form>
             </section>
 
-            <!-- Card 2: Alterar Senha -->
-            <section class="tabela" style="margin-top: 24px;">
-                <label style="margin-bottom: 20px; display: block;">Alterar senha</label>
+            <section class="tabela tabela-segunda">
+                <label class="tabela-titulo">Alterar senha</label>
 
                 <form action="#" method="POST">
-                    <!-- Senha Atual -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div class="form-grid-duplo">
                         <div class="filtrador">
-                            <label for="senha-atual" style="font-size: 16px;">Senha Atual</label>
-                            <input type="password" id="senha-atual" name="senha_atual" placeholder="Digite sua senha atual" style="width: 100%; box-sizing: border-box;">
+                            <label for="senha-atual">Senha Atual</label>
+                            <input type="password" id="senha-atual" name="senha_atual" placeholder="Digite sua senha atual" class="form-campo-total">
                         </div>
                     </div>
 
-                    <!-- Nova Senha e Confirmação -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                    <div class="form-grid-duplo">
                         <div class="filtrador">
-                            <label for="nova-senha" style="font-size: 16px;">Nova senha</label>
-                            <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" style="width: 100%; box-sizing: border-box;">
+                            <label for="nova-senha">Nova senha</label>
+                            <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" class="form-campo-total">
                         </div>
                         <div class="filtrador">
-                            <label for="confirmar-senha" style="font-size: 16px;">Confirmar nova senha</label>
-                            <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="Digite sua nova senha novamente" style="width: 100%; box-sizing: border-box;">
+                            <label for="confirmar-senha">Confirmar nova senha</label>
+                            <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="Digite sua nova senha novamente" class="form-campo-total">
                         </div>
                     </div>
 
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button type="submit" class="adicionar" style="border: none; cursor: pointer; padding: 10px 32px; border-radius: 20px;">
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
                             Alterar senha
                         </button>
                     </div>

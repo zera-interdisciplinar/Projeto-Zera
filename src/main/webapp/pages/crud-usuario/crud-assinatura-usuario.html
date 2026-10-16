@@ -10,54 +10,52 @@
 </head>
 <body>
 
+    <header class="cabecalho-topo">
+        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+        <div class="avatar-topo">MA</div>
+    </header>
+
     <div class="tela-auth">
-        <!-- PAINEL ESQUERDO -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
-                <img src="../../images/logo_completa.svg" alt="Logo Zera" class="logo-zera">
-
                 <nav>
-                    <a href="#">Home</a>
-                    <a href="#">Estoques</a>
-                    <a href="#">Unidade</a>
-                    <a href="#">Endereço</a>
-                    <a href="#" class="botao-ativo">Assinatura</a>
-                    <a href="#">Organização</a>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html" class="botao-ativo">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
 
                     <hr>
 
-                    <a href="#">Configurações</a>
-                    <a href="#">Sair</a>
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
                 </nav>
 
-                <!-- Perfil Mariana Almeida -->
-                <div style="background-color: var(--cor2); border-radius: 12px; padding: 10px 14px; margin: 20px; display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 28px; height: 28px; background-color: var(--cor5); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">MA</div>
-                    <span style="color: var(--cor1); font-size: 14px; font-weight: bold;">Mariana Almeida</span>
-                </div>
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
             </div>
         </aside>
 
-        <!-- ÁREA DE INFORMAÇÕES -->
         <main class="informacoes">
             <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
 
             <h1 class="nome-da-area">Assinatura</h1>
 
             <section class="tabela">
-                <!-- Título da Seção -->
-                <label style="margin-bottom: 20px; display: block;">Dados assinatura</label>
+                <label class="tabela-titulo">Dados assinatura</label>
 
-                <!-- Tabela de Dados da Assinatura -->
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
                         <thead>
                             <tr>
-                                <th style="width: 25%;">Plano</th>
-                                <th style="width: 25%;">Valor</th>
-                                <th style="width: 30%;">Vigência</th>
-                                <th style="width: 12%;">Status</th>
-                                <th style="width: 8%;"></th>
+                                <th>Plano</th>
+                                <th>Valor</th>
+                                <th>Vigência</th>
+                                <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,10 +63,10 @@
                                 <td>Profissional</td>
                                 <td>R$49,90 por ano</td>
                                 <td>14/10/2025 a 14/10/2026</td>
-                                <td class="texto-verde" style="font-weight: bold;">Ativa</td>
+                                <td class="texto-verde">Ativa</td>
                                 <td class="acoes">
                                     <a href="#" title="Editar">
-                                        <img src="../../images/icone-editar.svg" alt="Editar">
+                                        <img src="../../images/icone-editar.png" alt="Editar">
                                     </a>
                                 </td>
                             </tr>

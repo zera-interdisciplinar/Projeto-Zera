@@ -1,49 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Zera - Home</title>
     <link rel="icon" type="image/png" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho-topo">
+        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+        <div class="avatar-topo">MA</div>
+    </header>
+
     <div class="tela-auth">
-    <!--Painel esquerdo--> 
-    <div class="painel-esquerda">
-        <div class="painel-conteudo">
-          <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-          <nav>
-            <a class="botao-ativo" href="crud-home-usuario.html"><span>Home</span></a>
-            <a href=""><span>Estoques</span></a>
-            <a href=""><span>Unidades</span></a>
-            <a href=""><span>Endereço</span></a>
-            <a href=""><span>Assinatura</span></a>
-            <a href=""><span>Organização</span></a>
-            <hr class="barra-azul">
-            <a href=""><span>Configurações</span></a>
-            <a href=""><span>Sair</span></a>
-          </nav>
-        </div>
+        <!-- PAINEL ESQUERDO -->
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html" class="botao-ativo">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- ÁREA DE INFORMAÇÕES -->
+        <main id="informacoes-gerais">
+            <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+
+            <div id="home">
+                <h1 class="nome-da-area">Home</h1>
+                <section class="card">
+                    <div class="dado">
+                        <span class="nome-do-dado">Estoques</span>
+                        <span class="numero-do-dado">2</span>
+                    </div>
+                    <div class="dado">
+                        <span class="nome-do-dado">Unidades</span>
+                        <span class="numero-do-dado">1</span>
+                    </div>
+                    <div class="dado" id="alerta">
+                        <span class="nome-do-dado">Alertas</span>
+                        <span class="numero-do-dado texto-laranja">0</span>
+                    </div>
+                </section>
+            </div>
+        </main>
     </div>
 
-    <!--Area de informações-->
-    <div class="informacoes">
-        <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <p class="nome-da-area">Olá!</p>
-        <div class="card">
-            <div class="dado">
-                <p class="nome-do-dado">Estoques na unidade</p><br><p class="numero-do-dado">6</p>
-            </div>
-            <div class="dado">
-                <p class="nome-do-dado">Assinaturas</p><br><p class="numero-do-dado">6</p>
-            </div>
-            <div id="alerta" class="dado alerta">
-                <p class="nome-do-dado">Código de<br>convite</p><br><p class="numero-do-dado">6</p>
-            </div>
-        </div>
-    </div>
-    </div>
 </body>
 </html>

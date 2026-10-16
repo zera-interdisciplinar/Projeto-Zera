@@ -10,52 +10,51 @@
 </head>
 <body>
 
+    <header class="cabecalho-topo">
+        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+        <div class="avatar-topo">MA</div>
+    </header>
+
     <div class="tela-auth">
-        <!-- PAINEL ESQUERDO -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
-                <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo-zera">
-
                 <nav>
-                    <a href="#">Home</a>
-                    <a href="#">Estoques</a>
-                    <a href="#">Unidade</a>
-                    <a href="#">Endereço</a>
-                    <a href="#">Assinatura</a>
-                    <a href="#" class="botao-ativo">Organização</a>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html" class="botao-ativo">Organização</a>
 
                     <hr>
 
-                    <a href="#">Configurações</a>
-                    <a href="#">Sair</a>
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
                 </nav>
 
-                <!-- Perfil Mariana Almeida -->
-                <div style="background-color: var(--cor2); border-radius: 12px; padding: 10px 14px; margin: 20px; display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 28px; height: 28px; background-color: var(--cor5); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">MA</div>
-                    <span style="color: var(--cor1); font-size: 14px; font-weight: bold;">Mariana Almeida</span>
-                </div>
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
             </div>
         </aside>
 
-        <!-- ÁREA DE INFORMAÇÕES -->
         <main class="informacoes">
             <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
 
             <h1 class="nome-da-area">Organização</h1>
 
-            <!-- Card 1: Dados organização -->
             <section class="tabela">
-                <label style="margin-bottom: 20px; display: block;">Dados organização</label>
+                <label class="tabela-titulo">Dados organização</label>
 
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
                         <thead>
                             <tr>
-                                <th style="width: 30%;">Nome</th>
-                                <th style="width: 30%;">CNPJ</th>
-                                <th style="width: 30%;">E-mail</th>
-                                <th style="width: 10%;"></th>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>E-mail</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,17 +73,16 @@
                 </div>
             </section>
 
-            <!-- Card 2: Código de convite organização -->
-            <section class="tabela" style="margin-top: 24px;">
-                <label style="margin-bottom: 8px; display: block;">Código de convite organização</label>
-                <p style="color: var(--cor2); font-size: 14px; margin-bottom: 20px; font-family: var(--fonte1); max-width: 680px; line-height: 1.4;">
+            <section class="tabela tabela-segunda">
+                <label class="tabela-titulo">Código de convite organização</label>
+                <p class="tabela-descricao">
                     Passe esse código para quem vai cadastrar outra unidade da JBS Alimentos. Com ele, a pessoa cria a unidade dentro da organização e entra no mesmo plano.
                 </p>
 
                 <div>
-                    <div style="display: inline-flex; align-items: center; justify-content: space-between; border: 2px solid var(--cor2); border-radius: 9px; padding: 10px 18px; min-width: 180px;">
-                        <span style="font-size: 20px; font-weight: bold; color: var(--cor2); font-family: var(--fonte1);">123456</span>
-                        <a href="#" title="Copiar código" style="display: flex; align-items: center; margin-left: 14px;">
+                    <div class="bloco-codigo-convite">
+                        <span>123456</span>
+                        <a href="#" title="Copiar código">
                             <img src="../../images/icone-copiar.png" alt="Copiar">
                         </a>
                     </div>
