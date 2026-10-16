@@ -16,24 +16,24 @@
   <!-- Painel Esquerdo -->
   <div class="painel-esquerda">
     <div class="painel-esquerda-conteudo">
-      <img href="${pageContext.request.contextPath}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+      <img src="${pageContext.request.contextPath}/images/logo_completa.svg" alt="Zera" class="logo-zera">
       <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
     </div>
 
     <!-- Redes Sociais no rodapé do painel -->
     <div class="painel-contatos">
       <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
-        <img href="${pageContext.request.contextPath}/images/instagram.svg" class="contato-icone" alt="">
+        <img src="${pageContext.request.contextPath}/images/instagram.svg" class="contato-icone" alt="">
         <span>@zera.app</span>
       </a>
 
       <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
-        <img href="${pageContext.request.contextPath}/images/whatsapp.svg" class="contato-icone" alt="">
+        <img src="${pageContext.request.contextPath}/images/whatsapp.svg" class="contato-icone" alt="">
         <span>+55 (11) 93304-5181</span>
       </a>
 
       <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
-        <img href="${pageContext.request.contextPath}/images/email.svg" class="contato-icone" alt="">
+        <img src="${pageContext.request.contextPath}/images/email.svg" class="contato-icone" alt="">
         <span>zera.institutojef@gmail.com</span>
       </a>
     </div>
@@ -41,11 +41,11 @@
 
   <!-- Painel Direito -->
   <div class="painel-direita">
-    <img href="${pageContext.request.contextPath}/images/z-transparente.png" alt="" class="z-marca-dagua">
+    <img src="${pageContext.request.contextPath}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
     <div class="container-card">
-      <a href="${pageContext.request.contextPath}/index.html" class="voltar">
-        <img href="${pageContext.request.contextPath}/images/seta-voltar.svg" alt="">
+      <a href="${pageContext.request.contextPath}/WEB-INF/index.html" class="voltar">
+        <img src="${pageContext.request.contextPath}/images/seta-voltar.svg" alt="">
         <span>Voltar</span>
       </a>
 
@@ -53,7 +53,7 @@
         <h1>Endereço da unidade</h1>
         <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-        <form action="${pageContext.request.contextPath}src/main/webapp/pages/cadastro/cadastro-endereco.jsp" method="post">
+        <form action="${pageContext.request.contextPath}/pages/cadastro/cadastro-endereco.jsp" method="post">
         <c:if test="${not empty erro}">
           <p class="mensagem-erro"><c:out value="${erro}"/></p>
         </c:if>
