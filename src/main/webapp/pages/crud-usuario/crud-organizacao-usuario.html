@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Organização</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <header class="cabecalho-topo">
+        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html" class="botao-ativo">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+
+            <h1 class="nome-da-area">Organização</h1>
+
+            <section class="tabela">
+                <label class="tabela-titulo">Dados organização</label>
+
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>E-mail</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Profissional</td>
+                                <td>11.222.333/0002-62</td>
+                                <td>tijbs@exemplo.com</td>
+                                <td class="acoes">
+                                    <a href="#" title="Editar">
+                                        <img src="../../images/icone-editar.png" alt="Editar">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="tabela tabela-segunda">
+                <label class="tabela-titulo">Código de convite organização</label>
+                <p class="tabela-descricao">
+                    Passe esse código para quem vai cadastrar outra unidade da JBS Alimentos. Com ele, a pessoa cria a unidade dentro da organização e entra no mesmo plano.
+                </p>
+
+                <div>
+                    <div class="bloco-codigo-convite">
+                        <span>123456</span>
+                        <a href="#" title="Copiar código">
+                            <img src="../../images/icone-copiar.png" alt="Copiar">
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

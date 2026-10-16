@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erro na página</title>
+  
+  <!-- Arquivos CSS (coloque o erro.css por último para sobrescrever o estilo do h1) -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/erro.css">
+</head>
+<body class="pagina-erro">
+
+  <main class="erro-tela">
+    <!-- Texto do Erro (Topo Esquerdo) -->
+    <div class="erro-conteudo">
+      <h1 class="erro-titulo">Erro na página</h1>
+      <p class="erro-descricao">A página está passando por algum erro, tente recarregá-la.</p>
+    </div>
+
+    <!-- Imagem das Tomadas com a Sombra (Centro Direita) -->
+    <div class="erro-imagem-area">
+      <img src="../../images/erro_tomada.png" alt="Página com erro - tomadas desconectadas" class="erro-imagem">
+    </div>
+  </main>
+
+  <!-- Faixas Diagonais Inferiores com inclinação exata -->
+  <div class="erro-faixas-fundo" aria-hidden="true">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- Faixa azul intermediária (--cor3) -->
+      <polygon points="0,83  100,66  100,71  0,88" fill="var(--cor3)"/>
+      <!-- Faixa azul marinho (--cor2) -->
+      <polygon points="0,88  100,71  100,100  0,100" fill="var(--cor2)"/>
+    </svg>
+  </div>
+
+</body>
+</html>
