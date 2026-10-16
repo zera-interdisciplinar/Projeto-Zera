@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+
+    <title>Gestores</title>
+</head>
+<body>
+    <div class = tela-auth>
+        <!--Painel esquerdo-->
+        <div class = painel-esquerda>
+            <div class = painel-conteudo>
+              <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+              <nav>
+                <a href="crud-home-admin.html"><span>Home</span></a>
+                <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
+                <a href="crud-assinaturas-admin.html"><span>Assinaturas</span></a>
+                <a href="crud-planos-admin.html"><span>Planos</span></a>
+                <a href="crud-unidades-admin.html"><span>Unidades</span></a>
+                <a href="crud-enderecos-admin.html"><span>Endereços  </span></a>
+                <a class = botao-ativo href="crud-gestores-admin.html"><span>Gestores</span></a>
+                <a href="crud-estoques-admin.html"><span>Estoques</span></a>
+                <a href="crud-admins-admin.html"><span>Admins</span></a>
+                <hr class = barra-azul>
+                <a href=""><span>Configurações</span></a>
+                <a href="../login/login.html"><span>Sair</span></a>
+            </nav>
+            </div>
+        </div>
+        <!--Área de informações-->
+        <div class = informacoes>
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+            <h3 class = nome-da-area>Gestores</h3>
+            <div class = tabela>
+                <div class="tabela-filtros">
+                    <div class="filtrador busca">
+                        <label for="buscar">Buscar</label>
+                        <input type="text" id="buscar" name="buscar" placeholder="Nome ou e-mail">
+                    </div>
+                    <div class="filtrador">
+                        <label for="ordem-de-nome">Ordem de nome</label>
+                        <select name="ordem" id="ordem">
+                        <option value="a-z">De A-Z</option>
+                        <option value="z-a">De Z-A</option>
+                    </select>
+                    </div>
+                    <a href="" class="adicionar"><img src="../../images/adicionar.png" alt="">Novo gestor</a>
+                </div>
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                    <colgroup>
+                        <col style="width: 24%">
+                        <col style="width: 22%">
+                        <col style="width: 18%">
+                        <col style="width: 24%">
+                        <col style="width: 12%"> 
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>  
+                            <th>Telefone</th>
+                            <th>Unidade</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mariana Almeida</td>
+                            <td>tijbs@exemplo.com</td>
+                            <td>(11) 99812-4410</td>
+                            <td>JBS Alimentos (Lins/SP)</td>
+                            <td class="acoes">
+                                <a href=""><img src="../../images/editar.png" alt=""></a>
+                                <a href=""><img src="../../images/excluir.png" alt=""></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
