@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erro de conexão</title>
+  
+  <!-- Seus arquivos CSS -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/erro.css">
+</head>
+<body class="pagina-erro">
+
+  <main class="erro-tela">
+    <!-- Texto do Erro (Topo Esquerdo) -->
+    <div class="erro-conteudo">
+      <h1 class="erro-titulo">Erro de conexão</h1>
+      <p class="erro-descricao">
+        Ops... Estamos com falhas na conexão.<br>
+        Reinicie a página ou entre no site novamente.
+      </p>
+    </div>
+
+    <!-- Imagem do Wi-Fi com a sombra (Centro Direita) -->
+    <div class="erro-imagem-area">
+      <!-- Ajuste apenas o nome do arquivo da imagem se for diferente de erro_wifi.png -->
+      <img src="../../images/alerta_wifi.png" alt="Falha na conexão Wi-Fi" class="erro-imagem">
+    </div>
+  </main>
+
+  <!-- Faixas Diagonais Inferiores -->
+  <div class="erro-faixas-fundo" aria-hidden="true">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- Faixa azul intermediária (--cor3) -->
+      <polygon points="0,83  100,66  100,71  0,88" fill="var(--cor3)"/>
+      <!-- Faixa azul marinho (--cor2) -->
+      <polygon points="0,88  100,71  100,100  0,100" fill="var(--cor2)"/>
+    </svg>
+  </div>
+
+</body>
+</html>
