@@ -42,6 +42,10 @@ PAINEL ESQUERDO
     padding-bottom: 50px
 }
 
+/*
+Navegação para outras telas
+*/
+
 nav a{
     display: flex;
     gap: 13px;
@@ -65,6 +69,10 @@ hr{
     width: 150px;
 }
 
+/*
+Botão da tela que já está selecionada
+*/
+
 nav .botao-ativo{
     background-color: var(--cor2);
     color: var(--cor1);
@@ -77,7 +85,7 @@ nav .botao-ativo{
 }
 
 /*
-area de informações
+fundo da area de informações
 */
 
 #informacoes-gerais{
@@ -121,6 +129,10 @@ area de informações
     padding-bottom: 50px;
     margin-left: -5px;
 }
+
+/*
+Espaço de informações
+*/
 
 .card{
     background-color: var(--cor1);
@@ -171,9 +183,17 @@ area de informações
 
 }
 
+/*
+dado que precisa de atenção
+*/
+
 #alerta{
     border-color: #F59E0B;
 }
+
+/*
+fundo da tabela
+*/
 
 .informacoes{
     flex: 1;
@@ -207,6 +227,11 @@ area de informações
     
 }
 
+/*
+O card onde a tabela com as informações vai estar
+*/
+
+
 .tabela{
 background-color: var(--cor1);
 position: relative;
@@ -235,6 +260,10 @@ min-height: 0;
     flex-shrink: 0;
 }
 
+/*
+A rolagem para ver mais informações que não cabem no card
+*/
+
 .tabela-rolagem{
     flex: 1 1 auto;
     min-height: 0;
@@ -243,6 +272,10 @@ min-height: 0;
     scrollbar-width: thin;
     scrollbar-color: var(--cor2) var(--cor1);
 }
+
+/*
+input para pesquisar algum registro específico
+*/
 
 .tabela-filtros input{
     border-radius: 9px;
@@ -302,9 +335,30 @@ min-height: 0;
     text-decoration: none;
 }
 
+#adicionar-invisivel{
+    background-color: #2958D1;
+    color: var(--cor1);
+    padding: 13px 27px;
+    border-radius: 9px;
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    gap: 15px;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    /*visibility: hidden;*/
+    display: none;
+    text-decoration: none;
+}
+
 .adicionar:hover{
     text-decoration: none;
 }
+
+/*
+colunas e linhas da tabela
+*/
 
 .itens-tabela{
     width: 100%;
@@ -338,6 +392,10 @@ min-height: 0;
     font-size: 16px;
     color: var(--cor2);
 }
+
+/*
+Ações de modificação dos registros
+*/
 
 .acoes{
     font-size: 0;
