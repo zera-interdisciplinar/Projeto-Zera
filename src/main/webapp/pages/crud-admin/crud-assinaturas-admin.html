@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+    <title>Assinaturas</title>
+</head>
+<body>
+
+    <div class = tela-auth>
+        <!--Painel esquerdo-->
+        <div class = painel-esquerda>
+            <div class = painel-conteudo>
+              <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+              <nav>
+                <a href="crud-home-admin.html"><span>Home</span></a>
+                <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
+                <a class = botao-ativo href="crud-assinaturas-admin.html"><span>Assinaturas</span></a>
+                <a href="crud-planos-admin.html"><span>Planos</span></a>
+                <a href="crud-unidades-admin.html"><span>Unidades</span></a>
+                <a href="crud-enderecos-admin.html"><span>Endereços  </span></a>
+                <a href="crud-gestores-admin.html"><span>Gestores</span></a>
+                <a href="crud-estoques-admin.html"><span>Estoques</span></a>
+                <a href="crud-admins-admin.html"><span>Admins</span></a>
+                <hr class = barra-azul>
+                <a href=""><span>Configurações</span></a>
+                <a href="../login/login.html"><span>Sair</span></a>
+            </nav>
+            </div>
+        </div>
+        <!--Área de informações-->
+        <div class = informacoes>
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+            <h3 class = nome-da-area>Assinaturas</h3>
+            <div class = tabela>
+                <div class="tabela-filtros">
+                    <div class="filtrador busca">
+                        <label for="buscar">Buscar</label>
+                        <input type="text" id="buscar" name="buscar" placeholder="Organizações ou plano">
+                    </div>
+                    <div class="filtrador">
+                        <label for="situacao">Situação</label>
+                        <select name="situacao" id="situacao">
+                        <option value="todos">Todos</option>
+                        <option value="ativa">Ativa</option>
+                        <option value="cancelada">Cancelada</option>
+                        <option value="expirada">Expirada</option>
+                        <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
+                    </select>
+                    </div>
+                    <a href="" class="adicionar"><img src="../../images/adicionar.png" alt="">Nova assinatura</a>
+                </div>
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                    <colgroup>
+                        <col style="width: 22%">
+                        <col style="width: 21%">
+                        <col style="width: 15%">
+                        <col style="width: 15%">
+                        <col style="width: 15%">
+                        <col style="width: 12%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>organização</th>
+                            <th>Plano</th>
+                            <th>início</th>
+                            <th>Fim</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>JBS Alimentos</td>
+                            <td>Empresarial</td>
+                            <td>10/10/2025</td>
+                            <td>10/10/2026</td>
+                            <td>Ativa</td>
+                            <td class="acoes">
+                                <a href=""><img src="../../images/editar.png" alt=""></a>
+                                <a href=""><img src="../../images/excluir.png" alt=""></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
