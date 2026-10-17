@@ -21,10 +21,10 @@ import static br.com.zera.regex.Constants.SESSAO_ADMIN;
 public class LogoutServlet extends HttpServlet {
 
     /** Página de login do gestor */
-    private static final String LOGIN_GESTOR = "/login.jsp";
+    private static final String LOGIN_GESTOR = "/login";
 
     /** Página de login do admin */
-    private static final String LOGIN_ADMIN = "/adminLogin.jsp";
+    private static final String LOGIN_ADMIN = "/admin/login";
 
     /**
      * Processa POST para sair do sistema, encerrando a sessão atual.
