@@ -81,6 +81,30 @@ public class Plano {
         this.tempo = tempo;
     }
 
+    /**
+     * Converte o campo tempo em quantidade de meses, para calcular a data de fim
+     * da assinatura. Aceita "Mensal", "Anual" ou um número de meses
+     *
+     * @return a duração do plano em meses
+     */
+    public int getDuracaoEmMeses() {
+        if (tempo == null || tempo.isBlank()) {
+            return 1;
+        }
+        String t = tempo.trim().toLowerCase();
+        if (t.startsWith("anual")) {
+            return 12;
+        }
+        if (t.startsWith("mensal")) {
+            return 1;
+        }
+        try {
+            return Math.max(1, Integer.parseInt(t));
+        } catch (NumberFormatException nfe) {
+            return 1;
+        }
+    }
+
     //saída em texto da tabela Plano
     @Override
     public String toString(){
