@@ -5,6 +5,7 @@ import br.com.zera.dao.AdminDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Admin;
+import br.com.zera.regex.Regex;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -23,7 +24,7 @@ import static br.com.zera.regex.Constants.SESSAO_ADMIN;
  * @author Pedro Rufino
  * @since 2026-10-11
  */
-@WebServlet(name = "UpdateSenhaAdmin", value = "/admin/AlterarSenha")
+@WebServlet(name = "UpdateSenhaAdmin", value = "/admin/alterarSenha")
 public class UpdateSenhaAdminServlet extends HttpServlet {
 
     /**
@@ -59,6 +60,11 @@ public class UpdateSenhaAdminServlet extends HttpServlet {
                 exibirErro(request, response, "Preencha a senha atual e a nova senha.", ERROR_PAGE);
                 return;
             }
+            if (!Regex.validarSenha(novaSenha)) {
+                exibirErro(request, response,
+                        "A senha precisa ter pelo menos 8 caracteres, um número e um caractere especial.", ERROR_PAGE);
+                return;
+            }
             if (!novaSenha.equals(confirmacao)) {
                 exibirErro(request, response, "A confirmação não confere com a nova senha.", ERROR_PAGE);
                 return;
@@ -67,13 +73,13 @@ public class UpdateSenhaAdminServlet extends HttpServlet {
             // busca o hash salvo no banco para comparar
             Admin admin = dao.findByCodigo(adminLogado.getCodigo());
 
-            // o banco guarda o hash, então a comparação é feita pelo BCrypt, e não com equals
+            // o banco guarda o hash e a comparação é feita pelo BCrypt
             if (!HashSenha.verificar(senhaAtual, admin.getSenha())) {
                 exibirErro(request, response, "Senha atual incorreta.", ERROR_PAGE);
                 return;
             }
 
-            // grava o hash da nova senha, nunca o texto puro
+            // grava o hash da nova senha
             dao.updateSenha(admin.getCodigo(), HashSenha.gerarHash(novaSenha));
 
             response.sendRedirect(request.getContextPath() + "/admin/perfil");
