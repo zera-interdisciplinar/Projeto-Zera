@@ -1,100 +1,144 @@
 package br.com.zera.servlet.estoque;
 
 import br.com.zera.dao.EstoqueDAO;
+import br.com.zera.dao.GestorDAO;
+import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
 import br.com.zera.model.Estoque;
 import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
- * Servlet responsável por atualizar o cadastro de estoques
+ * Servlet responsável por atualizar um estoque.
  *
- * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega as atualizações ao {@link EstoqueDAO}. *
+ * Os dois perfis mandam o codigo do estoque. O admin pode alterar
+ * qualquer estoque e trocá-lo de unidade. O gestor só altera estoques da
+ * própria unidade, e a unidade não muda. O responsável precisa ser um gestor
+ * da mesma unidade do estoque.
  *
  * @author Pedro Rufino
  * @since 2026-10-04
  */
-@WebServlet(name = "UpdateEstoque", value = "/estoque/alterarEstoque")
+@WebServlet(name = "UpdateEstoque", value = "/estoque/alterar")
 public class UpdateEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa POST para atualizar o Estoque cadastrado baseado no antigo
+     * Processa POST para atualizar o estoque.
      *
-     * @param request  objeto HttpServletRequest contendo os parâmetros da página
-     * @param response objeto HttpResponse para redirecionamento ou foward
-     * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
+     * @param request objeto HttpServletRequest com codigo, espacoNaUnidade, codResponsavel e, para o admin, codUnidade
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
+     * @throws IOException caso haja um erro de input/output (entrada/saída)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        // garante que caracteres especiais cheguem corretos
         request.setCharacterEncoding("UTF-8");
 
         try {
-            // Recupera o gestor guardado na sessão durante o login
-            HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
-            if (gestorLogado == null) {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Unidade unidadeLogada = Sessao.unidade(request);
+            if (admin == null && unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // identifica qual estoque alterar
-            String cod = request.getParameter("codigo");
-            if (cod == null || cod.trim().isEmpty()) {
-                exibirErro(request, response, "Código do estoque não informado.", ERROR_PAGE);
-                return;
+            // lê o código
+            String codigoTexto = request.getParameter("codigo");
+            Integer codigo = null;
+            if (codigoTexto != null && !codigoTexto.isBlank()) {
+                codigo = Integer.parseInt(codigoTexto.trim());
             }
-            int codigo = Integer.parseInt(cod.trim());
-
-            String espacoNaUnidade = request.getParameter("espacoNaUnidade");
-            if (espacoNaUnidade == null || espacoNaUnidade.trim().isEmpty()) {
-                exibirErro(request, response, "Espaço na unidade não informado.", ERROR_PAGE);
+            if (codigo == null) {
+                exibirErro(request, response, "Estoque não informado.", ERROR_PAGE);
                 return;
             }
 
             EstoqueDAO dao = new EstoqueDAO();
+            Estoque existente = dao.findByCodigo(codigo);
 
-            // Busca o estoque atual
-            Estoque estoque = dao.findByCodigo(codigo);
+            int codUnidade;
+            if (admin != null) {
+                // o admin pode trocar a unidade do estoque. Campo vazio mantém a atual
+                String novaUnidadeTexto = request.getParameter("codUnidade");
+                Integer novaUnidade = null;
+                if (novaUnidadeTexto != null && !novaUnidadeTexto.isBlank()) {
+                    novaUnidade = Integer.parseInt(novaUnidadeTexto.trim());
+                }
+                if (novaUnidade == null) {
+                    codUnidade = existente.getCodUnidade();
+                } else {
+                    new UnidadeDAO().findByCodigo(novaUnidade);
+                    codUnidade = novaUnidade;
+                }
+            } else {
+                // gestor não pode mexer em estoque de outra unidade
+                if (existente.getCodUnidade() != unidadeLogada.getCodigo()) {
+                    exibirErro(request, response, "Este estoque não pertence à sua unidade.", ERROR_PAGE);
+                    return;
+                }
+                codUnidade = existente.getCodUnidade();
+            }
 
-            // Impede que o gestor altere estoque de outra unidade trocando o código no HTML
-            if (estoque.getCodUnidade() != gestorLogado.getCodUnidade()) {
-                exibirErro(request, response, "Você não tem permissão para alterar este estoque.", ERROR_PAGE);
+            // lê os campos do formulário
+            String espacoNaUnidadeTexto = request.getParameter("espacoNaUnidade");
+            String espacoNaUnidade = null;
+            if (espacoNaUnidadeTexto != null && !espacoNaUnidadeTexto.isBlank()) {
+                espacoNaUnidade = espacoNaUnidadeTexto.trim();
+            }
+            String codResponsavelTexto = request.getParameter("codResponsavel");
+            Integer codResponsavel = null;
+            if (codResponsavelTexto != null && !codResponsavelTexto.isBlank()) {
+                codResponsavel = Integer.parseInt(codResponsavelTexto.trim());
+            }
+            if (espacoNaUnidade == null) {
+                exibirErro(request, response, "Informe o espaço do estoque na unidade.", ERROR_PAGE);
+                return;
+            }
+            if (codResponsavel == null) {
+                codResponsavel = existente.getCodResponsavel();
+            }
+
+            Gestor responsavel = new GestorDAO().findByCodigo(codResponsavel);
+            if (responsavel.getCodUnidade() != codUnidade) {
+                exibirErro(request, response, "O responsável precisa ser um gestor da mesma unidade.", ERROR_PAGE);
                 return;
             }
 
-            estoque.setEspacoNaUnidade(espacoNaUnidade.trim());
+            dao.update(new Estoque(existente.getCodigo(), espacoNaUnidade, codResponsavel, codUnidade));
 
-            // Instancia as informações recebidas no Estoque com o método
-            dao.update(estoque);
+            String destino;
+            if (admin != null) {
+                destino = "/estoque/lista";
+            } else {
+                destino = "/estoque/perfil";
+            }
+            // redirect
+            response.sendRedirect(request.getContextPath() + destino);
 
-            // Redireciona para a lista de estoques após a inserção bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/estoque/perfil");
-
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (NotFoundException nfe) {
             nfe.printStackTrace();
             exibirErro(request, response, nfe, ERROR_PAGE);
         } catch (NumberFormatException nmfe) {
-            nmfe.printStackTrace();
-            exibirErro(request, response, nmfe, ERROR_PAGE);
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (Exception e) {
+            e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);
         }
     }

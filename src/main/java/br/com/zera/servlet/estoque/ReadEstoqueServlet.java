@@ -1,26 +1,36 @@
 package br.com.zera.servlet.estoque;
 
-import java.io.*;
+import br.com.zera.dao.EstoqueDAO;
+import br.com.zera.dao.GestorDAO;
+import br.com.zera.dao.UnidadeDAO;
+import br.com.zera.exception.ConnectionFailedException;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
+import br.com.zera.model.Estoque;
+import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
+import br.com.zera.util.Sessao;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.zera.dao.*;
-import br.com.zera.exception.ConnectionFailedException;
-import br.com.zera.model.Estoque;
-import br.com.zera.model.Gestor;
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
- * Servlet responsável por mostrar as informações de estoque cadastradas
+ * Servlet responsável por mostrar estoques.
  *
- * Esta classe recebe a requisição de visualização do estoque cadastrado pelo gestor via formulário HTTP,
- * e as exibe com uma tela de resposta
+ * O que aparece depende de quem está logado:
+ * - Admin com o parâmetro codigo: formulário de edição, com as listas de unidades e gestores.
+ * - Admin sem código: formulário de novo estoque.
+ * - Gestor: lista dos estoques da própria unidade, com os gestores dela para
+ *   escolher o responsável.
  *
  * @author Pedro Rufino
  * @since 2026-10-04
@@ -29,45 +39,82 @@ import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 public class ReadEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir estoques da empresa.
-     *@param request  requisição HTTP; recebe a lista de estoques como atributo
-     *@param response resposta HTTP usada para exibir a página ou o erro
-     *@throws ServletException caso ocorra erro ao encaminhar para a página
-     *@throws IOException      caso ocorra erro de entrada/saída ao responder
+     * Processa requisições GET para exibir estoques ou o formulário de novo estoque.
+     *
+     * @param request objeto que contém os dados da requisição
+     * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
+     * @throws ServletException se ocorrer falha no encaminhamento para a JSP
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-            // Recupera o gestor guardado na sessão durante o login
-            HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
-            if (gestorLogado == null) {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Unidade unidadeLogada = Sessao.unidade(request);
+            EstoqueDAO dao = new EstoqueDAO();
+            GestorDAO gestorDAO = new GestorDAO();
+
+            String pagina;
+            if (admin != null) {
+                // listas para os campos de seleção
+                request.setAttribute("unidades", new UnidadeDAO().findAll());
+                request.setAttribute("gestores", gestorDAO.findAll());
+
+                // lê o código
+                String codigoTexto = request.getParameter("codigo");
+                Integer codigo = null;
+                if (codigoTexto != null && !codigoTexto.isBlank()) {
+                    codigo = Integer.parseInt(codigoTexto.trim());
+                }
+                if (codigo == null) {
+                    pagina = "/WEB-INF/admin/novo-estoque.jsp";
+                } else {
+                    request.setAttribute("estoque", dao.findByCodigo(codigo));
+                    pagina = "/WEB-INF/admin/editar-estoque.jsp";
+                }
+            } else if (unidadeLogada != null) {
+                int codUnidade = unidadeLogada.getCodigo();
+
+                // filtra só o que é da unidade do gestor
+                List<Estoque> estoques = new ArrayList<>();
+                for (Estoque estoque : dao.findAll()) {
+                    if (estoque.getCodUnidade() == codUnidade) {
+                        estoques.add(estoque);
+                    }
+                }
+                List<Gestor> gestores = new ArrayList<>();
+                for (Gestor gestor : gestorDAO.findAll()) {
+                    if (gestor.getCodUnidade() == codUnidade) {
+                        // não manda o hash da senha para a JSP
+                        gestor.setSenha(null);
+                        gestores.add(gestor);
+                    }
+                }
+
+                request.setAttribute("estoques", estoques);
+                request.setAttribute("gestores", gestores);
+                pagina = "/WEB-INF/gestor/estoques.jsp";
+            } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            EstoqueDAO estoqueDao = new EstoqueDAO();
-            List<Estoque> todos = estoqueDao.findAll();
+            // envia para a JSP
+            request.getRequestDispatcher(pagina).forward(request, response);
 
-            // Mantém só os estoques da unidade do gestor, para ele não ver os de outras empresas
-            List<Estoque> estoques = new ArrayList<>();
-            for (Estoque estoque : todos) {
-                if (estoque.getCodUnidade() == gestorLogado.getCodUnidade()) {
-                    estoques.add(estoque);
-                }
-            }
-
-            request.setAttribute("estoques", estoques);
-
-            request.getRequestDispatcher("/WEB-INF/estoque/perfil.jsp").forward(request, response);
+        } catch (NotFoundException nfe) {
+            exibirErro(request, response, "Estoque não cadastrado.", ERROR_PAGE);
+        } catch (NumberFormatException nmfe) {
+            exibirErro(request, response, "Código do estoque inválido.", ERROR_PAGE);
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();
             exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            exibirErro(request, response, "Erro inesperado encontrado.", ERROR_PAGE);
+            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
         }
     }
 }
