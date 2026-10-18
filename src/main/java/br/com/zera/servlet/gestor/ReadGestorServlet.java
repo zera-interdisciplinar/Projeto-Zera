@@ -1,21 +1,32 @@
 package br.com.zera.servlet.gestor;
-import java.io.*;
-import br.com.zera.dao.*;
+
+import br.com.zera.dao.GestorDAO;
+import br.com.zera.dao.UnidadeDAO;
+import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
 import br.com.zera.model.Gestor;
-import jakarta.servlet.*;
+import br.com.zera.util.Sessao;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
- * Servlet responsável por mostrar as informações do gestor cadastrado
+ * Servlet responsável por mostrar as informações de um gestor.
  *
- * Esta classe recebe a requisição de visualização do perfil do gestor logado
- * e o exibe em uma tela de resposta.
+ * O que aparece depende de quem está logado:
+ * - Admin com o parâmetro codigo: formulário de edição, com a lista de unidades.
+ * - Admin sem código: formulário de novo gestor.
+ * - Gestor: o próprio perfil.
+ *
+ * A senha (hash) nunca é enviada para a tela: o objeto vai para a JSP com a senha nula.
  *
  * @author Mayte B
  * @since 2026-10-06
@@ -24,47 +35,73 @@ import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 public class ReadGestorServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir o perfil do gestor logado.
+     * Processa requisições GET para exibir um gestor ou o formulário de novo gestor.
      *
      * @param request objeto que contém os dados da requisição
      * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
+     * @throws ServletException se ocorrer falha no encaminhamento para a JSP
      * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws ServletException, IOException {
 
         try {
-            HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
-            if (gestorLogado == null) {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Gestor gestorLogado = Sessao.gestor(request);
+            GestorDAO dao = new GestorDAO();
+
+            String pagina;
+            if (admin != null) {
+                // lista de unidades para o campo de seleção
+                request.setAttribute("unidades", new UnidadeDAO().findAll());
+
+                // lê o código
+                String codigoTexto = request.getParameter("codigo");
+                Integer codigo = null;
+                if (codigoTexto != null && !codigoTexto.isBlank()) {
+                    codigo = Integer.parseInt(codigoTexto.trim());
+                }
+                if (codigo == null) {
+                    pagina = "/WEB-INF/admin/novo-gestor.jsp";
+                } else {
+                    request.setAttribute("gestor", semSenha(dao.findByCodigo(codigo)));
+                    pagina = "/WEB-INF/admin/editar-gestor.jsp";
+                }
+            } else if (gestorLogado != null) {
+                request.setAttribute("gestor", semSenha(dao.findByCodigo(gestorLogado.getCodigo())));
+                pagina = "/WEB-INF/gestor/perfil.jsp";
+            } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // busca pelo código do próprio gestor
-            GestorDAO gestorDao = new GestorDAO();
-            Gestor gestor = gestorDao.findByCodigo(gestorLogado.getCodigo());
+            // envia para a JSP
+            request.getRequestDispatcher(pagina).forward(request, response);
 
-            // a senha não é enviada para a tela
-            request.setAttribute("nome", gestor.getNome());
-            request.setAttribute("email", gestor.getEmail());
-            request.setAttribute("telefone", gestor.getTelefone());
-            request.setAttribute("codUnidade", gestor.getCodUnidade());
-
-            request.getRequestDispatcher("/WEB-INF/perfil-gestor.jsp").forward(request, response);
         } catch (NotFoundException nfe) {
             exibirErro(request, response, "Gestor não cadastrado.", ERROR_PAGE);
-        } catch (ServletException se) {
-            exibirErro(request, response, se, ERROR_PAGE);
-            se.printStackTrace();
-        }catch(IOException ioe){
-            exibirErro(request, response, ioe, ERROR_PAGE);
-            ioe.printStackTrace();
-        }catch (Exception e) {
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+        } catch (NumberFormatException nmfe) {
+            exibirErro(request, response, "Código do gestor inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (Exception e) {
             e.printStackTrace();
+            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
         }
     }
-}
 
+    /**
+     * Apaga o hash da senha antes de mandar o gestor para a JSP.
+     *
+     * @param gestor gestor buscado no banco
+     * @return o mesmo gestor, com a senha nula
+     */
+    private Gestor semSenha(Gestor gestor) {
+        // não manda o hash da senha para a JSP
+        gestor.setSenha(null);
+        return gestor;
+    }
+}
