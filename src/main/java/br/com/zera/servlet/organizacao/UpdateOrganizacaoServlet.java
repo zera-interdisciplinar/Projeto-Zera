@@ -1,99 +1,128 @@
 package br.com.zera.servlet.organizacao;
+
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
 import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por atualizar o cadastro de organizações
+ * Servlet responsável por atualizar o cadastro de organizações.
  *
- * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega as atualizações ao {@link OrganizacaoDAO}.
+ * O admin altera a organização escolhida na lista (código por parâmetro);
+ * o gestor altera a organização da própria unidade.
  *
  * @author Mayte B
  * @since 2026-10-06
  */
-@WebServlet(name = "UpdateOrganizacao", value = "/organizacao/alterarOrganizacao")
+@WebServlet(name = "UpdateOrganizacao", value = "/organizacao/alterar")
 public class UpdateOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Processa POST para atualizar a Organização cadastrada baseado no antigo
+     * Processa POST para atualizar a organização.
      *
-     * @param request objeto HttpServletRequest contendo os parâmetros da página
-     * @param response objeto HttpResponse para redirecionamento ou foward
-     * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
+     * @param request objeto HttpServletRequest com nome, email, cnpj e, para o admin, codigo
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
+     * @throws IOException caso haja um erro de input/output (entrada/saída)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        // garante que caracteres especiais cheguem corretos
         request.setCharacterEncoding("UTF-8");
-        // DAO responsável por persistir a organização no banco de dados
-        OrganizacaoDAO dao = new OrganizacaoDAO();
 
         try {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Unidade unidadeLogada = Sessao.unidade(request);
 
-            // resgata a unidade logada na sessão
-            HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
-            if (unidadeLogada == null) {
+            // admin informa a organização. Gestor só altera a da própria unidade
+            int codigo;
+            if (admin != null) {
+                // o admin informa qual organização vai alterar
+                String codigoParamTexto = request.getParameter("codigo");
+                Integer codigoParam = null;
+                if (codigoParamTexto != null && !codigoParamTexto.isBlank()) {
+                    codigoParam = Integer.parseInt(codigoParamTexto.trim());
+                }
+                if (codigoParam == null) {
+                    exibirErro(request, response, "Organização não informada.", ERROR_PAGE);
+                    return;
+                }
+                codigo = codigoParam;
+            } else if (unidadeLogada != null) {
+                codigo = unidadeLogada.getCodOrganizacao();
+            } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // a organização é a chave estrangeira da unidade
-            Organizacao organizacaoExistente = dao.findByCodigo(unidadeLogada.getCodOrganizacao());
+            // lê os campos do formulário
+            String nomeTexto = request.getParameter("nome");
+            String nome = null;
+            if (nomeTexto != null && !nomeTexto.isBlank()) {
+                nome = nomeTexto.trim();
+            }
+            String emailTexto = request.getParameter("email");
+            String email = null;
+            if (emailTexto != null && !emailTexto.isBlank()) {
+                email = emailTexto.trim();
+            }
+            String cnpjTexto = request.getParameter("cnpj");
+            String cnpj = null;
+            if (cnpjTexto != null && !cnpjTexto.isBlank()) {
+                cnpj = cnpjTexto.trim();
+            }
 
-            int codigoOrganizacao = organizacaoExistente.getCodigo();
-            String cnpj = request.getParameter("cnpj");
-            String nome = request.getParameter("nome");
-            String email = request.getParameter("email");
-
-            // exibe página de erro caso o CNPJ inserido seja inválido
-            if (Regex.validarCNPJ(cnpj) == false) {
+            if (nome == null) {
+                exibirErro(request, response, "Informe o nome da organização.", ERROR_PAGE);
+                return;
+            }
+            if (email == null || !Regex.validarEmail(email)) {
+                exibirErro(request, response, "Email inválido", ERROR_PAGE);
+                return;
+            }
+            if (cnpj == null || !Regex.validarCNPJ(cnpj)) {
                 exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
                 return;
             }
 
-            // exibe página de erro caso o email inserido seja inválido
-            if (Regex.validarEmail(email) == false) {
-                exibirErro(request, response, "email inválido", ERROR_PAGE);
-                return;
+            OrganizacaoDAO dao = new OrganizacaoDAO();
+            // confere se existe antes de alterar
+            dao.findByCodigo(codigo);
+            dao.update(new Organizacao(codigo, cnpj, nome, email));
+
+            String destino;
+            if (admin != null) {
+                destino = "/organizacao/lista";
+            } else {
+                destino = "/organizacao/perfil";
             }
+            // redirect
+            response.sendRedirect(request.getContextPath() + destino);
 
-            // cria objeto Organizacao com os dados atualizados
-            Organizacao model = new Organizacao(codigoOrganizacao, cnpj, nome, email);
-
-            // atualiza a organização no banco
-            dao.update(model);
-
-            // Redireciona para o perfil da organização após a atualização bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/organizacao/perfil");
-
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (NotFoundException nfe) {
             nfe.printStackTrace();
             exibirErro(request, response, nfe, ERROR_PAGE);
         } catch (NumberFormatException nmfe) {
-            nmfe.printStackTrace();
-            exibirErro(request, response, nmfe, ERROR_PAGE);
+            exibirErro(request, response, "Código da organização inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (Exception e) {
+            e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);
         }
     }
