@@ -10,14 +10,14 @@
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
-    <header class="cabecalho-topo">
-        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
         <div class="avatar-topo">MA</div>
     </header>
 
     <div class="tela-auth">
-        <!-- PAINEL ESQUERDO -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
                 <nav>
@@ -41,27 +41,35 @@
             </div>
         </aside>
 
-        <!-- ÁREA DE INFORMAÇÕES -->
-        <main id="informacoes-gerais">
-            <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
-            <div id="home">
-                <h1 class="nome-da-area">Home</h1>
-                <section class="card">
-                    <div class="dado">
-                        <span class="nome-do-dado">Estoques</span>
-                        <span class="numero-do-dado">2</span>
-                    </div>
-                    <div class="dado">
-                        <span class="nome-do-dado">Unidades</span>
-                        <span class="numero-do-dado">1</span>
-                    </div>
-                    <div class="dado" id="alerta">
-                        <span class="nome-do-dado">Alertas</span>
-                        <span class="numero-do-dado texto-laranja">0</span>
-                    </div>
-                </section>
-            </div>
+            <h1 class="nome-da-area">Olá, Mariana</h1>
+            <p class="subtitulo-area">Gerencie os dados da sua unidade pelo seu painel.</p>
+
+            <section class="home-cards-container">
+                <div class="card-metrica">
+                    <span class="titulo-metrica">Estoques na<br>unidade</span>
+                    <span class="numero-metrica">6</span>
+                </div>
+
+                <div class="card-metrica">
+                    <span class="titulo-metrica">Assinaturas</span>
+                    <span class="numero-metrica">6</span>
+                </div>
+
+                <div class="card-metrica borda-amarela">
+                    <span class="titulo-metrica">Código de<br>convite</span>
+                    <span class="numero-metrica">6</span>
+                </div>
+
+                <div class="card-metrica borda-amarela">
+                    <span class="titulo-metrica">Código de<br>convite</span>
+                    <span class="numero-metrica">6</span>
+                </div>
+            </section>
+
+            <section class="home-painel-inferior"></section>
         </main>
     </div>
 
