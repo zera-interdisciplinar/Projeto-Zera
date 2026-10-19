@@ -98,6 +98,41 @@ public class UnidadeDAO {
     }
 
     /**
+     * Busca uma unidade pelo CNPJ. Usado no cadastro para conferir se o CNPJ
+     * já está em uso e para descobrir o código da unidade recém-cadastrada.
+     *
+     * @param cnpj CNPJ da unidade procurada
+     * @return a {@link Unidade} correspondente ao CNPJ informado
+     * @throws NotFoundException se nenhuma unidade com o CNPJ informado for encontrada
+     * @throws ConnectionFailedException se ocorrer falha de conexão ou execução sql
+     */
+    public Unidade findByCnpj(String cnpj){
+        String sql = "select * from Unidade where cnpj = ?";
+
+        try(Connection conn = Conexao.getConexao();
+            PreparedStatement pstm = conn.prepareStatement(sql)){
+
+            pstm.setString(1, cnpj);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    return new Unidade(
+                            rs.getInt("codigo"),
+                            rs.getString("cnpj"),
+                            rs.getString("email"),
+                            rs.getInt("cod_organizacao")
+                    );
+                } else {
+                    throw new NotFoundException("Unidade com o CNPJ " + cnpj + " não foi encontrada no sistema.");
+                }
+            }
+        } catch (SQLException sqle){
+            throw new ConnectionFailedException("Erro ao buscar a unidade pelo CNPJ.", sqle);
+        }
+    }
+
+
+    /**
      * Consulta todos os registros da tabela Unidade.
      *
      * @throws ConnectionFailedException() para erros de conexão com o banco

@@ -1,68 +1,77 @@
 package br.com.zera.servlet.endereco;
 
 import br.com.zera.dao.EnderecoDAO;
+import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
-import br.com.zera.model.Endereco;
-import br.com.zera.model.Unidade;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por excluir o endereço da unidade logada.
+ * Servlet responsável por excluir um endereço.
  *
- * Esta classe recebe a requisição de exclusão via formulário HTTP, localiza o
- * endereço vinculado à unidade da sessão e delega a remoção ao {@link EnderecoDAO}.
+ * Apenas o admin pode excluir: ele escolhe o endereço na lista e confirma
+ * no modal "Deseja mesmo excluir?". O código chega por parâmetro.
  *
  * @author Mayte B
- * @since 2026-9-28
+ * @since 2026-09-28
  */
 @WebServlet(name = "DeleteEndereco", value = "/endereco/excluir")
 public class DeleteEnderecoServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão do endereço da unidade.
-     * É acionado quando o usuário envia a requisição de remoção do sistema.
+     * Processa POST para excluir o endereço informado.
      *
-     * @param request objeto que contém os dados enviados pelo formulário (JSP)
-     * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
+     * @param request objeto HttpServletRequest com o parâmetro codigo
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
      * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException{
-        try{
-            //resgata a unidade logada na sessão
-            HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
-            if (unidadeLogada == null) {
-                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+            throws IOException {
+
+        try {
+            // só o admin pode fazer isso
+            if (Sessao.admin(request) == null) {
+                exibirErro(request, response, "Acesso permitido apenas ao administrador.", ERROR_PAGE);
                 return;
             }
 
-            //instancia o DAO de endereço (os métodos não são mais static)
-            EnderecoDAO dao = new EnderecoDAO();
+            // lê o código
+            String codigoTexto = request.getParameter("codigo");
+            Integer codigo = null;
+            if (codigoTexto != null && !codigoTexto.isBlank()) {
+                codigo = Integer.parseInt(codigoTexto.trim());
+            }
+            if (codigo == null) {
+                exibirErro(request, response, "Endereço não informado.", ERROR_PAGE);
+                return;
+            }
 
-            //busca o endereço pela unidade
-            Endereco endereco = dao.findByCodUnidade(unidadeLogada.getCodigo());
-            //deleta o endereço pelo código do próprio endereço
-            dao.delete(endereco.getCodigo());
-            //envia página de resposta bem-sucedida da requisição de exclusão
-            response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
-        }catch(NotFoundException nfe){
-            exibirErro(request, response, nfe, ERROR_PAGE);
+            // exclui do banco
+            new EnderecoDAO().delete(codigo);
+
+            // redirect
+            response.sendRedirect(request.getContextPath() + "/endereco/lista");
+
+        } catch (NotFoundException nfe) {
             nfe.printStackTrace();
-        }catch(IOException ioe){
-            exibirErro(request, response, ioe, ERROR_PAGE);
-            ioe.printStackTrace();
-        }catch(Exception e){
-            exibirErro(request, response, e, ERROR_PAGE);
+            exibirErro(request, response, nfe, ERROR_PAGE);
+        } catch (NumberFormatException nmfe) {
+            exibirErro(request, response, "Código do endereço inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (Exception e) {
             e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         }
     }
 }

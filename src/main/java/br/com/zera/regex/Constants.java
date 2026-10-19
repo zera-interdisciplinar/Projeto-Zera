@@ -32,12 +32,22 @@ public class Constants {
     // Tela de erro
     public static final String ERROR_PAGE = "/WEB-INF/Erro.jsp";
 
-    // Nome do atributo da sessão que guarda a unidade do gestor logado
-    public static final String SESSAO_UNIDADE = "unidadeLogada";
+    //Senha: pelo menos 8 caracteres, um número e um caractere especial
+    public static final String SENHA_REGEX = "^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$";
 
-    // Nome do atributo da sessão que guarda o gestor logado
-    public static final String SESSAO_GESTOR = "gestorLogado";
+    // Chaves da sessão usadas durante o cadastro
+    public static final String CADASTRO_GESTOR = "cadastroGestor";
+    public static final String CADASTRO_ORGANIZACAO = "cadastroOrganizacao";
+    public static final String CADASTRO_UNIDADE = "cadastroUnidade";
+    public static final String CADASTRO_ENDERECO = "cadastroEndereco";
+    public static final String CADASTRO_PLANO = "cadastroPlano";
 
-    // Nome do atributo da sessão que guarda o admin logado
-    public static final String SESSAO_ADMIN = "adminLogado";
+    // Chaves da sessão usadas no fluxo de "Esqueci minha senha"
+    public static final String RECUPERACAO_EMAIL = "recuperacaoEmail";
+    public static final String RECUPERACAO_VALIDADA = "recuperacaoValidada";
+
+    // Status de assinatura
+    public static final String STATUS_ATIVA = "Ativa";
+    public static final String STATUS_CANCELADA = "Cancelada";
 }
+

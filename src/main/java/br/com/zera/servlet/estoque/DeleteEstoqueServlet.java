@@ -1,79 +1,97 @@
 package br.com.zera.servlet.estoque;
 
 import br.com.zera.dao.EstoqueDAO;
+import br.com.zera.exception.ConnectionFailedException;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
 import br.com.zera.model.Estoque;
-import br.com.zera.model.Gestor;
+import br.com.zera.model.Unidade;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 
 /**
- * Servlet responsável por apagar as informações de estoques cadastradas
+ * Servlet responsável por excluir um estoque.
  *
- * Esta classe recebe a requisição de visualização do estoque cadastrado pelo gestor via formulário HTTP,
- * e as exibe com uma tela de resposta
+ * O admin exclui qualquer estoque. O gestor só exclui estoques da própria unidade.
  *
  * @author Pedro Rufino
  * @since 2026-10-04
  */
-@WebServlet(name = "DeleteEstoque", value = "/estoque/deletarEstoque")
+@WebServlet(name = "DeleteEstoque", value = "/estoque/excluir")
 public class DeleteEstoqueServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão do estoque de uma empresa.
-     * É acionado quando o usuário envia a requisição de remoção do sistema.
+     * Processa POST para excluir o estoque informado.
      *
-     * @param request objeto que contém os dados enviados pelo formulário (JSP)
-     * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso
+     * @param request objeto HttpServletRequest com o parâmetro codigo
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException{
-        try{
-            // Recupera o gestor guardado na sessão durante o login
-            HttpSession session = request.getSession();
-            Gestor gestorLogado = (Gestor) session.getAttribute(SESSAO_GESTOR);
-            if (gestorLogado == null) {
+            throws IOException {
+
+        try {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Unidade unidadeLogada = Sessao.unidade(request);
+            if (admin == null && unidadeLogada == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // O código identifica qual estoque excluir
-            String cod = request.getParameter("codigo");
-            if (cod == null || cod.trim().isEmpty()) {
-                exibirErro(request, response, "Código do estoque não informado.", ERROR_PAGE);
+            // lê o código
+            String codigoTexto = request.getParameter("codigo");
+            Integer codigo = null;
+            if (codigoTexto != null && !codigoTexto.isBlank()) {
+                codigo = Integer.parseInt(codigoTexto.trim());
+            }
+            if (codigo == null) {
+                exibirErro(request, response, "Estoque não informado.", ERROR_PAGE);
                 return;
             }
-            int codigo = Integer.parseInt(cod.trim());
 
             EstoqueDAO dao = new EstoqueDAO();
-
-            // Busca antes de apagar
-            Estoque estoque = dao.findByCodigo(codigo);
-
-            // Impede que o gestor apague estoque de outra unidade trocando o código no HTML
-            if (estoque.getCodUnidade() != gestorLogado.getCodUnidade()) {
-                exibirErro(request, response, "Você não tem permissão para excluir este estoque.", ERROR_PAGE);
-                return;
+            if (admin == null) {
+                // gestor não pode excluir estoque de outra unidade
+                Estoque estoque = dao.findByCodigo(codigo);
+                if (estoque.getCodUnidade() != unidadeLogada.getCodigo()) {
+                    exibirErro(request, response, "Este estoque não pertence à sua unidade.", ERROR_PAGE);
+                    return;
+                }
             }
 
-            // Instancia as informações recebidas no Estoque com o método
+            // exclui do banco
             dao.delete(codigo);
 
-            //envia página de resposta bem-sucedida da requisição de exclusão
-            response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
-        }catch(IOException ioe){
-            exibirErro(request, response, ioe, ERROR_PAGE);
-            ioe.printStackTrace();
-        }catch(Exception e){
-            exibirErro(request, response, e, ERROR_PAGE);
+            String destino;
+            if (admin != null) {
+                destino = "/estoque/lista";
+            } else {
+                destino = "/estoque/perfil";
+            }
+            // redirect
+            response.sendRedirect(request.getContextPath() + destino);
+
+        } catch (NotFoundException nfe) {
+            nfe.printStackTrace();
+            exibirErro(request, response, nfe, ERROR_PAGE);
+        } catch (NumberFormatException nmfe) {
+            exibirErro(request, response, "Código do estoque inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (Exception e) {
             e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         }
     }
 }
