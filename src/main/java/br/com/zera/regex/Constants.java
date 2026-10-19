@@ -35,15 +35,6 @@ public class Constants {
     //Senha: pelo menos 8 caracteres, um número e um caractere especial
     public static final String SENHA_REGEX = "^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$";
 
-    // Nome do atributo da sessão que guarda a unidade do gestor logado
-    public static final String SESSAO_UNIDADE = "unidadeLogada";
-
-    // Nome do atributo da sessão que guarda o gestor logado
-    public static final String SESSAO_GESTOR = "gestorLogado";
-
-    // Nome do atributo da sessão que guarda o admin logado
-    public static final String SESSAO_ADMIN = "adminLogado";
-
     // Chaves da sessão usadas durante o cadastro
     public static final String CADASTRO_GESTOR = "cadastroGestor";
     public static final String CADASTRO_ORGANIZACAO = "cadastroOrganizacao";
