@@ -1,99 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos - Zera</title>
-    <link rel="icon" type="image/png" href="../../images/favicon.png">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/cadastro.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos - Zera</title>
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/cadastro.css">
 </head>
 <body>
+<div class="tela-auth">
 
-<main class="tela-auth">
-
-    <!-- Painel esquerdo -->
-    <div class="painel-esquerda">
-        <div class="painel-esquerda-conteudo">
-            <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
-        </div>
-
-        <!-- Redes Sociais no rodapé do painel -->
-        <div class="painel-contatos">
-            <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
-                <img src="../../images/instagram.svg" class="contato-icone" alt="">
-                <span>@zera.app</span>
-            </a>
-
-            <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
-                <img src="../../images/whatsapp.svg" class="contato-icone" alt="">
-                <span>+55 (11) 93304-5181</span>
-            </a>
-
-            <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
-                <img src="../../images/email.svg" class="contato-icone" alt="">
-                <span>zera.institutojef@gmail.com</span>
-            </a>
-        </div>
+  <div class="painel-esquerda">
+    <div class="painel-esquerda-conteudo">
+      <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+      <p class="slogan">TRANSFORMANDO <span class="texto-laranja-slogan">DESCARTE<br>EM SOLUÇÃO</span></p>
     </div>
 
-    <!-- Painel direito -->
-    <section class="painel-direita">
-        <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+    <div class="painel-contatos">
+      <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
+        <img src="../../images/instagram.svg" class="contato-item" alt="Instagram">
+        <span>@zera.app</span>
+      </a>
 
-        <div class="container-card">
-            <a href="cadastro-endereco.jsp" class="voltar">
-                <img src="../../images/seta-voltar.svg" alt="">
-                Voltar
-            </a>
+      <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
+        <img src="../../images/whatsapp.svg" class="contato-item" alt="WhatsApp">
+        <span>+55 (11) 93304-5181</span>
+      </a>
 
-            <div class="card">
-                <h1>Planos</h1>
-                <p class="subtitulo">Selecione seu plano de assinatura</p>
+      <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
+        <img src="../../images/email.svg" class="contato-item" alt="Email">
+        <span>zera.institutojef@gmail.com</span>
+      </a>
+    </div>
+  </div>
 
-                <div class="planos-lista">
+  <div class="painel-direita">
+    <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
-                    <!-- Free -->
-                    <label class="plano-opcao">
-                        <input type="radio" name="plano" value="free">
-                        <div class="plano-card plano-free">
-                            <img src="../../images/check.svg" class="plano-check" alt="">
-                            <h3>Free</h3>
-                            <p>Um usuário<br>Scanner<br>estoque limitado</p>
-                        </div>
-                    </label>
+    <div class="container-card container-planos">
+      <a href="cadastro-unidade-parte2.html" class="voltar">
+        <img src="../../images/seta-voltar.svg" alt="Voltar">
+        <span>Voltar</span>
+      </a>
 
-                    <!-- Profissional -->
-                    <label class="plano-opcao">
-                        <input type="radio" name="plano" value="profissional">
-                        <div class="plano-card plano-profissional">
-                            <img src="../../images/check.svg" class="plano-check" alt="">
-                            <h3>Profissional</h3>
-                            <p>R$49,99/mês<br>Alertas e relatórios<br>e mais!</p>
-                        </div>
-                    </label>
+      <div class="card card-planos">
+        <span class="indicador-etapa">5/5</span>
 
-                    <!-- Empresarial -->
-                    <label class="plano-opcao">
-                        <input type="radio" name="plano" value="empresarial">
-                        <div class="plano-card plano-empresarial">
-                            <img src="../../images/check.svg" class="plano-check" alt="">
-                            <h3>Empresarial</h3>
-                            <p>R$999,90/ano<br>Scanner multiusuário<br>e muito mais!</p>
-                        </div>
-                    </label>
+        <h1>Planos</h1>
+        <p class="subtitulo">Selecione seu plano de assinatura</p>
 
-                </div>
+        <form novalidate>
+          <div class="planos-lista">
 
-                <div class="linha-botao">
-                    <a href="dados-compra.html" class="botao-primario">Continuar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+            <!-- FREE -->
+            <label class="plano-opcao">
+              <input type="radio" name="plano" value="free">
+              <div class="plano-card">
+                <h3>Free</h3>
+                <p class="plano-desc">Plano completo e exclusivo para empresas que buscam ir além.</p>
+                <div class="plano-preco">R$0,00<span>/ Mês</span></div>
+                <div class="plano-divisor"></div>
+                <ul class="plano-recursos">
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Scanner</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Dashboard</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Estoque (até 50 itens)</li>
+                </ul>
+              </div>
+            </label>
 
-</main>
+            <!-- PROFISSIONAL -->
+            <label class="plano-opcao">
+              <input type="radio" name="plano" value="profissional">
+              <div class="plano-card">
+                <h3>Profissional</h3>
+                <p class="plano-desc">Plano completo e exclusivo para empresas que buscam ir além.</p>
+                <div class="plano-preco">R$99,90<span>/ Mês</span></div>
+                <div class="plano-divisor"></div>
+                <ul class="plano-recursos">
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Tudo do plano Free</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Estoque (250 itens)</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Relatórios</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Alertas</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Multiusuários</li>
+                </ul>
+              </div>
+            </label>
 
+            <!-- EMPRESARIAL -->
+            <label class="plano-opcao">
+              <input type="radio" name="plano" value="empresarial">
+              <div class="plano-card">
+                <h3>Empresarial</h3>
+                <p class="plano-desc">Plano completo e exclusivo para empresas que buscam ir além.</p>
+                <div class="plano-preco">R$1999,90<span>/ Ano</span></div>
+                <div class="plano-divisor"></div>
+                <ul class="plano-recursos">
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Tudo do plano Profissional</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Estoque ilimitado</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Suporte dedicado</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">Scanner multidispositivo</li>
+                  <li><img src="../../images/check.svg" class="plano-check-icone" alt="">E muito mais!</li>
+                </ul>
+              </div>
+            </label>
+
+          </div>
+
+          <div class="linha-botao">
+            <a href="pagamento-confirmacao-profissional.html" class="botao-primario">Continuar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 </body>
 </html>

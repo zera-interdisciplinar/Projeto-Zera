@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zera - Assinatura</title>
+    <title>Assinatura - Zera</title>
     <link rel="icon" type="image/png" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
 
-    <header class="cabecalho-topo">
-        <img src="../../images/logo-zera.png" alt="Logo Zera" class="logo">
+    <!-- CABEÇALHO DO TOPO -->
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
         <div class="avatar-topo">MA</div>
     </header>
 
     <div class="tela-auth">
+        <!-- BARRA LATERAL -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
                 <nav>
@@ -32,6 +36,7 @@
                     <a href="../../index.html">Sair</a>
                 </nav>
 
+                <!-- USUÁRIO LOGADO -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
@@ -39,11 +44,13 @@
             </div>
         </aside>
 
+        <!-- ÁREA AZUL DE CONTEÚDO -->
         <main class="informacoes">
-            <img src="../../images/z-transparente.png" alt="Marca d'água Z" class="z-marca-dagua">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
             <h1 class="nome-da-area">Assinatura</h1>
 
+            <!-- TABELA DE ASSINATURA -->
             <section class="tabela">
                 <label class="tabela-titulo">Dados assinatura</label>
 
@@ -55,7 +62,7 @@
                                 <th>Valor</th>
                                 <th>Vigência</th>
                                 <th>Status</th>
-                                <th></th>
+                                <th class="col-acoes"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,10 +71,12 @@
                                 <td>R$49,90 por ano</td>
                                 <td>14/10/2025 a 14/10/2026</td>
                                 <td class="texto-verde">Ativa</td>
-                                <td class="acoes">
-                                    <a href="#" title="Editar">
-                                        <img src="../../images/icone-editar.png" alt="Editar">
-                                    </a>
+                                <td class="col-acoes">
+                                    <div class="acoes">
+                                        <a href="#" title="Editar">
+                                            <img src="../../images/icone-editar.svg" alt="Editar">
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
