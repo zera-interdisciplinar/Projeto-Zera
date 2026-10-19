@@ -6,16 +6,13 @@ import br.com.zera.model.Unidade;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import static br.com.zera.regex.Constants.SESSAO_ADMIN;
-import static br.com.zera.regex.Constants.SESSAO_GESTOR;
-import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
-
 /**
- * Classe utilitária para ler da sessão quem está logado.
+ * Classe utilitária para acessar informações dos usuários autenticados
+ * a partir da requisição HTTP.
  *
- * Centraliza a leitura das chaves {@code SESSAO_ADMIN}, {@code SESSAO_GESTOR}
- * e {@code SESSAO_UNIDADE}, para que os servlets não repitam o mesmo
- * {@code getSession().getAttribute(...)} com cast em todo lugar.
+ * Centraliza os métodos de acesso aos dados do administrador, gestor
+ * e unidade, evitando a repetição de código nos servlets.
+ *
  * Esta classe não deve ser instanciada.
  *
  * @author Pedro Rufino
@@ -38,7 +35,7 @@ public final class Sessao {
      */
     public static Admin admin(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session == null ? null : (Admin) session.getAttribute(SESSAO_ADMIN);
+        return session == null ? null : (Admin) session.getAttribute("adminLogado");
     }
 
     /**
@@ -49,7 +46,7 @@ public final class Sessao {
      */
     public static Gestor gestor(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session == null ? null : (Gestor) session.getAttribute(SESSAO_GESTOR);
+        return session == null ? null : (Gestor) session.getAttribute("gestorLogado");
     }
 
     /**
@@ -60,6 +57,6 @@ public final class Sessao {
      */
     public static Unidade unidade(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session == null ? null : (Unidade) session.getAttribute(SESSAO_UNIDADE);
+        return session == null ? null : (Unidade) session.getAttribute("unidadeLogada");
     }
 }
