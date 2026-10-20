@@ -412,6 +412,7 @@ Ações de modificação dos registros
 
 .acoes a{
     display: inline-block;
+    width: 40px;
 }
 
 .acoes a + a{
@@ -556,5 +557,362 @@ Ações de modificação dos registros
 }
 
 #alterar-senha button:hover{
+    background-color: var(--cor2);
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cor1);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-decoration: none;
+    width: fit-content;
+    transition: transform 0.2s, opacity 0.2s;
+    z-index: 2;
+    margin-left: 55px;
+}
+
+.voltar:hover{
+    text-decoration: none;
+}
+
+.edicao{
+    background-color: var(--cor1);
+    margin-left: 115px;
+    border-radius: 20px;
+    padding: 36px;
+}
+
+.edicao h5{
+    font-family: var(--fonte1);
+    font-size: 20px;
+    color: var(--cor2);
+    display: inline-block;
+    margin-bottom: 11px;
+    width: 480px;
+    margin-top: 24px;
+}
+
+.edicao .infos-de-mesma-linha{
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 16px;
+    display: inline-block;
+    width: 465px;
+    margin-right: 15px;
+}   
+
+.edicao #nome{
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 16px;
+    display: block;
+    width: 950px;
+}
+
+.edicao .infos-de-mesma-linha input{
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor2);
+    border: none;
+    background-color: var(--cor1);
+    width: 440px;
+}
+
+.edicao #nome input{
+    border: none;
+    background-color: var(--cor1);
+    border-radius: 9px;
+    display: block;
+    width: 920px;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+}
+
+.edicao #nome input:focus{
+    outline: none;
+}
+
+.edicao .infos-de-mesma-linha input:focus{
+    outline: none;
+}
+
+.edicao select{
+    background-color: var(--cor1);
+    border: none;
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor2);
+    width: 440px;
+}
+
+.edicao #nome select{
+    background-color: var(--cor1);
+    font-family: var(--fonte1);
+    border: none;
+    font-size: 19.5px;
+    color: var(--cor2);
+    width: 920px;
+}
+
+.edicao select:focus{
+    outline: none;
+}
+
+.edicao p{
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor2);
+}
+
+.edicao button{
+    background-color: #2958D1;
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor1);
+    border: none;
+    border-radius: 15px;
+    padding: 10px 54px;
+    margin-top: 50px;
+    margin-left: 787px;
+}
+
+.edicao button:hover{
+    background-color: var(--cor2);
+}
+
+.adicao{
+    background-color: var(--cor1);
+    margin-left: 115px;
+    border-radius: 20px;
+    padding: 36px;
+}
+
+.adicao h5{
+    font-family: var(--fonte1);
+    font-size: 20px;
+    color: var(--cor2);
+    display: inline-block;
+    margin-bottom: 11px;
+    width: 480px;
+    margin-top: 24px;
+}
+
+.adicao .infos-de-mesma-linha{
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 16px;
+    display: inline-block;
+    width: 465px;
+    margin-right: 15px;
+}   
+
+.adicao #nome{
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 16px;
+    display: block;
+    width: 950px;
+}
+
+.adicao #nome input{
+    border: none;
+    background-color: var(--cor1);
+    border-radius: 9px;
+    display: block;
+    width: 920px;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+}
+
+.adicao #nome input:focus{
+    outline: none;
+}
+
+.adicao p{
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor2);
+}
+
+.adicao button{
+    background-color: #2958D1;
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor1);
+    border: none;
+    border-radius: 15px;
+    padding: 10px 42px;
+    margin-top: 50px;
+    margin-left: 787px;
+}
+
+.adicao #nome select{
+    background-color: var(--cor1);
+    font-family: var(--fonte1);
+    border: none;
+    font-size: 19.5px;
+    color: var(--cor2);
+    width: 920px;
+}
+
+.adicao #nome select:focus{
+    outline: none;
+}
+
+.adicao .infos-de-mesma-linha select{
+    background-color: var(--cor1);
+    font-family: var(--fonte1);
+    border: none;
+    font-size: 19.5px;
+    color: var(--cor2);
+    display: inline-block;
+    width: 440px;
+}
+
+.adicao .infos-de-mesma-linha select:focus{
+    outline: none;
+}
+
+.adicao .infos-de-mesma-linha input{
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    color: var(--cor2);
+    border: none;
+    background-color: var(--cor1);
+    width: 440px;
+    
+}
+
+.adicao .infos-de-mesma-linha input:focus{
+    outline: none;
+}
+
+.adicao button:hover{
+    background-color: var(--cor2);
+}
+
+.adicao #proxima-tela{
+    background-color: var(--cor1);
+    border: 2px solid var(--cor2);
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    border-radius: 15px;
+    padding: 10px 42px;
+    margin-top: 50px;
+    margin-left: 264px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.adicao #proxima-tela:hover{
+    background-color: #2958D1;
+    color: var(--cor1);
+    border-color: #2958D1;
+}
+
+.adicao #tela-atual{
+    display: inline-block;
+    width: 44px;
+    border-radius: 20px;
+    background-color: #2958D166;
+    text-align: center;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.adicao #tela-atual:hover{
+    text-decoration: none;
+}
+
+.adicao #tela-atual-primeira{
+    display: inline-block;
+    width: 44px;
+    border-radius: 20px;
+    background-color: #2958D166;
+    text-align: center;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    font-weight: bold;
+    pointer-events: none;
+    margin-left: 422px;
+    margin-top: 50px;
+}
+
+.adicao #tela-atual-primeira:hover{
+    text-decoration: none;
+}
+
+.adicao #outra-tela-primeira{
+    display: inline-block;
+    width: 44px;
+    border-radius: 20px;
+    background-color: #2958D11A;
+    text-align: center;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    font-weight: bold;
+    margin-left: 422px;
+}
+
+.adicao #outra-tela-primeira:hover{
+    text-decoration: none;
+}
+
+.adicao #outra-tela{
+    display: inline-block;
+    width: 44px;
+    border-radius: 20px;
+    background-color: #2958D11A;
+    text-align: center;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    font-weight: bold;
+}
+
+.adicao #outra-tela:hover{
+    text-decoration: none;
+}
+
+.adicao #separador{
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+    display: inline;
+}
+
+.adicao h4{
+    font-family: var(--fonte1);
+    font-size: 25px;
+    color: var(--cor2);
+}
+
+.adicao #concluir{
+    background-color: #2958D1;
+    border: none;
+    color: var(--cor1);
+    font-family: var(--fonte1);
+    font-size: 19.5px;
+    border-radius: 15px;
+    padding: 10px 42px;
+    margin-top: 50px;
+    margin-left: 256px;
+    font-weight: bold;
+}
+
+.adicao #concluir:hover{
+    text-decoration: none;
     background-color: var(--cor2);
 }
