@@ -47,16 +47,22 @@
             <h1 class="nome-da-area">Estoques</h1>
 
             <section class="tabela">
-                <div class="tabela-filtros">
+                <form action="crud-estoques-usuario.html" method="GET" class="tabela-filtros">
                     <div class="filtrador busca">
-                        <label for="buscar">Buscar</label>
-                        <input type="text" id="buscar" placeholder="Nome, CNPJ ou email">
+                        <label for="busca">Buscar</label>
+                        <div class="campo-busca">
+                            <input type="search" id="busca" name="busca" placeholder="Código ou espaço na unidade">
+                            <button type="submit" class="btn-lupa" aria-label="Buscar">
+                                <img src="../../images/icone-lupa.svg" alt="">
+                            </button>
+                        </div>
                     </div>
-                    <a href="#" class="adicionar">
-                        <img src="../../images/icone-adicionar.svg" alt="+">
+
+                    <a href="crud-nova-estoques-usuario.html" class="adicionar">
+                        <img src="../../images/icone-adicionar.svg" alt="">
                         Novo estoque
                     </a>
-                </div>
+                </form>
 
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
@@ -71,28 +77,20 @@
                             <tr>
                                 <td>1</td>
                                 <td>Galpão 3, sala B</td>
-                                <td class="col-acoes">
+                                <td>
                                     <div class="acoes">
-                                        <a href="#" title="Editar">
-                                            <img src="../../images/icone-editar.svg" alt="Editar">
-                                        </a>
-                                        <a href="#" title="Excluir">
-                                            <img src="../../images/icone-excluir.svg" alt="Excluir">
-                                        </a>
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>1</td>
                                 <td>Galpão 3, sala B</td>
-                                <td class="col-acoes">
+                                <td>
                                     <div class="acoes">
-                                        <a href="#" title="Editar">
-                                            <img src="../../images/icone-editar.svg" alt="Editar">
-                                        </a>
-                                        <a href="#" title="Excluir">
-                                            <img src="../../images/icone-excluir.svg" alt="Excluir">
-                                        </a>
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
                                     </div>
                                 </td>
                             </tr>
