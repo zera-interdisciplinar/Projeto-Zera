@@ -7,30 +7,89 @@
 .tela-auth {
     min-height: 100vh;
     display: flex;
-    align-items: stretch;
     width: 100%;
-    position: relative;
     background-color: var(--cor1);
+    box-sizing: border-box;
     overflow-x: hidden;
 }
 
-/*
-PAINEL ESQUERDO
-*/
-
-.painel-esquerda{
+.painel-esquerda {
     background-color: var(--cor1);
-    width: 13%;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
     display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
-.painel-conteudo{
+.painel-conteudo {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: left;
+    justify-content: space-between;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    padding: 12px 0 20px 0;
+    box-sizing: border-box;
+}
+
+/* Lista de navegação vertical */
+.painel-esquerda nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport */
+.painel-esquerda nav a {
+    display: flex;
+    align-items: center;
     justify-content: flex-start;
-    flex: 1;
+    width: 191px;
+    height: 46.95px;
+    padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
+    box-sizing: border-box;
+    border-radius: 12px;
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--cor2);
+    text-decoration: none !important;
+    transition: background-color 0.15s ease;
+}
+
+/* Hover: #152D6B com 7% */
+.painel-esquerda nav a:hover {
+    background-color: rgba(21, 45, 107, 0.07);
+    color: var(--cor2);
+    text-decoration: none !important;
+}
+
+/* Quadrado azul de seleção (191px x 46.95px) */
+.painel-esquerda nav .botao-ativo {
+    background-color: var(--cor2) !important;
+    color: var(--cor1) !important;
+    font-weight: bold !important;
+    width: 191px !important;
+    height: 46.95px !important;
+    padding-left: 40.5px !important; /* Mantém o texto nos mesmos 45px do viewport */
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Traço divisor: 154px de largura e #152D6B com 67% */
+.painel-esquerda hr {
+    border: none !important;
+    border-top: 1.5px solid rgba(21, 45, 107, 0.67) !important;
+    width: 154px !important;
+    margin: 12px auto !important;
 }
 
 .logo-zera{
@@ -40,58 +99,6 @@ PAINEL ESQUERDO
     margin-top: 23px;
     margin-left: 30px;
     padding-bottom: 50px
-}
-
-/*
-Navegação para outras telas
-*/
-
-nav a{
-    display: flex;
-    gap: 13px;
-    align-items: center;
-    padding: 23px;
-    margin: 1px 20px;
-    color: var(--cor2);
-    text-decoration: none;
-    border-radius: 12.8px;
-    font-family: var(--fonte1);
-    font-size: 20px;
-    font-weight: 400;
-    
-}
-
-nav a:hover{
-    text-decoration: none;
-}
-
-/*.painel-conteudo nav{
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    border-radius: 12.8px;
-    font-family: var(--fonte1);
-    font-size: 20px;
-}*/
-
-hr{
-    margin-left: 20px;
-    width: 150px;
-}
-
-/*
-Botão da tela que já está selecionada
-*/
-
-nav .botao-ativo{
-    background-color: var(--cor2);
-    color: var(--cor1);
-    padding: 12px 0px 12px 30px;
-    pointer-events: none;
-    font-weight: bold;
-    margin: 0 auto;
-    margin-left: 8px;
-
 }
 
 /*
