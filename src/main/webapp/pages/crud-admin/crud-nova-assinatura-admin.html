@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Nova assinatura</h3>
             <div class="adicao">
-                <h5>Organização</h5>
+                <form action="adicionar" method="post">
+                    <h5>Organização</h5>
                 <div id="nome">
                     <select name="organizacao" id="organizacao" required>
                         <option value="" disabled selected hidden>Selecione</option>
@@ -74,6 +75,7 @@
                     <input type="text" id="data-termino" name="data-termino" placeholder="dd/mm/aaaa">
                 </div>
                 <button>Adicionar</button>
+                </form>
             </div>
         </div>
     

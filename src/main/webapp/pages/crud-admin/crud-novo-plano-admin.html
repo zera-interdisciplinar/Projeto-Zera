@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Novo plano</h3>
             <div class="adicao">
-                <h5>Nome</h5>
+                <form action="adicionar" method="post">
+                    <h5>Nome</h5>
                 <div id="nome">
                     <input type="text" name="plano" id="plano" placeholder="Profissional">
                 </div>
@@ -52,7 +53,8 @@
                     <option value="anual">Anual</option>
                 </select>
             </div>
-                <button>Adicionar</button>
+                <button type="submit">Adicionar</button>
+                </form>
             </div>
     
 </body>

@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Editar assinatura</h3>
             <div class="edicao">
-                <h5>Organização</h5>
+                <form action="editar" method="post">
+                    <h5>Organização</h5>
                 <div id="nome">
                     <select name="organizacao" id="organizacao">
                         <option value="jbs-alimentos">JBS Alimentos</option>
@@ -53,7 +54,7 @@
                     <option value="free">Free</option>
                 </select>
                 </div>
-                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025" inputmode="numeric"></div>
+                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025"></div>
                 <h5>Status de assinatura</h5>
                 <h5>Data de término</h5>
                 <div class="infos-de-mesma-linha"><select name="status" id="status">
@@ -64,7 +65,8 @@
                 </select>
                 </div>
                 <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026"></div>
-                <button>Salvar</button>
+                <button type="submit">Salvar</button>
+                </form>
             </div>
     
 </body>

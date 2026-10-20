@@ -200,6 +200,11 @@ Espaço de informações
 
 }
 
+.card a{
+    text-decoration: none;
+}
+
+
 /*
 dado que precisa de atenção
 */

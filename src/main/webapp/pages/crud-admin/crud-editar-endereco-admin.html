@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Editar endereço</h3>
             <div class="edicao">
-                <h5>Logradouro</h5>
+                <form action="editar" method="post">
+                    <h5>Logradouro</h5>
                 <h5>Estado</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="logradouro" id="logradouro" placeholder="Rua José Irineu">
@@ -89,7 +90,8 @@
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="bairro" id="bairro" placeholder="Vila Jaguara">
                 </div>
-                <button>Salvar</button>
+                <button type="submit">Salvar</button>
+                </form>
             </div>
     
 </body>

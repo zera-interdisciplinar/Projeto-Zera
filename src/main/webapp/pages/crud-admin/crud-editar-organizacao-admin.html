@@ -38,13 +38,15 @@
             </a>
             <h3 class = nome-da-area>Editar organização</h3>
             <div class="edicao">
-                <h5>Nome</h5>
+                <form action="editar" method="post">
+                    <h5>Nome</h5>
                 <div id="nome"><input type="text" name="nome-da-organizacao" id="nome-da-organizacao" placeholder="Nome da organização"></div>
                 <h5>CNPJ</h5>
                 <h5>Email</h5>
                 <div class="infos-de-mesma-linha"><input type="text" name="cnpj" id="cnpj" placeholder="11.222.333/0001-81"></div>
                 <div class="infos-de-mesma-linha"><input type="text" name="email" id="email" placeholder="email@organizacao.com"></div>
-                <button>Salvar</button>
+                <button type="submit">Salvar</button>
+                </form>
             </div>
     
 </body>

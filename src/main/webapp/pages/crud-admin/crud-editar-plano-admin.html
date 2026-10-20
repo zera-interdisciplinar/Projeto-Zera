@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Editar plano</h3>
             <div class="edicao">
-                <h5>Nome</h5>
+                <form action="editar" method="post">
+                    <h5>Nome</h5>
                 <div id="nome">
                     <input type="text" name="plano" id="plano" placeholder="Profissional">
                 </div>
@@ -52,7 +53,8 @@
                     <option value="anual">Anual</option>
                 </select></div>
                 
-                <button>Salvar</button>
+                <button type="submit">Salvar</button>
+                </form>
             </div>
     
 </body>

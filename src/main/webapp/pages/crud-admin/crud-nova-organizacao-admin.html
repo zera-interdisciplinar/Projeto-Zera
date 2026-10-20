@@ -38,7 +38,8 @@
             </a>
             <h3 class = nome-da-area>Nova organização</h3>
             <div class="adicao">
-                <h5>Nome</h5>
+                <form action="adicionar" method="post">
+                    <h5>Nome</h5>
                 <div id="nome">
                     <input type="text" name="nome-da-organizacao" id="nome-da-organizacao" placeholder="Nome da organização">
                 </div>
@@ -46,7 +47,8 @@
                 <h5>Email</h5>
                 <div class="infos-de-mesma-linha"><input type="text" name="cnpj" id="cnpj" placeholder="11.222.333/0001-81"></div>
                 <div class="infos-de-mesma-linha"><input type="text" name="email" id="email" placeholder="email@organizacao.com"></div>
-                <button>adicionar</button>
+                <button type="submit">adicionar</button>
+                </form>
             </div>
     
 </body>
