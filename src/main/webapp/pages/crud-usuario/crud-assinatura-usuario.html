@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assinatura - Zera</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud-usuario.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO DO TOPO -->
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <!-- BARRA LATERAL -->
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html" class="botao-ativo">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <!-- USUÁRIO LOGADO -->
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- ÁREA AZUL DE CONTEÚDO -->
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <h1 class="nome-da-area">Assinatura</h1>
+
+            <!-- TABELA DE ASSINATURA -->
+            <section class="tabela">
+                <label class="tabela-titulo">Dados assinatura</label>
+
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                        <thead>
+                            <tr>
+                                <th>Plano</th>
+                                <th>Valor</th>
+                                <th>Vigência</th>
+                                <th>Status</th>
+                                <th class="col-acoes"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Profissional</td>
+                                <td>R$49,90 por ano</td>
+                                <td>14/10/2025 a 14/10/2026</td>
+                                <td class="texto-verde">Ativa</td>
+                                <td class="col-acoes">
+                                    <div class="acoes">
+                                        <a href="crud-editar-assinatura-usuario.html" title="Editar">
+                                            <img src="../../images/icone-editar.svg" alt="Editar">
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

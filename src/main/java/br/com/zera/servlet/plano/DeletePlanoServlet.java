@@ -1,97 +1,77 @@
 package br.com.zera.servlet.plano;
 
-import br.com.zera.dao.AssinaturaDAO;
-import br.com.zera.dao.PlanoDAO;
-import br.com.zera.exception.ZeraException;
-import br.com.zera.model.Assinatura;
-import br.com.zera.model.Plano;
-import br.com.zera.model.Unidade;
-
+import br.com.zera.exception.ConnectionFailedException;
+import br.com.zera.exception.NotFoundException;
+import br.com.zera.util.ExclusaoCascata;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
-import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por excluir os planos cadastrados
+ * Servlet responsável por excluir um plano (apenas admin).
  *
- * Esta classe recebe a requisição de exclusão do plano via formulário HTTP,
- * confere se nenhuma assinatura usa o plano e delega a exclusão ao {@link PlanoDAO}.
+ * A exclusão é em cascata: as assinaturas que usam o plano também são
+ * apagadas (veja {@link ExclusaoCascata}).
  *
  * @author Pedro Rufino
  * @since 2026-10-07
  */
-@WebServlet(name = "DeletePlano", value = "/plano/deletarPlano")
+@WebServlet(name = "DeletePlano", value = "/plano/excluir")
 public class DeletePlanoServlet extends HttpServlet {
 
     /**
-     * Método responsável por processar a requisição de exclusão de um plano.
-     * É acionado quando o usuário envia a requisição de remoção do sistema.
+     * Processa POST para excluir o plano informado.
      *
-     * @param request objeto que contém os dados enviados pelo formulário (JSP)
-     * @param response objeto usado para enviar respostas ao cliente (redirecionamento ou erro)
-     * @throws IOException caso haja um erro de entrada/saída ao responder
+     * @param request objeto HttpServletRequest com o parâmetro codigo
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
+     * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        PlanoDAO dao = new PlanoDAO();
-        AssinaturaDAO assinaturaDAO = new AssinaturaDAO();
-
         try {
-            // Recupera a unidade guardada na sessão durante o login
-            HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
-            if (unidadeLogada == null) {
-                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+            // só o admin pode fazer isso
+            if (Sessao.admin(request) == null) {
+                exibirErro(request, response, "Acesso permitido apenas ao administrador.", ERROR_PAGE);
                 return;
             }
 
-            //captura o código do plano enviado pelo formulário
-            String cod = request.getParameter("codigo");
-            if (cod == null || cod.trim().isEmpty()) {
-                exibirErro(request, response, "Código do plano não informado.", ERROR_PAGE);
-                return;
+            // lê o código
+            String codigoTexto = request.getParameter("codigo");
+            Integer codigo = null;
+            if (codigoTexto != null && !codigoTexto.isBlank()) {
+                codigo = Integer.parseInt(codigoTexto.trim());
             }
-            int codigo = Integer.parseInt(cod.trim());
-
-            //confere se o plano existe
-            Plano plano = dao.findByCodigo(codigo);
-            if (plano == null) {
-                exibirErro(request, response, "Plano não encontrado.", ERROR_PAGE);
+            if (codigo == null) {
+                exibirErro(request, response, "Plano não informado.", ERROR_PAGE);
                 return;
             }
 
-            //impede excluir um plano que ainda é usado por alguma assinatura
-            for (Assinatura a : assinaturaDAO.findAll()) {
-                if (a.getCodPlano() == codigo) {
-                    exibirErro(request, response,
-                            "Este plano não pode ser excluído porque há assinaturas vinculadas a ele.", ERROR_PAGE);
-                    return;
-                }
-            }
+            // exclui o plano e as assinaturas que usam ele
+            ExclusaoCascata.excluirPlano(codigo);
 
-            //chama função de deletar o plano baseado no código validado
-            dao.delete(codigo);
-            //envia página de resposta bem-sucedida da requisição de exclusão
-            response.sendRedirect(request.getContextPath() + "/operacaoBemSucedida");
+            // redirect
+            response.sendRedirect(request.getContextPath() + "/plano/lista");
 
-        } catch (NumberFormatException nfe) {
+        } catch (NotFoundException nfe) {
+            nfe.printStackTrace();
+            exibirErro(request, response, nfe, ERROR_PAGE);
+        } catch (NumberFormatException nmfe) {
             exibirErro(request, response, "Código do plano inválido.", ERROR_PAGE);
-        } catch (ZeraException ze) {
-            exibirErro(request, response, ze, ERROR_PAGE);
-            ze.printStackTrace();
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (Exception e) {
-            exibirErro(request, response, e, ERROR_PAGE);
             e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         }
     }
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro da Organização - Zera</title>
+  <title>Cadastro da organização - Zera</title>
   <link rel="icon" type="image/png" href="../../images/favicon.png">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/cadastro.css">
@@ -16,7 +16,7 @@
   <div class="painel-esquerda">
     <div class="painel-esquerda-conteudo">
       <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-      <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
+      <p class="slogan">TRANSFORMANDO <span class="texto-laranja-slogan">DESCARTE<br>EM SOLUÇÃO</span></p>
     </div>
 
     <!-- Contatos / Redes Sociais no rodapé do painel -->
@@ -43,19 +43,21 @@
     <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
     <div class="container-card">
-      <a href="verificacao-cadastro.html" class="voltar">
+      <a href="cadastro-gestor.html" class="voltar">
         <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
         <span>Voltar</span>
       </a>
 
       <div class="card">
+        <span class="indicador-etapa">2/5</span>
+
         <h1>Dados da organização</h1>
         <p class="subtitulo">Preencha os dados para prosseguir</p>
 
         <form novalidate>
           <div class="campo">
             <label for="nome-organizacao">Nome da organização</label>
-            <input type="text" id="nome-organizacao" name="nome-organizacao" placeholder="Digite o nome">
+            <input type="text" id="nome-organizacao" name="nome-organizacao" placeholder="Digite o nome da organização">
           </div>
 
           <div class="campo">
@@ -74,8 +76,10 @@
           </div>
 
           <div class="linha-botao">
-            <a href="cadastro-unidade.jsp" class="botao-primario">Continuar</a>
+            <a href="cadastro-unidade-parte1.html" class="botao-primario">Continuar</a>
           </div>
+
+          <a href="cadastro-organizacao-existente.html" class="link-pequeno">Já possui organização?</a>
         </form>
       </div>
     </div>

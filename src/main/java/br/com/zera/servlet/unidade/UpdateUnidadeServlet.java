@@ -1,15 +1,17 @@
 package br.com.zera.servlet.unidade;
 
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Admin;
 import br.com.zera.model.Unidade;
 import br.com.zera.regex.Regex;
+import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -18,83 +20,117 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 import static br.com.zera.regex.Constants.SESSAO_UNIDADE;
 
 /**
- * Servlet responsável por atualizar o cadastro de unidades
+ * Servlet responsável por atualizar o cadastro de unidades.
  *
- * Esta classe recebe os dados enviados via formulário HTTP, realiza a
- * validação das informações e delega as atualizações ao {@link UnidadeDAO}.
+ * O admin altera a unidade escolhida na lista (código por parâmetro) e pode
+ * trocar a organização dela. O gestor altera só a própria unidade e não troca
+ * de organização.
  *
  * @author Mayte B
  * @since 2026-10-06
  */
-@WebServlet(name = "UpdateUnidade", value = "/unidade/alterarUnidade")
+@WebServlet(name = "UpdateUnidade", value = "/unidade/alterar")
 public class UpdateUnidadeServlet extends HttpServlet {
 
     /**
-     * Processa POST para atualizar a unidade cadastrada baseada na antiga
+     * Processa POST para atualizar a unidade.
      *
-     * @param request objeto HttpServletRequest contendo os parâmetros da página
-     * @param response objeto HttpResponse para redirecionamento ou foward
-     * @throws java.io.IOException caso haja um erro de input/output (entrada/saída)
+     * @param request objeto HttpServletRequest com cnpj, email e, para o admin, codigo e codOrganizacao
+     * @param response objeto HttpServletResponse para redirecionamento ou erro
+     * @throws IOException caso haja um erro de input/output (entrada/saída)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        // garante que caracteres especiais cheguem corretos
         request.setCharacterEncoding("UTF-8");
-        // DAO responsável por persistir a unidade no banco de dados
-        UnidadeDAO dao = new UnidadeDAO();
 
         try {
+            // descobre quem está logado: admin ou gestor
+            Admin admin = Sessao.admin(request);
+            Unidade unidadeLogada = Sessao.unidade(request);
+            UnidadeDAO dao = new UnidadeDAO();
 
-            // resgata a unidade logada na sessão
-            HttpSession session = request.getSession();
-            Unidade unidadeLogada = (Unidade) session.getAttribute(SESSAO_UNIDADE);
-            if (unidadeLogada == null) {
+            // busca a unidade atual
+            Unidade existente;
+            int codOrganizacao;
+            if (admin != null) {
+                // lê o código
+                String codigoTexto = request.getParameter("codigo");
+                Integer codigo = null;
+                if (codigoTexto != null && !codigoTexto.isBlank()) {
+                    codigo = Integer.parseInt(codigoTexto.trim());
+                }
+                if (codigo == null) {
+                    exibirErro(request, response, "Unidade não informada.", ERROR_PAGE);
+                    return;
+                }
+                existente = dao.findByCodigo(codigo);
+
+                // o admin pode trocar a organização. Campo vazio mantém a atual
+                String novaOrganizacaoTexto = request.getParameter("codOrganizacao");
+                Integer novaOrganizacao = null;
+                if (novaOrganizacaoTexto != null && !novaOrganizacaoTexto.isBlank()) {
+                    novaOrganizacao = Integer.parseInt(novaOrganizacaoTexto.trim());
+                }
+                if (novaOrganizacao == null) {
+                    codOrganizacao = existente.getCodOrganizacao();
+                } else {
+                    new OrganizacaoDAO().findByCodigo(novaOrganizacao);
+                    codOrganizacao = novaOrganizacao;
+                }
+            } else if (unidadeLogada != null) {
+                existente = dao.findByCodigo(unidadeLogada.getCodigo());
+                // o gestor não pode trocar a organização
+                codOrganizacao = existente.getCodOrganizacao();
+            } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // busca a unidade atual
-            Unidade unidadeExistente = dao.findByCodigo(unidadeLogada.getCodigo());
+            // lê os campos do formulário
+            String cnpjTexto = request.getParameter("cnpj");
+            String cnpj = null;
+            if (cnpjTexto != null && !cnpjTexto.isBlank()) {
+                cnpj = cnpjTexto.trim();
+            }
+            String emailTexto = request.getParameter("email");
+            String email = null;
+            if (emailTexto != null && !emailTexto.isBlank()) {
+                email = emailTexto.trim();
+            }
 
-            int codigoUnidade = unidadeExistente.getCodigo();
-            // a organização vem do banco, e não do formulário, para o gestor não trocá-la
-            int codOrganizacao = unidadeExistente.getCodOrganizacao();
-            String cnpj = request.getParameter("cnpj");
-            String email = request.getParameter("email");
-
-            // exibe página de erro caso o cnpj inserido seja inválido
-            if (Regex.validarCNPJ(cnpj) == false) {
-                exibirErro(request, response, "cnpj inválido", ERROR_PAGE);
+            if (cnpj == null || !Regex.validarCNPJ(cnpj)) {
+                exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
+                return;
+            }
+            if (email == null || !Regex.validarEmail(email)) {
+                exibirErro(request, response, "Email inválido", ERROR_PAGE);
                 return;
             }
 
-            // exibe página de erro caso o email inserido seja inválido
-            if (Regex.validarEmail(email) == false) {
-                exibirErro(request, response, "email inválido", ERROR_PAGE);
-                return;
+            Unidade atualizada = new Unidade(existente.getCodigo(), cnpj, email, codOrganizacao);
+            dao.update(atualizada);
+
+            if (admin != null) {
+                // redirect
+                response.sendRedirect(request.getContextPath() + "/unidade/lista");
+            } else {
+                // mantém a sessão do gestor com os dados novos da unidade
+                request.getSession().setAttribute(SESSAO_UNIDADE, atualizada);
+                response.sendRedirect(request.getContextPath() + "/unidade/perfil");
             }
 
-            // cria objeto Unidade com os dados atualizados
-            Unidade model = new Unidade(codigoUnidade, cnpj, email, codOrganizacao);
-
-            // atualiza a unidade no banco
-            dao.update(model);
-
-            // Redireciona para o perfil da unidade após a atualização bem-sucedida
-            response.sendRedirect(request.getContextPath() + "/unidade/perfil");
-
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (NotFoundException nfe) {
             nfe.printStackTrace();
             exibirErro(request, response, nfe, ERROR_PAGE);
         } catch (NumberFormatException nmfe) {
-            nmfe.printStackTrace();
-            exibirErro(request, response, nmfe, ERROR_PAGE);
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException cfe) {
+            cfe.printStackTrace();
+            exibirErro(request, response, cfe, ERROR_PAGE);
         } catch (Exception e) {
+            e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);
         }
     }

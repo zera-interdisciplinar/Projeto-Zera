@@ -1,0 +1,119 @@
+/* ================================
+   PÁGINA DE ERRO (AJUSTADO)
+================================ */
+
+body.pagina-erro {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--cor1);
+    font-family: var(--fonte1);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Grade de 2 colunas ocupando a tela inteira */
+.erro-tela {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    padding: 0 8vw;
+    box-sizing: border-box;
+}
+
+/* Bloco de texto no topo esquerdo */
+.erro-conteudo {
+    align-self: flex-start;
+    margin-top: 16vh;
+    max-width: 480px;
+}
+
+.erro-titulo {
+    font-family: var(--fonte1);
+    font-size: clamp(34px, 3.8vw, 54px);
+    font-weight: 700;
+    color: var(--cor2);
+    text-transform: none;
+    line-height: 1.15;
+    margin-bottom: 24px;
+}
+
+.erro-descricao {
+    font-family: var(--fonte1);
+    font-size: clamp(16px, 1.4vw, 21px);
+    font-weight: 400;
+    color: var(--cor3);
+    line-height: 1.45;
+}
+
+/* 
+   Área da Imagem ajustada:
+   Subimos para 12vh e limitamos a altura a 42vh para a sombra
+   ficar com respiro confortável acima da faixa azul.
+*/
+.erro-imagem-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    margin-top: 12vh;
+}
+
+.erro-imagem {
+    width: 100%;
+    max-width: min(390px, 28vw);
+    max-height: 42vh; /* Impede a imagem de encostar na faixa azul */
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Faixas diagonais no fundo ocupando 100% da tela */
+.erro-faixas-fundo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.erro-faixas-fundo svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Ajuste para telas menores / mobile */
+@media (max-width: 850px) {
+    body.pagina-erro {
+        overflow-y: auto;
+    }
+
+    .erro-tela {
+        grid-template-columns: 1fr;
+        padding: 50px 24px 140px;
+        text-align: center;
+    }
+
+    .erro-conteudo {
+        margin-top: 4vh;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .erro-imagem-area {
+        margin-top: 30px;
+    }
+
+    .erro-imagem {
+        max-width: 270px;
+        max-height: 32vh;
+    }
+}

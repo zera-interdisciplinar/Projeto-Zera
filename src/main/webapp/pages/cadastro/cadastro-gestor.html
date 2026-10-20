@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - Zera</title>
+  <title>Cadastrar - Zera</title>
   <link rel="icon" type="image/png" href="../../images/favicon.png">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/cadastro.css">
@@ -11,43 +11,42 @@
 <body>
 <div class="tela-auth">
 
-  <!-- Painel Esquerdo -->
   <div class="painel-esquerda">
     <div class="painel-esquerda-conteudo">
       <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-      <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
+      <p class="slogan">TRANSFORMANDO <span class="texto-laranja-slogan">DESCARTE<br>EM SOLUÇÃO</span></p>
     </div>
 
-    <!-- Redes Sociais no rodapé do painel -->
     <div class="painel-contatos">
       <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
-        <img src="../../images/instagram.svg" class="contato-item" alt="">
+        <img src="../../images/instagram.svg" class="contato-item" alt="Instagram">
         <span>@zera.app</span>
       </a>
 
       <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
-        <img src="../../images/whatsapp.svg" class="contato-item" alt="">
+        <img src="../../images/whatsapp.svg" class="contato-item" alt="WhatsApp">
         <span>+55 (11) 93304-5181</span>
       </a>
 
       <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
-        <img src="../../images/email.svg" class="contato-item" alt="">
+        <img src="../../images/email.svg" class="contato-item" alt="Email">
         <span>zera.institutojef@gmail.com</span>
       </a>
     </div>
   </div>
 
-  <!-- Painel Direito -->
   <div class="painel-direita">
     <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
     <div class="container-card">
       <a href="../../index.html" class="voltar">
-        <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
+        <img src="../../images/seta-voltar.svg" alt="Voltar">
         <span>Voltar</span>
       </a>
 
       <div class="card">
+        <span class="indicador-etapa">1/5</span>
+
         <h1>Dados do gestor</h1>
         <p class="subtitulo">Preencha seus dados para criar a conta</p>
 
@@ -65,7 +64,7 @@
             <div class="campo-icone">
               <img src="../../images/email.svg" class="icone-input" alt="">
               <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com">
-              <span class = "mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
+              <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
             </div>
           </div>
 
@@ -74,7 +73,7 @@
             <div class="campo-icone">
               <img src="../../images/telefone.svg" class="icone-input" alt="">
               <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
-              <span class = "mensagem-erro">Telefone inválido, ele precisa conter o DDD + nove números</span>
+              <span class="mensagem-erro">Telefone inválido, ele precisa conter o DDD + nove números</span>
             </div>
           </div>
 
@@ -82,8 +81,11 @@
             <label for="senha">Senha</label>
             <div class="campo-icone">
               <img src="../../images/cadeado.svg" class="icone-input" alt="">
-              <input type="password" id="senha" name= "senha" placeholder="Crie uma senha">
-              <span class = "mensagem-erro">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
+              <input type="password" id="senha" name="senha" placeholder="Crie uma senha">
+              <button type="button" class="btn-olho" aria-label="Mostrar senha">
+                <img src="../../images/icone-ver.svg" class="icone-olho" alt="">
+              </button>
+              <span class="mensagem-erro">A senha precisa ter pelo menos 8 caracteres, um número e um caractere especial</span>
             </div>
           </div>
 
@@ -91,15 +93,19 @@
             <label for="confirmar-senha">Confirmar senha</label>
             <div class="campo-icone">
               <img src="../../images/cadeado.svg" class="icone-input" alt="">
-              <input type="password" id="confirmar-senha" name= "confirmar-senha" placeholder="Repita sua senha">
-              <span class = "mensagem-erro">A confirmação está diferente da senha informada</span>
+              <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Repita sua senha">
+              <button type="button" class="btn-olho" aria-label="Mostrar senha">
+                <img src="../../images/icone-ver.svg" class="icone-olho" alt="">
+              </button>
+              <span class="mensagem-erro">A confirmação está diferente da senha informada</span>
             </div>
           </div>
 
           <div class="linha-botao">
-            <a href="verificacao-cadastro.html" class="botao-primario">Continuar</a>
-            <a href="../login/login.html" class="link-pequeno">Já possui cadastro?</a>
+            <a href="cadastro-organizacao.html" class="botao-primario">Continuar</a>
           </div>
+
+          <a href="../login/login.html" class="link-pequeno">Já possui cadastro?</a>
         </form>
       </div>
     </div>
@@ -107,3 +113,5 @@
   </div>
 
 </div>
+</body>
+</html>

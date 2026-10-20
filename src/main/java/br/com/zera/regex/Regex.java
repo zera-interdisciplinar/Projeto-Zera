@@ -85,4 +85,20 @@ public class Regex {
         Matcher matcher = pattern.matcher(nome);
         return matcher.matches();
     }
+
+    /**
+     * Valida se a senha segue a regra do sistema: pelo menos 8 caracteres,
+     * um número e um caractere especial.
+     *
+     * @param senha a ser validada
+     * @return true se a senha for válida de acordo com o padrão de {@link Constants}
+     */
+    public static boolean validarSenha(String senha){
+        if (senha == null) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(Constants.SENHA_REGEX);
+        Matcher matcher = pattern.matcher(senha);
+        return matcher.matches();
+    }
 }

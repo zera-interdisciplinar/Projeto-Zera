@@ -4,6 +4,7 @@ import br.com.zera.dao.AdminDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Admin;
+import br.com.zera.regex.Regex;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -21,7 +22,7 @@ import static br.com.zera.regex.Constants.SESSAO_ADMIN;
  * @author Pedro Rufino
  * @since 2026-10-11
  */
-@WebServlet(name = "UpdateAdmin", value = "/admin/AtualizarAdmin")
+@WebServlet(name = "UpdateAdmin", value = "/admin/alterar")
 public class UpdateAdminServlet extends HttpServlet {
 
     /**
@@ -54,8 +55,13 @@ public class UpdateAdminServlet extends HttpServlet {
                 exibirErro(request, response, "Nome não informado.", ERROR_PAGE);
                 return;
             }
-            if (email == null || email.trim().isEmpty()) {
-                exibirErro(request, response, "Email não informado.", ERROR_PAGE);
+            if (email == null || !Regex.validarEmail(email.trim())) {
+                exibirErro(request, response, "Email inválido, ele precisa conter @ e o domínio.", ERROR_PAGE);
+                return;
+            }
+            // confere duplicidade se o e-mail mudou
+            if (!email.trim().equalsIgnoreCase(adminLogado.getEmail()) && dao.existsByEmail(email.trim())) {
+                exibirErro(request, response, "Já existe um admin com esse e-mail.", ERROR_PAGE);
                 return;
             }
 

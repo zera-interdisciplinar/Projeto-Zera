@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Estoques</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud-usuario.css">
+</head>
+<body>
+
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html" class="botao-ativo">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <h1 class="nome-da-area">Estoques</h1>
+
+            <section class="tabela">
+                <form action="crud-estoques-usuario.html" method="GET" class="tabela-filtros">
+                    <div class="filtrador busca">
+                        <label for="busca">Buscar</label>
+                        <div class="campo-busca">
+                            <input type="search" id="busca" name="busca" placeholder="Código ou espaço na unidade">
+                            <button type="submit" class="btn-lupa" aria-label="Buscar">
+                                <img src="../../images/icone-lupa.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <a href="crud-nova-estoques-usuario.html" class="adicionar">
+                        <img src="../../images/icone-adicionar.svg" alt="">
+                        Novo estoque
+                    </a>
+                </form>
+
+                <div class="tabela-rolagem">
+                    <table class="itens-tabela">
+                        <thead>
+                            <tr>
+                                <th class="col-cod">Código</th>
+                                <th>Espaço na unidade</th>
+                                <th class="col-acoes"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Galpão 3, sala B</td>
+                                <td>
+                                    <div class="acoes">
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Galpão 3, sala B</td>
+                                <td>
+                                    <div class="acoes">
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
