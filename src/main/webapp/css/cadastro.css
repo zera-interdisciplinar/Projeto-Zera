@@ -21,6 +21,12 @@
     overflow-x: hidden;
 }
 
+/* o style.css dá padding-top: 55px em todo <main> (por causa do header fixo
+   da home). Essas telas não têm header, então tira esse espaço. */
+main.tela-auth {
+    padding-top: 0;
+}
+
 /* =========================================================
    PAINEL ESQUERDO
    ========================================================= */
@@ -681,6 +687,11 @@ hr.separador {
     opacity: 0.75;
 }
 
+/* "Esqueci minha senha" colado embaixo do campo de senha */
+.link-pequeno.link-esqueci {
+    margin-top: 10px;
+}
+
 .sucesso-icone {
     width: 100px;
     height: auto;
@@ -952,16 +963,10 @@ hr.separador {
     mask: url("../images/icone-ver.svg") center / contain no-repeat;
 }
 
-/* risco no olho quando a senha está visível */
-.btn-olho.visivel::after {
-    content: "";
-    position: absolute;
-    width: 26px;
-    height: 1.83px;
-    background-color: #152D6B;
-    border-radius: 2px;
-    transform: rotate(45deg);
-    pointer-events: none;
+/* quando a senha está visível, troca pro olho fechado */
+.btn-olho.visivel::before {
+    -webkit-mask-image: url("../images/icone-naover.svg");
+    mask-image: url("../images/icone-naover.svg");
 }
 
 .btn-olho:hover {

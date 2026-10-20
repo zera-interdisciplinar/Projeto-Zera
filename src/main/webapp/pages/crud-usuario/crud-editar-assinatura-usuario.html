@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Editar assinatura</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html" class="botao-ativo">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <a href="crud-assinatura-usuario.html" class="voltar">
+                <img src="../../images/seta-voltar.svg" alt="">
+                <span>Voltar</span>
+            </a>
+
+            <h1 class="nome-da-area">Editar assinatura</h1>
+
+            <section class="tabela">
+                <form action="#" method="POST">
+                    <div class="form-coluna form-coluna-junto">
+                        <div class="filtrador">
+                            <label for="organizacao">Organização</label>
+                            <input type="text" id="organizacao" name="organizacao" value="JBS Alimentos" class="form-campo-total" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-duplo">
+                        <div class="filtrador">
+                            <label for="plano">Plano</label>
+                            <select id="plano" name="plano" class="form-campo-total">
+                                <option value="free">Free</option>
+                                <option value="profissional">Profissional</option>
+                                <option value="empresarial" selected>Empresarial</option>
+                            </select>
+                        </div>
+                        <div class="filtrador">
+                            <label for="data-inicio">Data de início</label>
+                            <input type="text" id="data-inicio" name="data_inicio" value="10/10/2025" class="form-campo-total" readonly>
+                        </div>
+
+                        <div class="filtrador">
+                            <label for="status">Status da assinatura</label>
+                            <select id="status" name="status" class="form-campo-total">
+                                <option value="ativa" selected>Ativa</option>
+                                <option value="pendente">Pendente</option>
+                                <option value="cancelada">Cancelada</option>
+                            </select>
+                        </div>
+                        <div class="filtrador">
+                            <label for="data-termino">Data de término</label>
+                            <input type="text" id="data-termino" name="data_termino" value="01/03/2026" placeholder="dd/mm/aaaa" class="form-campo-total" inputmode="numeric" maxlength="10">
+                        </div>
+                    </div>
+
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

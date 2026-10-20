@@ -15,7 +15,7 @@
   <div class="painel-esquerda">
     <div class="painel-esquerda-conteudo">
       <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-      <p class="slogan">TRANSFORMANDO <span class="texto-laranja">DESCARTE</span><br>EM SOLUÇÃO</p>
+      <p class="slogan">TRANSFORMANDO <span class="texto-laranja-slogan">DESCARTE<br>EM SOLUÇÃO</span></p>
     </div>
 
     <div class="painel-contatos">
@@ -48,19 +48,21 @@
       <div class="card">
         <h1>Redefinir senha</h1>
         <p class="subtitulo">Informe seu e-mail para receber o código de recuperação</p>
-        
-        <div class="campo">
-          <label for="email">Email</label>
-          <div class="campo-icone">
-            <img src="../../images/email.svg" class="icone-input" alt="">
-            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com">
-            <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
-          </div>
-        </div>
 
-        <div class="linha-botao">
-          <a href="verificar-codigo-email.html" class="botao-primario">Continuar</a>
-        </div>
+        <form novalidate>
+          <div class="campo">
+            <label for="email">Email</label>
+            <div class="campo-icone">
+              <img src="../../images/email.svg" class="icone-input" alt="">
+              <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com">
+              <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
+            </div>
+          </div>
+
+          <div class="linha-botao">
+            <a href="verificar-codigo-email.html" class="botao-primario">Continuar</a>
+          </div>
+        </form>
       </div>
     </div>
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar unidade  - Zera</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html" class="botao-ativo">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <a href="crud-unidade-usuario.html" class="voltar">
+                <img src="../../images/seta-voltar.svg" alt="">
+                <span>Voltar</span>
+            </a>
+
+            <h1 class="nome-da-area">Editar unidade</h1>
+
+            <section class="tabela">
+                <form action="#" method="POST">
+                    <div class="form-coluna">
+                        <div class="filtrador">
+                            <label for="organizacao">Organização</label>
+                            <input type="text" id="organizacao" name="organizacao" value="JBS Alimentos" class="form-campo-total" readonly>
+                        </div>
+
+                        <div class="filtrador">
+                            <label for="email-unidade">Email da unidade</label>
+                            <input type="email" id="email-unidade" name="email_unidade" value="tijbs@exemplo.com" class="form-campo-total">
+                        </div>
+
+                        <div class="filtrador">
+                            <label for="cnpj-unidade">CNPJ da unidade</label>
+                            <input type="text" id="cnpj-unidade" name="cnpj_unidade" value="11.222.333/0001-81" class="form-campo-total" inputmode="numeric" maxlength="18">
+                        </div>
+                    </div>
+
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

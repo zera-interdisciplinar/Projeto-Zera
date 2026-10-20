@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera - Novo estoque</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html" class="botao-ativo">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <a href="crud-estoques-usuario.html" class="voltar">
+                <img src="../../images/seta-voltar.svg" alt="">
+                <span>Voltar</span>
+            </a>
+
+            <h1 class="nome-da-area">Novo estoque</h1>
+
+            <section class="tabela">
+                <form action="#" method="POST">
+                    <div class="form-coluna">
+                        <div class="filtrador">
+                            <label for="espaco">Espaço na unidade</label>
+                            <input type="text" id="espaco" name="espaco" placeholder="ex: Galpão 3, sala B" class="form-campo-total">
+                        </div>
+                    </div>
+
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

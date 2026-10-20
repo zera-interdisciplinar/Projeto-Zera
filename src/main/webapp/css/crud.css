@@ -255,6 +255,12 @@ header.header-crud .avatar-topo {
     box-sizing: border-box;
 }
 
+/* card do perfil quando a página "Meu perfil" está aberta: azul mais escuro */
+.perfil-usuario.perfil-ativo {
+    background-color: var(--cor2);
+    pointer-events: none;
+}
+
 .perfil-usuario .avatar {
     width: 32px;
     height: 32px;
@@ -311,6 +317,32 @@ header.header-crud .avatar-topo {
     opacity: 0.25 !important;
     pointer-events: none;
     z-index: 1;
+}
+
+/* Link "Voltar" das telas de edição (fica acima do título) */
+.informacoes .voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px 30px;
+    color: var(--cor1);
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none !important;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.informacoes .voltar img {
+    width: 20px;
+    height: auto;
+}
+
+.informacoes .voltar:hover {
+    opacity: 0.85;
+    transform: translateX(-3px);
 }
 
 /* Título: Exatamente 41.07px, bold, apenas 1ª letra maiúscula */
@@ -404,6 +436,92 @@ h1.nome-da-area,
     outline: none;
     box-sizing: border-box;
     width: 100%;
+}
+
+/* select (ex: Tema em Configurações) igual às caixas de texto */
+.tabela-filtros select {
+    height: 44px;
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 18px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 0 44px 0 16px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+
+    /* tira a seta padrão do navegador e coloca uma azul escura */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+/* opções da lista com fundo bege (senão ficam transparentes/escuras) */
+.tabela-filtros select option {
+    background-color: var(--cor1);
+    color: var(--cor2);
+}
+
+/* ===== Campo de busca com lupa (Estoques) ===== */
+.campo-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.campo-busca input {
+    padding-right: 48px !important;
+}
+
+/* a lupa é um botão de enviar: clicar nela (ou apertar Enter) faz a busca */
+.btn-lupa {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+/* o <img> fica escondido; a lupa é o icone-lupa.svg pintado de azul escuro */
+.btn-lupa img {
+    display: none;
+}
+
+.btn-lupa::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: var(--cor2); /* azul escuro */
+    -webkit-mask: url("../images/icone-lupa.svg") center / contain no-repeat;
+    mask: url("../images/icone-lupa.svg") center / contain no-repeat;
+}
+
+.btn-lupa:hover {
+    opacity: 0.75;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.btn-lupa:focus-visible {
+    outline: 2px solid var(--cor3);
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 .tabela-filtros input::placeholder {
@@ -514,6 +632,130 @@ h1.nome-da-area,
 .form-campo-total {
     width: 100%;
     box-sizing: border-box;
+}
+
+/* caixas de texto dos formulários (Meu perfil, Organização...) iguais às dos filtros */
+/* formulário com um campo embaixo do outro (ex: Editar unidade) */
+.form-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.form-coluna .filtrador label,
+.form-grid-duplo .filtrador label {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+.form-coluna input,
+.form-coluna select,
+.form-grid-duplo input,
+.form-grid-duplo select {
+    height: 44px;
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 16px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 0 16px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* form-coluna seguido de um grid (ex: Editar assinatura): espaço igual ao do grid */
+.form-coluna.form-coluna-junto {
+    margin-bottom: 20px;
+}
+
+/* campos que não podem ser editados ficam com o texto mais clarinho */
+.form-coluna input[readonly],
+.form-grid-duplo input[readonly] {
+    color: rgba(21, 45, 107, 0.55);
+    cursor: default;
+}
+
+/* ===== Olho de mostrar/esconder senha (Meu perfil) ===== */
+.campo-senha {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.campo-senha input {
+    padding-right: 48px !important;
+}
+
+.campo-senha .btn-olho {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* o <img> fica escondido; o olho é o icone-ver.svg pintado de azul escuro */
+.campo-senha .btn-olho .icone-olho {
+    display: none;
+}
+
+.campo-senha .btn-olho::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-color: var(--cor2);
+    -webkit-mask: url("../images/icone-ver.svg") center / contain no-repeat;
+    mask: url("../images/icone-ver.svg") center / contain no-repeat;
+}
+
+/* quando a senha está visível, troca pro olho fechado */
+.campo-senha .btn-olho.visivel::before {
+    -webkit-mask-image: url("../images/icone-naover.svg");
+    mask-image: url("../images/icone-naover.svg");
+}
+
+.campo-senha .btn-olho:hover {
+    opacity: 0.75;
+}
+
+/* select dos formulários com seta azul escura (ex: Estado) */
+.form-coluna select,
+.form-grid-duplo select {
+    padding-right: 44px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+.form-coluna select option,
+.form-grid-duplo select option {
+    background-color: var(--cor1);
+    color: var(--cor2);
+}
+
+.form-coluna input::placeholder,
+.form-grid-duplo input::placeholder {
+    color: rgba(21, 45, 107, 0.5);
+    font-size: 16px;
 }
 
 .alinhar-direita {

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar endereço - Zera</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+</head>
+<body>
+
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <div class="avatar-topo">MA</div>
+    </header>
+
+    <div class="tela-auth">
+        <aside class="painel-esquerda">
+            <div class="painel-conteudo">
+                <nav>
+                    <a href="crud-home-usuario.html">Home</a>
+                    <a href="crud-estoques-usuario.html">Estoques</a>
+                    <a href="crud-unidade-usuario.html">Unidade</a>
+                    <a href="crud-endereco-usuario.html" class="botao-ativo">Endereço</a>
+                    <a href="crud-assinatura-usuario.html">Assinatura</a>
+                    <a href="crud-organizacao-usuario.html">Organização</a>
+
+                    <hr>
+
+                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <a href="../../index.html">Sair</a>
+                </nav>
+
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                    <div class="avatar">MA</div>
+                    <span class="nome-usuario">Mariana Almeida</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="informacoes">
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <a href="crud-endereco-usuario.html" class="voltar">
+                <img src="../../images/seta-voltar.svg" alt="">
+                <span>Voltar</span>
+            </a>
+
+            <h1 class="nome-da-area">Editar endereço</h1>
+
+            <section class="tabela">
+                <label class="tabela-titulo">Endereço</label>
+
+                <form action="#" method="POST">
+                    <div class="form-grid-duplo">
+                        <div class="filtrador">
+                            <label for="logradouro">Logradouro</label>
+                            <input type="text" id="logradouro" name="logradouro" value="Rua José Irineu" class="form-campo-total">
+                        </div>
+                        <div class="filtrador">
+                            <label for="estado">Estado</label>
+                            <select id="estado" name="estado" class="form-campo-total">
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP" selected>SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+
+                        <div class="filtrador">
+                            <label for="numero">Número</label>
+                            <input type="text" id="numero" name="numero" value="123" class="form-campo-total" inputmode="numeric">
+                        </div>
+                        <div class="filtrador">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" value="São Paulo" class="form-campo-total">
+                        </div>
+
+                        <div class="filtrador">
+                            <label for="cep">CEP</label>
+                            <input type="text" id="cep" name="cep" value="00000000" class="form-campo-total" inputmode="numeric" maxlength="8">
+                        </div>
+                        <div class="filtrador">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" value="Lins" class="form-campo-total">
+                        </div>
+                    </div>
+
+                    <div class="alinhar-direita">
+                        <button type="submit" class="adicionar botao-submit">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
