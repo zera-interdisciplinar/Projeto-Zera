@@ -916,3 +916,26 @@ Ações de modificação dos registros
     text-decoration: none;
     background-color: var(--cor2);
 }
+
+.adicao #linha-completa{
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 16px;
+    display: block;
+    width: 950px;
+}
+
+.adicao #linha-completa input{
+    border: none;
+    background-color: var(--cor1);
+    border-radius: 9px;
+    display: block;
+    width: 920px;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+}
+
+.adicao #linha-completa input:focus{
+    outline: none;
+}
