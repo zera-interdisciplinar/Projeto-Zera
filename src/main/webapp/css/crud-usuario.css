@@ -1,0 +1,1056 @@
+@charset "UTF-8";
+
+:root {
+    --fonte1: 'Inria Sans', sans-serif;
+    --fonte2: 'Instrument Sans', sans-serif;
+    --cor1: #f5f1e6;
+    --cor2: #152D6B;
+    --cor3: #2958D1;
+    --cor4: #F59E0B;
+    --cor5: #10B981;
+}
+
+/* ========================================================
+   HOME ESPECÍFICA (Olá Mariana + 4 Cards + Painel Inferior)
+   ======================================================== */
+.subtitulo-area {
+    color: rgba(245, 241, 230, 0.85);
+    font-size: 16px;
+    font-family: var(--fonte1);
+    margin: -18px 0 28px 55px !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* Card Bege com os 4 blocos */
+.home-cards-container {
+    background-color: var(--cor1);
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-left: 95px !important;
+    padding: 34px 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: calc(100% - 135px);
+    max-width: 860px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Cada bloquinho métrico */
+.card-metrica {
+    border: 2px solid var(--cor2);
+    border-radius: 18px;
+    padding: 22px 12px 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 185px;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+/* Os 2 cards com borda amarela/laranja */
+.card-metrica.borda-amarela {
+    border-color: #F59E0B;
+}
+
+.card-metrica .titulo-metrica {
+    font-family: var(--fonte1);
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--cor2);
+    text-align: center;
+    line-height: 1.2;
+}
+
+.card-metrica .numero-metrica {
+    font-family: var(--fonte1);
+    font-size: 64px;
+    font-weight: bold;
+    color: #2958D1;
+    line-height: 1;
+    margin-top: 10px;
+}
+
+/* Painel Bege Inferior Vazio */
+.home-painel-inferior {
+    background-color: var(--cor1);
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-left: 95px !important;
+    margin-top: 24px;
+    min-height: 240px;
+    width: calc(100% - 135px);
+    max-width: 860px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================================================
+   CABEÇALHO SUPERIOR (Fixo)
+   ======================================================== */
+header.header-crud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: var(--cor1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 45px !important;  /* Logo alinhada a exatos 45px da borda */
+    padding-right: 45px !important;
+    box-sizing: border-box;
+    z-index: 1000;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+header.header-crud .logo-topo {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Logo ZERA exata: 156px x 44.16px */
+header.header-crud .logo-topo img,
+header.header-crud .logo {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 156px !important;
+    height: 44.16px !important;
+    object-fit: contain;
+    display: block;
+}
+
+header.header-crud .avatar-topo {
+    width: 34px;
+    height: 34px;
+    background-color: var(--cor5);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: var(--fonte1);
+}
+
+/* ========================================================
+   ESTRUTURA GERAL
+   ======================================================== */
+.tela-auth {
+    min-height: 100vh;
+    display: flex;
+    width: 100%;
+    padding-top: 70px;
+    background-color: var(--cor1);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* ========================================================
+   BARRA LATERAL (Largura de 200px)
+   ======================================================== */
+.painel-esquerda {
+    background-color: var(--cor1);
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.painel-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    padding: 12px 0 20px 0;
+    box-sizing: border-box;
+}
+
+/* Lista de navegação vertical */
+.painel-esquerda nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport */
+.painel-esquerda nav a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 191px;
+    height: 46.95px;
+    padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
+    box-sizing: border-box;
+    border-radius: 12px;
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--cor2);
+    text-decoration: none !important;
+    transition: background-color 0.15s ease;
+}
+
+
+
+/* Hover: #152D6B com 7% */
+.painel-esquerda nav a:hover {
+    background-color: rgba(21, 45, 107, 0.07);
+    color: var(--cor2);
+    text-decoration: none !important;
+}
+
+/* Quadrado azul de seleção (191px x 46.95px) */
+.painel-esquerda nav .botao-ativo {
+    background-color: var(--cor2) !important;
+    color: var(--cor1) !important;
+    font-weight: bold !important;
+    width: 191px !important;
+    height: 46.95px !important;
+    padding-left: 40.5px !important; /* Mantém o texto nos mesmos 45px do viewport */
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Traço divisor: 154px de largura e #152D6B com 67% */
+.painel-esquerda hr {
+    border: none !important;
+    border-top: 1.5px solid rgba(21, 45, 107, 0.67) !important;
+    width: 154px !important;
+    margin: 12px auto !important;
+}
+
+/* Card Mariana Almeida (191px x 66px, #24438C, Radius 14) */
+.perfil-usuario {
+    width: 191px;
+    height: 66px;
+    background-color: #24438C;
+    border-radius: 14px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none !important;
+    box-sizing: border-box;
+}
+
+/* card do perfil quando a página "Meu perfil" está aberta: azul mais escuro */
+.perfil-usuario.perfil-ativo {
+    background-color: var(--cor2);
+    pointer-events: none;
+}
+
+.perfil-usuario .avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--cor5);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.perfil-usuario .nome-usuario {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: var(--fonte1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========================================================
+   ÁREA AZUL DE CONTEÚDO (Linear 0% #152D6B a 100% #2958D1, Radius 20)
+   ======================================================== */
+.informacoes,
+#informacoes-gerais {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(135deg, #152D6B 0%, #2958D1 100%);
+    border-top-left-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    min-height: calc(100vh - 70px);
+    padding: 40px 40px 40px 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+}
+
+/* Marca d'água Z: 802px x 929.43px e visível (opacity 0.25) */
+.z-marca-dagua {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-42%, -50%);
+    width: 802px !important;
+    height: 929.43px !important;
+    max-width: none !important;
+    object-fit: contain;
+    opacity: 0.25 !important;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Link "Voltar" das telas de edição (fica acima do título) */
+.informacoes .voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px 30px;
+    color: var(--cor1);
+    font-family: var(--fonte1);
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none !important;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.informacoes .voltar img {
+    width: 20px;
+    height: auto;
+}
+
+.informacoes .voltar:hover {
+    opacity: 0.85;
+    transform: translateX(-3px);
+}
+
+/* Título: Exatamente 41.07px, bold, apenas 1ª letra maiúscula */
+.informacoes h1.nome-da-area,
+h1.nome-da-area,
+.nome-da-area {
+    font-family: var(--fonte1) !important;
+    font-size: 41.07px !important;
+    font-weight: bold !important;
+    color: var(--cor1) !important;
+    text-transform: capitalize !important;
+    margin: 0 0 28px 55px !important;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================================
+   CARD COM A TABELA (Posicionado a 95px da borda azul)
+   ======================================================== */
+.tabela {
+    background-color: var(--cor1);
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-left: 95px !important;
+    padding: 24px 38px 30px 38px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 135px);
+    max-width: 860px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tabela-segunda {
+    margin-top: 24px;
+}
+
+.tabela-titulo {
+    margin-bottom: 18px;
+    display: block;
+    font-family: var(--fonte1);
+    font-size: 19.96px;
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+.tabela-descricao {
+    color: var(--cor2);
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-family: var(--fonte1);
+    max-width: 680px;
+    line-height: 1.4;
+}
+
+.tabela-filtros {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.filtrador {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.busca {
+    flex: 1;
+}
+
+.busca label {
+    font-family: var(--fonte1);
+    font-size: 19.96px;
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+.tabela-filtros input {
+    height: 44px;
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 18px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 0 16px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* select (ex: Tema em Configurações) igual às caixas de texto */
+.tabela-filtros select {
+    height: 44px;
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 18px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 0 44px 0 16px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+
+    /* tira a seta padrão do navegador e coloca uma azul escura */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+/* opções da lista com fundo bege (senão ficam transparentes/escuras) */
+.tabela-filtros select option {
+    background-color: var(--cor1);
+    color: var(--cor2);
+}
+
+/* ===== Campo de busca com lupa (Estoques) ===== */
+.campo-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.campo-busca input {
+    padding-right: 48px !important;
+}
+
+/* a lupa é um botão de enviar: clicar nela (ou apertar Enter) faz a busca */
+.btn-lupa {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+/* o <img> fica escondido; a lupa é o icone-lupa.svg pintado de azul escuro */
+.btn-lupa img {
+    display: none;
+}
+
+.btn-lupa::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: var(--cor2); /* azul escuro */
+    -webkit-mask: url("../images/icone-lupa.svg") center / contain no-repeat;
+    mask: url("../images/icone-lupa.svg") center / contain no-repeat;
+}
+
+.btn-lupa:hover {
+    opacity: 0.75;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.btn-lupa:focus-visible {
+    outline: 2px solid var(--cor3);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.tabela-filtros input::placeholder {
+    color: rgba(21, 45, 107, 0.5);
+    font-size: 18px;
+}
+
+.adicionar {
+    height: 44px;
+    background-color: var(--cor3);
+    color: var(--cor1);
+    padding: 0 20px;
+    border-radius: 9px;
+    font-family: var(--fonte1);
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none !important;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.adicionar img {
+    width: 16px;
+    height: 16px;
+}
+
+.adicionar:hover {
+    opacity: 0.9;
+}
+
+.tabela-rolagem {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.itens-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Cabeçalho da tabela: Inria Sans, #152D6B, 19.96px e bold */
+.itens-tabela th {
+    text-align: left;
+    padding: 12px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 19.96px;
+    font-weight: bold;
+    border-bottom: 2px solid rgba(21, 45, 107, 0.4);
+}
+
+.itens-tabela td {
+    text-align: left;
+    padding: 14px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 16px;
+    border-bottom: 1.5px solid rgba(21, 45, 107, 0.2);
+    vertical-align: middle;
+}
+
+.col-cod {
+    width: 120px;
+}
+
+.col-acoes {
+    width: 80px;
+    text-align: right;
+}
+
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.acoes a {
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+
+.acoes a:hover {
+    transform: scale(1.15);
+}
+
+.acoes img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* ========================================================
+   FORMULÁRIOS ESPECÍFICOS (Perfil, Organização, Configurações)
+   ======================================================== */
+.form-grid-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-campo-total {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* caixas de texto dos formulários (Meu perfil, Organização...) iguais às dos filtros */
+/* formulário com um campo embaixo do outro (ex: Editar unidade) */
+.form-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.form-coluna .filtrador label,
+.form-grid-duplo .filtrador label {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+.form-coluna input,
+.form-coluna select,
+.form-grid-duplo input,
+.form-grid-duplo select {
+    height: 44px;
+    border-radius: 9px;
+    border: 2px solid var(--cor2);
+    font-size: 16px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding: 0 16px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* form-coluna seguido de um grid (ex: Editar assinatura): espaço igual ao do grid */
+.form-coluna.form-coluna-junto {
+    margin-bottom: 20px;
+}
+
+/* campos que não podem ser editados ficam com o texto mais clarinho */
+.form-coluna input[readonly],
+.form-grid-duplo input[readonly] {
+    color: rgba(21, 45, 107, 0.55);
+    cursor: default;
+}
+
+/* ===== Olho de mostrar/esconder senha (Meu perfil) ===== */
+.campo-senha {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.campo-senha input {
+    padding-right: 48px !important;
+}
+
+.campo-senha .btn-olho {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* o <img> fica escondido; o olho é o icone-ver.svg pintado de azul escuro */
+.campo-senha .btn-olho .icone-olho {
+    display: none;
+}
+
+.campo-senha .btn-olho::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-color: var(--cor2);
+    -webkit-mask: url("../images/icone-ver.svg") center / contain no-repeat;
+    mask: url("../images/icone-ver.svg") center / contain no-repeat;
+}
+
+/* quando a senha está visível, troca pro olho fechado */
+.campo-senha .btn-olho.visivel::before {
+    -webkit-mask-image: url("../images/icone-naover.svg");
+    mask-image: url("../images/icone-naover.svg");
+}
+
+.campo-senha .btn-olho:hover {
+    opacity: 0.75;
+}
+
+/* select dos formulários com seta azul escura (ex: Estado) */
+.form-coluna select,
+.form-grid-duplo select {
+    padding-right: 44px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+.form-coluna select option,
+.form-grid-duplo select option {
+    background-color: var(--cor1);
+    color: var(--cor2);
+}
+
+.form-coluna input::placeholder,
+.form-grid-duplo input::placeholder {
+    color: rgba(21, 45, 107, 0.5);
+    font-size: 16px;
+}
+
+.alinhar-direita {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botao-submit {
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.form-configuracoes {
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.bloco-codigo-convite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid var(--cor2);
+    border-radius: 9px;
+    padding: 10px 18px;
+    min-width: 180px;
+}
+
+.bloco-codigo-convite span {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+}
+
+.bloco-codigo-convite a {
+    display: flex;
+    align-items: center;
+    margin-left: 14px;
+}
+
+/* ========================================================
+   HOME (Cards com números)
+   ======================================================== */
+#home .card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    background-color: var(--cor1);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+#home .dado {
+    border: 2px solid var(--cor2);
+    border-radius: 16px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#home .nome-do-dado {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--cor2);
+    margin-bottom: 8px;
+}
+
+#home .numero-do-dado {
+    font-size: 56px;
+    font-weight: bold;
+    color: #2958D1;
+}
+
+#home #alerta {
+    border-color: #F59E0B;
+}
+
+/* ========================================================
+   RESPONSIVIDADE (TABLETS E TELAS MÉDIAS: até 1024px)
+   ======================================================== */
+@media (max-width: 1024px) {
+    .subtitulo-area {
+        margin: -16px 0 24px 30px !important;
+    }
+    .home-cards-container,
+    .home-painel-inferior {
+        margin-left: 30px !important;
+        width: calc(100% - 60px) !important;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    header.header-crud {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+    }
+
+    header.header-crud .logo-topo,
+    header.header-crud .logo {
+        left: 30px !important;
+    }
+
+    header.header-crud .avatar-topo {
+        right: 30px !important;
+    }
+
+    /* Reduz as distâncias laterais na área azul */
+    .informacoes h1.nome-da-area,
+    h1.nome-da-area,
+    .nome-da-area {
+        margin: 0 0 24px 30px !important;
+    }
+
+    .tabela {
+        margin-left: 30px !important;
+        width: calc(100% - 60px) !important;
+        padding: 24px 28px !important;
+    }
+
+    /* Marca d'água redimensiona proporcionalmente */
+    .z-marca-dagua {
+        width: 600px !important;
+        height: auto !important;
+    }
+}
+
+/* ========================================================
+   RESPONSIVIDADE (CELULARES: até 768px)
+   ======================================================== */
+@media (max-width: 768px) {
+    .subtitulo-area {
+        margin: -10px 0 18px 0 !important;
+        font-size: 14px;
+    }
+    .home-cards-container,
+    .home-painel-inferior {
+        margin-left: 0 !important;
+        width: 100% !important;
+        grid-template-columns: 1fr;
+        padding: 20px 16px !important;
+    }
+    
+    /* Header compacto */
+    header.header-crud {
+        height: 60px;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    header.header-crud .logo-topo,
+    header.header-crud .logo {
+        left: 20px !important;
+        width: 125px !important;
+        height: 35px !important;
+    }
+
+    header.header-crud .avatar-topo {
+        right: 20px !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* Tela muda de lado-a-lado para vertical */
+    .tela-auth {
+        flex-direction: column;
+        padding-top: 60px;
+    }
+
+    /* Barra lateral vira menu horizontal deslizável no topo */
+    .painel-esquerda {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        padding: 10px 0;
+    }
+
+    .painel-conteudo {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .painel-esquerda nav {
+        flex-direction: row !important;
+        overflow-x: auto;
+        width: 100% !important;
+        padding: 0 16px 6px 16px !important;
+        gap: 8px !important;
+        scrollbar-width: none; /* Oculta a barra feia no Firefox */
+    }
+
+    .painel-esquerda nav::-webkit-scrollbar {
+        display: none; /* Oculta a barra no Chrome/Safari */
+    }
+
+    .painel-esquerda nav a,
+    .painel-esquerda nav .botao-ativo {
+        width: auto !important;
+        min-width: fit-content;
+        height: 38px !important;
+        padding: 0 16px !important;
+        font-size: 15px !important;
+        white-space: nowrap;
+        border-radius: 10px;
+    }
+
+    .painel-esquerda hr,
+    .perfil-usuario {
+        display: none; /* Oculta no fluxo do menu horizontal para não poluir a tela */
+    }
+
+    /* Área azul ganha cantos arredondados no topo */
+    .informacoes {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 24px 16px 40px 16px !important;
+        min-height: calc(100vh - 120px);
+    }
+
+    /* Título menor e sem deslocamento */
+    .informacoes h1.nome-da-area,
+    h1.nome-da-area,
+    .nome-da-area {
+        font-size: 28px !important;
+        margin: 0 0 18px 0 !important;
+    }
+
+    /* Card ocupa toda a largura disponível */
+    .tabela {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 20px 16px !important;
+        border-radius: 16px;
+    }
+
+    /* Campo de busca e botão empilham no celular */
+    .tabela-filtros {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .adicionar {
+        width: 100%;
+        justify-content: center;
+        height: 44px;
+    }
+
+    /* Tabela rolável com toque para não amassar colunas */
+    .itens-tabela {
+        min-width: 440px;
+    }
+
+    .itens-tabela th {
+        font-size: 16px !important;
+        padding: 10px 6px;
+    }
+
+    .itens-tabela td {
+        font-size: 14px !important;
+        padding: 12px 6px;
+    }
+
+    /* Formulários de 2 colunas viram 1 coluna */
+    .form-grid-duplo {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .alinhar-direita {
+        justify-content: stretch;
+    }
+
+    .botao-submit {
+        width: 100%;
+    }
+
+    .bloco-codigo-convite {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Marca d'água no celular */
+    .z-marca-dagua {
+        width: 380px !important;
+        height: auto !important;
+        opacity: 0.15 !important;
+    }
+}
+
+/* Hover específico do botão "Sair": #FA3D28 com 40% de cor */
+.painel-esquerda nav a[href*="index"]:hover,
+.painel-esquerda nav a:last-child:hover {
+    background-color: rgba(250, 61, 40, 0.40) !important;
+    color: #fa3d28 !important; /* ou var(--cor2) se preferir manter o texto azul */
+}
