@@ -3,6 +3,6 @@ target/
 .git/
 .gitignore
 *.iml
-.env
+src/main/resources/.env
 .vscode/
 README.md

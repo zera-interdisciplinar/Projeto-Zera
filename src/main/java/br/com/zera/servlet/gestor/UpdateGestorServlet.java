@@ -101,7 +101,7 @@ public class UpdateGestorServlet extends HttpServlet {
             String telefoneTexto = request.getParameter("telefone");
             String telefone = null;
             if (telefoneTexto != null && !telefoneTexto.isBlank()) {
-                telefone = telefoneTexto.trim();
+                telefone = telefoneTexto.trim().replaceAll("\\D", "");
             }
 
             if (nome == null || !Regex.validarNome(nome)) {

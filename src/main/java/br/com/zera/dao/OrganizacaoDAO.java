@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,8 +99,8 @@ public class OrganizacaoDAO {
                             rs.getString("cnpj"),
                             rs.getString("nome"),
                             rs.getString("email"),
-                            rs.getObject("criado_em", LocalDateTime.class),
-                            rs.getObject("atualizado_em", LocalDateTime.class)
+                            lerDataHora(rs, "criado_em"),
+                            lerDataHora(rs, "atualizado_em")
                     );
                 } else {
                     throw new NotFoundException("Organização", codigo);
@@ -133,8 +135,8 @@ public class OrganizacaoDAO {
                             rs.getString("cnpj"),
                             rs.getString("nome"),
                             rs.getString("email"),
-                            rs.getObject("criado_em", LocalDateTime.class),
-                            rs.getObject("atualizado_em", LocalDateTime.class)
+                            lerDataHora(rs, "criado_em"),
+                            lerDataHora(rs, "atualizado_em")
                     );
                 } else {
                     throw new NotFoundException("Organização com o CNPJ " + cnpj + " não foi encontrada no sistema.");
@@ -166,8 +168,8 @@ public class OrganizacaoDAO {
                         rs.getString("cnpj"),
                         rs.getString("nome"),
                         rs.getString("email"),
-                        rs.getObject("criado_em", LocalDateTime.class),
-                        rs.getObject("atualizado_em", LocalDateTime.class)
+                        lerDataHora(rs, "criado_em"),
+                        lerDataHora(rs, "atualizado_em")
                 ));
             }
 
@@ -202,5 +204,23 @@ public class OrganizacaoDAO {
         } catch (SQLException e) {
             throw new ConnectionFailedException("Erro ao deletar a organização do banco de dados.", e);
         }
+    }
+
+    /**
+     * Lê uma coluna timestamp with time zone e converte para LocalDateTime
+     * no fuso do servidor.
+     *
+     * @param rs resultado da consulta, já posicionado na linha
+     * @param coluna nome da coluna de data e hora
+     * @return a data e hora convertida, ou null se a coluna estiver vazia
+     * @throws SQLException se a coluna não existir ou não puder ser lida
+     */
+    private LocalDateTime lerDataHora(ResultSet rs, String coluna) throws SQLException {
+        OffsetDateTime valor = rs.getObject(coluna, OffsetDateTime.class);
+        // atualizado_em pode estar vazio se o registro nunca foi alterado
+        if (valor == null) {
+            return null;
+        }
+        return valor.atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
     }
 }

@@ -1,0 +1,28 @@
+<%--
+    Painel esquerdo das telas de cadastro (logo, slogan e contatos).
+    É igual em todas as telas, então fica aqui uma vez só e cada JSP de cadastro
+    inclui este arquivo com a diretiva include.
+--%>
+<div class="painel-esquerda">
+    <div class="painel-esquerda-conteudo">
+        <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+        <p class="slogan">TRANSFORMANDO <span class="texto-laranja-slogan">DESCARTE<br>EM SOLUÇÃO</span></p>
+    </div>
+
+    <div class="painel-contatos">
+        <a href="https://www.instagram.com/zera.app_/" target="_blank" class="contato-item">
+            <img src="${ctx}/images/instagram.svg" class="contato-item" alt="Instagram">
+            <span>@zera.app</span>
+        </a>
+
+        <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank" class="contato-item">
+            <img src="${ctx}/images/whatsapp.svg" class="contato-item" alt="WhatsApp">
+            <span>+55 (11) 93304-5181</span>
+        </a>
+
+        <a href="mailto:zera.institutojef@gmail.com" class="contato-item">
+            <img src="${ctx}/images/email.svg" class="contato-item" alt="Email">
+            <span>zera.institutojef@gmail.com</span>
+        </a>
+    </div>
+</div>

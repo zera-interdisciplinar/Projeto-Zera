@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
     /**
      * Página com o formulário de login do gestor
      */
-    private static final String PAGINA_LOGIN = "/WEB-INF/login.jsp";
+    private static final String PAGINA_LOGIN = "/WEB-INF/login/login.jsp";
 
     /**
      * Primeira tela do gestor depois de entrar
