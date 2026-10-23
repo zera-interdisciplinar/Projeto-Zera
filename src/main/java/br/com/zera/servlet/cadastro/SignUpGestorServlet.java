@@ -86,7 +86,7 @@ public class SignUpGestorServlet extends HttpServlet {
             exibirErro(request, response, "Informe o telefone.", ERROR_PAGE);
             return;
         }
-        telefone = telefone.trim();
+        telefone = telefone.trim().replaceAll("\\D", "");
 
         String senha = request.getParameter("senha");
         String confirmacao = request.getParameter("confirmacao");
