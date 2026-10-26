@@ -21,7 +21,7 @@ public class Constants {
     public static final String TELEFONE_REGEX = "^\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}$";
 
     //Formato padrão de recebimento de nome
-    public static final String NOME_REGEX = "^[A-Za-záéíóúâêîôûãõç]$";
+    public static final String NOME_REGEX = "^[A-Za-záàâãéêíóôõúçÁÀÂÃÉÊÍÓÔÕÚÇ ]+$";
 
     //Formato padrão de recebimento de CEP
     public static final String CEP_REGEX = "^[0-9]{5}\\-[0-9]{3}$";
@@ -35,6 +35,15 @@ public class Constants {
     //Senha: pelo menos 8 caracteres, um número e um caractere especial
     public static final String SENHA_REGEX = "^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$";
 
+    // Nome do atributo da sessão que guarda a unidade do gestor logado
+    public static final String SESSAO_UNIDADE = "unidadeLogada";
+
+    // Nome do atributo da sessão que guarda o gestor logado
+    public static final String SESSAO_GESTOR = "gestorLogado";
+
+    // Nome do atributo da sessão que guarda o admin logado
+    public static final String SESSAO_ADMIN = "adminLogado";
+
     // Chaves da sessão usadas durante o cadastro
     public static final String CADASTRO_GESTOR = "cadastroGestor";
     public static final String CADASTRO_ORGANIZACAO = "cadastroOrganizacao";
@@ -45,6 +54,9 @@ public class Constants {
     // Chaves da sessão usadas no fluxo de "Esqueci minha senha"
     public static final String RECUPERACAO_EMAIL = "recuperacaoEmail";
     public static final String RECUPERACAO_VALIDADA = "recuperacaoValidada";
+    public static final String RECUPERACAO_CODIGO = "recuperacaoCodigo";
+    public static final String RECUPERACAO_EXPIRA = "recuperacaoExpira";
+    public static final String RECUPERACAO_TENTATIVAS = "recuperacaoTentativas";
 
     // Status de assinatura
     public static final String STATUS_ATIVA = "Ativa";

@@ -24,8 +24,8 @@ import static br.com.zera.regex.Constants.RECUPERACAO_VALIDADA;
 /**
  * Último passo do "Esqueci minha senha": o gestor cria a nova senha.
  *
- * Só funciona depois que o e-mail e o telefone foram confirmados no
- * {@link ForgotSenhaServlet}. Grava a nova senha com hash e mostra a tela
+ * Só funciona depois que o código enviado por e-mail foi confirmado no
+ * {@link VerifyCodigoServlet}. Grava a nova senha com hash e mostra a tela
  * de "Senha alterada".
  *
  * @author Pedro Rufino
@@ -35,13 +35,14 @@ import static br.com.zera.regex.Constants.RECUPERACAO_VALIDADA;
 public class ResetSenhaServlet extends HttpServlet {
 
     /** Página do formulário de nova senha */
-    private static final String PAGINA = "/WEB-INF/senha/nova-senha.jsp";
+    private static final String PAGINA = "/WEB-INF/login/nova-senha.jsp";
 
     /** Página de confirmação de que a senha foi alterada */
-    private static final String PAGINA_SUCESSO = "/WEB-INF/senha/senha-alterada.jsp";
+    private static final String PAGINA_SUCESSO = "/WEB-INF/login/senha-alterada.jsp";
 
-    /** Primeiro passo, para quem chegar aqui sem ter confirmado e-mail e telefone */
+    /** Primeiro passo, para quem chegar aqui sem ter confirmado o código */
     private static final String INICIO = "/senha/esqueci";
+
 
     /**
      * Processa GET para exibir o formulário de nova senha.
@@ -126,7 +127,7 @@ public class ResetSenhaServlet extends HttpServlet {
     }
 
     /**
-     * Confere se o e-mail e o telefone já foram confirmados nesta sessão.
+     * Confere se o código de verificação já foi confirmado nesta sessão.
      *
      * @param session sessão atual
      * @return true se os dados foram confirmados

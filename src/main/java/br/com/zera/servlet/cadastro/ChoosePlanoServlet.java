@@ -91,9 +91,9 @@ public class ChoosePlanoServlet extends HttpServlet {
             // a lista volta junto caso seja preciso mostrar a tela de novo
             request.setAttribute("planos", dao.findAll());
 
-            String codigoParam = request.getParameter("codigo");
+            String codigoParam = request.getParameter("codPlano");
             if (codigoParam == null || codigoParam.trim().isEmpty()) {
-                exibirErro(request, response, "Código não informado.", ERROR_PAGE);
+                voltarAoFormulario(request, response, "Selecione um plano.", PAGINA);
                 return;
             }
             int codPlano = Integer.parseInt(codigoParam.trim()); // se vier "abc", lança NumberFormatException
