@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/crud.css">
+    <title>Configurações</title>
+</head>
+<body>
+    <div class = tela-auth>
+        <!--Painel esquerdo-->
+        <div class = painel-esquerda>
+            <div class = painel-conteudo>
+              <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+              <nav>
+                <a href="crud-home-admin.html"><span>Home</span></a>
+                <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
+                <a href="crud-assinaturas-admin.html"><span>Assinaturas</span></a>
+                <a href="crud-planos-admin.html"><span>Planos</span></a>
+                <a href="crud-unidades-admin.html"><span>Unidades</span></a>
+                <a href="crud-enderecos-admin.html"><span>Endereços  </span></a>
+                <a href="crud-gestores-admin.html"><span>Gestores</span></a>
+                <a href="crud-estoques-admin.html"><span>Estoques</span></a>
+                <a href="crud-perfil-admin.html"><span>Admin</span></a>
+                <hr class = barra-azul>
+                <a class = botao-ativo href="crud-configuracoes-admin.html"><span>Configurações</span></a>
+                <a href="../login/login.html"><span>Sair</span></a>
+            </nav>
+            </div>
+        </div>
+        <!--Área de informações-->
+        <div class = informacoes>
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+            <h3 class = nome-da-area>Configurações</h3>
+            <div id="perfil-admin">
+                <h4>Meu perfil</h4>
+                <h5>Nome</h5>
+                <h5>E-mail</h5>
+                <div>
+                    <p>Admin zera</p>
+                </div>
+                <div>
+                    <p>adminzera@gmail.com</p>
+                </div>
+                <button>Salvar perfil</button>
+            </div>
+            <div id="alterar-senha">
+                <h4>Alterar senha</h4>
+                <label class="senha-atual" for="senha-atual">Senha atual</label>
+                <input type="text" id="senha-atual" name="senha-atual" placeholder="Digite sua senha atual">
+                <label for="nova-senha">Nova senha</label>
+                <label for="confirmar-nova-senha">Confirmar nova senha</label>
+                <input type="text" id="nova-senha" name="nova-senha" placeholder="Digite sua nova senha">
+                <input type="text" id="confirmar-nova-senha" name="confirmar-nova-senha" placeholder="Digite sua nova senha novamente">
+                <button>Alterar senha</button>
+            </div>
+        </div>
+</body>
+</html>
