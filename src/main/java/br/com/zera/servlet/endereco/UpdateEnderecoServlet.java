@@ -108,6 +108,13 @@ public class UpdateEnderecoServlet extends HttpServlet {
                 exibirErro(request, response, "Preencha todos os campos do endereço.", ERROR_PAGE);
                 return;
             }
+            // aceita o CEP com ou sem hífen e guarda sempre no formato 00000-000
+            if (cep != null) {
+                String cepNumeros = cep.replaceAll("\\D", "");
+                if (cepNumeros.length() == 8) {
+                    cep = cepNumeros.substring(0, 5) + "-" + cepNumeros.substring(5);
+                }
+            }
             if (cep == null || !Regex.validarCEP(cep)) {
                 exibirErro(request, response, "CEP inválido, ele precisa conter 8 números.", ERROR_PAGE);
                 return;
