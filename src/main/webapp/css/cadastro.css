@@ -222,6 +222,10 @@ main.tela-auth {
     box-sizing: border-box;
 }
 
+.card-restrita {
+    border: 5px solid var(--cor4);
+}
+
 .card h1 {
     text-transform: none;
     font-size: 34px;
