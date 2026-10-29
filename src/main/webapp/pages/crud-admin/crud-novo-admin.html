@@ -26,7 +26,7 @@
                 <a class = botao-ativo href="crud-novo-admin.html"><span>Admin</span></a>
                 <hr class = barra-azul>
                 <a href="crud-configuracoes-admin.html"><span>Configurações</span></a>
-                <a href="../login/login.html"><span>Sair</span></a>
+                <a href="../login/log.html"><span>Sair</span></a>
             </nav>
             </div>
         </div>
@@ -43,14 +43,17 @@
                     </div>
                     <div class="infos-de-mesma-linha">
                         <input type="text" name="email" id="email" placeholder="adminzera@gmail.com">
+                        <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                     </div>
                     <h5>Senha</h5>
                     <h5>Confirmar senha</h5>
                     <div class="infos-de-mesma-linha">
                         <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+                        <span class="mensagem-erro">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
                     </div>
                     <div class="infos-de-mesma-linha">
                         <input type="password" name="confirmar-senha" id="confirmar-senha" placeholder="Digite sua senha novamente">
+                        <span class="mensagem-erro">A confirmação está diferente da senha informada</span>
                     </div>
                     <button type="submit">Adicionar</button>
                 </form>

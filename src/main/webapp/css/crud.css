@@ -602,13 +602,14 @@ Ações de modificação dos registros
     margin-top: 24px;
 }
 
-.edicao .infos-de-mesma-linha{
+.infos-de-mesma-linha{
     border: 2px solid var(--cor2);
     border-radius: 9px;
     padding: 10px 16px;
     display: inline-block;
     width: 465px;
     margin-right: 15px;
+    position: relative;
 }   
 
 .edicao #nome{
@@ -964,7 +965,7 @@ Ações de modificação dos registros
 #perfil-admin .mensagem-erro{
     display: none;
     color: #FF0000;
-    font-size: 16px;
+    font-size: 12px;
     font-family: var(--fonte1);
     background: var(--cor1);
     position: absolute;
@@ -979,7 +980,7 @@ Ações de modificação dos registros
     position: relative;
 }
 
-#perfil-admin .titulo-erro{
+#perfil-admin .erro{
     color: #ff0000;
 }
 
@@ -1004,7 +1005,7 @@ Ações de modificação dos registros
 #alterar-senha form #senha-atual + .mensagem-erro{
     display: none;
     color: #FF0000;
-    font-size: 16px;
+    font-size: 12px;
     font-family: var(--fonte1);
     background: var(--cor1);
     position: absolute;
@@ -1034,7 +1035,7 @@ Ações de modificação dos registros
 #alterar-senha form #nova-senha + .mensagem-erro{
     display: none;
     color: #FF0000;
-    font-size: 11px;
+    font-size: 10px;
     font-family: var(--fonte1);
     background: var(--cor1);
     position: absolute;
@@ -1062,7 +1063,7 @@ Ações de modificação dos registros
 #alterar-senha form #confirmar-nova-senha + .mensagem-erro{
     display: none;
     color: #FF0000;
-    font-size: 16px;
+    font-size: 12px;
     font-family: var(--fonte1);
     background: var(--cor1);
     position: absolute;
@@ -1076,3 +1077,38 @@ Ações de modificação dos registros
     margin-top: -11px;
     margin-bottom: 10px;
 }
+
+
+.infos-de-mesma-linha .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+.infos-de-mesma-linha.erro .mensagem-erro{
+    display: block;
+}
+
+.infos-de-mesma-linha.erro label{
+    color:#FF0000;   
+}
+
+.infos-de-mesma-linha.erro{
+    border-color:#FF0000;
+}
+
+.adicao h5.erro{
+    color: #FF0000;
+}
+
+.edicao h5.erro{
+    color: #ff0000;
+}
+
