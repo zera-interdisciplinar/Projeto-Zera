@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
 <body>
 
@@ -31,7 +32,13 @@
                     <hr>
 
                     <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
@@ -80,7 +87,19 @@
                                 <td>
                                     <div class="acoes">
                                         <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
-                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+                                        <button
+                                            type="button"
+                                            class="zera-botao-excluir"
+                                            data-modal-exclusao
+                                            data-excluir-id="1"
+                                            data-excluir-tipo="estoque"
+                                            data-excluir-titulo="Deseja mesmo excluir?"
+                                            data-excluir-descricao="Essa ação pode levar à exclusão de outros itens relacionados."
+                                            aria-label="Excluir"
+                                            title="Excluir"
+                                        >
+                                            <img src="../../images/icone-excluir.svg" alt="">
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -90,7 +109,19 @@
                                 <td>
                                     <div class="acoes">
                                         <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
-                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+                                        <button
+                                            type="button"
+                                            class="zera-botao-excluir"
+                                            data-modal-exclusao
+                                            data-excluir-id="1"
+                                            data-excluir-tipo="estoque"
+                                            data-excluir-titulo="Deseja mesmo excluir?"
+                                            data-excluir-descricao="Essa ação pode levar à exclusão de outros itens relacionados."
+                                            aria-label="Excluir"
+                                            title="Excluir"
+                                        >
+                                            <img src="../../images/icone-excluir.svg" alt="">
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -100,6 +131,6 @@
             </section>
         </main>
     </div>
-
+    <script src="../../js/popup.js" defer></script>
 </body>
 </html>

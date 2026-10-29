@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
 <body>
 
@@ -31,7 +32,13 @@
                     <hr>
 
                     <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
@@ -72,6 +79,6 @@
             <section class="home-painel-inferior"></section>
         </main>
     </div>
-
+    <script src="../../js/popup.js" defer></script>
 </body>
 </html>
