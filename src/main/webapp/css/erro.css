@@ -1,4 +1,16 @@
 /* ================================
+   VARIÁVEIS
+   (se já tiver no seu projeto, pode apagar este bloco)
+================================ */
+
+:root {
+    --cor1: #F1EADA;   /* fundo bege */
+    --cor2: #2E62E0;   /* azul principal */
+    --cor3: #1A2C6E;   /* azul escuro */
+    --fonte1: 'Poppins', Arial, sans-serif;
+}
+
+/* ================================
    PÁGINA DE ERRO (AJUSTADO)
 ================================ */
 
@@ -51,7 +63,7 @@ body.pagina-erro {
     line-height: 1.45;
 }
 
-/* 
+/*
    Área da Imagem ajustada:
    Subimos para 12vh e limitamos a altura a 42vh para a sombra
    ficar com respiro confortável acima da faixa azul.
@@ -116,4 +128,44 @@ body.pagina-erro {
         max-width: 270px;
         max-height: 32vh;
     }
+}
+
+/* ================================
+   TELA DE CARREGANDO
+   (usa a mesma base do body.pagina-erro)
+================================ */
+
+body.pagina-carregando {
+    overflow: hidden; /* sem rolagem nem no mobile */
+}
+
+.carregando-tela {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carregando-icone {
+    width: clamp(70px, 14vw, 110px);
+    height: auto;
+    /* o giro agora está dentro do carregando.svg */
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Texto só para leitor de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

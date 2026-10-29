@@ -238,6 +238,10 @@ img {
 }
 
 
+/* ================================
+   CARROSSEL
+================================ */
+
 #carrossel-container {
     width: 100%;
     overflow: hidden;
@@ -249,6 +253,7 @@ img {
 }
 
 #carrossel {
+    position: relative; /* NOVO: as setas e bolinhas se posicionam a partir daqui */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -262,7 +267,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.4s ease;
+    /* MUDOU: sem transition aqui, quem anima agora é o JavaScript */
     flex-shrink: 0;
 }
 
@@ -282,10 +287,17 @@ img {
     z-index: 1;
     opacity: 0.9;
     filter: brightness(0.96);
+    cursor: pointer; /* NOVO: clicar traz pro meio */
 }
 
+/* NOVO: o slide que sobra fica escondido */
+.slide-escondido {
+    display: none;
+}
+
+/* MUDOU: laranja liso, sem degradê */
 #slide-amz {
-    background: linear-gradient(to bottom, #F59E0B 0%, #B97D17 100%);
+    background-color: var(--cor4);
 }
 
 #slide-scan {
@@ -296,9 +308,9 @@ img {
     background: linear-gradient(145deg, #10b981 0%, #059669 100%);
 }
 
+/* MUDOU: sem o display: none */
 #slide-alert {
     background-color: var(--cor4);
-    display: none;
 }
 
 .slide-img {
@@ -335,8 +347,8 @@ img {
     text-align: left;
 }
 
-#slide-scan .slide-conteudo,
-#slide-rel .slide-conteudo {
+/* MUDOU: alinha à direita pela POSIÇÃO, não por qual slide é */
+.slide-lateral .slide-conteudo {
     text-align: right;
 }
 
@@ -362,7 +374,7 @@ img {
 }
 
 .slide-centro .slide-conteudo p {
-    font-size: calc(1.11 * var(--s));
+    font-size: max(13px, calc(1.11 * var(--s)));   /* MUDOU: mínimo de 13px */
     line-height: 1.45;
 }
 
@@ -372,12 +384,12 @@ img {
 }
 
 .slide-lateral .slide-conteudo h2 {
-    font-size: calc(1.94 * var(--s));
+    font-size: max(16px, calc(1.94 * var(--s)));   /* MUDOU: mínimo de 16px */
     margin-bottom: calc(0.56 * var(--s));
 }
 
 .slide-lateral .slide-conteudo p {
-    font-size: calc(0.83 * var(--s));
+    font-size: max(11px, calc(0.83 * var(--s)));   /* MUDOU: mínimo de 11px */
     line-height: 1.35;
 }
 
@@ -413,17 +425,20 @@ button.nav-arrow:focus-visible {
     outline-offset: 2px;
 }
 
+
 button.nav-arrow.prev {
-    left: 0.97vw;
+    left: calc(50% - 39.17 * var(--s) / 2 + 1vw);
 }
+
 
 button.nav-arrow.prev img {
     transform: scaleX(-1);
 }
 
 button.nav-arrow.next {
-    right: 0.97vw;
+    right: calc(50% - 39.17 * var(--s) / 2 + 1vw);
 }
+
 
 .indicadores {
     position: absolute;
@@ -443,6 +458,9 @@ button.nav-arrow.next {
     border-radius: 50%;
     background: rgb(var(--cor1-rgb) / 30%);
     display: block;
+    border: none;     /* NOVO: tira o visual padrão de botão */
+    padding: 0;       /* NOVO */
+    cursor: pointer;  /* NOVO */
 }
 
 .dot.active {
@@ -518,11 +536,12 @@ button.nav-arrow.next {
 
 .sobre-texto {
     flex: 0 1 480px;
+    min-width: 320px;         /* NOVO: nunca fica espremido em telas médias */
     color: var(--cor1);
 }
 
 .sobre-texto h2 {
-    font-size: 55px;
+    font-size: clamp(40px, calc(5vw - 17px), 55px);   /* MUDOU: 55px a partir de 1440px */
     font-weight: bold;
     line-height: 1.1;
     margin-bottom: 15px;
@@ -568,20 +587,50 @@ button.nav-arrow.next {
     display: flex;
     align-items: baseline;
     gap: 12px;
-    font-size: 55px;
+    font-size: clamp(30px, calc(5vw - 17px), 55px);   /* MUDOU: 55px a partir de 1440px, encolhe abaixo disso */
     font-weight: bold;
     line-height: 1;
     text-transform: uppercase;
 }
 
+/* MUDOU: o texto existe sempre, mas fica invisível até o card abrir */
+.card-sobre {
+    overflow: hidden;
+    --sobrepor: 41px;   /* quanto o card de baixo cobre este */
+}
+
 .card-sobre p {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 300;
     line-height: 1.4;
-    display: none;
+    max-width: 90%;
+    margin-top: 18px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+/* card aberto: cresce até caber o texto */
+.card-sobre.aberto {
+    height: auto;
+    padding-bottom: calc(40px + var(--sobrepor));  /* espaço extra pro card de baixo não cobrir o texto */
+}
+
+.card-sobre.aberto:last-child {
+    padding-bottom: 40px;
+}
+
+.card-sobre.aberto p {
+    opacity: 1;
+    transition-delay: 0.1s;
+}
+
+.card-sobre:focus-visible {
+    outline: 3px solid var(--cor1);
+    outline-offset: -6px;
 }
 
 .numero-card {
-    font-size: 70px;
+    font-size: clamp(40px, calc(6.4vw - 22px), 70px);   /* MUDOU: 70px a partir de 1440px */
     font-weight: bold;
     line-height: 1;
 }
@@ -676,7 +725,7 @@ button.nav-arrow.next {
 
 .passo-inicio {
     background: linear-gradient(to bottom, var(--cor2), var(--cor3));
-    min-width: 370px;
+    min-width: clamp(250px, 25vw, 370px);   /* MUDOU: encolhe junto com a tela */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -688,7 +737,7 @@ button.nav-arrow.next {
 }
 
 .passo-inicio h2 {
-    font-size: 55px;
+    font-size: clamp(36px, 3.8vw, 55px);   /* MUDOU */
     font-weight: bold;
     line-height: 1.15;
     color: var(--cor1);
@@ -699,7 +748,7 @@ button.nav-arrow.next {
 .passo {
     position: relative;
     flex: 1;
-    min-width: 195px;
+    min-width: 0;   /* MUDOU: as 4 setas dividem o espaço que sobrar */
     min-height: 220px;
     margin-left: -50px;
     flex-shrink: 0;
@@ -712,7 +761,7 @@ button.nav-arrow.next {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 55px;
+    padding: 40px 55px 40px 60px;   /* MUDOU: esquerda maior que o recorte de 50px da seta */
     clip-path: polygon(0 0, calc(100% - 50px) 0, 100% 50%, calc(100% - 50px) 100%, 0 100%, 50px 50%);
 }
 
@@ -728,9 +777,9 @@ button.nav-arrow.next {
 
 .numero {
     position: absolute;
-    top: -40px;
+    top: -0.5em;                            /* MUDOU: sobe metade do próprio tamanho */
     left: 45px;
-    font-size: 80px;
+    font-size: clamp(54px, 5.5vw, 80px);    /* MUDOU */
     font-weight: bold;
     color: var(--cor4);
     line-height: 1;
@@ -739,14 +788,14 @@ button.nav-arrow.next {
 }
 
 .passo-texto h3 {
-    font-size: 30px;
+    font-size: clamp(21px, 2.1vw, 30px);   /* MUDOU */
     font-weight: bold;
     color: var(--cor2);
     margin-bottom: 6px;
 }
 
 .passo-texto p {
-    font-size: 20px;
+    font-size: clamp(15px, 1.4vw, 20px);   /* MUDOU */
     line-height: 1.35;
     color: var(--cor2);
     opacity: 0.85;
@@ -876,7 +925,7 @@ h2 {
 
 .card-sec {
     width: 307px;
-    height: 457px;
+    min-height: 457px;   /* MUDOU: era height fixo, o texto do Empresarial vazava */
     flex-shrink: 0;
     padding-top: 36px;
     padding-bottom: 30px;
@@ -1030,20 +1079,10 @@ h2 {
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card-sec {
-    padding-bottom: 93px; 
-}
-
-.card-sec .btn-card {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 30px;
-    margin: 0 auto;
-}
-
+/* MUDOU: o botão fica no fluxo normal, sempre embaixo da lista (antes era absolute
+   e ficava por cima do texto quando a lista era maior) */
 .card-sec .lista-plano {
-    margin-bottom: 0;
+    margin-bottom: 24px;
 }
 
 .card-prim .btn-card {
@@ -1385,6 +1424,10 @@ details p {
 }
 
 @media (max-width: 1300px) {
+    .flex {
+        gap: 40px;
+    }
+
     #celulares {
         display: none;
     }
@@ -1397,11 +1440,6 @@ details p {
         max-width: 100%;
         width: 100%;
     }
-
-    .flex {
-        gap: 40px;
-    }
-
 }
 
 @media (max-width: 1070px) {
@@ -1442,6 +1480,7 @@ details p {
 
     .sobre-texto {
         max-width: 640px;
+        min-width: 0;
     }
 
     .sobre-texto h3 {
@@ -1455,10 +1494,7 @@ details p {
         gap: 40px;
     }
 
-    .card-sec {
-        height: auto;
-        min-height: 457px;
-    }
+
 
     
     .card-prim {
@@ -1517,6 +1553,19 @@ details p {
         padding: 32px 36px;
         border-radius: 35px 35px 0 0;
         margin-bottom: -35px;
+        --sobrepor: 35px;
+    }
+
+    .card-sobre.aberto {
+        padding-bottom: calc(32px + var(--sobrepor));
+    }
+
+    .card-sobre.aberto:last-child {
+        padding-bottom: 32px;
+    }
+
+    .card-sobre p {
+        font-size: 1.05rem;
     }
 
     #sobre .seta-verde-topo {
@@ -1565,12 +1614,15 @@ details p {
 
 }
 
-@media (max-width: 1300px) {
+
+
+/* MUDOU: a seção "Como utilizar" só fica em pé abaixo de 1000px (antes era 1300px) */
+@media (max-width: 1000px) {
     #utilizacao {
         flex-direction: column;
         align-items: stretch;
         width: 100%;
-        max-width: 420px;
+        max-width: 560px;   /* MUDOU: era 420px */
         margin: 40px auto 120px;
         padding: 0 20px;
         overflow: visible;
@@ -1619,15 +1671,6 @@ details p {
         font-size: 15px;
         max-width: none;
     }
-
-    
-    .card-sobre h3 {
-        font-size: 42px;
-    }
-
-    .numero-card {
-        font-size: 56px;
-    }
 }
 
 @media (max-width: 1070px) {
@@ -1638,6 +1681,87 @@ details p {
 
     .numero-card {
         font-size: clamp(28px, 8vw, 54px);
+    }
+}
+
+
+/* NOVO: carrossel no celular — o slide fica em pé (imagem em cima, texto embaixo)
+   e usa tamanhos fixos, em vez de encolher tudo junto com a tela */
+@media (max-width: 700px) {
+    #carrossel-container {
+        padding: 60px 16px;
+    }
+
+    .slide-centro {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        min-height: 470px;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 18px;
+        padding: 28px 24px 70px;
+        border-radius: 20px;
+    }
+
+    .slide-centro .slide-img {
+        flex: none;
+        width: 100%;
+    }
+
+    .slide-centro .slide-img img {
+        max-height: 190px;
+    }
+
+    .slide-centro .slide-conteudo {
+        flex: none;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+
+    .slide-centro .slide-conteudo h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .slide-centro .slide-conteudo p {
+        font-size: 16px;
+    }
+
+    /* setas descem pro rodapé do slide, uma de cada lado das bolinhas */
+    button.nav-arrow {
+        top: auto;
+        bottom: 14px;
+        transform: none;
+        width: 40px;
+        height: 40px;
+    }
+
+    button.nav-arrow:hover {
+        transform: scale(1.08);
+    }
+
+    button.nav-arrow img {
+        width: 16px;
+    }
+
+    button.nav-arrow.prev {
+        left: calc(50% - min(50%, 240px) + 16px);
+    }
+
+    button.nav-arrow.next {
+        right: calc(50% - min(50%, 240px) + 16px);
+    }
+
+    .indicadores {
+        bottom: 30px;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 9px;
+        height: 9px;
     }
 }
 
@@ -1680,6 +1804,21 @@ details p {
         padding: 24px 22px;
         border-radius: 26px 26px 0 0;
         margin-bottom: -26px;
+        --sobrepor: 26px;
+    }
+
+    .card-sobre.aberto {
+        padding-bottom: calc(24px + var(--sobrepor));
+    }
+
+    .card-sobre.aberto:last-child {
+        padding-bottom: 24px;
+    }
+
+    .card-sobre p {
+        font-size: 0.95rem;
+        max-width: 100%;
+        margin-top: 12px;
     }
 
     #sobre .seta-verde-topo {
