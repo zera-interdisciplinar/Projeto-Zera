@@ -44,6 +44,9 @@ public class Constants {
     // Nome do atributo da sessão que guarda o admin logado
     public static final String SESSAO_ADMIN = "adminLogado";
 
+    // Formato padrão da entrada de data
+    public static final String DATA = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
+
     // Chaves da sessão usadas durante o cadastro
     public static final String CADASTRO_GESTOR = "cadastroGestor";
     public static final String CADASTRO_ORGANIZACAO = "cadastroOrganizacao";
