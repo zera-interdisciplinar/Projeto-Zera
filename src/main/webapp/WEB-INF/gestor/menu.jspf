@@ -1,0 +1,61 @@
+<%@ page pageEncoding="UTF-8" %>
+<%--
+    Topo e menu lateral das telas do gestor.
+    É igual em todas as telas, então fica aqui uma vez só e cada JSP do gestor
+    inclui este arquivo com a diretiva include.
+
+    Antes do include, a JSP define qual item do menu fica marcado:
+    <c:set var="ativo" value="home"/>
+    Valores: home, estoques, unidade, endereco, assinatura, organizacao, configuracoes, perfil
+
+    O nome vem do gestor logado, guardado na sessão como "gestorLogado".
+--%>
+<%-- iniciais do avatar: primeira letra do primeiro e do último nome --%>
+<c:set var="partesNome" value="${fn:split(sessionScope.gestorLogado.nome, ' ')}"/>
+<c:set var="iniciais" value="${fn:toUpperCase(fn:substring(partesNome[0], 0, 1))}"/>
+<c:if test="${fn:length(partesNome) > 1}">
+    <c:set var="iniciais" value="${iniciais}${fn:toUpperCase(fn:substring(partesNome[fn:length(partesNome) - 1], 0, 1))}"/>
+</c:if>
+
+<script>
+    // aplica o tema escolhido em Configurações (salvo no navegador)
+    try {
+        const temaSalvo = localStorage.getItem('zera-tema');
+        if (temaSalvo) {
+            document.documentElement.dataset.tema = temaSalvo;
+        }
+    } catch (erro) {
+        // sem localStorage: fica no tema claro
+    }
+</script>
+
+<header class="header-crud">
+    <div class="logo-topo">
+        <img src="${ctx}/images/logo_completa.svg" alt="ZERA" class="logo">
+    </div>
+    <div class="avatar-topo">${iniciais}</div>
+</header>
+
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <nav>
+                <a href="${ctx}/gestor/home"<c:if test="${ativo == 'home'}"> class="botao-ativo"</c:if>>Home</a>
+                <a href="${ctx}/estoque/perfil"<c:if test="${ativo == 'estoques'}"> class="botao-ativo"</c:if>>Estoques</a>
+                <a href="${ctx}/unidade/perfil"<c:if test="${ativo == 'unidade'}"> class="botao-ativo"</c:if>>Unidade</a>
+                <a href="${ctx}/endereco/perfil"<c:if test="${ativo == 'endereco'}"> class="botao-ativo"</c:if>>Endereço</a>
+                <a href="${ctx}/assinatura/perfil"<c:if test="${ativo == 'assinatura'}"> class="botao-ativo"</c:if>>Assinatura</a>
+                <a href="${ctx}/organizacao/perfil"<c:if test="${ativo == 'organizacao'}"> class="botao-ativo"</c:if>>Organização</a>
+
+                <hr>
+
+                <a href="${ctx}/gestor/configuracoes"<c:if test="${ativo == 'configuracoes'}"> class="botao-ativo"</c:if>>Configurações</a>
+                <a href="${ctx}/logout">Sair</a>
+            </nav>
+
+            <a href="${ctx}/gestor/perfil" class="perfil-usuario<c:if test="${ativo == 'perfil'}"> perfil-ativo</c:if>">
+                <div class="avatar">${iniciais}</div>
+                <span class="nome-usuario"><c:out value="${sessionScope.gestorLogado.nome}"/></span>
+            </a>
+        </div>
+    </aside>

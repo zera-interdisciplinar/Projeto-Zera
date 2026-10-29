@@ -1,5 +1,5 @@
 /* ================================
-   PÁGINA DE ERRO (AJUSTADO)
+   PÁGINA DE ERRO
 ================================ */
 
 body.pagina-erro {
@@ -51,7 +51,7 @@ body.pagina-erro {
     line-height: 1.45;
 }
 
-/* 
+/*
    Área da Imagem ajustada:
    Subimos para 12vh e limitamos a altura a 42vh para a sombra
    ficar com respiro confortável acima da faixa azul.
@@ -115,5 +115,20 @@ body.pagina-erro {
     .erro-imagem {
         max-width: 270px;
         max-height: 32vh;
+    }
+
+    .erro-detalhe {
+        font-family: var(--fonte1);
+        font-size: clamp(14px, 1.1vw, 17px);
+        color: var(--cor2);
+        margin-top: 16px;
+    }
+
+    .erro-voltar {
+        display: inline-block;
+        margin-top: 24px;
+        font-family: var(--fonte1);
+        color: var(--cor3);
+        text-decoration: underline;
     }
 }
