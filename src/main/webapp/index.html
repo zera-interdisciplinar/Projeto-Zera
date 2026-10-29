@@ -68,6 +68,37 @@
 
         <section id="carrossel-container">
             <div id="carrossel">
+                <!-- A ordem aqui é a ordem do giro -->
+                <div class="slide slide-centro" id="slide-amz">
+                    <div class="slide-img">
+                        <img src="images/img-armazenamento.png" alt="Armazenamento inteligente">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Armazenamento inteligente</h2>
+                        <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
+                    </div>
+                </div>
+
+                <div class="slide slide-lateral" id="slide-scan">
+                    <div class="slide-img">
+                        <img src="images/img-scaneia.png" alt="Scanner e cadastro fácil">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Scanner e cadastro fácil</h2>
+                        <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
+                    </div>
+                </div>
+
+                <div class="slide slide-escondido" id="slide-alert">
+                    <div class="slide-img">
+                        <img src="images/img-alerta.png" alt="Alertas de lotes críticos">
+                    </div>
+                    <div class="slide-conteudo">
+                        <h2>Alertas de lotes críticos</h2>
+                        <p>Seja avisado quando um equipamento está armazenado por muito tempo.</p>
+                    </div>
+                </div>
+
                 <div class="slide slide-lateral" id="slide-rel">
                     <div class="slide-img">
                         <img src="images/img-relatorio.png" alt="Relatórios completos">
@@ -77,35 +108,20 @@
                         <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
                     </div>
                 </div>
-                <div class="slide slide-centro" id="slide-amz">
-                    <button class="nav-arrow prev" type="button" aria-label="Slide anterior">
-                        <img src="images/seta.svg" alt="Seta esquerda">
-                    </button>
-                    <div class="slide-img">
-                        <img src="images/img-armazenamento.png" alt="Armazenamento inteligente">
-                    </div>
-                    <div class="slide-conteudo">
-                        <h2>Armazenamento inteligente</h2>
-                        <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
-                    </div>
-                    <button class="nav-arrow next" type="button" aria-label="Próximo slide">
-                        <img src="images/seta.svg" alt="Seta direita">
-                    </button>
-                    <div class="indicadores">
-                        <span class="dot active"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-                <div class="slide slide-lateral" id="slide-scan">
-                    <div class="slide-img">
-                        <img src="images/img-scaneia.png" alt="Scanner e cadastro fácil">
-                    </div>
-                    <div class="slide-conteudo">
-                        <h2>Scanner e cadastro fácil</h2>
-                        <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
-                    </div>
+
+                <!-- Setas e bolinhas ficam FORA dos slides -->
+                <button class="nav-arrow prev" type="button" aria-label="Slide anterior">
+                    <img src="images/seta.svg" alt="">
+                </button>
+                <button class="nav-arrow next" type="button" aria-label="Próximo slide">
+                    <img src="images/seta.svg" alt="">
+                </button>
+
+                <div class="indicadores">
+                    <button class="dot active" type="button" aria-label="Slide 1"></button>
+                    <button class="dot" type="button" aria-label="Slide 2"></button>
+                    <button class="dot" type="button" aria-label="Slide 3"></button>
+                    <button class="dot" type="button" aria-label="Slide 4"></button>
                 </div>
             </div>
         </section>
@@ -288,7 +304,7 @@
 
             <div class="footer-direita">
                 <div id="botao-restrita">
-                    <a href="pages/login/login.html" title="Área restrita">
+                    <a href="pages/login-restrita/login.html" title="Área restrita">
                         <svg class="icone-cadeado" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Área restrita">
                             <rect x="4.5" y="10.5" width="15" height="11" rx="2.5"/>
                             <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
@@ -300,5 +316,222 @@
             </div>
         </div>
     </footer>
+
+    <!-- ================================
+         CARROSSEL — 4 slides, o do meio maior
+         (fica no final do body pra o HTML já estar carregado)
+    ================================= -->
+    <script>
+        const slides    = document.querySelectorAll('#carrossel .slide');
+        const dots      = document.querySelectorAll('#carrossel .dot');
+        const btnPrev   = document.querySelector('#carrossel .nav-arrow.prev');
+        const btnNext   = document.querySelector('#carrossel .nav-arrow.next');
+        const carrossel = document.querySelector('#carrossel');
+
+        const total   = slides.length;                      // 4
+        const TEMPO   = 5000;                               // troca sozinho a cada 5 segundos
+        const DURACAO = 600;                                // duração do "arrastar" (ms)
+        const EASING  = 'cubic-bezier(0.25, 0.8, 0.25, 1)'; // começa rápido e freia no fim
+        let atual = 0;          // qual slide está no meio
+        let timer;
+        let animando = false;   // trava cliques enquanto a animação roda
+
+        // ---------- 1. Coloca cada slide no lugar certo (sem animação) ----------
+        function posicionar() {
+            const esquerda = (atual - 1 + total) % total;
+            const direita  = (atual + 1) % total;
+
+            slides.forEach((slide, i) => {
+                slide.classList.remove('slide-centro', 'slide-lateral', 'slide-escondido');
+
+                if (i === atual) {
+                    slide.classList.add('slide-centro');
+                    slide.style.order = 2;
+                } else if (i === esquerda) {
+                    slide.classList.add('slide-lateral');
+                    slide.style.order = 1;
+                } else if (i === direita) {
+                    slide.classList.add('slide-lateral');
+                    slide.style.order = 3;
+                } else {
+                    slide.classList.add('slide-escondido');
+                }
+            });
+
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === atual));
+        }
+
+        // ---------- 2. Troca de slide COM o efeito de arrastar ----------
+        // Técnica FLIP: First (onde estava), Last (onde vai ficar),
+        // Invert (finge que ainda está no lugar antigo), Play (anima até o novo)
+        function mostrar(novo) {
+            if (animando || novo === atual) return;
+            const direcao = novo > atual ? 1 : -1;   // 1 = desliza pra esquerda, -1 = pra direita
+
+            // FIRST: anota onde cada slide visível está agora
+            const antes = new Map();
+            slides.forEach(slide => {
+                const r = slide.getBoundingClientRect();
+                if (r.width > 0) {
+                    const estilo = getComputedStyle(slide);
+                    antes.set(slide, {
+                        rect: r,
+                        classe: slide.className,
+                        fundoImg: estilo.backgroundImage,
+                        fundoCor: estilo.backgroundColor,
+                        opacidade: estilo.opacity
+                    });
+                }
+            });
+
+            // LAST: muda as classes (os slides "pulam" pro lugar novo)
+            atual = (novo + total) % total;
+            posicionar();
+
+            animando = true;
+            const caixa = carrossel.getBoundingClientRect();
+
+            slides.forEach(slide => {
+                const depois = slide.getBoundingClientRect();
+                const a = antes.get(slide);
+
+                if (depois.width > 0 && a) {
+                    // INVERT + PLAY: continua visível -> desliza e muda de tamanho
+                    const dx = (a.rect.left + a.rect.width / 2) - (depois.left + depois.width / 2);
+                    const dy = (a.rect.top + a.rect.height / 2) - (depois.top + depois.height / 2);
+                    const sx = a.rect.width / depois.width;
+                    const sy = a.rect.height / depois.height;
+
+                    slide.animate([
+                        { transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})` },
+                        { transform: 'none' }
+                    ], { duration: DURACAO, easing: EASING });
+
+                } else if (depois.width > 0) {
+                    // estava escondido e apareceu -> entra deslizando pela borda
+                    slide.animate([
+                        { transform: `translateX(${direcao * 80}%)`, opacity: 0 },
+                        { transform: 'none' }
+                    ], { duration: DURACAO, easing: EASING });
+
+                } else if (a) {
+                    // estava visível e sumiu -> uma cópia dele sai deslizando
+                    const copia = slide.cloneNode(true);
+                    copia.removeAttribute('id');
+                    copia.className = a.classe;
+                    Object.assign(copia.style, {
+                        position: 'absolute',
+                        left: (a.rect.left - caixa.left) + 'px',
+                        top: (a.rect.top - caixa.top) + 'px',
+                        width: a.rect.width + 'px',
+                        height: a.rect.height + 'px',
+                        margin: '0',
+                        backgroundImage: a.fundoImg,
+                        backgroundColor: a.fundoCor,
+                        pointerEvents: 'none',
+                        zIndex: '0'
+                    });
+                    carrossel.appendChild(copia);
+
+                    copia.animate([
+                        { transform: 'none', opacity: a.opacidade },
+                        { transform: `translateX(${-direcao * 80}%)`, opacity: 0 }
+                    ], { duration: DURACAO, easing: EASING }).onfinish = () => copia.remove();
+                }
+            });
+
+            setTimeout(() => { animando = false; }, DURACAO);
+        }
+
+        // ---------- 3. Giro automático ----------
+        function iniciarGiro() {
+            clearInterval(timer);
+            timer = setInterval(() => mostrar(atual + 1), TEMPO);
+        }
+
+        function pararGiro() {
+            clearInterval(timer);
+        }
+
+        // ---------- 4. Cliques ----------
+        btnNext.addEventListener('click', () => { mostrar(atual + 1); iniciarGiro(); });
+        btnPrev.addEventListener('click', () => { mostrar(atual - 1); iniciarGiro(); });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => { mostrar(i); iniciarGiro(); });
+        });
+
+        // clicar num slide pequeno traz ele pro meio, deslizando pro lado certo
+        slides.forEach((slide, i) => {
+            slide.addEventListener('click', () => {
+                if (!slide.classList.contains('slide-lateral')) return;
+                const esquerda = (atual - 1 + total) % total;
+                mostrar(i === esquerda ? atual - 1 : atual + 1);
+                iniciarGiro();
+            });
+        });
+
+        // pausa enquanto o mouse está em cima
+        carrossel.addEventListener('mouseenter', pararGiro);
+        carrossel.addEventListener('mouseleave', iniciarGiro);
+
+        // ---------- 5. Começar ----------
+        posicionar();
+        iniciarGiro();
+    </script>
+    <!-- ================================
+         ACCORDION DOS VALORES (Sobre nós)
+         clica no card -> ele cresce e mostra o texto; só um aberto por vez
+    ================================= -->
+    <script>
+        const cardsValores = document.querySelectorAll('.card-sobre');
+        const DURACAO_CARD = 400;   // velocidade de abrir/fechar (ms)
+
+        function animarCard(card, abrir) {
+            const alturaInicio = card.getBoundingClientRect().height;  // altura agora
+
+            if (card.anim) card.anim.cancel();          // se estava no meio, continua daqui
+
+            card.classList.toggle('aberto', abrir);     // a classe muda o tamanho final
+            card.setAttribute('aria-expanded', abrir);
+            const alturaFim = card.getBoundingClientRect().height;     // altura que vai ficar
+
+            card.anim = card.animate(
+                { height: [alturaInicio + 'px', alturaFim + 'px'] },
+                { duration: DURACAO_CARD, easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)' }
+            );
+            card.anim.onfinish = () => { card.anim = null; };
+        }
+
+        function clicarCard(card) {
+            const abrir = !card.classList.contains('aberto');
+
+            // fecha os outros que estiverem abertos
+            if (abrir) {
+                cardsValores.forEach(outro => {
+                    if (outro !== card && outro.classList.contains('aberto')) {
+                        animarCard(outro, false);
+                    }
+                });
+            }
+
+            animarCard(card, abrir);
+        }
+
+        cardsValores.forEach(card => {
+            // deixa o card funcionar como botão também pelo teclado
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-expanded', 'false');
+
+            card.addEventListener('click', () => clicarCard(card));
+            card.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    clicarCard(card);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

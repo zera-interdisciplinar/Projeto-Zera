@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" width="100" height="100">
+    <g>
+        <!-- Metade de cima: arco + seta -->
+        <g id="metade-seta">
+            <path d="M14 50 A36 36 0 0 1 77.6 26.9" fill="none" stroke="#2E62E0" stroke-width="12" />
+            <polygon points="86,19.8 69.2,33.9 86,36.9" fill="#1A2C6E" />
+        </g>
+        <!-- Metade de baixo: a mesma seta girada 180° -->
+        <use href="#metade-seta" xlink:href="#metade-seta" transform="rotate(180 50 50)" />
+
+        <!-- Gira duas voltas, pausa, e repete -->
+        <animateTransform attributeName="transform" type="rotate"
+                          values="0 50 50; 720 50 50; 720 50 50"
+                          keyTimes="0; 0.7; 1"
+                          calcMode="spline"
+                          keySplines="0.45 0 0.25 1; 0 0 1 1"
+                          dur="2.6s" repeatCount="indefinite" />
+    </g>
+</svg>
