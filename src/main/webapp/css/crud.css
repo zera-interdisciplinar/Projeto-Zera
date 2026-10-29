@@ -465,12 +465,6 @@ Ações de modificação dos registros
     padding-bottom: 12px;
 }
 
-#perfil-admin p{
-    font-family: var(--fonte1);
-    font-size: 19.5px;
-    color: var(--cor2);
-}
-
 #perfil-admin div{
     border: 2px solid var(--cor2);
     border-radius: 9px;
@@ -950,4 +944,135 @@ Ações de modificação dos registros
 
 .adicao #linha-completa input:focus{
     outline: none;
+}
+
+#perfil-admin input{
+    border: none;
+    background-color: var(--cor1);
+    border-radius: 9px;
+    display: block;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+    width: 410px;
+}
+
+#perfil-admin input:focus{
+    outline: none;
+}
+
+#perfil-admin .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 16px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#perfil-admin .erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#perfil-admin .titulo-erro{
+    color: #ff0000;
+}
+
+#perfil-admin .erro .mensagem-erro{
+    display: block;
+    
+}
+
+#perfil-admin .erro label{
+    color:#FF0000;   
+}
+
+#alterar-senha form .senha-atual.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #senha-atual.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #senha-atual + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 16px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#senha-atual + .mensagem-erro{
+    display: block;
+    margin-left: 44px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    
+}
+
+
+
+#alterar-senha form .nova-senha.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #nova-senha.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #nova-senha + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 11px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#nova-senha + .mensagem-erro{
+    display: block;
+    margin-left: 46px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+
+
+#alterar-senha form .confirmar-nova-senha.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #confirmar-nova-senha.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #confirmar-nova-senha + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 16px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#confirmar-nova-senha + .mensagem-erro{
+    display: block;
+    margin-left: 491px;
+    margin-top: -11px;
+    margin-bottom: 10px;
 }
