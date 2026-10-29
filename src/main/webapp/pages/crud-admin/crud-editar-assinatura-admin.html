@@ -54,7 +54,9 @@
                     <option value="free">Free</option>
                 </select>
                 </div>
-                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025"></div>
+                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025">
+                <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span>
+                </div>
                 <h5>Status de assinatura</h5>
                 <h5>Data de término</h5>
                 <div class="infos-de-mesma-linha"><select name="status" id="status">
@@ -64,7 +66,9 @@
                     <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
                 </select>
                 </div>
-                <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026"></div>
+                <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026">
+                <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA e deve ser maior que a data de início</span>
+                </div>
                 <button type="submit">Salvar</button>
                 </form>
             </div>

@@ -44,13 +44,20 @@
                     <input type="text" name="nome-do-gestor" id="nome-do-gestor" placeholder="Mariana Almeida">
                 </div>
                 <h5>Email do gestor</h5>
-                <div id="linha-completa">
+                <h5>Senha</h5>
+                <div class="infos-de-mesma-linha">
                     <input type="text" name="email" id="email" placeholder="gestor@organizacao.com">
+                    <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
+                </div>
+                <div class="infos-de-mesma-linha">
+                    <input type="text" name="senha" id="senha" placeholder="senha123@">
+                    <span class="mensagem-erro">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
                 </div>
                 <h5>Telefone do gestor</h5>
                 <h5>Unidade</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="telefone" id="telefone" placeholder="+55 (11) 99812-4410">
+                    <span class="mensagem-erro">Telefone inválido, ele precisa conter o DDD + nove números</span>
                 </div>
                 <div class="infos-de-mesma-linha">
                     <select name="unidade" id="unidade">
