@@ -1,4 +1,5 @@
 /* ================================
+<<<<<<< HEAD
    VARIÁVEIS
    (se já tiver no seu projeto, pode apagar este bloco)
 ================================ */
@@ -12,6 +13,9 @@
 
 /* ================================
    PÁGINA DE ERRO (AJUSTADO)
+=======
+   PÁGINA DE ERRO
+>>>>>>> b1738e879f75bf35c087c0458555c1c683998aab
 ================================ */
 
 body.pagina-erro {
@@ -128,6 +132,7 @@ body.pagina-erro {
         max-width: 270px;
         max-height: 32vh;
     }
+<<<<<<< HEAD
 }
 
 /* ================================
@@ -168,4 +173,21 @@ body.pagina-carregando {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+=======
+
+    .erro-detalhe {
+        font-family: var(--fonte1);
+        font-size: clamp(14px, 1.1vw, 17px);
+        color: var(--cor2);
+        margin-top: 16px;
+    }
+
+    .erro-voltar {
+        display: inline-block;
+        margin-top: 24px;
+        font-family: var(--fonte1);
+        color: var(--cor3);
+        text-decoration: underline;
+    }
+>>>>>>> b1738e879f75bf35c087c0458555c1c683998aab
 }
