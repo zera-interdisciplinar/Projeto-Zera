@@ -121,27 +121,15 @@
                         <!-- Email da unidade -->
                         <div class="filtrador">
                             <label for="email-unidade">Email da unidade</label>
-                            <input
-                                type="email"
-                                id="email-unidade"
-                                name="email_unidade"
-                                value="tijbs@exemplo.com"
-                                class="form-campo-total"
-                            >
+                            <input type="email" id="email-unidade" name="email_unidade" value="tijbs@exemplo.com" class="form-campo-total">
+                            <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                         </div>
 
                         <!-- CNPJ da unidade -->
                         <div class="filtrador">
                             <label for="cnpj-unidade">CNPJ da unidade</label>
-                            <input
-                                type="text"
-                                id="cnpj-unidade"
-                                name="cnpj_unidade"
-                                value="11.222.333/0001-81"
-                                class="form-campo-total"
-                                inputmode="numeric"
-                                maxlength="18"
-                            >
+                            <input type="text" id="cnpj-unidade" name="cnpj_unidade" value="11.222.333/0001-81" class="form-campo-total" inputmode="numeric" maxlength="18">
+                            <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span>
                         </div>
 
                     </div>

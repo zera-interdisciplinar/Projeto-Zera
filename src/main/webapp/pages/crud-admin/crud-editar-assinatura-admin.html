@@ -17,23 +17,22 @@
                 <nav>
                     <a href="crud-home-admin.html"><span>Home</span></a>
                     <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
-                    <a class = botao-ativo href="crud-assinaturas-admin.html"><span>Assinaturas</span></a>
+                    <a class = botao-ativo href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
                     <a href="crud-planos-admin.html"><span>Planos</span></a>
                     <a href="crud-unidades-admin.html"><span>Unidades</span></a>
                     <a href="crud-enderecos-admin.html"><span>Endereços</span></a>
                     <a href="crud-gestores-admin.html"><span>Gestores</span></a>
                     <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                    <a href="crud-novo-admin.html"><span>Admin</span></a>
+                    <a href="crud-admins-admin.html"><span>Admin</span></a>
                     <hr class = barra-azul>
-                    <a href="crud-configuracoes-admin.html"><span>Configurações</span></a>
-                    <a href="../login/log.html"><span>Sair</span></a>
+                    <a href="../login/login.html"><span>Sair</span></a>
                 </nav>
             </div>
         </div>
         <!--Área de informações-->
         <div class = informacoes>
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-            <a href="crud-assinaturas-admin.html" class="voltar">
+            <a href="crud-assinaturas-admin.jsp" class="voltar">
                 <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
                 Voltar
             </a>
@@ -55,7 +54,9 @@
                     <option value="free">Free</option>
                 </select>
                 </div>
-                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025"></div>
+                <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025">
+                <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span>
+                </div>
                 <h5>Status de assinatura</h5>
                 <h5>Data de término</h5>
                 <div class="infos-de-mesma-linha"><select name="status" id="status">
@@ -65,7 +66,9 @@
                     <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
                 </select>
                 </div>
-                <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026"></div>
+                <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026">
+                <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA e deve ser maior que a data de início</span>
+                </div>
                 <button type="submit">Salvar</button>
                 </form>
             </div>

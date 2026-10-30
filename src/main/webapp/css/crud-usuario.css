@@ -411,6 +411,7 @@ h1.nome-da-area,
     display: flex;
     flex-direction: column;
     gap: 6px;
+    position: relative;
 }
 
 .busca {
@@ -1053,4 +1054,29 @@ h1.nome-da-area,
 .painel-esquerda nav a:last-child:hover {
     background-color: rgba(250, 61, 40, 0.40) !important;
     color: #fa3d28 !important; /* ou var(--cor2) se preferir manter o texto azul */
+}
+
+.filtrador.erro label{
+    color: #ff0000;
+}
+
+.filtrador.erro input{
+    border-color: #ff0000;
+}
+
+.filtrador .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+.filtrador.erro .mensagem-erro{
+    display: block;
 }

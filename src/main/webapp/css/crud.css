@@ -107,11 +107,16 @@
     justify-content: flex-start;
 
     width: 191px;
+<<<<<<< HEAD
 
     height: 56.95px;
 
     padding-left: 40.5px; /\ 4.5px margem externa + 40.5px = 45px exatos da tela /
 
+=======
+    height: 46.95px;
+    padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
+>>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
     box-sizing: border-box;
 
     border-radius: 12px;
@@ -1234,10 +1239,14 @@ Ações de modificação dos registros
 
 }
 
+<<<<<<< HEAD
 
 
 .edicao .infos-de-mesma-linha{
 
+=======
+.infos-de-mesma-linha{
+>>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
     border: 2px solid var(--cor2);
 
     border-radius: 9px;
@@ -1249,7 +1258,11 @@ Ações de modificação dos registros
     width: 465px;
 
     margin-right: 15px;
+<<<<<<< HEAD
 
+=======
+    position: relative;
+>>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
 }   
 
 
@@ -1922,6 +1935,7 @@ Ações de modificação dos registros
 
 }
 
+<<<<<<< HEAD
 
 /* MODAL DE EXCLUSÃO DA UNIDADE */
 .botao-excluir-unidade { display:inline-flex; align-items:center; justify-content:center; background:transparent; border:0; color:#e53935; cursor:pointer; padding:4px; vertical-align:middle; }
@@ -1940,3 +1954,170 @@ Ações de modificação dos registros
 .modal-excluir { background:#F1EADA; color:#FF3B30; border:2px solid #FF3B30; }
 .modal-excluir:hover { background:#FF3B30; color:#fff; }
 @media(max-width:480px) { .modal-caixa { max-width:350px; min-height:190px; padding:25px 20px 22px; } .modal-caixa h2 { font-size:22px; } .modal-descricao { font-size:11px; } .modal-botoes { margin-top:35px; } .modal-voltar,.modal-excluir { font-size:13px; padding:8px 15px; } }
+=======
+#perfil-admin input{
+    border: none;
+    background-color: var(--cor1);
+    border-radius: 9px;
+    display: block;
+    font-family: var(--fonte1);
+    color: var(--cor2);
+    font-size: 19.5px;
+    width: 410px;
+}
+
+#perfil-admin input:focus{
+    outline: none;
+}
+
+#perfil-admin .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#perfil-admin .erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#perfil-admin .erro{
+    color: #ff0000;
+}
+
+#perfil-admin .erro .mensagem-erro{
+    display: block;
+    
+}
+
+#perfil-admin .erro label{
+    color:#FF0000;   
+}
+
+#alterar-senha form .senha-atual.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #senha-atual.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #senha-atual + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#senha-atual + .mensagem-erro{
+    display: block;
+    margin-left: 44px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    
+}
+
+
+
+#alterar-senha form .nova-senha.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #nova-senha.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #nova-senha + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 10px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#nova-senha + .mensagem-erro{
+    display: block;
+    margin-left: 46px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+
+
+#alterar-senha form .confirmar-nova-senha.erro{
+    color: #ff0000;
+}
+
+#alterar-senha form #confirmar-nova-senha.erro{
+    border-color: #ff0000;
+    position: relative;
+}
+
+#alterar-senha form #confirmar-nova-senha + .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+#alterar-senha form  .erro#confirmar-nova-senha + .mensagem-erro{
+    display: block;
+    margin-left: 491px;
+    margin-top: -11px;
+    margin-bottom: 10px;
+}
+
+
+.infos-de-mesma-linha .mensagem-erro{
+    display: none;
+    color: #FF0000;
+    font-size: 12px;
+    font-family: var(--fonte1);
+    background: var(--cor1);
+    position: absolute;
+    bottom: -7px;
+    left: 15px;
+    padding: 0 2px;
+    white-space: nowrap;
+}
+
+.infos-de-mesma-linha.erro .mensagem-erro{
+    display: block;
+}
+
+.infos-de-mesma-linha.erro label{
+    color:#FF0000;   
+}
+
+.infos-de-mesma-linha.erro{
+    border-color:#FF0000;
+}
+
+.adicao h5.erro{
+    color: #FF0000;
+}
+
+.edicao h5.erro{
+    color: #ff0000;
+}
+
+>>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
