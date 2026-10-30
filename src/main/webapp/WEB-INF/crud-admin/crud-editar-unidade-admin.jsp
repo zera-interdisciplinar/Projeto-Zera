@@ -69,7 +69,7 @@
             >
 
             <nav>
-                <a href="<%= contexto %>/pages/crud-admin/crud-home-admin.html">
+                <a href="<%= contexto %>/pages/crud-admin/crud-home-admin-feito.jsp">
                     <span>Home</span>
                 </a>
 
@@ -92,25 +92,25 @@
                     <span>Unidades</span>
                 </a>
 
-                <a href="<%= contexto %>/pages/crud-admin/crud-enderecos-admin.html">
+                <a href="<%= contexto %>/pages/crud-admin/crud-enderecos-admin.jsp">
                     <span>Endereços</span>
                 </a>
 
-                <a href="<%= contexto %>/pages/crud-admin/crud-gestores-admin.html">
+                <a href="<%= contexto %>/pages/crud-admin/crud-gestores-admin.jsp">
                     <span>Gestores</span>
                 </a>
 
-                <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.html">
+                <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.jsp">
                     <span>Estoques</span>
                 </a>
 
-                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.html">
+                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.jsp">
                     <span>Admin</span>
                 </a>
 
                 <hr class="barra-azul">
 
-                <a href="<%= contexto %>/pages/login/login.html">
+                <a href="<%= contexto %>/pages/login/login.jsp">
                     <span>Sair</span>
                 </a>
             </nav>

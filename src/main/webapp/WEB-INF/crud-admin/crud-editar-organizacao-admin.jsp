@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="br.com.zera.model.Organizacao" %>
-
-<%!
-    private String escaparHtml(String valor) {
+<%!private String escaparHtml(String valor) {
         if (valor == null) {
             return "";
         }
@@ -13,11 +11,9 @@
                 .replace("'", "&#39;")
                 .replace("<", "&lt;")
                 .replace(">", "&gt;");
-    }
-%>
+    }%>
 
-<%
-    Organizacao organizacao =
+<%Organizacao organizacao =
             (Organizacao) request.getAttribute("organizacao");
 
     if (organizacao == null) {
@@ -36,95 +32,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Editar organização - Zera</title>
-
-    <link
-            rel="icon"
+    <link rel="icon"
             type="image/png"
-            href="<%= contexto %>/images/favicon.png"
-    >
+            href="<%= contexto %>/images/favicon.png">
 
     <link rel="stylesheet" href="<%= contexto %>/css/style.css">
     <link rel="stylesheet" href="<%= contexto %>/css/crud.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <div class="painel-esquerda">
         <div class="painel-conteudo">
-            <img
-                    src="<%= contexto %>/images/logo_completa.svg"
+            <img src="<%= contexto %>/images/logo_completa.svg"
                     alt="Zera"
-                    class="logo-zera"
-            >
-
+                    class="logo-zera">
             <nav>
-                <a href="<%= contexto %>/pages/crud-admin/crud-home-admin.html">
-                    <span>Home</span>
-                </a>
-
-                <a
-                        class="botao-ativo"
-                        href="<%= contexto %>/organizacao/lista"
-                >
-                    <span>Organizações</span>
-                </a>
-
+                <a href="<%= contexto %>/pages/crud-admin/crud-home-admin-feito.jsp">
+                    <span>Home</span></a>
+                <a class="botao-ativo"
+                        href="<%= contexto %>/organizacao/lista">
+                    <span>Organizações</span></a>
                 <a href="<%= contexto %>/pages/crud-admin/crud-assinaturas-admin.jsp">
-                    <span>Assinaturas</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-planos-admin.html">
-                    <span>Planos</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-unidades-admin.html">
-                    <span>Unidades</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-enderecos-admin.html">
+                    <span>Assinaturas</span></a>
+                <a href="<%= contexto %>/pages/crud-admin/crud-planos-admin.jsp">
+                    <span>Planos</span></a>
+                <a href="<%= contexto %>/pages/crud-admin/crud-unidades-admin.jsp">
+                    <span>Unidades</span></a>
+                <a href="<%= contexto %>/pages/crud-admin/crud-enderecos-admin.jsp">
                     <span>Endereços</span>
                 </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-gestores-admin.html">
-                    <span>Gestores</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.html">
-                    <span>Estoques</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.html">
-                    <span>Admin</span>
-                </a>
-
+                <a href="<%= contexto %>/pages/crud-admin/crud-gestores-admin.jsp">
+                    <span>Gestores</span></a>
+                <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.jsp">
+                    <span>Estoques</span></a>
+                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.jsp">
+                    <span>Admin</span></a>
                 <hr class="barra-azul">
-
-                <a href="<%= contexto %>/pages/login/login.html">
+                <a href="<%= contexto %>/pages/login/login.jsp">
                     <span>Sair</span>
                 </a>
             </nav>
         </div>
     </div>
-
     <div class="informacoes">
-        <img
-                src="<%= contexto %>/images/z-transparente.png"
+        <img src="<%= contexto %>/images/z-transparente.png"
                 alt=""
-                class="z-marca-dagua"
-        >
-
+                class="z-marca-dagua">
         <a href="<%= contexto %>/organizacao/lista" class="voltar">
-            <img
-                    src="<%= contexto %>/images/seta-voltar.svg"
-                    alt="Ícone de seta de voltar"
-            >
+            <img src="<%= contexto %>/images/seta-voltar.svg"
+                    alt="Ícone de seta de voltar">
             Voltar
         </a>
-
         <h3 class="nome-da-area">Editar organização</h3>
-
         <div class="edicao">
             <form
                     id="form-editar-organizacao"
@@ -140,7 +100,6 @@
                 <h5>
                     <label for="nome-da-organizacao">Nome</label>
                 </h5>
-
                 <div id="nome">
                     <input
                             type="text"
@@ -152,15 +111,12 @@
                             required
                     >
                 </div>
-
                 <h5>
                     <label for="cnpj">CNPJ</label>
                 </h5>
-
                 <h5>
                     <label for="email">Email</label>
                 </h5>
-
                 <div class="infos-de-mesma-linha">
                     <input
                             type="text"
@@ -175,7 +131,6 @@
                             required
                     >
                 </div>
-
                 <div class="infos-de-mesma-linha">
                     <input
                             type="email"
@@ -187,7 +142,6 @@
                             required
                     >
                 </div>
-
                 <button type="submit" id="botao-salvar">
                     Salvar
                 </button>
@@ -195,7 +149,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const formulario = document.getElementById(
         "form-editar-organizacao"

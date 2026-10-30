@@ -21,21 +21,21 @@
         <div class="painel-conteudo">
             <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
             <nav>
-                <a href="crud-perfil-admin.html" class="perfil-usuario">
+                <a href="crud-perfil-admin.jsp" class="perfil-usuario">
                     <div class="avatar">AD</div>
                     <span class="nome-usuario">Administrador</span>
                 </a>
-                <a href="crud-home-admin.html">Home</a>
-                <a href="crud-organizacoes-admin.html">Organizações</a>
+                <a href="crud-home-admin.jsp">Home</a>
+                <a href="crud-organizacoes-admin.jsp">Organizações</a>
                 <a href="crud-assinaturas-admin.jsp" class="botao-ativo">Assinaturas</a>
-                <a href="crud-planos-admin.html">Planos</a>
-                <a href="crud-unidades-admin.html">Unidades</a>
-                <a href="crud-enderecos-admin.html">Endereços</a>
-                <a href="crud-gestores-admin.html">Gestores</a>
-                <a href="crud-estoques-admin.html">Estoques</a>
+                <a href="crud-planos-admin.jsp">Planos</a>
+                <a href="crud-unidades-admin.jsp">Unidades</a>
+                <a href="crud-enderecos-admin.jsp">Endereços</a>
+                <a href="crud-gestores-admin.jsp">Gestores</a>
+                <a href="crud-estoques-admin.jsp">Estoques</a>
                 <hr class="barra-azul">
                 <a href="#">Configurações</a>
-                <a href="../login/log.html">Sair</a>
+                <a href="../login/log.jsp">Sair</a>
             </nav>
         </div>
     </div>
@@ -64,7 +64,7 @@
                         <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
                     </select>
                 </div>
-                <a href="crud-nova-assinatura-admin.html" class="adicionar">
+                <a href="crud-nova-assinatura-admin.jsp" class="adicionar">
                     <img src="../../images/icone-adicionar.svg" alt="">
                     Nova assinatura
                 </a>
@@ -133,21 +133,21 @@
         <div class="painel-conteudo">
             <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
             <nav>
-                <a href="crud-perfil-admin.html" class="perfil-usuario">
+                <a href="crud-perfil-admin.jsp" class="perfil-usuario">
                     <div class="avatar">AD</div>
                     <span class="nome-usuario">Administrador</span>
                 </a>
-                <a href="crud-home-admin.html">Home</a>
-                <a href="crud-organizacoes-admin.html">Organizações</a>
+                <a href="crud-home-admin.jsp">Home</a>
+                <a href="crud-organizacoes-admin.jsp">Organizações</a>
                 <a href="crud-assinaturas-admin.jsp" class="botao-ativo">Assinaturas</a>
-                <a href="crud-planos-admin.html">Planos</a>
-                <a href="crud-unidades-admin.html">Unidades</a>
-                <a href="crud-enderecos-admin.html">Endereços</a>
-                <a href="crud-gestores-admin.html">Gestores</a>
-                <a href="crud-estoques-admin.html">Estoques</a>
+                <a href="crud-planos-admin.jsp">Planos</a>
+                <a href="crud-unidades-admin.jsp">Unidades</a>
+                <a href="crud-enderecos-admin.jsp">Endereços</a>
+                <a href="crud-gestores-admin.jsp">Gestores</a>
+                <a href="crud-estoques-admin.jsp">Estoques</a>
                 <hr class="barra-azul">
                 <a href="#">Configurações</a>
-                <a href="../login/log.html">Sair</a>
+                <a href="../login/log.jsp">Sair</a>
             </nav>
         </div>
     </div>
@@ -176,7 +176,7 @@
                         <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
                     </select>
                 </div>
-                <a href="crud-nova-assinatura-admin.html" class="adicionar">
+                <a href="crud-nova-assinatura-admin.jsp" class="adicionar">
                     <img src="../../images/icone-adicionar.svg" alt="">
                     Nova assinatura
                 </a>
@@ -210,7 +210,7 @@
                         <td class="texto-verde">Ativa</td>
                         <td class="col-acoes">
                             <div class="acoes">
-                                <a href="crud-editar-assinatura-admin.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                <a href="crud-editar-assinatura-admin.jsp" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
                                 <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
                             </div>
                         </td>
