@@ -1,58 +1,64 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Unidade - Zera</title>
 
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
 
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
     <link rel="stylesheet" href="../../css/popup.css">
 </head>
 
 <body>
+
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
-            <img
-                src="../../images/logo_completa.svg"
-                alt="ZERA"
-                class="logo"
-            >
+            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
 
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
 
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
-
-                    <a
-                        href="crud-unidade-usuario.html"
-                        class="botao-ativo"
-                    >
-                        Unidade
-                    </a>
-
+                    <a href="crud-unidade-usuario.html" class="botao-ativo">Unidade</a>
                     <a href="crud-endereco-usuario.html">Endereço</a>
                     <a href="crud-assinatura-usuario.html">Assinatura</a>
                     <a href="crud-organizacao-usuario.html">Organização</a>
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">
-                        Configurações
-                    </a>
-
-                    <!-- SAIR COM POPUP -->
+                    <!-- Opção de sair com popup -->
                     <a
                         href="../login/log.html"
                         data-modal-exclusao
@@ -64,32 +70,39 @@
                     </a>
                 </nav>
 
-                <a
-                    href="crud-meuperfil-usuario.html"
-                    class="perfil-usuario"
-                >
+                <!-- Perfil do usuário logado -->
+                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
-            <img
-                src="../../images/z-transparente.png"
-                alt=""
-                class="z-marca-dagua"
-            >
 
+            <!-- Marca d'água -->
+            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+
+            <!-- Título da página -->
             <h1 class="nome-da-area">Unidade</h1>
 
+            <!-- ========================================
+                 TABELA DE UNIDADE
+            ======================================== -->
             <section class="tabela">
-                <label class="tabela-titulo">
-                    Dados unidade
-                </label>
 
+                <!-- Título da tabela -->
+                <label class="tabela-titulo">Dados unidade</label>
+
+                <!-- Área de rolagem -->
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
+
+                        <!-- Cabeçalho da tabela -->
                         <thead>
                             <tr>
                                 <th>Organização</th>
@@ -99,15 +112,18 @@
                             </tr>
                         </thead>
 
+                        <!-- Dados da unidade -->
                         <tbody>
                             <tr>
                                 <td>JBS Alimentos</td>
                                 <td>11.222.333/0001-81</td>
                                 <td>tijbs@exemplo.com</td>
 
+                                <!-- Ações disponíveis -->
                                 <td class="col-acoes">
                                     <div class="acoes">
 
+                                        <!-- Editar unidade -->
                                         <a
                                             href="crud-editar-unidade-usuario.html"
                                             title="Editar unidade"
@@ -118,6 +134,7 @@
                                             >
                                         </a>
 
+                                        <!-- Excluir unidade com popup de confirmação -->
                                         <button
                                             type="button"
                                             class="zera-botao-excluir"
@@ -139,12 +156,20 @@
                                 </td>
                             </tr>
                         </tbody>
+
                     </table>
                 </div>
+
             </section>
+
         </main>
+
     </div>
 
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
     <script src="../../js/popup.js" defer></script>
+
 </body>
 </html>

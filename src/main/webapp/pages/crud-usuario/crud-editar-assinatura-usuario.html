@@ -1,26 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zera - Editar assinatura</title>
+    <title>Editar assinatura - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
     <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -31,7 +58,7 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
+                    <!-- Opção de sair -->
                     <a
                         href="../login/log.html"
                         data-modal-exclusao
@@ -41,33 +68,59 @@
                     >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Botão de voltar -->
             <a href="crud-assinatura-usuario.html" class="voltar">
                 <img src="../../images/seta-voltar.svg" alt="">
                 <span>Voltar</span>
             </a>
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Editar assinatura</h1>
 
+            <!-- ========================================
+                 FORMULÁRIO DE EDIÇÃO DA ASSINATURA
+            ======================================== -->
             <section class="tabela">
                 <form action="#" method="POST">
+
+                    <!-- Organização vinculada -->
                     <div class="form-coluna form-coluna-junto">
                         <div class="filtrador">
                             <label for="organizacao">Organização</label>
-                            <input type="text" id="organizacao" name="organizacao" value="JBS Alimentos" class="form-campo-total" readonly>
+                            <input
+                                type="text"
+                                id="organizacao"
+                                name="organizacao"
+                                value="JBS Alimentos"
+                                class="form-campo-total"
+                                readonly
+                            >
                         </div>
                     </div>
 
+                    <!-- ========================================
+                         DADOS DA ASSINATURA
+                    ======================================== -->
                     <div class="form-grid-duplo">
+
+                        <!-- Seleção do plano -->
                         <div class="filtrador">
                             <label for="plano">Plano</label>
                             <select id="plano" name="plano" class="form-campo-total">
@@ -76,11 +129,21 @@
                                 <option value="empresarial" selected>Empresarial</option>
                             </select>
                         </div>
+
+                        <!-- Data de início -->
                         <div class="filtrador">
                             <label for="data-inicio">Data de início</label>
-                            <input type="text" id="data-inicio" name="data_inicio" value="10/10/2025" class="form-campo-total" readonly>
+                            <input
+                                type="text"
+                                id="data-inicio"
+                                name="data_inicio"
+                                value="10/10/2025"
+                                class="form-campo-total"
+                                readonly
+                            >
                         </div>
 
+                        <!-- Status da assinatura -->
                         <div class="filtrador">
                             <label for="status">Status da assinatura</label>
                             <select id="status" name="status" class="form-campo-total">
@@ -89,21 +152,44 @@
                                 <option value="cancelada">Cancelada</option>
                             </select>
                         </div>
+
+                        <!-- Data de término -->
                         <div class="filtrador">
                             <label for="data-termino">Data de término</label>
-                            <input type="text" id="data-termino" name="data_termino" value="01/03/2026" placeholder="dd/mm/aaaa" class="form-campo-total" inputmode="numeric" maxlength="10">
+                            <input
+                                type="text"
+                                id="data-termino"
+                                name="data_termino"
+                                value="01/03/2026"
+                                placeholder="dd/mm/aaaa"
+                                class="form-campo-total"
+                                inputmode="numeric"
+                                maxlength="10"
+                            >
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         BOTÃO DE SALVAR
+                    ======================================== -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Salvar
                         </button>
                     </div>
+
                 </form>
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
     <script src="../../js/popup.js" defer></script>
+
 </body>
 </html>
