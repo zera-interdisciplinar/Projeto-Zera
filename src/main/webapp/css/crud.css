@@ -286,7 +286,7 @@ A rolagem para ver mais informações que não cabem no card
 */
 
 .tabela-rolagem{
-    flex: 1 1 auto;
+    flex: 1;
     min-height: 0;
     overflow-y: auto;
     margin-top: 12;
@@ -377,7 +377,6 @@ input para pesquisar algum registro específico
     justify-content: center;
     align-items: center;
     display: inline-flex;
-    /*visibility: hidden;*/
     display: none;
     text-decoration: none;
 }
@@ -1121,3 +1120,132 @@ Ações de modificação dos registros
     color: #ff0000;
 }
 
+
+.visualizacao{
+    background-color: var(--cor1);
+    z-index: 2;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-left: 115px;
+    padding: 20.5px 38.5px 20px;
+}
+
+.itens-organizacao{
+    width: 100%;
+    table-layout: fixed;
+}
+
+.itens-organizacao th{
+    position: sticky;
+    top: 0;
+    background-color: var(--cor1);
+    text-align: left;
+    padding: 6px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.itens-organizacao td{
+    text-align: left;
+    padding: 2px 8px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    font-size: 16px;
+}
+
+.itens-organizacao tbody tr{
+    border-top: 2px solid #152D6BAD;
+    font-family: var(--fonte1);
+    font-size: 16px;
+    color: var(--cor2);
+}
+
+.visualizacao .editar{
+    display: inline-block;
+    margin-left: 770px;
+    margin-top: 15px;
+}
+
+.visualizacao .editar:hover{
+    text-decoration: none;
+}
+
+.visualizacao .cancelar{
+    background-color: #ff0000;
+    display: inline-flex;
+    width: 180px;
+    padding: 8px 0;
+    border-radius: 10px;
+    color: var(--cor1);
+    margin-left: 14px;
+    text-align: center;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+}
+
+.visualizacao .cancelar:hover{
+    text-decoration: none;
+}
+
+.visualizacao .excluir{
+    display: inline-block;
+    margin-left: 50px;
+}
+
+.visualizacao .excluir:hover{
+    text-decoration: none;
+}
+
+.visualizacao hr{
+    border: none;
+    background-color: var(--cor2);
+    height: 1px;
+    margin-top: 20px;
+}
+
+.visualizacao h4{
+    font-size: 20px;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    padding-right: 717px;
+    margin-top: 15px;
+}
+
+#quantidade-unidades{
+    display: inline;
+}
+
+.visualizacao .adicionar{
+    margin-top: 20px;
+    background-color: #2958D1;
+    color: var(--cor1);
+    padding: 10px 15px;
+    border-radius: 9px;
+    font-family: var(--fonte1);
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.unidades-rolagem{
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: 12;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor2) var(--cor1);
+    height: 150px;
+}
+
+.itens-organizacao .status{
+    color: #10B981;
+}
+
+.itens-organizacao .alerta-vencimento{
+    color: #F59E0B;
+}
