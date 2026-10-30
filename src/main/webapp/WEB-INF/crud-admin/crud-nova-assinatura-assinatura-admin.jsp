@@ -73,7 +73,8 @@
                     </select>
                 </div>
                 <div class="infos-de-mesma-linha">
-                    <input type="text" id="data-termino" name="data-termino" placeholder="dd/mm/aaaa">
+                    <input type="text" id="data-termino" name="data-termino" placeholder="DD/MM/AAAA">
+                    <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span>
                 </div>
                 <button>Adicionar</button>
             </form>
