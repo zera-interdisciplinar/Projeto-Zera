@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zera - Estoques</title>
+    <title>Estoques - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html" class="botao-ativo">Estoques</a>
@@ -30,42 +58,80 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Estoques</h1>
 
+            <!-- ========================================
+                 TABELA DE ESTOQUES
+            ======================================== -->
             <section class="tabela">
+
+                <!-- ========================================
+                     FILTROS E AÇÕES DA TABELA
+                ======================================== -->
                 <form action="crud-estoques-usuario.html" method="GET" class="tabela-filtros">
+
+                    <!-- Campo de busca -->
                     <div class="filtrador busca">
                         <label for="busca">Buscar</label>
+
                         <div class="campo-busca">
-                            <input type="search" id="busca" name="busca" placeholder="Código ou espaço na unidade">
+                            <input
+                                type="search"
+                                id="busca"
+                                name="busca"
+                                placeholder="Código ou espaço na unidade"
+                            >
+
+                            <!-- Botão de pesquisa -->
                             <button type="submit" class="btn-lupa" aria-label="Buscar">
                                 <img src="../../images/icone-lupa.svg" alt="">
                             </button>
                         </div>
                     </div>
 
+                    <!-- Botão de adicionar estoque -->
                     <a href="crud-nova-estoques-usuario.html" class="adicionar">
                         <img src="../../images/icone-adicionar.svg" alt="">
                         Novo estoque
                     </a>
+
                 </form>
 
+                <!-- ========================================
+                     LISTAGEM DE ESTOQUES
+                ======================================== -->
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
+
+                        <!-- Cabeçalho da tabela -->
                         <thead>
                             <tr>
                                 <th class="col-cod">Código</th>
@@ -73,33 +139,91 @@
                                 <th class="col-acoes"></th>
                             </tr>
                         </thead>
+
+                        <!-- Dados dos estoques -->
                         <tbody>
+
+                            <!-- Primeiro estoque -->
                             <tr>
                                 <td>1</td>
                                 <td>Galpão 3, sala B</td>
+
+                                <!-- Ações disponíveis -->
                                 <td>
                                     <div class="acoes">
-                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
-                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+
+                                        <!-- Editar estoque -->
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar">
+                                            <img src="../../images/icone-editar.svg" alt="Editar">
+                                        </a>
+
+                                        <!-- Excluir estoque -->
+                                        <button
+                                            type="button"
+                                            class="zera-botao-excluir"
+                                            data-modal-exclusao
+                                            data-excluir-id="1"
+                                            data-excluir-tipo="estoque"
+                                            data-excluir-titulo="Deseja mesmo excluir?"
+                                            data-excluir-descricao="Essa ação pode levar à exclusão de outros itens relacionados."
+                                            aria-label="Excluir"
+                                            title="Excluir"
+                                        >
+                                            <img src="../../images/icone-excluir.svg" alt="">
+                                        </button>
+
                                     </div>
                                 </td>
                             </tr>
+
+                            <!-- Segundo estoque -->
                             <tr>
                                 <td>1</td>
                                 <td>Galpão 3, sala B</td>
+
+                                <!-- Ações disponíveis -->
                                 <td>
                                     <div class="acoes">
-                                        <a href="crud-editar-estoques-usuario.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
-                                        <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+
+                                        <!-- Editar estoque -->
+                                        <a href="crud-editar-estoques-usuario.html" title="Editar">
+                                            <img src="../../images/icone-editar.svg" alt="Editar">
+                                        </a>
+
+                                        <!-- Excluir estoque -->
+                                        <button
+                                            type="button"
+                                            class="zera-botao-excluir"
+                                            data-modal-exclusao
+                                            data-excluir-id="1"
+                                            data-excluir-tipo="estoque"
+                                            data-excluir-titulo="Deseja mesmo excluir?"
+                                            data-excluir-descricao="Essa ação pode levar à exclusão de outros itens relacionados."
+                                            aria-label="Excluir"
+                                            title="Excluir"
+                                        >
+                                            <img src="../../images/icone-excluir.svg" alt="">
+                                        </button>
+
                                     </div>
                                 </td>
                             </tr>
+
                         </tbody>
+
                     </table>
                 </div>
+
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>

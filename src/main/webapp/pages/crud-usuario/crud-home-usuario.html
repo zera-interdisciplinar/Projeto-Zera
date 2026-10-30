@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home  - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html" class="botao-ativo">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -30,48 +58,83 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- ========================================
+                 BOAS-VINDAS AO USUÁRIO
+            ======================================== -->
             <h1 class="nome-da-area">Olá, Mariana</h1>
             <p class="subtitulo-area">Gerencie os dados da sua unidade pelo seu painel.</p>
 
+            <!-- ========================================
+                 CARDS DE MÉTRICAS
+            ======================================== -->
             <section class="home-cards-container">
+
+                <!-- Card de estoques -->
                 <div class="card-metrica">
                     <span class="titulo-metrica">Estoques na<br>unidade</span>
                     <span class="numero-metrica">6</span>
                 </div>
 
+                <!-- Card de assinaturas -->
                 <div class="card-metrica">
                     <span class="titulo-metrica">Assinaturas</span>
                     <span class="numero-metrica">6</span>
                 </div>
 
+                <!-- Primeiro card de código de convite -->
                 <div class="card-metrica borda-amarela">
                     <span class="titulo-metrica">Código de<br>convite</span>
                     <span class="numero-metrica">6</span>
                 </div>
 
+                <!-- Segundo card de código de convite -->
                 <div class="card-metrica borda-amarela">
                     <span class="titulo-metrica">Código de<br>convite</span>
                     <span class="numero-metrica">6</span>
                 </div>
+
             </section>
 
+            <!-- ========================================
+                 PAINEL INFERIOR
+            ======================================== -->
             <section class="home-painel-inferior"></section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>

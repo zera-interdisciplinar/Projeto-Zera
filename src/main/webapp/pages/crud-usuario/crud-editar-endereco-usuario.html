@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar endereço - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -30,36 +58,70 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Botão de voltar -->
             <a href="crud-endereco-usuario.html" class="voltar">
                 <img src="../../images/seta-voltar.svg" alt="">
                 <span>Voltar</span>
             </a>
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Editar endereço</h1>
 
+            <!-- ========================================
+                 FORMULÁRIO DE EDIÇÃO DO ENDEREÇO
+            ======================================== -->
             <section class="tabela">
+
+                <!-- Título do formulário -->
                 <label class="tabela-titulo">Endereço</label>
 
                 <form action="#" method="POST">
+
+                    <!-- ========================================
+                         DADOS DO ENDEREÇO
+                    ======================================== -->
                     <div class="form-grid-duplo">
+
+                        <!-- Logradouro -->
                         <div class="filtrador">
                             <label for="logradouro">Logradouro</label>
-                            <input type="text" id="logradouro" name="logradouro" value="Rua José Irineu" class="form-campo-total">
+                            <input
+                                type="text"
+                                id="logradouro"
+                                name="logradouro"
+                                value="Rua José Irineu"
+                                class="form-campo-total"
+                            >
                         </div>
+
+                        <!-- Estado -->
                         <div class="filtrador">
                             <label for="estado">Estado</label>
                             <select id="estado" name="estado" class="form-campo-total">
@@ -93,34 +155,80 @@
                             </select>
                         </div>
 
+                        <!-- Número -->
                         <div class="filtrador">
                             <label for="numero">Número</label>
-                            <input type="text" id="numero" name="numero" value="123" class="form-campo-total" inputmode="numeric">
+                            <input
+                                type="text"
+                                id="numero"
+                                name="numero"
+                                value="123"
+                                class="form-campo-total"
+                                inputmode="numeric"
+                            >
                         </div>
+
+                        <!-- Cidade -->
                         <div class="filtrador">
                             <label for="cidade">Cidade</label>
-                            <input type="text" id="cidade" name="cidade" value="São Paulo" class="form-campo-total">
+                            <input
+                                type="text"
+                                id="cidade"
+                                name="cidade"
+                                value="São Paulo"
+                                class="form-campo-total"
+                            >
                         </div>
 
+                        <!-- CEP -->
                         <div class="filtrador">
                             <label for="cep">CEP</label>
-                            <input type="text" id="cep" name="cep" value="00000000" class="form-campo-total" inputmode="numeric" maxlength="8">
+                            <input
+                                type="text"
+                                id="cep"
+                                name="cep"
+                                value="00000000"
+                                class="form-campo-total"
+                                inputmode="numeric"
+                                maxlength="8"
+                            >
                         </div>
+
+                        <!-- Bairro -->
                         <div class="filtrador">
                             <label for="bairro">Bairro</label>
-                            <input type="text" id="bairro" name="bairro" value="Lins" class="form-campo-total">
+                            <input
+                                type="text"
+                                id="bairro"
+                                name="bairro"
+                                value="Lins"
+                                class="form-campo-total"
+                            >
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         BOTÃO DE SALVAR
+                    ======================================== -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Salvar
                         </button>
                     </div>
+
                 </form>
+
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>

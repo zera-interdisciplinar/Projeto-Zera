@@ -1,0 +1,348 @@
+
+@charset "UTF-8";
+
+/* ========================================
+   BOTÃO DE EXCLUIR DA TABELA
+======================================== */
+
+button.zera-botao-excluir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    box-shadow: none !important;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer !important;
+    vertical-align: middle;
+}
+
+button.zera-botao-excluir:hover,
+button.zera-botao-excluir:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+button.zera-botao-excluir:focus-visible {
+    outline: 2px solid #2457B6;
+    outline-offset: 3px;
+}
+
+button.zera-botao-excluir img {
+    display: block;
+    width: 20px;
+    height: 20px;
+
+    border: none !important;
+    box-shadow: none !important;
+
+    pointer-events: none;
+}
+
+/* ========================================
+   FUNDO ESCURECIDO
+======================================== */
+
+.zera-modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 20px;
+
+    background-color: rgba(22, 29, 43, 0.85);
+
+    z-index: 2147483647;
+    box-sizing: border-box;
+}
+
+.zera-modal-overlay[hidden] {
+    display: none !important;
+}
+
+.zera-modal-overlay,
+.zera-modal-overlay * {
+    box-sizing: border-box;
+}
+
+/* ========================================
+   CAIXA DO POPUP
+   568 x 263 px
+======================================== */
+
+.zera-modal-overlay .zera-modal-caixa {
+    position: relative;
+
+    width: 568px;
+    max-width: 100%;
+    height: 263px;
+
+    padding: 35px 30px 25px;
+
+    border: none;
+    border-radius: 20px;
+
+    background: linear-gradient(
+        120deg,
+        #2454B9 0%,
+        #203F91 55%,
+        #192E69 100%
+    );
+
+    color: #FFFFFF;
+
+    font-family: "Inria Sans", Arial, sans-serif;
+    text-align: left;
+
+    box-shadow: none;
+}
+
+/* ========================================
+   TÍTULO
+   41.07 px / Bold
+======================================== */
+
+.zera-modal-overlay .zera-modal-caixa h2 {
+    margin: 0 45px 8px 0;
+
+    color: #FFFFFF;
+
+    font-family: "Inria Sans", Arial, sans-serif;
+    font-size: 41.07px;
+    font-weight: 700;
+    line-height: 1.1;
+
+    text-align: left;
+    text-transform: none;
+}
+
+/* ========================================
+   TEXTO SECUNDÁRIO
+   16 px / Light
+======================================== */
+
+.zera-modal-overlay .zera-modal-descricao {
+    margin: 0;
+
+    max-width: 480px;
+
+    color: #DDE6FF;
+
+    font-family: "Inria Sans", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+
+    text-align: left;
+}
+
+/* ========================================
+   BOTÃO X
+   ÍCONE ADICIONAR GIRADO 45°
+   44 x 42 px
+======================================== */
+
+.zera-modal-overlay .zera-modal-fechar {
+    position: absolute;
+
+    top: 17px;
+    right: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 42px;
+
+    padding: 0;
+
+    background-color: transparent;
+    background-image: url("../images/icone-adicionar.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 44px 42px;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    color: transparent;
+    font-size: 0;
+
+    cursor: pointer;
+
+    transform: rotate(45deg);
+    transform-origin: center;
+}
+
+.zera-modal-overlay .zera-modal-fechar:hover {
+    opacity: 0.8;
+}
+
+/* ========================================
+   ÁREA DOS BOTÕES
+======================================== */
+
+.zera-modal-overlay .zera-modal-botoes {
+    position: absolute;
+
+    right: 30px;
+    bottom: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+    margin: 0;
+}
+
+/* ========================================
+   ESTILO BASE DOS BOTÕES
+   120 x 54 px
+======================================== */
+
+.zera-modal-overlay .zera-modal-voltar,
+.zera-modal-overlay .zera-modal-confirmar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 120px;
+    min-width: 120px;
+    height: 54px;
+
+    padding: 0;
+
+    border-radius: 15.93px;
+
+    background-color: #F5F1E6;
+
+    font-family: "Inria Sans", Arial, sans-serif;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+/* ========================================
+   VOLTAR
+   Fonte: 26.47 px / Regular
+   Borda: 1.76 px
+======================================== */
+
+.zera-modal-overlay .zera-modal-voltar {
+    border: 1.76px solid #4778E7;
+
+    color: #4778E7;
+
+    font-size: 26.47px;
+    font-weight: 400;
+}
+
+.zera-modal-overlay .zera-modal-voltar:hover {
+    background-color: #E4EAFB;
+}
+
+/* ========================================
+   EXCLUIR
+   Fonte: 26.04 px / Bold
+   Borda: 5 px
+======================================== */
+
+.zera-modal-overlay .zera-modal-confirmar {
+    border: 5px solid #FF433B;
+
+    color: #FF433B;
+
+    font-size: 26.04px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+.zera-modal-overlay .zera-modal-confirmar:hover {
+    background-color: #FFE5E3;
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+.zera-modal-overlay button:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 600px) {
+    .zera-modal-overlay .zera-modal-caixa {
+        width: 100%;
+        height: auto;
+        min-height: 263px;
+
+        padding: 35px 22px 105px;
+    }
+
+    .zera-modal-overlay .zera-modal-caixa h2 {
+        font-size: clamp(25px, 6vw, 41.07px);
+        margin-right: 40px;
+    }
+
+    .zera-modal-overlay .zera-modal-descricao {
+        font-size: 16px;
+    }
+
+    .zera-modal-overlay .zera-modal-botoes {
+        right: 22px;
+        bottom: 22px;
+        gap: 10px;
+    }
+
+    .zera-modal-overlay .zera-modal-voltar,
+    .zera-modal-overlay .zera-modal-confirmar {
+        width: 110px;
+        min-width: 110px;
+        height: 50px;
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 380px) {
+    .zera-modal-overlay .zera-modal-botoes {
+        right: 18px;
+        left: 18px;
+    }
+
+    .zera-modal-overlay .zera-modal-voltar,
+    .zera-modal-overlay .zera-modal-confirmar {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+}
