@@ -1,14 +1,10 @@
-@charset "UTF-8";
-
-
+*@charset* "UTF-8";
 
 :root {
 
     --fonte2: 'Instrument Sans', sans-serif;
 
 }
-
-
 
 .tela-auth {
 
@@ -25,8 +21,6 @@
     overflow-x: hidden;
 
 }
-
-
 
 .painel-esquerda {
 
@@ -48,8 +42,6 @@
 
 }
 
-
-
 .painel-conteudo {
 
     width: 100%;
@@ -70,9 +62,7 @@
 
 }
 
-
-
-/\ Lista de navegação vertical /
+/* Lista de navegação vertical */
 
 .painel-esquerda nav {
 
@@ -94,9 +84,7 @@
 
 }
 
-
-
-/\ Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport /
+/* Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport  */
 
 .painel-esquerda nav a {
 
@@ -107,16 +95,11 @@
     justify-content: flex-start;
 
     width: 191px;
-<<<<<<< HEAD
 
-    height: 56.95px;
-
-    padding-left: 40.5px; /\ 4.5px margem externa + 40.5px = 45px exatos da tela /
-
-=======
     height: 46.95px;
+
     padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
->>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
+
     box-sizing: border-box;
 
     border-radius: 12px;
@@ -135,9 +118,7 @@
 
 }
 
-
-
-/\ Hover: #152D6B com 7% /
+/* Hover: #152D6B com 7%  */
 
 .painel-esquerda nav a:hover {
 
@@ -149,9 +130,7 @@
 
 }
 
-
-
-/\ Quadrado azul de seleção (191px x 46.95px) /
+/* Quadrado azul de seleção (191px x 46.95px)  */
 
 .painel-esquerda nav .botao-ativo {
 
@@ -165,7 +144,7 @@
 
     height: 46.95px !important;
 
-    padding-left: 40.5px !important; /\ Mantém o texto nos mesmos 45px do viewport /
+    padding-left: 40.5px !important; /* Mantém o texto nos mesmos 45px do viewport  */
 
     border-radius: 12px;
 
@@ -173,9 +152,7 @@
 
 }
 
-
-
-/\ Traço divisor: 154px de largura e #152D6B com 67% /
+/* Traço divisor: 154px de largura e #152D6B com 67%  */
 
 .painel-esquerda hr {
 
@@ -189,8 +166,6 @@
 
 }
 
-
-
 .logo-zera{
 
     width: 100%;
@@ -203,19 +178,15 @@
 
     margin-left: 30px;
 
-    padding-bottom: 50px
+    padding-bottom: 50px;
 
 }
-
-
 
 /*
 
 fundo da area de informações
 
 */
-
-
 
 #informacoes-gerais{
 
@@ -249,11 +220,7 @@ fundo da area de informações
 
     background: linear-gradient( 135deg, #2958D1, var(--cor2));
 
-
-
 }
-
-
 
 .z-marca-dagua {
 
@@ -281,8 +248,6 @@ fundo da area de informações
 
 }
 
-
-
 #home{
 
     font-size: 41.07px;
@@ -299,15 +264,11 @@ fundo da area de informações
 
 }
 
-
-
 /*
 
 Espaço de informações
 
 */
-
-
 
 .card{
 
@@ -331,8 +292,6 @@ Espaço de informações
 
 }
 
-
-
 .card .dado{
 
     border: 2px solid var(--cor2);
@@ -351,15 +310,7 @@ Espaço de informações
 
     margin-bottom: 0px;
 
-
-
-
-
-
-
 }
-
-
 
 .card .dado .nome-do-dado{
 
@@ -379,11 +330,7 @@ Espaço de informações
 
     padding-top: 30px;
 
-
-
 }
-
-
 
 .card .dado .numero-do-dado{
 
@@ -399,13 +346,7 @@ Espaço de informações
 
     margin: 0;
 
-
-
-
-
 }
-
-
 
 .card a{
 
@@ -413,17 +354,11 @@ Espaço de informações
 
 }
 
-
-
-
-
 /*
 
 dado que precisa de atenção
 
 */
-
-
 
 #alerta{
 
@@ -431,15 +366,11 @@ dado que precisa de atenção
 
 }
 
-
-
 /*
 
 fundo da tabela
 
 */
-
-
 
 .informacoes{
 
@@ -475,11 +406,7 @@ fundo da tabela
 
     background: linear-gradient( 135deg, #2958D1, var(--cor2));
 
-
-
 }
-
-
 
 .nome-da-area{
 
@@ -497,21 +424,13 @@ fundo da tabela
 
     flex-shrink: 0;
 
-
-
 }
-
-
 
 /*
 
 O card onde a tabela com as informações vai estar
 
 */
-
-
-
-
 
 .tabela{
 
@@ -539,8 +458,6 @@ min-height: 0;
 
 }
 
-
-
 .tabela label{
 
     font-family: var(--fonte1);
@@ -552,8 +469,6 @@ min-height: 0;
     color: var(--cor2);
 
 }
-
-
 
 .tabela-filtros{
 
@@ -567,15 +482,11 @@ min-height: 0;
 
 }
 
-
-
 /*
 
 A rolagem para ver mais informações que não cabem no card
 
 */
-
-
 
 .tabela-rolagem{
 
@@ -585,7 +496,7 @@ A rolagem para ver mais informações que não cabem no card
 
     overflow-y: auto;
 
-    margin-top: 12;
+    margin-top: 12px;
 
     scrollbar-width: thin;
 
@@ -593,15 +504,11 @@ A rolagem para ver mais informações que não cabem no card
 
 }
 
-
-
 /*
 
 input para pesquisar algum registro específico
 
 */
-
-
 
 .tabela-filtros input{
 
@@ -621,19 +528,13 @@ input para pesquisar algum registro específico
 
     width: auto;
 
-
-
 }
-
-
 
 .tabela-filtros input:focus {
 
-    border: 2px solid var(--cor2)
+    border: 2px solid var(--cor2);
 
 }
-
-
 
 .tabela-filtros input::placeholder {
 
@@ -642,8 +543,6 @@ input para pesquisar algum registro específico
     font-size: 19.5px;
 
 }
-
-
 
 .filtrador{
 
@@ -655,8 +554,6 @@ input para pesquisar algum registro específico
 
 }
 
-
-
 .busca{
 
     flex: 1;
@@ -664,8 +561,6 @@ input para pesquisar algum registro específico
     min-width: 0;
 
 }
-
-
 
 .tabela-filtros select {
 
@@ -685,27 +580,21 @@ input para pesquisar algum registro específico
 
   cursor: pointer;
 
-
-
   -webkit-appearance: none;
 
   -moz-appearance: none;
 
   appearance: none;
 
-
-
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1.5l6 6 6-6' fill='none' stroke='%23152D6B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
   background-repeat: no-repeat;
 
-  background-position: right 18px center; /\ distância da borda /
+  background-position: right 18px center; /* distância da borda */
 
   background-size: 14px 9px;
 
 }
-
-
 
 .adicionar{
 
@@ -735,8 +624,6 @@ input para pesquisar algum registro específico
 
 }
 
-
-
 #adicionar-invisivel{
 
     background-color: #2958D1;
@@ -761,7 +648,7 @@ input para pesquisar algum registro específico
 
     display: inline-flex;
 
-    /\visibility: hidden;/
+    /* visibility: hidden; */
 
     display: none;
 
@@ -769,23 +656,17 @@ input para pesquisar algum registro específico
 
 }
 
-
-
 .adicionar:hover{
 
     text-decoration: none;
 
 }
 
-
-
 /*
 
 colunas e linhas da tabela
 
 */
-
-
 
 .itens-tabela{
 
@@ -796,8 +677,6 @@ colunas e linhas da tabela
     table-layout: fixed;
 
 }
-
-
 
 .itens-tabela th{
 
@@ -821,8 +700,6 @@ colunas e linhas da tabela
 
 }
 
-
-
 .itens-tabela td{
 
     text-align: left;
@@ -837,8 +714,6 @@ colunas e linhas da tabela
 
 }
 
-
-
 .itens-tabela tbody tr{
 
     border-top: 2px solid #152D6BAD;
@@ -851,23 +726,17 @@ colunas e linhas da tabela
 
 }
 
-
-
 /*
 
 Ações de modificação dos registros
 
 */
 
-
-
 .acoes{
 
     font-size: 0;
 
 }
-
-
 
 .acoes a{
 
@@ -877,23 +746,17 @@ Ações de modificação dos registros
 
 }
 
-
-
 .acoes a + a{
 
     margin-left: 10px;
 
 }
 
-
-
 .acoes img{
 
     display: block;
 
 }
-
-
 
 #perfil-admin{
 
@@ -915,8 +778,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 #perfil-admin h4{
 
     font-family: var(--fonte1);
@@ -930,8 +791,6 @@ Ações de modificação dos registros
     margin-bottom: 10px;
 
 }
-
-
 
 #perfil-admin h5{
 
@@ -953,8 +812,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 #perfil-admin p{
 
     font-family: var(--fonte1);
@@ -964,8 +821,6 @@ Ações de modificação dos registros
     color: var(--cor2);
 
 }
-
-
 
 #perfil-admin div{
 
@@ -982,8 +837,6 @@ Ações de modificação dos registros
     margin-left: 30px;
 
 }
-
-
 
 #perfil-admin button{
 
@@ -1009,15 +862,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 #perfil-admin button:hover{
 
     background-color: var(--cor2);
 
 }
-
-
 
 #alterar-senha{
 
@@ -1041,8 +890,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 #alterar-senha h4{
 
     font-family: var(--fonte1);
@@ -1056,8 +903,6 @@ Ações de modificação dos registros
     margin-bottom: 10px;
 
 }
-
-
 
 #alterar-senha label{
 
@@ -1074,8 +919,6 @@ Ações de modificação dos registros
     margin-right: 310px;
 
 }
-
-
 
 #alterar-senha #senha-atual{
 
@@ -1099,8 +942,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 #alterar-senha input{
 
     margin-left: 30px;
@@ -1121,8 +962,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 #alterar-senha input::placeholder{
 
     font-family: var(--fonte1);
@@ -1132,8 +971,6 @@ Ações de modificação dos registros
     color: #152D6B80;
 
 }
-
-
 
 #alterar-senha button{
 
@@ -1159,15 +996,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 #alterar-senha button:hover{
 
     background-color: var(--cor2);
 
 }
-
-
 
 .voltar {
 
@@ -1197,15 +1030,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .voltar:hover{
 
     text-decoration: none;
 
 }
-
-
 
 .edicao{
 
@@ -1218,8 +1047,6 @@ Ações de modificação dos registros
     padding: 36px;
 
 }
-
-
 
 .edicao h5{
 
@@ -1239,14 +1066,8 @@ Ações de modificação dos registros
 
 }
 
-<<<<<<< HEAD
-
-
-.edicao .infos-de-mesma-linha{
-
-=======
 .infos-de-mesma-linha{
->>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
+
     border: 2px solid var(--cor2);
 
     border-radius: 9px;
@@ -1258,14 +1079,10 @@ Ações de modificação dos registros
     width: 465px;
 
     margin-right: 15px;
-<<<<<<< HEAD
 
-=======
     position: relative;
->>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
+
 }   
-
-
 
 .edicao #nome{
 
@@ -1280,8 +1097,6 @@ Ações de modificação dos registros
     width: 950px;
 
 }
-
-
 
 .edicao .infos-de-mesma-linha input{
 
@@ -1298,8 +1113,6 @@ Ações de modificação dos registros
     width: 440px;
 
 }
-
-
 
 .edicao #nome input{
 
@@ -1321,23 +1134,17 @@ Ações de modificação dos registros
 
 }
 
-
-
 .edicao #nome input:focus{
 
     outline: none;
 
 }
 
-
-
 .edicao .infos-de-mesma-linha input:focus{
 
     outline: none;
 
 }
-
-
 
 .edicao select{
 
@@ -1355,8 +1162,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .edicao #nome select{
 
     background-color: var(--cor1);
@@ -1373,15 +1178,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .edicao select:focus{
 
     outline: none;
 
 }
-
-
 
 .edicao p{
 
@@ -1392,8 +1193,6 @@ Ações de modificação dos registros
     color: var(--cor2);
 
 }
-
-
 
 .edicao button{
 
@@ -1417,15 +1216,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .edicao button:hover{
 
     background-color: var(--cor2);
 
 }
-
-
 
 .adicao{
 
@@ -1438,8 +1233,6 @@ Ações de modificação dos registros
     padding: 36px;
 
 }
-
-
 
 .adicao h5{
 
@@ -1459,8 +1252,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao .infos-de-mesma-linha{
 
     border: 2px solid var(--cor2);
@@ -1477,8 +1268,6 @@ Ações de modificação dos registros
 
 }   
 
-
-
 .adicao #nome{
 
     border: 2px solid var(--cor2);
@@ -1492,8 +1281,6 @@ Ações de modificação dos registros
     width: 950px;
 
 }
-
-
 
 .adicao #nome input{
 
@@ -1515,15 +1302,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #nome input:focus{
 
     outline: none;
 
 }
-
-
 
 .adicao p{
 
@@ -1534,8 +1317,6 @@ Ações de modificação dos registros
     color: var(--cor2);
 
 }
-
-
 
 .adicao button{
 
@@ -1559,8 +1340,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #nome select{
 
     background-color: var(--cor1);
@@ -1577,15 +1356,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #nome select:focus{
 
     outline: none;
 
 }
-
-
 
 .adicao .infos-de-mesma-linha select{
 
@@ -1605,15 +1380,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao .infos-de-mesma-linha select:focus{
 
     outline: none;
 
 }
-
-
 
 .adicao .infos-de-mesma-linha input{
 
@@ -1629,11 +1400,7 @@ Ações de modificação dos registros
 
     width: 440px;
 
-
-
 }
-
-
 
 .adicao .infos-de-mesma-linha input:focus{
 
@@ -1641,15 +1408,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao button:hover{
 
     background-color: var(--cor2);
 
 }
-
-
 
 .adicao #proxima-tela{
 
@@ -1677,8 +1440,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #proxima-tela:hover{
 
     background-color: #2958D1;
@@ -1688,8 +1449,6 @@ Ações de modificação dos registros
     border-color: #2958D1;
 
 }
-
-
 
 .adicao #tela-atual{
 
@@ -1715,15 +1474,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #tela-atual:hover{
 
     text-decoration: none;
 
 }
-
-
 
 .adicao #tela-atual-primeira{
 
@@ -1753,15 +1508,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #tela-atual-primeira:hover{
 
     text-decoration: none;
 
 }
-
-
 
 .adicao #outra-tela-primeira{
 
@@ -1787,15 +1538,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #outra-tela-primeira:hover{
 
     text-decoration: none;
 
 }
-
-
 
 .adicao #outra-tela{
 
@@ -1819,15 +1566,11 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #outra-tela:hover{
 
     text-decoration: none;
 
 }
-
-
 
 .adicao #separador{
 
@@ -1841,8 +1584,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao h4{
 
     font-family: var(--fonte1);
@@ -1852,8 +1593,6 @@ Ações de modificação dos registros
     color: var(--cor2);
 
 }
-
-
 
 .adicao #concluir{
 
@@ -1879,8 +1618,6 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #concluir:hover{
 
     text-decoration: none;
@@ -1888,8 +1625,6 @@ Ações de modificação dos registros
     background-color: var(--cor2);
 
 }
-
-
 
 .adicao #linha-completa{
 
@@ -1904,8 +1639,6 @@ Ações de modificação dos registros
     width: 950px;
 
 }
-
-
 
 .adicao #linha-completa input{
 
@@ -1927,197 +1660,277 @@ Ações de modificação dos registros
 
 }
 
-
-
 .adicao #linha-completa input:focus{
 
     outline: none;
 
 }
 
-<<<<<<< HEAD
-
-/* MODAL DE EXCLUSÃO DA UNIDADE */
-.botao-excluir-unidade { display:inline-flex; align-items:center; justify-content:center; background:transparent; border:0; color:#e53935; cursor:pointer; padding:4px; vertical-align:middle; }
-.botao-excluir-unidade:hover { color:#b71c1c; }
-.modal-overlay { position:fixed; inset:0; width:100%; min-height:100dvh; background:rgba(18,24,38,.70); display:flex; justify-content:center; align-items:center; z-index:99999; padding:20px; box-sizing:border-box; }
-.modal-overlay[hidden] { display:none; }
-.modal-caixa { position:relative; width:100%; max-width:450px; min-height:208px; background:linear-gradient(135deg,#2452B5 0%,#1A347B 100%); border-radius:15px; padding:28px 26px 24px; box-sizing:border-box; color:#fff; font-family:var(--fonte1),Arial,sans-serif; box-shadow:0 8px 30px rgba(0,0,0,.12); }
-.modal-caixa h2 { font-size:27px; font-weight:700; line-height:1.2; text-transform:none; color:#fff; margin:0 35px 8px 0; }
-.modal-descricao { font-size:12px; font-weight:400; line-height:1.5; color:rgba(255,255,255,.7); max-width:360px; margin:0; }
-.modal-fechar { position:absolute; top:18px; right:18px; border:0; background:transparent; color:rgba(255,255,255,.75); font-size:35px; line-height:1; cursor:pointer; padding:0; }
-.modal-fechar:hover { color:#fff; }
-.modal-botoes { display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:45px; }
-.modal-voltar,.modal-excluir { font-family:var(--fonte1),Arial,sans-serif; font-size:15px; font-weight:600; border-radius:9px; padding:9px 19px; cursor:pointer; transition:background-color .2s,color .2s; }
-.modal-voltar { background:#F1EADA; color:#2E62E0; border:2px solid #C5D0EA; }
-.modal-voltar:hover { background:#E2E6EF; }
-.modal-excluir { background:#F1EADA; color:#FF3B30; border:2px solid #FF3B30; }
-.modal-excluir:hover { background:#FF3B30; color:#fff; }
-@media(max-width:480px) { .modal-caixa { max-width:350px; min-height:190px; padding:25px 20px 22px; } .modal-caixa h2 { font-size:22px; } .modal-descricao { font-size:11px; } .modal-botoes { margin-top:35px; } .modal-voltar,.modal-excluir { font-size:13px; padding:8px 15px; } }
-=======
 #perfil-admin input{
+
     border: none;
+
     background-color: var(--cor1);
+
     border-radius: 9px;
+
     display: block;
+
     font-family: var(--fonte1);
+
     color: var(--cor2);
+
     font-size: 19.5px;
+
     width: 410px;
+
 }
 
 #perfil-admin input:focus{
+
     outline: none;
+
 }
 
 #perfil-admin .mensagem-erro{
+
     display: none;
+
     color: #FF0000;
+
     font-size: 12px;
+
     font-family: var(--fonte1);
+
     background: var(--cor1);
+
     position: absolute;
+
     bottom: -7px;
+
     left: 15px;
+
     padding: 0 2px;
+
     white-space: nowrap;
+
 }
 
 #perfil-admin .erro{
+
     border-color: #ff0000;
+
     position: relative;
+
 }
 
 #perfil-admin .erro{
+
     color: #ff0000;
+
 }
 
 #perfil-admin .erro .mensagem-erro{
+
     display: block;
-    
+
 }
 
 #perfil-admin .erro label{
+
     color:#FF0000;   
+
 }
 
 #alterar-senha form .senha-atual.erro{
+
     color: #ff0000;
+
 }
 
 #alterar-senha form #senha-atual.erro{
+
     border-color: #ff0000;
+
     position: relative;
+
 }
 
 #alterar-senha form #senha-atual + .mensagem-erro{
+
     display: none;
+
     color: #FF0000;
+
     font-size: 12px;
+
     font-family: var(--fonte1);
+
     background: var(--cor1);
+
     position: absolute;
+
     padding: 0 2px;
+
     white-space: nowrap;
+
 }
 
 #alterar-senha form  .erro#senha-atual + .mensagem-erro{
+
     display: block;
+
     margin-left: 44px;
+
     margin-top: -25px;
+
     margin-bottom: 10px;
-    
+
 }
 
-
-
 #alterar-senha form .nova-senha.erro{
+
     color: #ff0000;
+
 }
 
 #alterar-senha form #nova-senha.erro{
+
     border-color: #ff0000;
+
     position: relative;
+
 }
 
 #alterar-senha form #nova-senha + .mensagem-erro{
+
     display: none;
+
     color: #FF0000;
+
     font-size: 10px;
+
     font-family: var(--fonte1);
+
     background: var(--cor1);
+
     position: absolute;
+
     padding: 0 2px;
+
     white-space: nowrap;
+
 }
 
 #alterar-senha form  .erro#nova-senha + .mensagem-erro{
+
     display: block;
+
     margin-left: 46px;
+
     margin-top: -8px;
+
     margin-bottom: 10px;
+
 }
 
-
 #alterar-senha form .confirmar-nova-senha.erro{
+
     color: #ff0000;
+
 }
 
 #alterar-senha form #confirmar-nova-senha.erro{
+
     border-color: #ff0000;
+
     position: relative;
+
 }
 
 #alterar-senha form #confirmar-nova-senha + .mensagem-erro{
+
     display: none;
+
     color: #FF0000;
+
     font-size: 12px;
+
     font-family: var(--fonte1);
+
     background: var(--cor1);
+
     position: absolute;
+
     padding: 0 2px;
+
     white-space: nowrap;
+
 }
 
 #alterar-senha form  .erro#confirmar-nova-senha + .mensagem-erro{
+
     display: block;
+
     margin-left: 491px;
+
     margin-top: -11px;
+
     margin-bottom: 10px;
+
 }
 
-
 .infos-de-mesma-linha .mensagem-erro{
+
     display: none;
+
     color: #FF0000;
+
     font-size: 12px;
+
     font-family: var(--fonte1);
+
     background: var(--cor1);
+
     position: absolute;
+
     bottom: -7px;
+
     left: 15px;
+
     padding: 0 2px;
+
     white-space: nowrap;
+
 }
 
 .infos-de-mesma-linha.erro .mensagem-erro{
+
     display: block;
+
 }
 
 .infos-de-mesma-linha.erro label{
+
     color:#FF0000;   
+
 }
 
 .infos-de-mesma-linha.erro{
+
     border-color:#FF0000;
+
 }
 
 .adicao h5.erro{
+
     color: #FF0000;
+
 }
 
 .edicao h5.erro{
+
     color: #ff0000;
+
 }
 
->>>>>>> 0b6516fc6237c8c9e6e8e2f82ca06870cbf60d80
