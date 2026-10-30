@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar unidade  - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -30,57 +58,102 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Botão de voltar -->
             <a href="crud-unidade-usuario.html" class="voltar">
                 <img src="../../images/seta-voltar.svg" alt="">
                 <span>Voltar</span>
             </a>
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Editar unidade</h1>
 
+            <!-- ========================================
+                 FORMULÁRIO DE EDIÇÃO DA UNIDADE
+            ======================================== -->
             <section class="tabela">
                 <form action="#" method="POST">
+
+                    <!-- ========================================
+                         DADOS DA UNIDADE
+                    ======================================== -->
                     <div class="form-coluna">
+
+                        <!-- Organização vinculada -->
                         <div class="filtrador">
                             <label for="organizacao">Organização</label>
-                            <input type="text" id="organizacao" name="organizacao" value="JBS Alimentos" class="form-campo-total" readonly>
+                            <input
+                                type="text"
+                                id="organizacao"
+                                name="organizacao"
+                                value="JBS Alimentos"
+                                class="form-campo-total"
+                                readonly
+                            >
                         </div>
 
+                        <!-- Email da unidade -->
                         <div class="filtrador">
                             <label for="email-unidade">Email da unidade</label>
                             <input type="email" id="email-unidade" name="email_unidade" value="tijbs@exemplo.com" class="form-campo-total">
                             <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                         </div>
 
+                        <!-- CNPJ da unidade -->
                         <div class="filtrador">
                             <label for="cnpj-unidade">CNPJ da unidade</label>
                             <input type="text" id="cnpj-unidade" name="cnpj_unidade" value="11.222.333/0001-81" class="form-campo-total" inputmode="numeric" maxlength="18">
                             <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span>
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         BOTÃO DE SALVAR
+                    ======================================== -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Salvar
                         </button>
                     </div>
+
                 </form>
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>

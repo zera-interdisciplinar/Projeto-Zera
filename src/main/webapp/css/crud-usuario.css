@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 :root {
@@ -11,8 +12,9 @@
 }
 
 /* ========================================================
-   HOME ESPECÍFICA (Olá Mariana + 4 Cards + Painel Inferior)
+   HOME: CARDS E GRÁFICOS
    ======================================================== */
+
 .subtitulo-area {
     color: rgba(245, 241, 230, 0.85);
     font-size: 16px;
@@ -22,78 +24,238 @@
     z-index: 2;
 }
 
-/* Card Bege com os 4 blocos */
 .home-cards-container {
-    background-color: var(--cor1);
     position: relative;
     z-index: 2;
-    border-radius: 20px;
-    box-sizing: border-box;
-    margin-left: 95px !important;
-    padding: 34px 28px;
+    margin-left: 55px !important;
+    width: calc(100% - 75px);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: calc(100% - 135px);
-    max-width: 860px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    box-sizing: border-box;
 }
 
-/* Cada bloquinho métrico */
-.card-metrica {
-    border: 2px solid var(--cor2);
-    border-radius: 18px;
-    padding: 22px 12px 18px 12px;
+.home-card {
+    background: var(--cor1);
+    border-left: 6px solid var(--cor5);
+    border-radius: 15px;
+    padding: 16px 14px;
+    min-height: 102px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 185px;
+    justify-content: center;
+    min-width: 0;
     box-sizing: border-box;
-    background-color: transparent;
-}
-
-/* Os 2 cards com borda amarela/laranja */
-.card-metrica.borda-amarela {
-    border-color: #F59E0B;
-}
-
-.card-metrica .titulo-metrica {
     font-family: var(--fonte1);
-    font-size: 18px;
-    font-weight: bold;
+}
+
+.home-card.borda-amarela {
+    border-left-color: var(--cor4);
+}
+
+.home-card .titulo-metrica {
+    color: #65789E;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.home-card .numero-metrica {
     color: var(--cor2);
-    text-align: center;
-    line-height: 1.2;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.1;
 }
 
-.card-metrica .numero-metrica {
-    font-family: var(--fonte1);
-    font-size: 64px;
-    font-weight: bold;
-    color: #2958D1;
-    line-height: 1;
-    margin-top: 10px;
+.home-card .descricao-metrica {
+    color: #7888A5;
+    font-size: 10px;
+    margin-top: 4px;
 }
 
-/* Painel Bege Inferior Vazio */
+.home-card .plano-metrica {
+    color: var(--cor2);
+    font-size: clamp(16px, 2vw, 23px);
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.home-card .numero-com-unidade {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.home-card .unidade-metrica {
+    color: #65789E;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 .home-painel-inferior {
-    background-color: var(--cor1);
     position: relative;
     z-index: 2;
-    border-radius: 20px;
+    margin: 34px 0 0 55px !important;
+    width: calc(100% - 75px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+    gap: 24px;
     box-sizing: border-box;
-    margin-left: 95px !important;
-    margin-top: 24px;
-    min-height: 240px;
-    width: calc(100% - 135px);
-    max-width: 860px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.home-painel {
+    background: var(--cor1);
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 0;
+    min-height: 260px;
+    box-sizing: border-box;
+    font-family: var(--fonte1);
+}
+
+.home-painel h2 {
+    color: var(--cor2);
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.lista-locais {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.local-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    color: #65789E;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.barra-fundo {
+    height: 9px;
+    width: 100%;
+    background: #DFDDD6;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.barra-preenchimento {
+    height: 100%;
+    background: linear-gradient(180deg, #3065DC, #2049AC);
+    border-radius: 20px;
+}
+
+.home-painel-rodape {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.botao-ver {
+    color: #2457B6;
+    border: 1.5px solid #2457B6;
+    background: transparent;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.botao-ver:hover {
+    background: #2457B6;
+    color: white;
+}
+
+.grafico-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.grafico-colunas {
+    display: flex;
+    height: 190px;
+    gap: 8px;
+}
+
+.grafico-eixo-y {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #65789E;
+    font-size: 10px;
+    padding-bottom: 20px;
+}
+
+.grafico-area {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+    border-bottom: 2px solid #65789E;
+    margin-bottom: 20px;
+}
+
+.grafico-linhas {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.grafico-linhas span {
+    display: block;
+    border-top: 1px solid #A5B0C3;
+    width: 100%;
+}
+
+.grafico-barras {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.grafico-coluna-item {
+    height: 100%;
+    flex: 1;
+    max-width: 75px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+}
+
+.grafico-barra {
+    width: 100%;
+    max-width: 68px;
+    background: linear-gradient(180deg, #3065DC, #2049AC);
+    border-radius: 7px 7px 0 0;
+}
+
+.grafico-legenda {
+    position: absolute;
+    top: calc(100% + 6px);
+    font-size: 10px;
+    color: #65789E;
+    white-space: nowrap;
 }
 
 /* ========================================================
-   CABEÇALHO SUPERIOR (Fixo)
+   CABEÇALHO SUPERIOR FIXO
    ======================================================== */
+
 header.header-crud {
     position: fixed;
     top: 0;
@@ -104,7 +266,7 @@ header.header-crud {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 45px !important;  /* Logo alinhada a exatos 45px da borda */
+    padding-left: 45px !important;
     padding-right: 45px !important;
     box-sizing: border-box;
     z-index: 1000;
@@ -119,7 +281,6 @@ header.header-crud .logo-topo {
     align-items: center;
 }
 
-/* Logo ZERA exata: 156px x 44.16px */
 header.header-crud .logo-topo img,
 header.header-crud .logo {
     margin: 0 !important;
@@ -147,6 +308,7 @@ header.header-crud .avatar-topo {
 /* ========================================================
    ESTRUTURA GERAL
    ======================================================== */
+
 .tela-auth {
     min-height: 100vh;
     display: flex;
@@ -158,8 +320,9 @@ header.header-crud .avatar-topo {
 }
 
 /* ========================================================
-   BARRA LATERAL (Largura de 200px)
+   BARRA LATERAL
    ======================================================== */
+
 .painel-esquerda {
     background-color: var(--cor1);
     width: 200px;
@@ -178,11 +341,10 @@ header.header-crud .avatar-topo {
     justify-content: space-between;
     align-items: center;
     min-height: calc(100vh - 70px);
-    padding: 12px 0 20px 0;
+    padding: 12px 0 20px;
     box-sizing: border-box;
 }
 
-/* Lista de navegação vertical */
 .painel-esquerda nav {
     display: flex !important;
     flex-direction: column !important;
@@ -194,14 +356,13 @@ header.header-crud .avatar-topo {
     box-sizing: border-box !important;
 }
 
-/* Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport */
 .painel-esquerda nav a {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 191px;
     height: 46.95px;
-    padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
+    padding-left: 40.5px;
     box-sizing: border-box;
     border-radius: 12px;
     font-family: var(--fonte1);
@@ -212,28 +373,23 @@ header.header-crud .avatar-topo {
     transition: background-color 0.15s ease;
 }
 
-
-
-/* Hover: #152D6B com 7% */
 .painel-esquerda nav a:hover {
     background-color: rgba(21, 45, 107, 0.07);
     color: var(--cor2);
     text-decoration: none !important;
 }
 
-/* Quadrado azul de seleção (191px x 46.95px) */
 .painel-esquerda nav .botao-ativo {
     background-color: var(--cor2) !important;
     color: var(--cor1) !important;
     font-weight: bold !important;
     width: 191px !important;
     height: 46.95px !important;
-    padding-left: 40.5px !important; /* Mantém o texto nos mesmos 45px do viewport */
+    padding-left: 40.5px !important;
     border-radius: 12px;
     pointer-events: none;
 }
 
-/* Traço divisor: 154px de largura e #152D6B com 67% */
 .painel-esquerda hr {
     border: none !important;
     border-top: 1.5px solid rgba(21, 45, 107, 0.67) !important;
@@ -241,7 +397,10 @@ header.header-crud .avatar-topo {
     margin: 12px auto !important;
 }
 
-/* Card Mariana Almeida (191px x 66px, #24438C, Radius 14) */
+/* ========================================================
+   PERFIL DO USUÁRIO
+   ======================================================== */
+
 .perfil-usuario {
     width: 191px;
     height: 66px;
@@ -255,7 +414,6 @@ header.header-crud .avatar-topo {
     box-sizing: border-box;
 }
 
-/* card do perfil quando a página "Meu perfil" está aberta: azul mais escuro */
 .perfil-usuario.perfil-ativo {
     background-color: var(--cor2);
     pointer-events: none;
@@ -286,8 +444,9 @@ header.header-crud .avatar-topo {
 }
 
 /* ========================================================
-   ÁREA AZUL DE CONTEÚDO (Linear 0% #152D6B a 100% #2958D1, Radius 20)
+   ÁREA AZUL DE CONTEÚDO
    ======================================================== */
+
 .informacoes,
 #informacoes-gerais {
     flex: 1;
@@ -298,13 +457,13 @@ header.header-crud .avatar-topo {
     flex-direction: column;
     align-items: flex-start;
     box-sizing: border-box;
+    min-width: 0;
     min-height: calc(100vh - 70px);
     padding: 40px 40px 40px 0 !important;
     margin: 0 !important;
     overflow: hidden;
 }
 
-/* Marca d'água Z: 802px x 929.43px e visível (opacity 0.25) */
 .z-marca-dagua {
     position: absolute;
     top: 50%;
@@ -319,7 +478,6 @@ header.header-crud .avatar-topo {
     z-index: 1;
 }
 
-/* Link "Voltar" das telas de edição (fica acima do título) */
 .informacoes .voltar {
     display: inline-flex;
     align-items: center;
@@ -345,7 +503,6 @@ header.header-crud .avatar-topo {
     transform: translateX(-3px);
 }
 
-/* Título: Exatamente 41.07px, bold, apenas 1ª letra maiúscula */
 .informacoes h1.nome-da-area,
 h1.nome-da-area,
 .nome-da-area {
@@ -361,8 +518,9 @@ h1.nome-da-area,
 }
 
 /* ========================================================
-   CARD COM A TABELA (Posicionado a 95px da borda azul)
+   CARD COM TABELA
    ======================================================== */
+
 .tabela {
     background-color: var(--cor1);
     position: relative;
@@ -370,7 +528,7 @@ h1.nome-da-area,
     border-radius: 20px;
     box-sizing: border-box;
     margin-left: 95px !important;
-    padding: 24px 38px 30px 38px;
+    padding: 24px 38px 30px;
     display: flex;
     flex-direction: column;
     width: calc(100% - 135px);
@@ -416,6 +574,7 @@ h1.nome-da-area,
 
 .busca {
     flex: 1;
+    min-width: 0;
 }
 
 .busca label {
@@ -439,7 +598,6 @@ h1.nome-da-area,
     width: 100%;
 }
 
-/* select (ex: Tema em Configurações) igual às caixas de texto */
 .tabela-filtros select {
     height: 44px;
     border-radius: 9px;
@@ -453,8 +611,6 @@ h1.nome-da-area,
     box-sizing: border-box;
     width: 100%;
     cursor: pointer;
-
-    /* tira a seta padrão do navegador e coloca uma azul escura */
     appearance: none;
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -463,13 +619,15 @@ h1.nome-da-area,
     background-size: 16px;
 }
 
-/* opções da lista com fundo bege (senão ficam transparentes/escuras) */
 .tabela-filtros select option {
     background-color: var(--cor1);
     color: var(--cor2);
 }
 
-/* ===== Campo de busca com lupa (Estoques) ===== */
+/* ========================================================
+   CAMPO DE BUSCA
+   ======================================================== */
+
 .campo-busca {
     position: relative;
     display: flex;
@@ -481,7 +639,6 @@ h1.nome-da-area,
     padding-right: 48px !important;
 }
 
-/* a lupa é um botão de enviar: clicar nela (ou apertar Enter) faz a busca */
 .btn-lupa {
     position: absolute;
     right: 12px;
@@ -500,7 +657,6 @@ h1.nome-da-area,
     transition: opacity 0.2s, transform 0.2s;
 }
 
-/* o <img> fica escondido; a lupa é o icone-lupa.svg pintado de azul escuro */
 .btn-lupa img {
     display: none;
 }
@@ -509,7 +665,7 @@ h1.nome-da-area,
     content: "";
     width: 18px;
     height: 18px;
-    background-color: var(--cor2); /* azul escuro */
+    background-color: var(--cor2);
     -webkit-mask: url("../images/icone-lupa.svg") center / contain no-repeat;
     mask: url("../images/icone-lupa.svg") center / contain no-repeat;
 }
@@ -558,6 +714,10 @@ h1.nome-da-area,
     opacity: 0.9;
 }
 
+/* ========================================================
+   TABELAS
+   ======================================================== */
+
 .tabela-rolagem {
     width: 100%;
     overflow-x: auto;
@@ -568,7 +728,6 @@ h1.nome-da-area,
     border-collapse: collapse;
 }
 
-/* Cabeçalho da tabela: Inria Sans, #152D6B, 19.96px e bold */
 .itens-tabela th {
     text-align: left;
     padding: 12px 8px;
@@ -621,8 +780,9 @@ h1.nome-da-area,
 }
 
 /* ========================================================
-   FORMULÁRIOS ESPECÍFICOS (Perfil, Organização, Configurações)
+   FORMULÁRIOS
    ======================================================== */
+
 .form-grid-duplo {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -635,8 +795,6 @@ h1.nome-da-area,
     box-sizing: border-box;
 }
 
-/* caixas de texto dos formulários (Meu perfil, Organização...) iguais às dos filtros */
-/* formulário com um campo embaixo do outro (ex: Editar unidade) */
 .form-coluna {
     display: flex;
     flex-direction: column;
@@ -669,19 +827,20 @@ h1.nome-da-area,
     width: 100%;
 }
 
-/* form-coluna seguido de um grid (ex: Editar assinatura): espaço igual ao do grid */
 .form-coluna.form-coluna-junto {
     margin-bottom: 20px;
 }
 
-/* campos que não podem ser editados ficam com o texto mais clarinho */
 .form-coluna input[readonly],
 .form-grid-duplo input[readonly] {
     color: rgba(21, 45, 107, 0.55);
     cursor: default;
 }
 
-/* ===== Olho de mostrar/esconder senha (Meu perfil) ===== */
+/* ========================================================
+   CAMPO DE SENHA
+   ======================================================== */
+
 .campo-senha {
     position: relative;
     display: flex;
@@ -710,7 +869,6 @@ h1.nome-da-area,
     cursor: pointer;
 }
 
-/* o <img> fica escondido; o olho é o icone-ver.svg pintado de azul escuro */
 .campo-senha .btn-olho .icone-olho {
     display: none;
 }
@@ -724,7 +882,6 @@ h1.nome-da-area,
     mask: url("../images/icone-ver.svg") center / contain no-repeat;
 }
 
-/* quando a senha está visível, troca pro olho fechado */
 .campo-senha .btn-olho.visivel::before {
     -webkit-mask-image: url("../images/icone-naover.svg");
     mask-image: url("../images/icone-naover.svg");
@@ -734,7 +891,10 @@ h1.nome-da-area,
     opacity: 0.75;
 }
 
-/* select dos formulários com seta azul escura (ex: Estado) */
+/* ========================================================
+   SELECT DOS FORMULÁRIOS
+   ======================================================== */
+
 .form-coluna select,
 .form-grid-duplo select {
     padding-right: 44px;
@@ -800,8 +960,9 @@ h1.nome-da-area,
 }
 
 /* ========================================================
-   HOME (Cards com números)
+   HOME ANTIGA: CARDS COM NÚMEROS
    ======================================================== */
+
 #home .card {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -840,33 +1001,43 @@ h1.nome-da-area,
 }
 
 /* ========================================================
-   RESPONSIVIDADE (TABLETS E TELAS MÉDIAS: até 1024px)
+   RESPONSIVIDADE: ATÉ 1100PX
    ======================================================== */
+
+@media (max-width: 1100px) {
+    .home-cards-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-painel-inferior {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================================
+   RESPONSIVIDADE: ATÉ 1024PX
+   ======================================================== */
+
 @media (max-width: 1024px) {
     .subtitulo-area {
         margin: -16px 0 24px 30px !important;
     }
-    .home-cards-container,
+
+    .home-cards-container {
+        margin-left: 30px !important;
+        width: calc(100% - 60px);
+    }
+
     .home-painel-inferior {
         margin-left: 30px !important;
-        width: calc(100% - 60px) !important;
-        grid-template-columns: repeat(2, 1fr);
+        width: calc(100% - 60px);
     }
+
     header.header-crud {
         padding-left: 30px !important;
         padding-right: 30px !important;
     }
 
-    header.header-crud .logo-topo,
-    header.header-crud .logo {
-        left: 30px !important;
-    }
-
-    header.header-crud .avatar-topo {
-        right: 30px !important;
-    }
-
-    /* Reduz as distâncias laterais na área azul */
     .informacoes h1.nome-da-area,
     h1.nome-da-area,
     .nome-da-area {
@@ -879,7 +1050,6 @@ h1.nome-da-area,
         padding: 24px 28px !important;
     }
 
-    /* Marca d'água redimensiona proporcionalmente */
     .z-marca-dagua {
         width: 600px !important;
         height: auto !important;
@@ -887,48 +1057,51 @@ h1.nome-da-area,
 }
 
 /* ========================================================
-   RESPONSIVIDADE (CELULARES: até 768px)
+   RESPONSIVIDADE: ATÉ 768PX
    ======================================================== */
+
 @media (max-width: 768px) {
     .subtitulo-area {
         margin: -10px 0 18px 0 !important;
         font-size: 14px;
     }
+
     .home-cards-container,
     .home-painel-inferior {
         margin-left: 0 !important;
         width: 100% !important;
-        grid-template-columns: 1fr;
-        padding: 20px 16px !important;
     }
-    
-    /* Header compacto */
+
+    .home-cards-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-painel-inferior {
+        grid-template-columns: 1fr;
+    }
+
     header.header-crud {
         height: 60px;
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
 
-    header.header-crud .logo-topo,
+    header.header-crud .logo-topo img,
     header.header-crud .logo {
-        left: 20px !important;
         width: 125px !important;
         height: 35px !important;
     }
 
     header.header-crud .avatar-topo {
-        right: 20px !important;
         width: 30px !important;
         height: 30px !important;
     }
 
-    /* Tela muda de lado-a-lado para vertical */
     .tela-auth {
         flex-direction: column;
         padding-top: 60px;
     }
 
-    /* Barra lateral vira menu horizontal deslizável no topo */
     .painel-esquerda {
         width: 100%;
         min-width: 100%;
@@ -943,15 +1116,16 @@ h1.nome-da-area,
 
     .painel-esquerda nav {
         flex-direction: row !important;
+        justify-content: flex-start;
         overflow-x: auto;
         width: 100% !important;
-        padding: 0 16px 6px 16px !important;
+        padding: 0 16px 6px !important;
         gap: 8px !important;
-        scrollbar-width: none; /* Oculta a barra feia no Firefox */
+        scrollbar-width: none;
     }
 
     .painel-esquerda nav::-webkit-scrollbar {
-        display: none; /* Oculta a barra no Chrome/Safari */
+        display: none;
     }
 
     .painel-esquerda nav a,
@@ -967,18 +1141,17 @@ h1.nome-da-area,
 
     .painel-esquerda hr,
     .perfil-usuario {
-        display: none; /* Oculta no fluxo do menu horizontal para não poluir a tela */
+        display: none;
     }
 
-    /* Área azul ganha cantos arredondados no topo */
-    .informacoes {
+    .informacoes,
+    #informacoes-gerais {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-        padding: 24px 16px 40px 16px !important;
+        padding: 24px 16px 40px !important;
         min-height: calc(100vh - 120px);
     }
 
-    /* Título menor e sem deslocamento */
     .informacoes h1.nome-da-area,
     h1.nome-da-area,
     .nome-da-area {
@@ -986,7 +1159,6 @@ h1.nome-da-area,
         margin: 0 0 18px 0 !important;
     }
 
-    /* Card ocupa toda a largura disponível */
     .tabela {
         margin-left: 0 !important;
         width: 100% !important;
@@ -994,7 +1166,6 @@ h1.nome-da-area,
         border-radius: 16px;
     }
 
-    /* Campo de busca e botão empilham no celular */
     .tabela-filtros {
         flex-direction: column;
         align-items: stretch;
@@ -1007,7 +1178,6 @@ h1.nome-da-area,
         height: 44px;
     }
 
-    /* Tabela rolável com toque para não amassar colunas */
     .itens-tabela {
         min-width: 440px;
     }
@@ -1022,7 +1192,6 @@ h1.nome-da-area,
         padding: 12px 6px;
     }
 
-    /* Formulários de 2 colunas viram 1 coluna */
     .form-grid-duplo {
         grid-template-columns: 1fr !important;
         gap: 14px !important;
@@ -1038,10 +1207,10 @@ h1.nome-da-area,
 
     .bloco-codigo-convite {
         width: 100%;
+        min-width: 0;
         box-sizing: border-box;
     }
 
-    /* Marca d'água no celular */
     .z-marca-dagua {
         width: 380px !important;
         height: auto !important;
@@ -1049,24 +1218,50 @@ h1.nome-da-area,
     }
 }
 
-/* Hover específico do botão "Sair": #FA3D28 com 40% de cor */
-.painel-esquerda nav a[href*="index"]:hover,
-.painel-esquerda nav a:last-child:hover {
-    background-color: rgba(250, 61, 40, 0.40) !important;
-    color: #fa3d28 !important; /* ou var(--cor2) se preferir manter o texto azul */
+/* ========================================================
+   RESPONSIVIDADE: ATÉ 420PX
+   ======================================================== */
+
+@media (max-width: 420px) {
+    .home-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .grafico-barras {
+        gap: 6px;
+    }
+
+    .grafico-legenda {
+        font-size: 9px;
+    }
 }
 
-.filtrador.erro label{
+/* ========================================================
+   BOTÃO SAIR
+   ======================================================== */
+
+.painel-esquerda nav a[href*="index"]:hover,
+.painel-esquerda nav a.botao-sair:hover {
+    background-color: rgba(250, 61, 40, 0.40) !important;
+    color: #fa3d28 !important;
+}
+
+/* ========================================================
+   VALIDAÇÃO DE FORMULÁRIOS
+   ======================================================== */
+
+.filtrador.erro label {
     color: #ff0000;
 }
 
-.filtrador.erro input{
+.filtrador.erro input,
+.filtrador.erro select {
     border-color: #ff0000;
 }
 
-.filtrador .mensagem-erro{
+.filtrador .mensagem-erro {
     display: none;
-    color: #FF0000;
+    color: #ff0000;
     font-size: 12px;
     font-family: var(--fonte1);
     background: var(--cor1);
@@ -1077,6 +1272,334 @@ h1.nome-da-area,
     white-space: nowrap;
 }
 
-.filtrador.erro .mensagem-erro{
+.filtrador.erro .mensagem-erro {
     display: block;
+}
+
+
+/* ==========================================
+   HOME - CARDS SUPERIORES
+========================================== */
+
+/* Títulos dos quatro cards */
+.home-card .titulo-metrica {
+    font-family: var(--fonte1);
+    font-size: 21px;
+    font-weight: 700;
+    color: rgba(21, 45, 107, 0.7);
+    line-height: 1.2;
+}
+
+/* Números grandes */
+.home-card .numero-metrica {
+    font-family: var(--fonte1);
+    font-size: 70px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1;
+}
+
+/* Nome do plano */
+.home-card .plano-metrica {
+    font-family: var(--fonte1);
+    font-size: 38px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1.1;
+    margin-top: 6px;
+}
+
+/* Descrições inferiores */
+.home-card .descricao-metrica {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+    margin-top: 5px;
+}
+
+/* Texto "dias" */
+.home-card .unidade-metrica {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+}
+
+/* ==========================================
+   HOME - TÍTULOS DOS GRÁFICOS
+========================================== */
+
+.home-painel h2 {
+    font-family: var(--fonte1);
+    font-size: 25px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* ==========================================
+   ESTOQUES POR LOCAL
+========================================== */
+
+/* Lista de locais */
+.lista-locais {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+/* Informações acima das barras */
+.local-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 327px;
+    max-width: 100%;
+    margin-bottom: 7px;
+    font-family: var(--fonte1);
+    font-size: 16px;
+}
+
+/* Nome do local */
+.local-info span:first-child {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+}
+
+/* Quantidade de estoques */
+.local-info span:last-child {
+    font-size: 16px;
+    font-weight: 400;
+    color: #152D6B;
+}
+
+/* Fundo das barras */
+.barra-fundo {
+    width: 327px;
+    max-width: 100%;
+    height: 15px;
+    background-color: rgba(21, 45, 107, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Preenchimento das barras */
+.barra-preenchimento {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #2958D1 0%,
+        #2958D1 65%,
+        #152D6B 100%
+    );
+    border-radius: 20px;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+========================================== */
+
+@media (max-width: 768px) {
+    .home-card .titulo-metrica {
+        font-size: 18px;
+    }
+
+    .home-card .numero-metrica {
+        font-size: 52px;
+    }
+
+    .home-card .plano-metrica {
+        font-size: 28px;
+    }
+
+    .home-card .descricao-metrica {
+        font-size: 14px;
+    }
+
+    .home-painel h2 {
+        font-size: 21px;
+    }
+
+    .local-info,
+    .local-info span:first-child,
+    .local-info span:last-child {
+        font-size: 14px;
+    }
+
+    .barra-fundo {
+        width: 100%;
+        height: 15px;
+    }
+
+    .local-info {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   HOME - CARDS SUPERIORES
+========================================== */
+
+/* Títulos dos quatro cards */
+.home-card .titulo-metrica {
+    font-family: var(--fonte1);
+    font-size: 21px;
+    font-weight: 700;
+    color: rgba(21, 45, 107, 0.7);
+    line-height: 1.2;
+}
+
+/* Números grandes */
+.home-card .numero-metrica {
+    font-family: var(--fonte1);
+    font-size: 70px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1;
+}
+
+/* Nome do plano */
+.home-card .plano-metrica {
+    font-family: var(--fonte1);
+    font-size: 38px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1.1;
+    margin-top: 6px;
+}
+
+/* Descrições inferiores */
+.home-card .descricao-metrica {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+    margin-top: 5px;
+}
+
+/* Texto "dias" */
+.home-card .unidade-metrica {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+}
+
+/* ==========================================
+   HOME - TÍTULOS DOS GRÁFICOS
+========================================== */
+
+.home-painel h2 {
+    font-family: var(--fonte1);
+    font-size: 25px;
+    font-weight: 700;
+    color: #152D6B;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* ==========================================
+   ESTOQUES POR LOCAL
+========================================== */
+
+/* Lista de locais */
+.lista-locais {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+/* Informações acima das barras */
+.local-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 327px;
+    max-width: 100%;
+    margin-bottom: 7px;
+    font-family: var(--fonte1);
+    font-size: 16px;
+}
+
+/* Nome do local */
+.local-info span:first-child {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+}
+
+/* Quantidade de estoques */
+.local-info span:last-child {
+    font-size: 16px;
+    font-weight: 400;
+    color: #152D6B;
+}
+
+/* Fundo das barras */
+.barra-fundo {
+    width: 327px;
+    max-width: 100%;
+    height: 15px;
+    background-color: rgba(21, 45, 107, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Preenchimento das barras */
+.barra-preenchimento {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #2958D1 0%,
+        #2958D1 65%,
+        #152D6B 100%
+    );
+    border-radius: 20px;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+========================================== */
+
+@media (max-width: 768px) {
+    .home-card .titulo-metrica {
+        font-size: 18px;
+    }
+
+    .home-card .numero-metrica {
+        font-size: 52px;
+    }
+
+    .home-card .plano-metrica {
+        font-size: 28px;
+    }
+
+    .home-card .descricao-metrica {
+        font-size: 14px;
+    }
+
+    .home-painel h2 {
+        font-size: 21px;
+    }
+
+    .local-info,
+    .local-info span:first-child,
+    .local-info span:last-child {
+        font-size: 14px;
+    }
+
+    .barra-fundo {
+        width: 100%;
+        height: 15px;
+    }
+
+    .local-info {
+        width: 100%;
+    }
 }

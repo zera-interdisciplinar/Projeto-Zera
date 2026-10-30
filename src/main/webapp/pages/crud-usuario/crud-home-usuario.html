@@ -1,77 +1,426 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- CONFIGURAÇÕES DA PÁGINA -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home  - Zera</title>
+
+    <title>Home - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
-            <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
+            <img
+                src="../../images/logo_completa.svg"
+                alt="ZERA"
+                class="logo"
+            >
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
+
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
-                    <a href="crud-home-usuario.html" class="botao-ativo">Home</a>
-                    <a href="crud-estoques-usuario.html">Estoques</a>
-                    <a href="crud-unidade-usuario.html">Unidade</a>
-                    <a href="crud-endereco-usuario.html">Endereço</a>
-                    <a href="crud-assinatura-usuario.html">Assinatura</a>
-                    <a href="crud-organizacao-usuario.html">Organização</a>
+                    <a
+                        href="crud-home-usuario.html"
+                        class="botao-ativo"
+                    >
+                        Home
+                    </a>
+
+                    <a href="crud-estoques-usuario.html">
+                        Estoques
+                    </a>
+
+                    <a href="crud-unidade-usuario.html">
+                        Unidade
+                    </a>
+
+                    <a href="crud-endereco-usuario.html">
+                        Endereço
+                    </a>
+
+                    <a href="crud-assinatura-usuario.html">
+                        Assinatura
+                    </a>
+
+                    <a href="crud-organizacao-usuario.html">
+                        Organização
+                    </a>
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >
+                        Sair
+                    </a>
                 </nav>
 
-                <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
+                <!-- Perfil do usuário logado -->
+                <a
+                    href="crud-meuperfil-usuario.html"
+                    class="perfil-usuario"
+                >
                     <div class="avatar">MA</div>
-                    <span class="nome-usuario">Mariana Almeida</span>
+
+                    <span class="nome-usuario">
+                        Mariana Almeida
+                    </span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
-            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
-            <h1 class="nome-da-area">Olá, Mariana</h1>
-            <p class="subtitulo-area">Gerencie os dados da sua unidade pelo seu painel.</p>
+            <!-- Marca d'água -->
+            <img
+                src="../../images/z-transparente.png"
+                alt=""
+                class="z-marca-dagua"
+            >
 
+            <!-- ========================================
+                 BOAS-VINDAS AO USUÁRIO
+            ======================================== -->
+            <h1 class="nome-da-area">
+                Olá, Mariana!
+            </h1>
+
+            <p class="subtitulo-area">
+                Gerencie os dados da sua unidade pelo seu painel.
+            </p>
+
+            <!-- ========================================
+                 CARDS DE MÉTRICAS
+            ======================================== -->
             <section class="home-cards-container">
-                <div class="card-metrica">
-                    <span class="titulo-metrica">Estoques na<br>unidade</span>
-                    <span class="numero-metrica">6</span>
+
+                <!-- Card de estoques -->
+                <div class="home-card">
+
+                    <span class="titulo-metrica">
+                        Estoques
+                    </span>
+
+                    <span class="numero-metrica">
+                        6
+                    </span>
+
+                    <span class="descricao-metrica">
+                        Na sua unidade
+                    </span>
+
                 </div>
 
-                <div class="card-metrica">
-                    <span class="titulo-metrica">Assinaturas</span>
-                    <span class="numero-metrica">6</span>
+                <!-- Card de unidades -->
+                <div class="home-card borda-amarela">
+
+                    <span class="titulo-metrica">
+                        Unidades
+                    </span>
+
+                    <span class="numero-metrica">
+                        4
+                    </span>
+
+                    <span class="descricao-metrica">
+                        Na sua organização
+                    </span>
+
                 </div>
 
-                <div class="card-metrica borda-amarela">
-                    <span class="titulo-metrica">Código de<br>convite</span>
-                    <span class="numero-metrica">6</span>
+                <!-- Card do plano -->
+                <div class="home-card">
+
+                    <span class="titulo-metrica">
+                        Plano
+                    </span>
+
+                    <span class="plano-metrica">
+                        Profissional
+                    </span>
+
+                    <span class="descricao-metrica">
+                        Pago mensalmente
+                    </span>
+
                 </div>
 
-                <div class="card-metrica borda-amarela">
-                    <span class="titulo-metrica">Código de<br>convite</span>
-                    <span class="numero-metrica">6</span>
+                <!-- Card de vencimento -->
+                <div class="home-card borda-amarela">
+
+                    <span class="titulo-metrica">
+                        Assinatura vence em
+                    </span>
+
+                    <div class="numero-com-unidade">
+
+                        <span class="numero-metrica">
+                            100
+                        </span>
+
+                        <span class="unidade-metrica">
+                            dias
+                        </span>
+
+                    </div>
+
                 </div>
+
             </section>
 
-            <section class="home-painel-inferior"></section>
+            <!-- ========================================
+                 PAINÉIS INFERIORES
+            ======================================== -->
+            <section class="home-painel-inferior">
+
+                <!-- ========================================
+                     ESTOQUES POR LOCAL
+                ======================================== -->
+                <article class="home-painel">
+
+                    <h2>Estoques por local</h2>
+
+                    <div class="lista-locais">
+
+                        <!-- Galpão 1 -->
+                        <div class="local-item">
+
+                            <div class="local-info">
+                                <span>Galpão 1</span>
+                                <span>3 estoque(s)</span>
+                            </div>
+
+                            <div class="barra-fundo">
+                                <div
+                                    class="barra-preenchimento"
+                                    style="width: 100%;"
+                                ></div>
+                            </div>
+
+                        </div>
+
+                        <!-- Galpão 2 -->
+                        <div class="local-item">
+
+                            <div class="local-info">
+                                <span>Galpão 2</span>
+                                <span>2 estoque(s)</span>
+                            </div>
+
+                            <div class="barra-fundo">
+                                <div
+                                    class="barra-preenchimento"
+                                    style="width: 66.67%;"
+                                ></div>
+                            </div>
+
+                        </div>
+
+                        <!-- Galpão 3 -->
+                        <div class="local-item">
+
+                            <div class="local-info">
+                                <span>Galpão 3</span>
+                                <span>2 estoque(s)</span>
+                            </div>
+
+                            <div class="barra-fundo">
+                                <div
+                                    class="barra-preenchimento"
+                                    style="width: 66.67%;"
+                                ></div>
+                            </div>
+
+                        </div>
+
+                        <!-- Galpão 4 -->
+                        <div class="local-item">
+
+                            <div class="local-info">
+                                <span>Galpão 4</span>
+                                <span>1 estoque(s)</span>
+                            </div>
+
+                            <div class="barra-fundo">
+                                <div
+                                    class="barra-preenchimento"
+                                    style="width: 33.33%;"
+                                ></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Botão para visualizar estoques -->
+                    <div class="home-painel-rodape">
+
+                        <a
+                            href="crud-estoques-usuario.html"
+                            class="botao-ver"
+                        >
+                            Ver todos &rsaquo;
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <!-- ========================================
+                     GRÁFICO DE UNIDADES
+                ======================================== -->
+                <article class="home-painel">
+
+                    <!-- Cabeçalho do gráfico -->
+                    <div class="grafico-cabecalho">
+
+                        <h2>
+                            Unidades da organização por estado
+                        </h2>
+
+                        <a
+                            href="crud-organizacao-usuario.html"
+                            class="botao-ver"
+                        >
+                            Ver organização &rsaquo;
+                        </a>
+
+                    </div>
+
+                    <!-- Gráfico de colunas -->
+                    <div
+                        class="grafico-colunas"
+                        role="img"
+                        aria-label="Gráfico demonstrativo com três colunas: Galpão 1 com valor 3, Galpão 2 com valor 2 e Galpão 3 com valor 1."
+                    >
+
+                        <!-- Eixo vertical -->
+                        <div class="grafico-eixo-y">
+                            <span>4</span>
+                            <span>3</span>
+                            <span>2</span>
+                            <span>1</span>
+                            <span>0</span>
+                        </div>
+
+                        <!-- Área do gráfico -->
+                        <div class="grafico-area">
+
+                            <!-- Linhas horizontais -->
+                            <div class="grafico-linhas">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <!-- Colunas -->
+                            <div class="grafico-barras">
+
+                                <!-- Galpão 1 -->
+                                <div class="grafico-coluna-item">
+
+                                    <div
+                                        class="grafico-barra"
+                                        style="height: 75%;"
+                                    ></div>
+
+                                    <span class="grafico-legenda">
+                                        Galpão 1
+                                    </span>
+
+                                </div>
+
+                                <!-- Galpão 2 -->
+                                <div class="grafico-coluna-item">
+
+                                    <div
+                                        class="grafico-barra"
+                                        style="height: 50%;"
+                                    ></div>
+
+                                    <span class="grafico-legenda">
+                                        Galpão 2
+                                    </span>
+
+                                </div>
+
+                                <!-- Galpão 3 -->
+                                <div class="grafico-coluna-item">
+
+                                    <div
+                                        class="grafico-barra"
+                                        style="height: 25%;"
+                                    ></div>
+
+                                    <span class="grafico-legenda">
+                                        Galpão 3
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>

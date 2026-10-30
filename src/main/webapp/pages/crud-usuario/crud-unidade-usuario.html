@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unidade  - Zera</title>
+    <title>Unidade - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -30,27 +58,51 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair com popup -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >
+                        Sair
+                    </a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Unidade</h1>
 
+            <!-- ========================================
+                 TABELA DE UNIDADE
+            ======================================== -->
             <section class="tabela">
+
+                <!-- Título da tabela -->
                 <label class="tabela-titulo">Dados unidade</label>
 
+                <!-- Área de rolagem -->
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
+
+                        <!-- Cabeçalho da tabela -->
                         <thead>
                             <tr>
                                 <th>Organização</th>
@@ -59,25 +111,65 @@
                                 <th class="col-acoes"></th>
                             </tr>
                         </thead>
+
+                        <!-- Dados da unidade -->
                         <tbody>
                             <tr>
                                 <td>JBS Alimentos</td>
                                 <td>11.222.333/0001-81</td>
                                 <td>tijbs@exemplo.com</td>
+
+                                <!-- Ações disponíveis -->
                                 <td class="col-acoes">
                                     <div class="acoes">
-                                        <a href="crud-editar-unidade-usuario.html" title="Editar">
-                                            <img src="../../images/icone-editar.svg" alt="Editar">
+
+                                        <!-- Editar unidade -->
+                                        <a
+                                            href="crud-editar-unidade-usuario.html"
+                                            title="Editar unidade"
+                                        >
+                                            <img
+                                                src="../../images/icone-editar.svg"
+                                                alt="Editar"
+                                            >
                                         </a>
+
+                                        <!-- Excluir unidade com popup de confirmação -->
+                                        <button
+                                            type="button"
+                                            class="zera-botao-excluir"
+                                            data-modal-exclusao
+                                            data-excluir-id="1"
+                                            data-excluir-tipo="unidade"
+                                            data-excluir-titulo="Deseja mesmo excluir?"
+                                            data-excluir-descricao="Essa ação pode levar à exclusão de outros itens relacionados."
+                                            aria-label="Excluir unidade"
+                                            title="Excluir unidade"
+                                        >
+                                            <img
+                                                src="../../images/icone-excluir.svg"
+                                                alt=""
+                                            >
+                                        </button>
+
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
+
                     </table>
                 </div>
+
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>
