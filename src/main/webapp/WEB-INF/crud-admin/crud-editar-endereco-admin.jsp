@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,37 +10,37 @@
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
-    <div class = tela-auth>
-        <!--Painel esquerdo-->
-        <div class = painel-esquerda>
-            <div class = painel-conteudo>
-                <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-                <nav>
-                    <a href="crud-home-admin.html"><span>Home</span></a>
-                    <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
-                    <a href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
-                    <a href="crud-planos-admin.html"><span>Planos</span></a>
-                    <a href="crud-unidades-admin.html"><span>Unidades</span></a>
-                    <a class = botao-ativo href="crud-enderecos-admin.html"><span>Endereços</span></a>
-                    <a href="crud-gestores-admin.html"><span>Gestores</span></a>
-                    <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                    <a href="crud-admins-admin.html"><span>Admin</span></a>
-                    <hr class = barra-azul>
-                    <a href="../login/login.html"><span>Sair</span></a>
-                </nav>
-            </div>
+<div class = tela-auth>
+    <!--Painel esquerdo-->
+    <div class = painel-esquerda>
+        <div class = painel-conteudo>
+            <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <nav>
+                <a href="crud-home-admin.jsp"><span>Home</span></a>
+                <a href="crud-organizacoes-admin.jsp"><span>Organizações</span></a>
+                <a href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
+                <a href="crud-planos-admin.jsp"><span>Planos</span></a>
+                <a href="crud-unidades-admin.jsp"><span>Unidades</span></a>
+                <a class = botao-ativo href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
+                <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
+                <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
+                <a href="crud-admins-admin.jsp"><span>Admin</span></a>
+                <hr class = barra-azul>
+                <a href="../login/login.jsp"><span>Sair</span></a>
+            </nav>
         </div>
-        <!--Área de informações-->
-        <div class = informacoes>
-            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-            <a href="crud-enderecos-admin.html" class="voltar">
-                <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-                Voltar
-            </a>
-            <h3 class = nome-da-area>Editar endereço</h3>
-            <div class="edicao">
-                <form action="editar" method="post">
-                    <h5>Logradouro</h5>
+    </div>
+    <!--Área de informações-->
+    <div class = informacoes>
+        <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+        <a href="crud-enderecos-admin.html" class="voltar">
+            <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
+            Voltar
+        </a>
+        <h3 class = nome-da-area>Editar endereço</h3>
+        <div class="edicao">
+            <form action="${pageContext.request.contextPath}/editar" method="post">
+                <h5>Logradouro</h5>
                 <h5>Estado</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="logradouro" id="logradouro" placeholder="Rua José Irineu">
@@ -91,8 +92,9 @@
                     <input type="text" name="bairro" id="bairro" placeholder="Vila Jaguara">
                 </div>
                 <button type="submit">Salvar</button>
-                </form>
-            </div>
-    
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
