@@ -163,4 +163,52 @@ public class EstoqueDAO {
             throw new ConnectionFailedException("Erro ao deletar o estoque do banco de dados.", e);
         }
     }
+
+    /**
+     * Lista os estoques de uma unidade, com busca opcional por código
+     * ou por parte do espaço na unidade.
+     *
+     * @param codUnidade código da unidade dona dos estoques
+     * @param busca texto digitado na busca; se for nulo ou vazio, traz todos da unidade
+     * @return lista de {@link Estoque} encontrados (vazia se nenhum)
+     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     */
+    public List<Estoque> findByUnidade(int codUnidade, String busca) {
+        boolean temBusca = busca != null && !busca.isBlank();
+
+        String sql = "SELECT * FROM estoque WHERE cod_unidade = ?";
+        if (temBusca) {
+            sql += " AND (CAST(codigo AS TEXT) = ? OR espaco_na_unidade ILIKE ?)";
+        }
+        sql += " ORDER BY codigo";
+
+        List<Estoque> lista = new ArrayList<>();
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, codUnidade);
+            if (temBusca) {
+                String termo = busca.trim();
+                stmt.setString(2, termo);
+                stmt.setString(3, "%" + termo + "%");
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Estoque(
+                            rs.getInt("codigo"),
+                            rs.getString("espaco_na_unidade"),
+                            rs.getInt("cod_responsavel"),
+                            rs.getInt("cod_unidade")
+                    ));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao buscar os estoques da unidade.", e);
+        }
+
+        return lista;
+    }
 }

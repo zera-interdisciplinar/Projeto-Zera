@@ -5,7 +5,8 @@
     Estoques da unidade do gestor: lista, novo estoque e editar estoque.
 
     Recebe do ReadEstoqueServlet (GET /estoque/perfil):
-    - estoques: estoques da unidade do gestor
+    - estoques: estoques da unidade do gestor, já filtrados pela busca
+      (o filtro é feito no banco, pelo EstoqueDAO.findByUnidade)
     - gestores: gestores da mesma unidade (sem a senha)
 
     O servlet sempre manda para esta página. Qual tela aparece depende do link:
@@ -140,8 +141,8 @@
                     </a>
                 </form>
 
+                    <%-- usado só para escolher a mensagem quando a lista vem vazia --%>
                 <c:set var="busca" value="${fn:trim(param.busca)}"/>
-                <c:set var="quantidade" value="0"/>
 
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
@@ -153,36 +154,30 @@
                         </tr>
                         </thead>
                         <tbody>
+                            <%-- a lista já vem filtrada do banco (EstoqueDAO.findByUnidade) --%>
                         <c:forEach var="e" items="${estoques}">
-                            <%-- filtro da busca: código igual ou espaço que contém o texto --%>
-                            <c:set var="mostrar" value="${empty busca
-                                                or fn:trim(e.codigo) == busca
-                                                or fn:containsIgnoreCase(e.espacoNaUnidade, busca)}"/>
-                            <c:if test="${mostrar}">
-                                <c:set var="quantidade" value="${quantidade + 1}"/>
-                                <tr>
-                                    <td>${e.codigo}</td>
-                                    <td><c:out value="${e.espacoNaUnidade}"/></td>
-                                    <td>
-                                        <div class="acoes">
-                                            <a href="${ctx}/estoque/perfil?editar=${e.codigo}" title="Editar">
-                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                            </a>
-                                                <%-- excluir é POST, então é um formulário pequeno com um botão --%>
-                                            <form action="${ctx}/estoque/excluir" method="post" class="form-excluir"
-                                                  onsubmit="return confirm('Excluir este estoque?');">
-                                                <input type="hidden" name="codigo" value="${e.codigo}">
-                                                <button type="submit" class="botao-acao" title="Excluir">
-                                                    <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:if>
+                            <tr>
+                                <td>${e.codigo}</td>
+                                <td><c:out value="${e.espacoNaUnidade}"/></td>
+                                <td>
+                                    <div class="acoes">
+                                        <a href="${ctx}/estoque/perfil?editar=${e.codigo}" title="Editar">
+                                            <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                        </a>
+                                            <%-- excluir é POST, então é um formulário pequeno com um botão --%>
+                                        <form action="${ctx}/estoque/excluir" method="post" class="form-excluir"
+                                              onsubmit="return confirm('Excluir este estoque?');">
+                                            <input type="hidden" name="codigo" value="${e.codigo}">
+                                            <button type="submit" class="botao-acao" title="Excluir">
+                                                <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                         </c:forEach>
 
-                        <c:if test="${quantidade == 0}">
+                        <c:if test="${empty estoques}">
                             <tr>
                                 <td colspan="3">
                                     <c:if test="${empty busca}">Nenhum estoque cadastrado nesta unidade.</c:if>
