@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Confirmação de Exclusão</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================================
+           VARIÁVEIS
+        ================================ */
+
+        :root {
+            --cor1: #F1EADA;
+            --cor2: #2E62E0;
+            --cor3: #1A2C6E;
+            --fonte1: 'Poppins', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--fonte1);
+            background-color: var(--cor1);
+        }
+
+        /* ================================
+           PÁGINA DE EXEMPLO
+        ================================ */
+
+        .pagina {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .botao-abrir {
+            background-color: var(--cor2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-family: var(--fonte1);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* ================================
+           FUNDO TRANSPARENTE
+        ================================ */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+
+            background-color: rgba(18, 24, 38, 0.82);
+
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 99999;
+            padding: 20px;
+        }
+
+        .modal-overlay.ativo {
+            display: flex;
+        }
+
+        /* ================================
+           CAIXA DO MODAL
+        ================================ */
+
+        .modal-caixa {
+            position: relative;
+
+            width: 100%;
+            max-width: 450px;
+            min-height: 208px;
+
+            background: linear-gradient(
+                135deg,
+                #2452B5 0%,
+                #1A347B 100%
+            );
+
+            border-radius: 15px;
+            padding: 28px 26px 24px;
+
+            color: white;
+            font-family: var(--fonte1);
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* ================================
+           TÍTULO E DESCRIÇÃO
+        ================================ */
+
+        .modal-caixa h2 {
+            font-size: 27px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-transform: none;
+
+            color: #FFFFFF;
+            margin: 0 35px 8px 0;
+        }
+
+        .modal-descricao {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+
+            color: rgba(255, 255, 255, 0.65);
+
+            max-width: 360px;
+        }
+
+        /* ================================
+           BOTÃO X
+        ================================ */
+
+        .modal-fechar {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+
+            border: none;
+            background: transparent;
+
+            color: rgba(255, 255, 255, 0.75);
+
+            font-size: 35px;
+            font-weight: 300;
+            line-height: 1;
+
+            cursor: pointer;
+            padding: 0;
+
+            transition: color 0.2s;
+        }
+
+        .modal-fechar:hover {
+            color: white;
+        }
+
+        /* ================================
+           BOTÕES INFERIORES
+        ================================ */
+
+        .modal-botoes {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+
+            margin-top: 45px;
+        }
+
+        .modal-voltar,
+        .modal-excluir {
+            font-family: var(--fonte1);
+            font-size: 15px;
+            font-weight: 600;
+
+            border-radius: 9px;
+            padding: 9px 19px;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.2s,
+                color 0.2s;
+        }
+
+        .modal-voltar {
+            background-color: var(--cor1);
+            color: var(--cor2);
+            border: 2px solid #C5D0EA;
+        }
+
+        .modal-voltar:hover {
+            background-color: #E2E6EF;
+        }
+
+        .modal-excluir {
+            background-color: var(--cor1);
+            color: #FF3B30;
+            border: 2px solid #FF3B30;
+        }
+
+        .modal-excluir:hover {
+            background-color: #FF3B30;
+            color: white;
+        }
+
+        /* ================================
+           RESPONSIVIDADE
+        ================================ */
+
+        @media (max-width: 480px) {
+
+            .modal-caixa {
+                max-width: 350px;
+                min-height: 190px;
+                padding: 25px 20px 22px;
+            }
+
+            .modal-caixa h2 {
+                font-size: 22px;
+            }
+
+            .modal-descricao {
+                font-size: 11px;
+            }
+
+            .modal-botoes {
+                margin-top: 35px;
+            }
+
+            .modal-voltar,
+            .modal-excluir {
+                font-size: 13px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Página de exemplo atrás do modal -->
+    <main class="pagina">
+
+        <button
+            class="botao-abrir"
+            type="button"
+            id="botaoAbrirModal">
+            Excluir item
+        </button>
+
+    </main>
+
+    <!-- ================================
+         MODAL DE EXCLUSÃO
+    ================================ -->
+
+    <div class="modal-overlay" id="modalExclusao">
+
+        <div
+            class="modal-caixa"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitulo"
+            aria-describedby="modalDescricao">
+
+            <button
+                class="modal-fechar"
+                type="button"
+                id="fecharModal"
+                aria-label="Fechar">
+                &times;
+            </button>
+
+            <h2 id="modalTitulo">
+                Deseja mesmo excluir?
+            </h2>
+
+            <p
+                class="modal-descricao"
+                id="modalDescricao">
+                Essa ação pode levar à exclusão de outros
+                itens relacionados.
+            </p>
+
+            <div class="modal-botoes">
+
+                <button
+                    class="modal-voltar"
+                    type="button"
+                    id="voltarModal">
+                    Voltar
+                </button>
+
+                <button
+                    class="modal-excluir"
+                    type="button"
+                    id="confirmarExclusao">
+                    Excluir
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================ -->
+
+    <script>
+        const modalExclusao = document.getElementById(
+            "modalExclusao"
+        );
+
+        const botaoAbrir = document.getElementById(
+            "botaoAbrirModal"
+        );
+
+        const fecharModal = document.getElementById(
+            "fecharModal"
+        );
+
+        const voltarModal = document.getElementById(
+            "voltarModal"
+        );
+
+        const confirmarExclusao = document.getElementById(
+            "confirmarExclusao"
+        );
+
+        let acaoExclusao = null;
+        let elementoAnterior = null;
+
+        // Abrir modal
+        function abrirModalExclusao(acao) {
+            acaoExclusao = typeof acao === "function"
+                ? acao
+                : null;
+
+            elementoAnterior = document.activeElement;
+
+            modalExclusao.classList.add("ativo");
+            fecharModal.focus();
+        }
+
+        // Fechar modal
+        function fecharModalExclusao() {
+            modalExclusao.classList.remove("ativo");
+
+            acaoExclusao = null;
+
+            if (elementoAnterior?.isConnected) {
+                elementoAnterior.focus();
+            }
+        }
+
+        // Botão de exemplo
+        botaoAbrir.addEventListener("click", () => {
+            abrirModalExclusao(() => {
+                console.log("Exclusão confirmada!");
+            });
+        });
+
+        // Fechar pelo X
+        fecharModal.addEventListener(
+            "click",
+            fecharModalExclusao
+        );
+
+        // Fechar pelo Voltar
+        voltarModal.addEventListener(
+            "click",
+            fecharModalExclusao
+        );
+
+        // Fechar clicando no fundo
+        modalExclusao.addEventListener("click", (event) => {
+            if (event.target === modalExclusao) {
+                fecharModalExclusao();
+            }
+        });
+
+        // Fechar com ESC e manter foco no modal
+        document.addEventListener("keydown", (event) => {
+            if (!modalExclusao.classList.contains("ativo")) {
+                return;
+            }
+
+            if (event.key === "Escape") {
+                fecharModalExclusao();
+            }
+
+            if (event.key === "Tab") {
+                const controles = [
+                    fecharModal,
+                    voltarModal,
+                    confirmarExclusao
+                ];
+
+                const primeiro = controles[0];
+                const ultimo = controles[controles.length - 1];
+
+                if (
+                    event.shiftKey &&
+                    document.activeElement === primeiro
+                ) {
+                    event.preventDefault();
+                    ultimo.focus();
+                } else if (
+                    !event.shiftKey &&
+                    document.activeElement === ultimo
+                ) {
+                    event.preventDefault();
+                    primeiro.focus();
+                }
+            }
+        });
+
+        // Confirmar exclusão
+        confirmarExclusao.addEventListener("click", () => {
+            const executar = acaoExclusao;
+
+            fecharModalExclusao();
+
+            if (executar) {
+                executar();
+            }
+        });
+    </script>
+
+</body>
+</html>

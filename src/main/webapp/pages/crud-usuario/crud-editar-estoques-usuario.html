@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar estoque Zera - </title>
+    <title>Editar estoque - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html" class="botao-ativo">Estoques</a>
@@ -30,50 +58,100 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Botão de voltar -->
             <a href="crud-estoques-usuario.html" class="voltar">
                 <img src="../../images/seta-voltar.svg" alt="">
                 <span>Voltar</span>
             </a>
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Editar estoque</h1>
 
+            <!-- ========================================
+                 FORMULÁRIO DE EDIÇÃO DO ESTOQUE
+            ======================================== -->
             <section class="tabela">
                 <form action="#" method="POST">
+
+                    <!-- ========================================
+                         DADOS DO ESTOQUE
+                    ======================================== -->
                     <div class="form-coluna">
+
+                        <!-- Espaço na unidade -->
                         <div class="filtrador">
                             <label for="espaco">Espaço na unidade</label>
-                            <input type="text" id="espaco" name="espaco" value="Galpão 3, sala B" class="form-campo-total">
+                            <input
+                                type="text"
+                                id="espaco"
+                                name="espaco"
+                                value="Galpão 3, sala B"
+                                class="form-campo-total"
+                            >
                         </div>
 
+                        <!-- Código do estoque -->
                         <div class="filtrador">
                             <label for="codigo">Código</label>
-                            <input type="text" id="codigo" name="codigo" value="1" class="form-campo-total" readonly>
+                            <input
+                                type="text"
+                                id="codigo"
+                                name="codigo"
+                                value="1"
+                                class="form-campo-total"
+                                readonly
+                            >
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         BOTÃO DE SALVAR
+                    ======================================== -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Salvar
                         </button>
                     </div>
+
                 </form>
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
 
 </body>
 </html>
