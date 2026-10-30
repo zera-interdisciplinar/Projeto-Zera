@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
+<<<<<<< HEAD:src/main/webapp/pages/crud-admin/crud-nova-assinatura-admin.html
     <div class = tela-auth>
         <!--Painel esquerdo-->
         <div class = painel-esquerda>
@@ -29,18 +31,39 @@
                     <a href="../login/log.html"><span>Sair</span></a>
                 </nav>
             </div>
+=======
+<div class = tela-auth>
+    <!--Painel esquerdo-->
+    <div class = painel-esquerda>
+        <div class = painel-conteudo>
+            <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <nav>
+                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
+                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
+                <a class = botao-ativo href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
+                <a href="crud-planos-admin.jsp"><span>Planos</span></a>
+                <a href="crud-unidades-admin.jsp"><span>Unidades</span></a>
+                <a href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
+                <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
+                <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
+                <a href="crud-admins-admin.jsp"><span>Admin</span></a>
+                <hr class = barra-azul>
+                <a href="../login/login.jsp"><span>Sair</span></a>
+            </nav>
+>>>>>>> 01ca31d609ae8b29ecefdc02a46efc4669aafeb0:src/main/webapp/WEB-INF/crud-admin/crud-nova-assinatura-assinatura-admin.jsp
         </div>
-        <!--Área de informações-->
-        <div class = informacoes>
-            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-            <a href="crud-assinaturas-admin.jsp" class="voltar">
-                <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-                Voltar
-            </a>
-            <h3 class = nome-da-area>Nova assinatura</h3>
-            <div class="adicao">
-                <form action="adicionar" method="post">
-                    <h5>Organização</h5>
+    </div>
+    <!--Área de informações-->
+    <div class = informacoes>
+        <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
+        <a href="crud-assinaturas-admin.jsp" class="voltar">
+            <img src="../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
+            Voltar
+        </a>
+        <h3 class = nome-da-area>Nova assinatura</h3>
+        <div class="adicao">
+            <form action="${pageContext.request.contextPath}/adicionar" method="post">
+                <h5>Organização</h5>
                 <div id="nome">
                     <select name="organizacao" id="organizacao" required>
                         <option value="" disabled selected hidden>Selecione</option>
@@ -77,9 +100,9 @@
                     <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span>
                 </div>
                 <button>Adicionar</button>
-                </form>
-            </div>
+            </form>
         </div>
-    
+    </div>
+</div>
 </body>
-</html>
+
