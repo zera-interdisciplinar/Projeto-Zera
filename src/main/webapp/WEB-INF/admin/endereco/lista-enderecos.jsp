@@ -1,94 +1,111 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="endereco"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
     <title>Endereços - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
-<body>
 
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="../home.jsp"><span>Home</span></a>
-                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a class = botao-ativo href="lista-enderecos.jsp"><span>Endereços  </span></a>
-                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="crud-novo-admin-feito.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<body>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h3 class = nome-da-area>Endereços</h3>
-        <div class = tabela>
-            <form action="lista-enderecos.jsp" method="GET" class="tabela-filtros">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Endereços</h1>
+
+        <section class="tabela">
+            <form class="tabela-filtros" action="${ctx}/endereco/lista" method="get">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-                    <input type="text" id="buscar" name="buscar" placeholder="Organização ou cidade">
+
+                    <input type="search" name="buscar" id="buscar"
+                           value="<c:out value='${param.buscar}'/>"
+                           placeholder="Pesquisar">
                 </div>
-                <div class="filtrador">
-                    <label for="organizacao">Organização</label>
-                    <select name="Organização" id="organizacao">
-                        <option value="todos">Todas</option>
-                        <option value="jbs-alimentos">JBS alimentos</option>
-                        <option value="seara">Seara</option>
-                    </select>
-                </div>
-                <a href="" id="adicionar-invisivel"><img src="../../../images/adicionar.svg" alt="">Nova organização</a>
+
+                <button type="submit" class="btn-lupa">Buscar</button>
+
             </form>
+
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
-                    <colgroup>
-                        <col style="width: 25%">
-                        <col style="width: 25%">
-                        <col style="width: 15%">
-                        <col style="width:20%">
-                        <col style="width: 15%">
-                    </colgroup>
                     <thead>
                     <tr>
-                        <th>Organização</th>
                         <th>Logradouro</th>
+                        <th>Número</th>
+                        <th>Bairro</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
                         <th>CEP</th>
-                        <th>Cidade/UF</th>
-                        <th></th>
+                        <th class="col-acoes">Ações</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>JBS Alimentos</td>
-                        <td>Rua João Bertozi, 67</td>
-                        <td>12345678</td>
-                        <td>Lins/SP</td>
-                        <td class="acoes">
-                            <a href="editar-endereco-admin-feito.jsp"><img src="../../../images/editar.svg" alt=""></a>
-                            <a href="../../../pages/popups/popup-excluir.html"><img src="../../../images/excluir.svg" alt=""></a>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${not empty enderecos}">
+                            <c:forEach var="item" items="${enderecos}">
+                                <tr>
+                                    <td><c:out value="${item.logradouro}"/></td>
+                                    <td><c:out value="${item.numero}"/></td>
+                                    <td><c:out value="${item.bairro}"/></td>
+                                    <td><c:out value="${item.cidade}"/></td>
+                                    <td><c:out value="${item.estado}"/></td>
+                                    <td><c:out value="${item.cep}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/endereco/perfil?codigo=${item.codigo}"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form action="${ctx}/endereco/excluir"
+                                                  method="post"
+                                                  onsubmit="return confirm('Confirma a exclusão?');">
+
+                                                <input type="hidden" name="codigo"
+                                                       value="${item.codigo}">
+
+                                                <button type="submit" aria-label="Excluir">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="7">Nenhum endereço encontrado.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     </tbody>
                 </table>
             </div>
-
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
-
-
 </body>
 </html>
