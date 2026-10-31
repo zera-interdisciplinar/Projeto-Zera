@@ -122,5 +122,6 @@
     });
 })();
 </script>
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>

@@ -194,6 +194,6 @@
     </c:choose>
 </main>
 </div>
-
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>
