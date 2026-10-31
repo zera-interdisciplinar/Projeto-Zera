@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -25,167 +24,178 @@
             <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
     </aside>
-
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-
         <h1 class="nome-da-area">Organizações</h1>
-
         <section class="tabela">
-            <form class="tabela-filtros" onsubmit="event.preventDefault()">
+            <form class="tabela-filtros" id="form-filtros">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-
-                    <input id="buscar" name="buscar" type="search"
-                           placeholder="Nome, CNPJ ou email">
+                    <input id="buscar" name="buscar" type="search" placeholder="Nome, CNPJ ou e-mail">
                 </div>
-
                 <div class="filtrador">
                     <label for="cadastro">Cadastro</label>
-
                     <select id="cadastro" name="cadastro">
                         <option value="todos">Todos</option>
                         <option value="30">Últimos 30 dias</option>
                         <option value="90">Últimos 90 dias</option>
                     </select>
                 </div>
-
+                <button type="submit" class="adicionar">Filtrar</button>
+                <button type="button" class="adicionar" id="limpar-filtros">Limpar</button>
                 <a href="${ctx}/organizacao/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
                     Nova organização
                 </a>
             </form>
-
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
                     <thead>
                     <tr>
                         <th>Nome</th>
                         <th>CNPJ</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
                         <th>Cadastrada em</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
-
                     <tbody>
                     <c:forEach var="org" items="${organizacoes}">
-                        <tr class="linha-organizacao"
-                            data-cadastro="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : ''}">
-
+                        <tr class="linha-organizacao" data-cadastro="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : ''}">
                             <td><c:out value="${org.nome}"/></td>
                             <td><c:out value="${org.cnpj}"/></td>
                             <td><c:out value="${org.email}"/></td>
-
-                            <td>
-                                <c:out value="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : 'Não informada'}"/>
-                            </td>
-
+                            <td><c:out value="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : 'Não informada'}"/></td>
                             <td class="col-acoes">
                                 <div class="acoes">
-                                    <button type="button" class="ver-organizacao"
-                                            title="Visualizar">
-                                        Ver
-                                    </button>
-
-                                    <a href="${ctx}/organizacao/perfil?codigo=${org.codigo}"
-                                       title="Editar">
+                                    <button type="button" class="ver-organizacao" title="Visualizar">Ver</button>
+                                    <c:url var="urlEditarCnpj" value="/organizacao/perfil">
+                                        <c:param name="cnpj" value="${org.cnpj}"/>
+                                    </c:url>
+                                    <a href="${urlEditarCnpj}" title="Editar pelo CNPJ">
                                         <img src="${ctx}/images/icone-editar.svg" alt="Editar">
                                     </a>
-
-                                    <form method="post" action="${ctx}/organizacao/excluir"
-                                          onsubmit="return confirm('Deseja excluir a organização e os dados relacionados?');">
-
-                                        <input type="hidden" name="codigo"
-                                               value="${org.codigo}">
-
+                                    <form method="post" action="${ctx}/organizacao/excluir" class="form-excluir-organizacao">
+                                        <input type="hidden" name="codigo" value="<c:out value='${org.codigo}'/>">
+                                        <input type="hidden" name="cnpj" value="<c:out value='${org.cnpj}'/>">
+                                        <input type="hidden" class="nome-organizacao" value="<c:out value='${org.nome}'/>">
                                         <button type="submit">Excluir</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                     </c:forEach>
-
-                    <tr id="sem-resultados">
+                    <tr id="sem-resultados" hidden>
                         <td colspan="5">Nenhuma organização encontrada.</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </section>
-
         <dialog id="modal-visualizacao">
             <h2>Dados da organização</h2>
-
             <p>Nome: <span id="detalhe-nome"></span></p>
             <p>CNPJ: <span id="detalhe-cnpj"></span></p>
-            <p>Email: <span id="detalhe-email"></span></p>
-
+            <p>E-mail: <span id="detalhe-email"></span></p>
             <form method="dialog">
-                <button>Fechar</button>
+                <button type="submit">Fechar</button>
             </form>
         </dialog>
     </main>
 </div>
 
 <script>
-    const busca = document.getElementById('buscar');
-    const cadastro = document.getElementById('cadastro');
-    const linhas = [...document.querySelectorAll('.linha-organizacao')];
-    const aviso = document.getElementById('sem-resultados');
+    let busca = document.getElementById("buscar");
+    let cadastro = document.getElementById("cadastro");
+    let linhas = document.querySelectorAll(".linha-organizacao");
+    let aviso = document.getElementById("sem-resultados");
 
     function filtrar() {
-        const termo = busca.value.trim().toLowerCase();
-        const dias = cadastro.value;
-        let visiveis = 0;
+        let termo = busca.value.toLowerCase().trim();
+        let dias = cadastro.value;
+        let quantidade = 0;
 
-        linhas.forEach((linha) => {
-            const ok = linha.textContent.toLowerCase().includes(termo);
+        for (let i = 0; i < linhas.length; i++) {
+            let linha = linhas[i];
+            let texto = linha.innerText.toLowerCase();
+            let dataCadastro = linha.getAttribute("data-cadastro");
+            let buscaOk = texto.includes(termo);
             let dataOk = true;
 
-            if (dias !== 'todos') {
-                const data = linha.dataset.cadastro;
-                const limite = new Date();
-
+            if (dias != "todos") {
+                let limite = new Date();
                 limite.setHours(0, 0, 0, 0);
-                limite.setDate(limite.getDate() - (dias === '30' ? 30 : 90));
+                limite.setDate(limite.getDate() - Number(dias));
 
-                dataOk = !!data && new Date(data + 'T00:00:00') >= limite;
+                if (dataCadastro == "") {
+                    dataOk = false;
+                } else {
+                    let data = new Date(dataCadastro + "T00:00:00");
+                    dataOk = data >= limite;
+                }
             }
 
-            linha.hidden = !(ok && dataOk);
-
-            if (!linha.hidden) {
-                visiveis++;
+            if (buscaOk && dataOk) {
+                linha.hidden = false;
+                quantidade++;
+            } else {
+                linha.hidden = true;
             }
-        });
+        }
 
-        aviso.hidden = visiveis !== 0;
+        if (quantidade == 0) {
+            aviso.hidden = false;
+        } else {
+            aviso.hidden = true;
+        }
     }
 
-    busca?.addEventListener('input', filtrar);
-    cadastro?.addEventListener('change', filtrar);
+    function limparFiltros() {
+        busca.value = "";
+        cadastro.value = "todos";
+        filtrar();
+    }
+
+    function visualizarOrganizacao(botao) {
+        let linha = botao.closest("tr");
+        document.getElementById("detalhe-nome").textContent = linha.cells[0].textContent;
+        document.getElementById("detalhe-cnpj").textContent = linha.cells[1].textContent;
+        document.getElementById("detalhe-email").textContent = linha.cells[2].textContent;
+        document.getElementById("modal-visualizacao").showModal();
+    }
+
+    function confirmarExclusao(evento) {
+        let formulario = evento.target;
+        let nome = formulario.querySelector(".nome-organizacao").value;
+
+        if (!confirm("Deseja excluir a organização " + nome + " e todos os dados relacionados?")) {
+            evento.preventDefault();
+        }
+    }
+
+    function enviarFiltros(evento) {
+        evento.preventDefault();
+        filtrar();
+    }
+
+    let botoesVisualizar = document.querySelectorAll(".ver-organizacao");
+    for (let i = 0; i < botoesVisualizar.length; i++) {
+        botoesVisualizar[i].addEventListener("click", function() {
+            visualizarOrganizacao(this);
+        });
+    }
+
+    let formulariosExcluir = document.querySelectorAll(".form-excluir-organizacao");
+    for (let i = 0; i < formulariosExcluir.length; i++) {
+        formulariosExcluir[i].addEventListener("submit", confirmarExclusao);
+    }
+
+    document.getElementById("form-filtros").addEventListener("submit", enviarFiltros);
+    document.getElementById("limpar-filtros").addEventListener("click", limparFiltros);
+    busca.addEventListener("input", filtrar);
+    cadastro.addEventListener("change", filtrar);
 
     filtrar();
-
-    const detalhe = document.getElementById('modal-visualizacao');
-
-    document.querySelectorAll('.ver-organizacao').forEach((botao) => {
-        botao.addEventListener('click', () => {
-            const linha = botao.closest('tr');
-
-            document.getElementById('detalhe-nome').textContent =
-                linha.cells[0].textContent;
-
-            document.getElementById('detalhe-cnpj').textContent =
-                linha.cells[1].textContent;
-
-            document.getElementById('detalhe-email').textContent =
-                linha.cells[2].textContent;
-
-            detalhe.showModal();
-        });
-    });
 </script>
 </body>
 </html>

@@ -35,108 +35,80 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class UpdateEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa POST para atualizar o estoque.
+     * Atualiza o estoque respeitando as permissões de cada perfil.
      *
-     * @param request objeto HttpServletRequest com codigo, espacoNaUnidade, codResponsavel e, para o admin, codUnidade
-     * @param response objeto HttpServletResponse para redirecionamento ou erro
-     * @throws IOException caso haja um erro de input/output (entrada/saída)
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
-
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Unidade unidadeLogada = Sessao.unidade(request);
+
             if (admin == null && unidadeLogada == null) {
-                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+                exibirErro(request, response, "Sessão expirada.", ERROR_PAGE);
                 return;
             }
 
-            // lê o código
             String codigoTexto = request.getParameter("codigo");
-            Integer codigo = null;
-            if (codigoTexto != null && !codigoTexto.isBlank()) {
-                codigo = Integer.parseInt(codigoTexto.trim());
-            }
-            if (codigo == null) {
+            if (codigoTexto == null || codigoTexto.isBlank()) {
                 exibirErro(request, response, "Estoque não informado.", ERROR_PAGE);
                 return;
             }
 
+            int codigo = Integer.parseInt(codigoTexto.trim());
             EstoqueDAO dao = new EstoqueDAO();
             Estoque existente = dao.findByCodigo(codigo);
+            int codUnidade = existente.getCodUnidade();
 
-            int codUnidade;
             if (admin != null) {
-                // o admin pode trocar a unidade do estoque. Campo vazio mantém a atual
-                String novaUnidadeTexto = request.getParameter("codUnidade");
-                Integer novaUnidade = null;
-                if (novaUnidadeTexto != null && !novaUnidadeTexto.isBlank()) {
-                    novaUnidade = Integer.parseInt(novaUnidadeTexto.trim());
+                String unidadeTexto = request.getParameter("codUnidade");
+                if (unidadeTexto != null && !unidadeTexto.isBlank()) {
+                    codUnidade = Integer.parseInt(unidadeTexto.trim());
+                    new UnidadeDAO().findByCodigo(codUnidade);
                 }
-                if (novaUnidade == null) {
-                    codUnidade = existente.getCodUnidade();
-                } else {
-                    new UnidadeDAO().findByCodigo(novaUnidade);
-                    codUnidade = novaUnidade;
-                }
-            } else {
-                // gestor não pode mexer em estoque de outra unidade
-                if (existente.getCodUnidade() != unidadeLogada.getCodigo()) {
-                    exibirErro(request, response, "Este estoque não pertence à sua unidade.", ERROR_PAGE);
-                    return;
-                }
-                codUnidade = existente.getCodUnidade();
-            }
-
-            // lê os campos do formulário
-            String espacoNaUnidadeTexto = request.getParameter("espacoNaUnidade");
-            String espacoNaUnidade = null;
-            if (espacoNaUnidadeTexto != null && !espacoNaUnidadeTexto.isBlank()) {
-                espacoNaUnidade = espacoNaUnidadeTexto.trim();
-            }
-            String codResponsavelTexto = request.getParameter("codResponsavel");
-            Integer codResponsavel = null;
-            if (codResponsavelTexto != null && !codResponsavelTexto.isBlank()) {
-                codResponsavel = Integer.parseInt(codResponsavelTexto.trim());
-            }
-            if (espacoNaUnidade == null) {
-                exibirErro(request, response, "Informe o espaço do estoque na unidade.", ERROR_PAGE);
+            } else if (existente.getCodUnidade() != unidadeLogada.getCodigo()) {
+                exibirErro(request, response, "Estoque não pertence à sua unidade.", ERROR_PAGE);
                 return;
             }
-            if (codResponsavel == null) {
-                codResponsavel = existente.getCodResponsavel();
+
+            String espaco = request.getParameter("espacoNaUnidade");
+            if (espaco == null || espaco.isBlank()) {
+                exibirErro(request, response, "Informe o espaço do estoque.", ERROR_PAGE);
+                return;
+            }
+
+            String responsavelTexto = request.getParameter("codResponsavel");
+            int codResponsavel = existente.getCodResponsavel();
+            if (responsavelTexto != null && !responsavelTexto.isBlank()) {
+                codResponsavel = Integer.parseInt(responsavelTexto.trim());
             }
 
             Gestor responsavel = new GestorDAO().findByCodigo(codResponsavel);
             if (responsavel.getCodUnidade() != codUnidade) {
-                exibirErro(request, response, "O responsável precisa ser um gestor da mesma unidade.", ERROR_PAGE);
+                exibirErro(request, response, "Responsável precisa pertencer à unidade.", ERROR_PAGE);
                 return;
             }
 
-            dao.update(new Estoque(existente.getCodigo(), espacoNaUnidade, codResponsavel, codUnidade));
-
-            String destino;
+            Estoque atualizado = new Estoque(codigo, espaco.trim(), codResponsavel, codUnidade);
             if (admin != null) {
-                destino = "/estoque/lista";
+                dao.update(atualizado);
             } else {
-                destino = "/estoque/perfil";
+                dao.updateByUnidade(atualizado, unidadeLogada.getCodigo());
             }
-            // redirect
-            response.sendRedirect(request.getContextPath() + destino);
 
-        } catch (NotFoundException nfe) {
-            nfe.printStackTrace();
-            exibirErro(request, response, nfe, ERROR_PAGE);
-        } catch (NumberFormatException nmfe) {
+            response.sendRedirect(request.getContextPath() +
+                    (admin != null ? "/estoque/lista" : "/estoque/perfil"));
+
+        } catch (NotFoundException e) {
+            exibirErro(request, response, e, ERROR_PAGE);
+        } catch (NumberFormatException e) {
             exibirErro(request, response, "Código inválido.", ERROR_PAGE);
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);

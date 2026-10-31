@@ -38,49 +38,64 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class ListEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir a lista de estoques.
+     * Lista estoques e aplica filtros opcionais de pesquisa.
      *
-     * @param request objeto HttpServletRequest que recebe a lista como atributo
-     * @param response objeto HttpServletResponse usado para exibir a página ou o erro
-     * @throws ServletException caso ocorra erro ao encaminhar para a página
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws ServletException caso ocorra erro no encaminhamento
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            // só o admin vê os registros de todas as organizações
             if (Sessao.admin(request) == null) {
                 exibirErro(request, response, "Acesso permitido apenas ao administrador.", ERROR_PAGE);
                 return;
             }
 
-            // busca todos os registros
-            List<Estoque> estoques = new EstoqueDAO().findAll();
+            String busca = request.getParameter("buscar");
+            Integer codUnidade = lerCodigo(request.getParameter("codUnidade"));
+            Integer codResponsavel = lerCodigo(request.getParameter("codResponsavel"));
+            Integer codOrganizacao = lerCodigo(request.getParameter("codOrganizacao"));
+
+            List<Estoque> estoques = new EstoqueDAO().findByFiltros(
+                    busca, codUnidade, codResponsavel, codOrganizacao);
             request.setAttribute("estoques", estoques);
 
-            // gestores para mostrar o nome do responsável
             List<Gestor> gestores = new GestorDAO().findAll();
             for (Gestor gestor : gestores) {
                 gestor.setSenha(null);
             }
             request.setAttribute("gestores", gestores);
-
-            // listas para a JSP trocar os códigos pelos nomes
             request.setAttribute("unidades", new UnidadeDAO().findAll());
             request.setAttribute("organizacoes", new OrganizacaoDAO().findAll());
             request.setAttribute("enderecos", new EnderecoDAO().findAll());
+            request.getRequestDispatcher("/WEB-INF/admin/estoque/lista-estoques.jsp")
+                    .forward(request, response);
 
-            // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/estoque/lista-estoques.jsp").forward(request, response);
-
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (NumberFormatException e) {
+            exibirErro(request, response, "Filtro inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+            exibirErro(request, response, "Erro inesperado encontrado.", ERROR_PAGE);
         }
+    }
+
+    /**
+     * Converte um parâmetro de filtro em código positivo.
+     *
+     * @param valor texto do filtro
+     * @return código informado ou null
+     * @throws NumberFormatException se o código for inválido
+     */
+    private Integer lerCodigo(String valor) {
+        if (valor == null || valor.isBlank()) return null;
+        int codigo = Integer.parseInt(valor.trim());
+        if (codigo <= 0) throw new NumberFormatException("Código inválido.");
+        return codigo;
     }
 }

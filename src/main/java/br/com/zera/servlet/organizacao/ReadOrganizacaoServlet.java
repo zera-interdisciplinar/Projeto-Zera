@@ -1,9 +1,11 @@
+
 package br.com.zera.servlet.organizacao;
 
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Admin;
+import br.com.zera.model.Organizacao;
 import br.com.zera.model.Unidade;
 import br.com.zera.util.Sessao;
 import jakarta.servlet.ServletException;
@@ -32,39 +34,41 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class ReadOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir uma organização ou o formulário de nova organização.
+     * Apresenta o formulário de cadastro, edição ou o perfil da organização.
      *
-     * @param request objeto que contém os dados da requisição
-     * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
-     * @throws ServletException se ocorrer falha no encaminhamento para a JSP
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws ServletException caso ocorra erro no encaminhamento
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Unidade unidadeLogada = Sessao.unidade(request);
             OrganizacaoDAO dao = new OrganizacaoDAO();
-
             String pagina;
+
             if (admin != null) {
-                // lê o código
                 String codigoTexto = request.getParameter("codigo");
-                Integer codigo = null;
+                String cnpj = request.getParameter("cnpj");
+                Organizacao organizacao = null;
+
                 if (codigoTexto != null && !codigoTexto.isBlank()) {
-                    codigo = Integer.parseInt(codigoTexto.trim());
+                    int codigo = Integer.parseInt(codigoTexto.trim());
+                    organizacao = dao.findByCodigo(codigo);
+                } else if (cnpj != null && !cnpj.isBlank()) {
+                    organizacao = dao.findByCnpj(cnpj.trim());
                 }
-                if (codigo == null) {
+
+                if (organizacao == null) {
                     pagina = "/WEB-INF/admin/organizacao/nova-organizacao.jsp";
                 } else {
-                    request.setAttribute("organizacao", dao.findByCodigo(codigo));
+                    request.setAttribute("organizacao", organizacao);
                     pagina = "/WEB-INF/admin/organizacao/editar-organizacao.jsp";
                 }
             } else if (unidadeLogada != null) {
-                // a organização é a chave estrangeira da unidade do gestor
                 request.setAttribute("organizacao", dao.findByCodigo(unidadeLogada.getCodOrganizacao()));
                 pagina = "/WEB-INF/gestor/organizacao.jsp";
             } else {
@@ -72,19 +76,17 @@ public class ReadOrganizacaoServlet extends HttpServlet {
                 return;
             }
 
-            // envia para a JSP
             request.getRequestDispatcher(pagina).forward(request, response);
-
-        } catch (NotFoundException nfe) {
-            exibirErro(request, response, "Organização não cadastrada.", ERROR_PAGE);
-        } catch (NumberFormatException nmfe) {
-            exibirErro(request, response, "Código da organização inválido.", ERROR_PAGE);
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (NotFoundException e) {
+            exibirErro(request, response, "Organização não encontrada.", ERROR_PAGE);
+        } catch (NumberFormatException e) {
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+            exibirErro(request, response, "Erro inesperado encontrado.", ERROR_PAGE);
         }
     }
 }
