@@ -62,7 +62,7 @@ public class ListEnderecoServlet extends HttpServlet {
             request.setAttribute("organizacoes", new OrganizacaoDAO().findAll());
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-enderecos.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/endereco/lista-enderecos.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

@@ -62,7 +62,7 @@ public class ListAssinaturaServlet extends HttpServlet {
             request.setAttribute("planos", new PlanoDAO().findAll());
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-assinaturas.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/assinatura/lista-assinaturas.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

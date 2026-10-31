@@ -58,10 +58,10 @@ public class ReadPlanoServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/novo-plano.jsp";
+                    pagina = "/WEB-INF/admin/plano/novo-plano.jsp";
                 } else {
                     request.setAttribute("plano", dao.findByCodigo(codigo));
-                    pagina = "/WEB-INF/admin/editar-plano.jsp";
+                    pagina = "/WEB-INF/admin/plano/editar-plano.jsp";
                 }
             } else if (gestor != null) {
                 // o gestor só vê os planos

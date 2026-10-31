@@ -35,8 +35,8 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 @WebServlet(name = "ReadEndereco", value = "/endereco/perfil")
 public class ReadEnderecoServlet extends HttpServlet {
 
-    private static final String EDITAR = "/WEB-INF/admin/editar-endereco.jsp";
-    private static final String NOVO = "/WEB-INF/admin/novo-endereco.jsp";
+    private static final String EDITAR = "/WEB-INF/admin/endereco/editar-endereco.jsp";
+    private static final String NOVO = "/WEB-INF/admin/endereco/novo-endereco.jsp";
     private static final String GESTOR = "/WEB-INF/gestor/endereco.jsp";
 
     /**

@@ -70,10 +70,10 @@ public class ReadEstoqueServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/novo-estoque.jsp";
+                    pagina = "/WEB-INF/admin/estoque/novo-estoque.jsp";
                 } else {
                     request.setAttribute("estoque", dao.findByCodigo(codigo));
-                    pagina = "/WEB-INF/admin/editar-estoque.jsp";
+                    pagina = "/WEB-INF/admin/estoque/editar-estoque.jsp";
                 }
             } else if (unidadeLogada != null) {
                 int codUnidade = unidadeLogada.getCodigo();

@@ -68,10 +68,10 @@ public class ReadAssinaturaServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/nova-assinatura.jsp";
+                    pagina = "/WEB-INF/admin/assinatura/nova-assinatura.jsp";
                 } else {
                     request.setAttribute("assinatura", dao.findByCodigo(codigo));
-                    pagina = "/WEB-INF/admin/editar-assinatura.jsp";
+                    pagina = "/WEB-INF/admin/assinatura/editar-assinatura.jsp";
                 }
             } else if (unidadeLogada != null) {
                 // busca a assinatura da organização do gestor

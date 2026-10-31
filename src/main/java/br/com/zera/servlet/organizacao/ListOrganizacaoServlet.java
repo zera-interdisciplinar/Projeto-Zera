@@ -53,7 +53,7 @@ public class ListOrganizacaoServlet extends HttpServlet {
             request.setAttribute("organizacoes", organizacoes);
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-organizacoes.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/organizacao/lista-organizacoes.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

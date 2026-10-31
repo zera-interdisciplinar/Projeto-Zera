@@ -55,7 +55,7 @@ public class ReadAdminServlet extends HttpServlet {
             request.setAttribute("nome", admin.getNome());
             request.setAttribute("email", admin.getEmail());
 
-            request.getRequestDispatcher("/WEB-INF/admin/perfil-admin.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/configuracoes.jsp").forward(request, response);
 
         } catch (NotFoundException nfe) {
             nfe.printStackTrace();

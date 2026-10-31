@@ -1,0 +1,15 @@
+<%-- Menu compartilhado do administrador. Exige as variáveis ctx e ativo. --%>
+<nav>
+    <a href="${ctx}/admin/home" ${ativo == 'home' ? 'class="botao-ativo"' : ''}>Home</a>
+    <a href="${ctx}/organizacao/lista" ${ativo == 'organizacao' ? 'class="botao-ativo"' : ''}>Organiza&ccedil;&otilde;es</a>
+    <a href="${ctx}/assinatura/lista" ${ativo == 'assinatura' ? 'class="botao-ativo"' : ''}>Assinaturas</a>
+    <a href="${ctx}/plano/lista" ${ativo == 'plano' ? 'class="botao-ativo"' : ''}>Planos</a>
+    <a href="${ctx}/unidade/lista" ${ativo == 'unidade' ? 'class="botao-ativo"' : ''}>Unidades</a>
+    <a href="${ctx}/endereco/lista" ${ativo == 'endereco' ? 'class="botao-ativo"' : ''}>Endere&ccedil;os</a>
+    <a href="${ctx}/gestor/lista" ${ativo == 'gestor' ? 'class="botao-ativo"' : ''}>Gestores</a>
+    <a href="${ctx}/estoque/lista" ${ativo == 'estoque' ? 'class="botao-ativo"' : ''}>Estoques</a>
+    <a href="${ctx}/admin/perfil" ${ativo == 'admin' ? 'class="botao-ativo"' : ''}>Admin</a>
+    <hr class="barra-azul">
+    <a href="${ctx}/configuracoes/admin" ${ativo == 'configuracoes' ? 'class="botao-ativo"' : ''}>Configura&ccedil;&otilde;es</a>
+    <a href="${ctx}/logout">Sair</a>
+</nav>

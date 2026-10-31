@@ -63,10 +63,10 @@ public class ReadUnidadeServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/nova-unidade.jsp";
+                    pagina = "/WEB-INF/admin/unidade/nova-unidade.jsp";
                 } else {
                     request.setAttribute("unidade", dao.findByCodigo(codigo));
-                    pagina = "/WEB-INF/admin/editar-unidade.jsp";
+                    pagina = "/WEB-INF/admin/unidade/editar-unidade.jsp";
                 }
             } else if (unidadeLogada != null) {
                 Unidade unidade = dao.findByCodigo(unidadeLogada.getCodigo());
