@@ -115,5 +115,6 @@
     campoCep.addEventListener('input', function () { campoCep.setCustomValidity(''); });
 })();
 </script>
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>
