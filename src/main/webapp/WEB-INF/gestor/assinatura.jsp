@@ -13,7 +13,6 @@
     <title>Assinatura - Zera</title>
     <link rel="icon" href="${ctx}/images/favicon.png" type="image/png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
-    <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
 </head>
 <body>
