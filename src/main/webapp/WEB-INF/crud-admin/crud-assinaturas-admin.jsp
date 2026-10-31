@@ -91,8 +91,8 @@
                         <td class="texto-verde">Ativa</td>
                         <td class="col-acoes">
                             <div class="acoes">
-                                <a href="crud-editar-assinatura-admin.html" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
-                                <a href="../../pages/popups/popup-excluir.html" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
+                                <a href="crud-editar-assinatura-admin.jsp" title="Editar"><img src="../../images/icone-editar.svg" alt="Editar"></a>
+                                <a href="#" title="Excluir"><img src="../../images/icone-excluir.svg" alt="Excluir"></a>
                             </div>
                         </td>
                     </tr>
