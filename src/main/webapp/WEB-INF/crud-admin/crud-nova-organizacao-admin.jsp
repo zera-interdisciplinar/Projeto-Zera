@@ -24,8 +24,9 @@
                 <a href="${pageContext.request.contextPath}/endereco/lista"><span>Endereços</span></a>
                 <a href="${pageContext.request.contextPath}/gestor/lista"><span>Gestores</span></a>
                 <a href="${pageContext.request.contextPath}/estoque/lista"><span>Estoques</span></a>
-                <a href="${pageContext.request.contextPath}/admin/perfil"><span>Admin</span></a>
+                <a href="${pageContext.request.contextPath}/admin/novo"><span>Admin</span></a>
                 <hr class = barra-azul>
+                <a href="${pageContext.request.contextPath}/configuracoes/admin"><span>Configurações</span></a>
                 <a href="${pageContext.request.contextPath}/logout"><span>Sair</span></a>
             </nav>
         </div>
@@ -46,8 +47,10 @@
                 </div>
                 <h5>CNPJ</h5>
                 <h5>Email</h5>
-                <div class="infos-de-mesma-linha"><input type="text" name="cnpj" id="cnpj" placeholder="11.222.333/0001-81"></div>
-                <div class="infos-de-mesma-linha"><input type="text" name="email" id="email" placeholder="email@organizacao.com"></div>
+                <div class="infos-de-mesma-linha"><input type="text" name="cnpj" id="cnpj" placeholder="11.222.333/0001-81">
+                <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span></div>
+                <div class="infos-de-mesma-linha"><input type="text" name="email" id="email" placeholder="email@organizacao.com">
+                <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span></div>
                 <button type="submit">adicionar</button>
             </form>
         </div>

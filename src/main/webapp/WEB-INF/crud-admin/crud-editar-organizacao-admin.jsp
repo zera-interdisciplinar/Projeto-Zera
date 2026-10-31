@@ -66,9 +66,11 @@
                     <span>Gestores</span></a>
                 <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.jsp">
                     <span>Estoques</span></a>
-                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.jsp">
+                <a href="<%= contexto %>/pages/crud-admin/crud-novo-admin.jsp">
                     <span>Admin</span></a>
                 <hr class="barra-azul">
+                <a href="<%= contexto %>/pages/crud-admin/crud-configuracoes-admin.jsp">
+                    <span>Configurações</span></a>
                 <a href="<%= contexto %>/pages/login/login.jsp">
                     <span>Sair</span>
                 </a>
@@ -130,6 +132,7 @@
                             title="Informe o CNPJ no formato 11.222.333/0001-81."
                             required
                     >
+                    <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span>
                 </div>
                 <div class="infos-de-mesma-linha">
                     <input
@@ -141,6 +144,7 @@
                             autocomplete="email"
                             required
                     >
+                    <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                 </div>
                 <button type="submit" id="botao-salvar">
                     Salvar

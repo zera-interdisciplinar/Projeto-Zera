@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -27,7 +28,7 @@
                 <a href="crud-novo-admin.html"><span>Admin</span></a>
                 <hr class = barra-azul>
                 <a href="crud-configuracoes-admin.html"><span>Configurações</span></a>
-                <a href="../login/log.html"><span>Sair</span></a>
+                <a href="../login/login.html"><span>Sair</span></a>
             </nav>
             </div>
         </div>
