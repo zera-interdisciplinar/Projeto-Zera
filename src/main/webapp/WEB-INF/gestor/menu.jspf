@@ -50,7 +50,15 @@
                 <hr>
 
                 <a href="${ctx}/gestor/configuracoes"<c:if test="${ativo == 'configuracoes'}"> class="botao-ativo"</c:if>>Configurações</a>
-                <a href="${ctx}/logout">Sair</a>
+                <a
+                    href="${ctx}/logout"
+                    data-modal-exclusao
+                    data-excluir-tipo="sair"
+                    data-excluir-titulo="Deseja mesmo sair?"
+                    data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                >
+                    Sair
+                </a>
             </nav>
 
             <a href="${ctx}/gestor/perfil" class="perfil-usuario<c:if test="${ativo == 'perfil'}"> perfil-ativo</c:if>">
