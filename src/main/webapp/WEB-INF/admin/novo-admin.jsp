@@ -1,64 +1,100 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="admin"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../images/favicon.png">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/crud.css">
-    <title>Configurações</title>
+    <title>Adicionar administrador - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
-                <a href="organizacao/lista-organizacoes.jsp"><span>Organizações</span></a>
-                <a href="assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="plano/lista-planos.jsp"><span>Planos</span></a>
-                <a href="unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="endereco/lista-enderecos.jsp"><span>Endereços  </span></a>
-                <a href="gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a class = botao-ativo href="novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-            <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-            <h3 class = nome-da-area>Adicionar admin</h3>
-            <div class="adicao">
-                <form action="adicionar" method="post">
-                    <h5>Nome</h5>
-                    <h5>E-mail</h5>
-                    <div class="infos-de-mesma-linha">
-                        <input type="text" name="nome" placeholder="Admin Zera">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Adicionar administrador</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/admin/inserir" method="post">
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="nome">Nome</label>
+
+                        <input
+                                class="form-campo-total"
+                                type="text"
+                                id="nome"
+                                name="nome"
+                                placeholder=""
+                                required>
                     </div>
-                    <div class="infos-de-mesma-linha">
-                        <input type="text" name="email" id="email" placeholder="adminzera@gmail.com">
-                        <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
+
+                    <div class="filtrador">
+                        <label for="email">E-mail</label>
+
+                        <input
+                                class="form-campo-total"
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder=""
+                                required>
                     </div>
-                    <h5>Senha</h5>
-                    <h5>Confirmar senha</h5>
-                    <div class="infos-de-mesma-linha">
-                        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
-                        <span class="mensagem-erro">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
+
+                    <div class="filtrador">
+                        <label for="senha">Senha</label>
+
+                        <input
+                                class="form-campo-total"
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                placeholder=""
+                                required>
                     </div>
-                    <div class="infos-de-mesma-linha">
-                        <input type="password" name="confirmar-senha" id="confirmar-senha" placeholder="Digite sua senha novamente">
-                        <span class="mensagem-erro">A confirmação está diferente da senha informada</span>
+
+                    <div class="filtrador">
+                        <label for="confirmacao">Confirmar senha</label>
+
+                        <input
+                                class="form-campo-total"
+                                type="password"
+                                id="confirmacao"
+                                name="confirmacao"
+                                placeholder=""
+                                required>
                     </div>
-                    <button type="submit">Adicionar</button>
-                </form>
-            </div>
-        </div>
+                </div>
+
+                <button type="submit" id="botao-salvar">
+                    Cadastrar
+                </button>
+            </form>
+        </section>
+    </main>
+</div>
 </body>
 </html>

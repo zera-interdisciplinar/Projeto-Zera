@@ -1,7 +1,11 @@
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="home"/>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,6 +16,7 @@
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -20,16 +25,53 @@
             <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
     </aside>
-    <main id="informacoes-gerais">
+
+    <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h1 id="home">Home</h1>
-        <div class="card">
-            <a href="${ctx}/organizacao/lista"><div class="dado"><p class="nome-do-dado">Organizações</p><p class="numero-do-dado"><c:out value="${totalOrganizacoes}" default="0"/></p></div></a>
-            <a href="${ctx}/assinatura/lista"><div class="dado"><p class="nome-do-dado">Assinaturas ativas</p><p class="numero-do-dado"><c:out value="${assinaturasAtivas}" default="0"/></p></div></a>
-            <a href="${ctx}/assinatura/lista"><div id="alerta" class="dado alerta"><p class="nome-do-dado">Vencendo em 30 dias</p><p class="numero-do-dado"><c:out value="${assinaturasVencendo}" default="0"/></p></div></a>
-            <a href="${ctx}/unidade/lista"><div class="dado"><p class="nome-do-dado">Unidades</p><p class="numero-do-dado"><c:out value="${totalUnidades}" default="0"/></p></div></a>
-            <a href="${ctx}/estoque/lista"><div class="dado"><p class="nome-do-dado">Estoques</p><p class="numero-do-dado"><c:out value="${totalEstoques}" default="0"/></p></div></a>
-        </div>
+
+        <h1 class="nome-da-area">Home</h1>
+
+        <section class="card">
+            <a class="dado" href="${ctx}/organizacao/lista">
+                <p class="nome-do-dado">Organizações</p>
+
+                <p class="numero-do-dado">
+                    <c:out value="${totalOrganizacoes}" default="0"/>
+                </p>
+            </a>
+
+            <a class="dado" href="${ctx}/assinatura/lista">
+                <p class="nome-do-dado">Assinaturas ativas</p>
+
+                <p class="numero-do-dado">
+                    <c:out value="${assinaturasAtivas}" default="0"/>
+                </p>
+            </a>
+
+            <a class="dado" href="${ctx}/assinatura/lista">
+                <p class="nome-do-dado">Vencendo em 30 dias</p>
+
+                <p class="numero-do-dado">
+                    <c:out value="${assinaturasVencendo}" default="0"/>
+                </p>
+            </a>
+
+            <a class="dado" href="${ctx}/unidade/lista">
+                <p class="nome-do-dado">Unidades</p>
+
+                <p class="numero-do-dado">
+                    <c:out value="${totalUnidades}" default="0"/>
+                </p>
+            </a>
+
+            <a class="dado" href="${ctx}/estoque/lista">
+                <p class="nome-do-dado">Estoques</p>
+
+                <p class="numero-do-dado">
+                    <c:out value="${totalEstoques}" default="0"/>
+                </p>
+            </a>
+        </section>
     </main>
 </div>
 </body>
