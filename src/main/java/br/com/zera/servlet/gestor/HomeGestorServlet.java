@@ -1,8 +1,10 @@
+
 package br.com.zera.servlet.gestor;
 
 import br.com.zera.dao.AssinaturaDAO;
 import br.com.zera.dao.EstoqueDAO;
 import br.com.zera.dao.PlanoDAO;
+import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.model.Assinatura;
 import br.com.zera.model.Estoque;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
@@ -23,10 +27,8 @@ import static br.com.zera.regex.Constants.STATUS_ATIVA;
 
 /**
  * Servlet responsável pela tela inicial do gestor.
- *
- * Mostra os dados dos cards da home do Figma: a saudação com o nome do gestor,
- * a quantidade de estoques da unidade e a assinatura ativa da organização
- * (com o plano dela).
+ * Mostra o nome do gestor, a quantidade de estoques e unidades,
+ * a assinatura ativa, o plano e os dados dos gráficos.
  *
  * @author Pedro Rufino
  * @since 2026-10-16
@@ -46,30 +48,43 @@ public class HomeGestorServlet extends HttpServlet {
      * @throws IOException caso ocorra erro de entrada/saída ao responder
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Gestor gestor = Sessao.gestor(request);
             Unidade unidade = Sessao.unidade(request);
+
             if (gestor == null || unidade == null) {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // conta os estoques da unidade do gestor
+            // Conta os estoques da unidade do gestor
             int estoquesNaUnidade = 0;
+            Map<String, Integer> estoquesPorLocal = new LinkedHashMap<>();
+
             for (Estoque estoque : new EstoqueDAO().findAll()) {
                 if (estoque.getCodUnidade() == unidade.getCodigo()) {
                     estoquesNaUnidade++;
                 }
             }
 
-            // procura a assinatura ativa da organização (a que termina por último)
+            // Conta as unidades pertencentes à organização do gestor
+            int totalUnidadesOrganizacao = 0;
+            Map<String, Integer> unidadesPorEstado = new LinkedHashMap<>();
+
+            for (Unidade unidadeEncontrada : new UnidadeDAO().findAll()) {
+                if (unidadeEncontrada.getCodOrganizacao() == unidade.getCodOrganizacao()) {
+                    totalUnidadesOrganizacao++;
+                }
+            }
+
+            // Procura a assinatura ativa da organização (a que termina por último)
             Assinatura assinaturaAtiva = null;
+
             for (Assinatura assinatura : new AssinaturaDAO().findAll()) {
                 boolean daOrganizacao = assinatura.getCodOrganizacao() == unidade.getCodOrganizacao();
                 boolean ativa = STATUS_ATIVA.equalsIgnoreCase(assinatura.getStatus());
+
                 if (daOrganizacao && ativa) {
                     if (assinaturaAtiva == null || assinatura.getDataFim().isAfter(assinaturaAtiva.getDataFim())) {
                         assinaturaAtiva = assinatura;
@@ -77,15 +92,21 @@ public class HomeGestorServlet extends HttpServlet {
                 }
             }
 
+            // Envia os dados dos cards para a JSP
             request.setAttribute("nomeGestor", gestor.getNome());
             request.setAttribute("estoquesNaUnidade", estoquesNaUnidade);
-            // pode ser null: a JSP mostra "Nenhuma assinatura ativa"
+            request.setAttribute("totalUnidadesOrganizacao", totalUnidadesOrganizacao);
             request.setAttribute("assinatura", assinaturaAtiva);
+
             if (assinaturaAtiva != null) {
                 request.setAttribute("plano", new PlanoDAO().findByCodigo(assinaturaAtiva.getCodPlano()));
             }
 
-            // envia para a JSP
+            // Envia os dados dos gráficos para a JSP
+            request.setAttribute("estoquesPorLocal", estoquesPorLocal);
+            request.setAttribute("unidadesPorEstado", unidadesPorEstado);
+
+            // Envia para a JSP
             request.getRequestDispatcher(PAGINA).forward(request, response);
 
         } catch (ConnectionFailedException cfe) {

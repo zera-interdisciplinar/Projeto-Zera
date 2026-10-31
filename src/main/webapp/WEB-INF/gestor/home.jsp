@@ -18,7 +18,6 @@
     <title>Home - Zera</title>
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
-    <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>

@@ -1,4 +1,3 @@
-
 @charset "UTF-8";
 
 /* ========================================
@@ -26,13 +25,27 @@ button.zera-botao-excluir {
 
     cursor: pointer !important;
     vertical-align: middle;
+
+    transform: scale(1);
+    transform-origin: center;
+
+    transition: transform 0.15s ease;
 }
 
-button.zera-botao-excluir:hover,
+button.zera-botao-excluir:hover {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    transform: scale(1.15);
+}
+
 button.zera-botao-excluir:active {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+
+    transform: scale(1);
 }
 
 button.zera-botao-excluir:focus-visible {
@@ -42,6 +55,7 @@ button.zera-botao-excluir:focus-visible {
 
 button.zera-botao-excluir img {
     display: block;
+
     width: 20px;
     height: 20px;
 
@@ -101,10 +115,10 @@ button.zera-botao-excluir img {
     border-radius: 20px;
 
     background: linear-gradient(
-        120deg,
-        #2454B9 0%,
-        #203F91 55%,
-        #192E69 100%
+            120deg,
+            #2454B9 0%,
+            #203F91 55%,
+            #192E69 100%
     );
 
     color: #FFFFFF;
@@ -192,6 +206,8 @@ button.zera-botao-excluir img {
 
     transform: rotate(45deg);
     transform-origin: center;
+
+    transition: opacity 0.2s ease;
 }
 
 .zera-modal-overlay .zera-modal-fechar:hover {
@@ -243,8 +259,10 @@ button.zera-botao-excluir img {
     cursor: pointer;
 
     transition:
-        background-color 0.2s ease,
-        opacity 0.2s ease;
+            background-color 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.15s ease;
 }
 
 /* ========================================
@@ -263,17 +281,23 @@ button.zera-botao-excluir img {
 }
 
 .zera-modal-overlay .zera-modal-voltar:hover {
-    background-color: #E4EAFB;
+    background-color: #4778E7;
+    color: #FFFFFF;
+    border-color: #4778E7;
+}
+
+.zera-modal-overlay .zera-modal-voltar:active {
+    transform: scale(0.97);
 }
 
 /* ========================================
-   EXCLUIR
+   EXCLUIR / SAIR
    Fonte: 26.04 px / Bold
-   Borda: 5 px
+   Borda: 2 px
 ======================================== */
 
 .zera-modal-overlay .zera-modal-confirmar {
-    border: 5px solid #FF433B;
+    border: 2px solid #FF433B;
 
     color: #FF433B;
 
@@ -284,7 +308,18 @@ button.zera-botao-excluir img {
 }
 
 .zera-modal-overlay .zera-modal-confirmar:hover {
-    background-color: #FFE5E3;
+    background-color: #FF433B;
+    border-color: #FF433B;
+    color: #FFFFFF;
+}
+
+.zera-modal-overlay .zera-modal-confirmar:active {
+    transform: scale(0.97);
+}
+
+.zera-modal-overlay .zera-modal-confirmar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* ========================================
@@ -301,6 +336,7 @@ button.zera-botao-excluir img {
 ======================================== */
 
 @media (max-width: 600px) {
+
     .zera-modal-overlay .zera-modal-caixa {
         width: 100%;
         height: auto;
@@ -334,6 +370,7 @@ button.zera-botao-excluir img {
 }
 
 @media (max-width: 380px) {
+
     .zera-modal-overlay .zera-modal-botoes {
         right: 18px;
         left: 18px;
@@ -344,5 +381,15 @@ button.zera-botao-excluir img {
         flex: 1;
         width: auto;
         min-width: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    button.zera-botao-excluir,
+    .zera-modal-overlay .zera-modal-voltar,
+    .zera-modal-overlay .zera-modal-confirmar,
+    .zera-modal-overlay .zera-modal-fechar {
+        transition: none;
     }
 }

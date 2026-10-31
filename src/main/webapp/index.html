@@ -1,41 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <!-- ========================================
-         CONFIGURAÇÕES DA PÁGINA
-    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zera: Plataforma de gestão de resíduos eletrônicos</title>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
-
-    <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-    <!-- ========================================
-         CONTROLE DO MENU RESPONSIVO
-    ======================================== -->
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
 
-    <!-- ========================================
-         CABEÇALHO DA PÁGINA
-    ======================================== -->
     <header>
-
-        <!-- Logo -->
         <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
 
-        <!-- Navegação para telas maiores -->
         <div id="header-completo">
-
-            <!-- Links de navegação -->
             <nav>
                 <a href="#carrossel">Funcionalidades</a>
                 <a href="#utilizacao">Como utilizar</a>
@@ -43,41 +21,24 @@
                 <a href="#planos">Planos</a>
             </nav>
 
-            <!-- Botões de autenticação -->
             <div class="botoes-login">
                 <a href="/zera/login">Fazer login</a>
                 <a href="/zera/cadastro/gestor">Cadastrar</a>
             </div>
-
         </div>
 
-        <!-- Botão do menu responsivo -->
         <label for="menu-toggle" id="header-resumido" aria-label="Abrir menu">
             <img src="images/menu.png" alt="Barras de menu">
         </label>
-
     </header>
 
-    <!-- ========================================
-         MENU LATERAL RESPONSIVO
-    ======================================== -->
-
-    <!-- Fundo para fechar o menu -->
     <label for="menu-toggle" id="menu-fundo" aria-hidden="true"></label>
-
     <aside id="menu-lateral" aria-label="Menu">
-
-        <!-- Cabeçalho do menu lateral -->
         <div class="menu-lateral-topo">
             <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
-
-            <!-- Botão de fechar -->
-            <label for="menu-toggle" id="menu-fechar" aria-label="Fechar menu">
-                &#10005;
-            </label>
+            <label for="menu-toggle" id="menu-fechar" aria-label="Fechar menu">&#10005;</label>
         </div>
 
-        <!-- Links de navegação -->
         <nav>
             <a href="#carrossel">Funcionalidades</a>
             <a href="#utilizacao">Como utilizar</a>
@@ -85,374 +46,167 @@
             <a href="#planos">Planos</a>
         </nav>
 
-        <!-- Botões de autenticação -->
         <div class="botoes-login">
             <a href="pages/login/log.html">Fazer login</a>
             <a href="pages/cadastro/cadastro-gestor.html">Cadastrar</a>
         </div>
-
     </aside>
 
-    <!-- ========================================
-         CONTEÚDO PRINCIPAL
-    ======================================== -->
     <main>
-
-        <!-- ========================================
-             SEÇÃO PRINCIPAL
-        ======================================== -->
         <section id="principal" class="fundo-azul">
-
-            <!-- Elemento decorativo -->
-            <img
-                class="item-transparente"
-                id="z-transparente"
-                src="images/z-transparente.png"
-                alt="'Z' da logo Zera transparente"
-            >
-
-            <!-- Apresentação da plataforma -->
+            <img class="item-transparente" id="z-transparente" src="images/z-transparente.png" alt="'Z' da logo Zera transparente">
             <div id="conteudo-principal">
-
-                <h1>
-                    Gerencie
-                    <span class="texto-laranja">resíduos</span>
-                    <span class="texto-verde">eletrônicos</span>
-                    com inteligência
-                </h1>
-
-                <p>
-                    Controle o seu armazenamento e descarte-o com praticidade,
-                    segurança e responsabilidade ambiental.
-                </p>
-
-                <!-- Botão para começar -->
+                <h1>Gerencie <span class="texto-laranja">resíduos</span> <span class="texto-verde">eletrônicos</span> com inteligência</h1>
+                <p>Controle o seu armazenamento e descarte-o com praticidade, segurança e responsabilidade ambiental.</p>
                 <div id="botao-comecar">
                     <a href="pages/cadastro/cadastro-gestor.html">Começar agora</a>
                     <img src="images/seta-comecar.png" alt="Seta">
                 </div>
-
             </div>
-
-            <!-- Imagem do aplicativo -->
-            <img
-                id="celulares"
-                src="images/celulares.png"
-                alt="Imagem de celulares mostrando o aplicativo móvel"
-            >
-
+            <img id="celulares" src="images/celulares.png" alt="Imagem de celulares mostrando o aplicativo móvel">
         </section>
 
-        <!-- ========================================
-             CARROSSEL DE FUNCIONALIDADES
-        ======================================== -->
         <section id="carrossel-container">
-
             <div id="carrossel">
-
-                <!-- A ordem dos slides define a sequência do carrossel -->
-
-                <!-- Slide 1: Armazenamento inteligente -->
+                <!-- A ordem aqui é a ordem do giro -->
                 <div class="slide slide-centro" id="slide-amz">
-
                     <div class="slide-img">
-                        <img
-                            src="images/img-armazenamento.png"
-                            alt="Armazenamento inteligente"
-                        >
+                        <img src="images/img-armazenamento.png" alt="Armazenamento inteligente">
                     </div>
-
                     <div class="slide-conteudo">
                         <h2>Armazenamento inteligente</h2>
-                        <p>
-                            Organize, localize e monitore todos os equipamentos
-                            armazenados em um único lugar, com total controle
-                            e rastreabilidade.
-                        </p>
+                        <p>Organize, localize e monitore todos os equipamentos armazenados em um único lugar, com total controle e rastreabilidade.</p>
                     </div>
-
                 </div>
 
-                <!-- Slide 2: Scanner e cadastro -->
                 <div class="slide slide-lateral" id="slide-scan">
-
                     <div class="slide-img">
-                        <img
-                            src="images/img-scaneia.png"
-                            alt="Scanner e cadastro fácil"
-                        >
+                        <img src="images/img-scaneia.png" alt="Scanner e cadastro fácil">
                     </div>
-
                     <div class="slide-conteudo">
                         <h2>Scanner e cadastro fácil</h2>
-                        <p>
-                            Registre equipamentos em segundos com leitura de
-                            código ou cadastro manual.
-                        </p>
+                        <p>Registre equipamentos em segundos com leitura de código ou cadastro manual.</p>
                     </div>
-
                 </div>
 
-                <!-- Slide 3: Alertas -->
                 <div class="slide slide-escondido" id="slide-alert">
-
                     <div class="slide-img">
-                        <img
-                            src="images/img-alerta.png"
-                            alt="Alertas de lotes críticos"
-                        >
+                        <img src="images/img-alerta.png" alt="Alertas de lotes críticos">
                     </div>
-
                     <div class="slide-conteudo">
                         <h2>Alertas de lotes críticos</h2>
-                        <p>
-                            Seja avisado quando um equipamento está armazenado
-                            por muito tempo.
-                        </p>
+                        <p>Seja avisado quando um equipamento está armazenado por muito tempo.</p>
                     </div>
-
                 </div>
 
-                <!-- Slide 4: Relatórios -->
                 <div class="slide slide-lateral" id="slide-rel">
-
                     <div class="slide-img">
-                        <img
-                            src="images/img-relatorio.png"
-                            alt="Relatórios completos"
-                        >
+                        <img src="images/img-relatorio.png" alt="Relatórios completos">
                     </div>
-
                     <div class="slide-conteudo">
                         <h2>Relatórios completos</h2>
-                        <p>
-                            Gere relatórios consolidados e envie para empresas
-                            parceiras de descarte.
-                        </p>
+                        <p>Gere relatórios consolidados e envie para empresas parceiras de descarte.</p>
                     </div>
-
                 </div>
 
-                <!-- ========================================
-                     CONTROLES DO CARROSSEL
-                ======================================== -->
-
-                <!-- Seta para o slide anterior -->
-                <button
-                    class="nav-arrow prev"
-                    type="button"
-                    aria-label="Slide anterior"
-                >
+                <!-- Setas e bolinhas ficam FORA dos slides -->
+                <button class="nav-arrow prev" type="button" aria-label="Slide anterior">
+                    <img src="images/seta.svg" alt="">
+                </button>
+                <button class="nav-arrow next" type="button" aria-label="Próximo slide">
                     <img src="images/seta.svg" alt="">
                 </button>
 
-                <!-- Seta para o próximo slide -->
-                <button
-                    class="nav-arrow next"
-                    type="button"
-                    aria-label="Próximo slide"
-                >
-                    <img src="images/seta.svg" alt="">
-                </button>
-
-                <!-- Indicadores dos slides -->
                 <div class="indicadores">
                     <button class="dot active" type="button" aria-label="Slide 1"></button>
                     <button class="dot" type="button" aria-label="Slide 2"></button>
                     <button class="dot" type="button" aria-label="Slide 3"></button>
                     <button class="dot" type="button" aria-label="Slide 4"></button>
                 </div>
-
             </div>
-
         </section>
 
-        <!-- ========================================
-             SEÇÃO COMO UTILIZAR
-        ======================================== -->
         <section id="utilizacao">
-
-            <!-- Título da seção -->
             <div class="passo-inicio">
                 <h2>Como<br>utilizar?</h2>
             </div>
 
-            <!-- Passo 1: Cadastro -->
             <div class="passo">
                 <span class="numero">01</span>
-
                 <div class="passo-texto">
                     <h3>Cadastre</h3>
                     <p>Adicione equipamentos com leitura de código ou manualmente</p>
                 </div>
             </div>
 
-            <!-- Passo 2: Armazenamento -->
             <div class="passo">
                 <span class="numero">02</span>
-
                 <div class="passo-texto">
                     <h3>Armazene</h3>
                     <p>Organize e monitore seus equipamentos de forma inteligente</p>
                 </div>
             </div>
 
-            <!-- Passo 3: Alertas -->
             <div class="passo">
                 <span class="numero">03</span>
-
                 <div class="passo-texto">
                     <h3>Receba alertas</h3>
                     <p>Seja avisado sobre prazos críticos e riscos de armazenamento</p>
                 </div>
             </div>
 
-            <!-- Passo 4: Relatórios -->
             <div class="passo">
                 <span class="numero">04</span>
-
                 <div class="passo-texto">
                     <h3>Gere relatórios</h3>
                     <p>Exporte relatórios completos para auditorias e parcerias</p>
                 </div>
             </div>
-
         </section>
 
-        <!-- ========================================
-             SEÇÃO SOBRE NÓS
-        ======================================== -->
         <section id="sobre" class="fundo-azul">
-
-            <!-- Elemento decorativo -->
-            <img
-                id="setas-sobre"
-                class="item-transparente"
-                src="images/setas-sobre.png"
-                alt="Setas transparentes"
-            >
+            <img id="setas-sobre" class="item-transparente" src="images/setas-sobre.png" alt="Setas transparentes">
 
             <div class="sobre-container">
-
-                <!-- Apresentação da equipe -->
                 <div class="sobre-texto">
-
                     <h2>Sobre <span class="texto-laranja">nós</span></h2>
-
-                    <h3>
-                        Tecnologia e sustentabilidade para transformar o descarte.
-                    </h3>
-
-                    <p>
-                        Somos estudantes de tecnologia do ensino médio dedicados
-                        a transformar a gestão de resíduos eletrônicos.
-                    </p>
-
-                    <p>
-                        Desenvolvemos uma plataforma prática que ajuda empresas
-                        a organizar, acompanhar e garantir o descarte correto
-                        do seu lixo eletrônico.
-                    </p>
-
+                    <h3>Tecnologia e sustentabilidade para transformar o descarte.</h3>
+                    <p>Somos estudantes de tecnologia do ensino médio dedicados a transformar a gestão de resíduos eletrônicos.</p>
+                    <p>Desenvolvemos uma plataforma prática que ajuda empresas a organizar, acompanhar e garantir o descarte correto do seu lixo eletrônico.</p>
                 </div>
-
-                <!-- ========================================
-                     CARDS DOS VALORES
-                ======================================== -->
                 <div class="sobre-cards">
-
-                    <!-- Valor 1: Responsabilidade -->
                     <div class="card-sobre card-verde" id="responsabilidade">
-                        <h3>
-                            <span class="numero-card">01.</span>
-                            RESPONSABILIDADE
-                        </h3>
-
-                        <p>
-                            Garantimos que cada etapa do descarte seja feita
-                            de forma consciente, segura e transparente.
-                        </p>
+                        <h3><span class="numero-card">01.</span> RESPONSABILIDADE</h3>
+                        <p>Garantimos que cada etapa do descarte seja feita de forma consciente, segura e transparente.</p>
                     </div>
-
-                    <!-- Valor 2: Organização -->
                     <div class="card-sobre card-laranja" id="organizacao">
-                        <h3>
-                            <span class="numero-card">02.</span>
-                            ORGANIZAÇÃO
-                        </h3>
-
-                        <p>
-                            Centralizamos informações e processos para tornar
-                            a gestão dos resíduos mais clara e eficiente.
-                        </p>
+                        <h3><span class="numero-card">02.</span> ORGANIZAÇÃO</h3>
+                        <p>Centralizamos informações e processos para tornar a gestão dos resíduos mais clara e eficiente.</p>
                     </div>
-
-                    <!-- Valor 3: Praticidade -->
                     <div class="card-sobre card-creme" id="praticidade">
-                        <h3>
-                            <span class="numero-card">03.</span>
-                            PRATICIDADE
-                        </h3>
-
-                        <p>
-                            Simplificamos a rotina da empresa com soluções
-                            intuitivas que facilitam a tomada de decisões.
-                        </p>
+                        <h3><span class="numero-card">03.</span> PRATICIDADE</h3>
+                        <p>Simplificamos a rotina da empresa com soluções intuitivas que facilitam a tomada de decisões.</p>
                     </div>
-
                 </div>
-
             </div>
-
-            <!-- Seta decorativa -->
-            <img
-                src="images/seta-verde.svg"
-                alt="Seta verde decorativa"
-                class="seta-verde-topo"
-            >
-
+            <img src="images/seta-verde.svg" alt="Seta verde decorativa" class="seta-verde-topo">
         </section>
 
-        <!-- ========================================
-             SEÇÃO DE PLANOS
-        ======================================== -->
         <section id="planos">
-
-            <!-- Introdução aos planos -->
             <div id="caixa-azul">
                 <p>Nossos planos, desde o Free até o Empresarial.</p>
             </div>
+            <h2>Escolha o <span class="texto-azul">melhor</span> plano para <span class="texto-verde">você</span></h2>
+            <h3>Planos para <span class="texto-laranja">todas</span> as necessidades, sempre pensando em <span class="texto-laranja">você</span>.</h3>
 
-            <h2>
-                Escolha o <span class="texto-azul">melhor</span>
-                plano para <span class="texto-verde">você</span>
-            </h2>
-
-            <h3>
-                Planos para <span class="texto-laranja">todas</span>
-                as necessidades, sempre pensando em
-                <span class="texto-laranja">você</span>.
-            </h3>
-
-            <!-- ========================================
-                 CARDS DOS PLANOS
-            ======================================== -->
             <div class="flex">
 
-                <!-- ========================================
-                     PLANO FREE
-                ======================================== -->
                 <div class="card-sec" id="free">
-
                     <h4>Free</h4>
-
-                    <!-- Preço -->
                     <div class="preco-container">
                         <span class="preco">R$0,00</span>
                         <span class="periodo">/ Mês</span>
                     </div>
-
-                    <!-- Funcionalidades -->
                     <ul class="lista-plano">
                         <li class="tem">Scanner</li>
                         <li class="tem">Dashboard</li>
@@ -462,37 +216,19 @@
                         <li class="nao-tem">Multiusuários</li>
                         <li class="nao-tem">Suporte</li>
                     </ul>
-
-                    <!-- Botão de contratação -->
-                    <a
-                        href="pages/cadastro/cadastro-gestor.html"
-                        class="btn-card btn-creme"
-                    >
-                        Testar agora
-                    </a>
-
+                    <a href="pages/cadastro/cadastro-gestor.html" class="btn-card btn-creme">Testar agora</a>
                 </div>
 
-                <!-- ========================================
-                     PLANO PROFISSIONAL
-                ======================================== -->
                 <div class="card-prim">
-
-                    <!-- Selo de recomendação -->
                     <div id="recomendado">
                         <img src="images/estrela-recomendado.svg" alt="Estrela">
                         <span>Mais recomendado</span>
                     </div>
-
                     <h4>Profissional</h4>
-
-                    <!-- Preço -->
                     <div class="preco-container">
-                        <span class="preco">R$99,90</span>
+                        <span class="preco">R$49,90</span>
                         <span class="periodo">/ Mês</span>
                     </div>
-
-                    <!-- Funcionalidades -->
                     <ul class="lista-plano">
                         <li class="tem">Tudo do plano Free</li>
                         <li class="tem">Estoque (250 itens)</li>
@@ -502,36 +238,16 @@
                         <li class="nao-tem">Suporte</li>
                         <li class="nao-tem">Cadastros ilimitados</li>
                     </ul>
-
-                    <!-- Botão de contratação -->
-                    <a
-                        href="pages/cadastro/cadastro-gestor.html"
-                        class="btn-card btn-verde"
-                    >
-                        Assinar agora
-                    </a>
-
+                    <a href="pages/cadastro/cadastro-gestor.html" class="btn-card btn-verde">Assinar agora</a>
                 </div>
 
-                <!-- ========================================
-                     PLANO EMPRESARIAL
-                ======================================== -->
                 <div class="card-sec" id="empresa">
-
                     <h4>Empresarial</h4>
-
-                    <!-- Preço -->
                     <div class="preco-container">
-                        <span class="preco">R$1999,90</span>
+                        <span class="preco">R$999,90</span>
                         <span class="periodo">/ Ano</span>
                     </div>
-
-                    <!-- Descrição -->
-                    <p class="subtitulo-card">
-                        Plano completo e exclusivo para empresas que buscam ir além.
-                    </p>
-
-                    <!-- Funcionalidades -->
+                    <p class="subtitulo-card">Plano completo e exclusivo para empresas que buscam ir além.</p>
                     <ul class="lista-plano">
                         <li class="tem">Tudo do plano Profissional</li>
                         <li class="tem">Estoque ilimitado</li>
@@ -539,253 +255,125 @@
                         <li class="tem">Scanner multidispositivo</li>
                         <li class="tem">E muito mais!</li>
                     </ul>
-
-                    <!-- Botão de contratação -->
-                    <a
-                        href="pages/cadastro/cadastro-gestor.html"
-                        class="btn-card btn-creme"
-                    >
-                        Solicitar agora
-                    </a>
-
+                    <a href="pages/cadastro/cadastro-gestor.html" class="btn-card btn-creme">Solicitar agora</a>
                 </div>
-
             </div>
-
         </section>
-
     </main>
 
-    <!-- ========================================
-         RODAPÉ DA PÁGINA
-    ======================================== -->
     <footer class="fundo-azul">
+        <img src="images/seta-verde.svg" alt="Seta verde decorativa" class="seta-verde-topo">
 
-        <!-- Seta decorativa -->
-        <img
-            src="images/seta-verde.svg"
-            alt="Seta verde decorativa"
-            class="seta-verde-topo"
-        >
-
-        <!-- ========================================
-             PERGUNTAS FREQUENTES
-        ======================================== -->
         <section id="perguntas">
-
             <h2>Perguntas frequentes</h2>
 
-            <!-- Pergunta 1 -->
             <details>
                 <summary>
                     <span>Quem pode utilizar o Zera?</span>
                     <span class="seta-accordion">&#10095;</span>
                 </summary>
-
-                <p>
-                    O sistema é indicado para uma ampla variedade de setores,
-                    incluindo empresas de tecnologia, indústrias, escolas,
-                    universidades, hospitais, clínicas, órgãos públicos e
-                    assistências técnicas. Ele atende desde instituições que
-                    precisam controlar laboratórios, ativos e prontuários com
-                    rastreabilidade, até organizações públicas que necessitam
-                    de facilidade em auditorias e prestação de contas, além
-                    de empresas que buscam gerenciar e acompanhar o histórico
-                    de armazenamento de seus equipamentos.
-                </p>
+                <p>O sistema é indicado para uma ampla variedade de setores, incluindo empresas de tecnologia, indústrias, escolas, universidades, hospitais, clínicas, órgãos públicos e assistências técnicas. Ele atende desde instituições que precisam controlar laboratórios, ativos e prontuários com rastreabilidade, até organizações públicas que necessitam de facilidade em auditorias e prestação de contas, além de empresas que buscam gerenciar e acompanhar o histórico de armazenamento de seus equipamentos.</p>
             </details>
 
-            <!-- Pergunta 2 -->
             <details>
                 <summary>
                     <span>Por que fazer a gestão correta dos resíduos eletrônicos?</span>
                     <span class="seta-accordion">&#10095;</span>
                 </summary>
-
-                <p>
-                    A gestão adequada dos resíduos eletrônicos é essencial para
-                    promover a sustentabilidade e garantir a destinação responsável
-                    de descartes e materiais obsoletos. Além de evitar os problemas
-                    causados pela falta de controle, como equipamentos perdidos no
-                    estoque e a dependência de planilhas manuais, o uso de um sistema
-                    dedicado proporciona um inventário centralizado, localização
-                    rápida de itens, alertas automáticos e maior controle sobre
-                    todo o ciclo de vida dos eletrônicos.
-                </p>
+                <p>A gestão adequada dos resíduos eletrônicos é essencial para promover a sustentabilidade e garantir a destinação responsável de descartes e materiais obsoletos. Além de evitar os problemas causados pela falta de controle, como equipamentos perdidos no estoque e a dependência de planilhas manuais, o uso de um sistema dedicado proporciona um inventário centralizado, localização rápida de itens, alertas automáticos e maior controle sobre todo o ciclo de vida dos eletrônicos.</p>
             </details>
 
-            <!-- Pergunta 3 -->
             <details>
                 <summary>
                     <span>Por que sua empresa precisa de um sistema de gestão?</span>
                     <span class="seta-accordion">&#10095;</span>
                 </summary>
-
-                <p>
-                    Sem um controle adequado, as empresas enfrentam desorganização,
-                    equipamentos perdidos no estoque, dificuldades na localização
-                    de materiais e dependência de planilhas manuais. Em contrapartida,
-                    ao adotar o ZERA, a empresa passa a contar com um inventário
-                    centralizado, localização rápida de itens, alertas automáticos
-                    e a emissão de relatórios completos em poucos cliques.
-                </p>
+                <p>Sem um controle adequado, as empresas enfrentam desorganização, equipamentos perdidos no estoque, dificuldades na localização de materiais e dependência de planilhas manuais. Em contrapartida, ao adotar o ZERA, a empresa passa a contar com um inventário centralizado, localização rápida de itens, alertas automáticos e a emissão de relatórios completos em poucos cliques.</p>
             </details>
-
         </section>
 
-        <!-- ========================================
-             INFORMAÇÕES DO RODAPÉ
-        ======================================== -->
         <div id="footer">
-
-            <!-- Logo e redes sociais -->
             <div class="footer-esquerda">
-
                 <img class="logo" src="images/logo_completa.svg" alt="Logo Zera">
-
-                <!-- Links das redes sociais -->
                 <div class="redes-sociais">
-
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/zera.app_/" target="_blank">
-                        <img src="images/instagram.svg" alt="Instagram">
-                    </a>
-
-                    <!-- WhatsApp -->
-                    <a
-                        href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!"
-                        target="_blank"
-                    >
-                        <img src="images/whatsapp.svg" alt="WhatsApp">
-                    </a>
-
-                    <!-- E-mail -->
-                    <a
-                        href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!"
-                    >
-                        <img src="images/email.svg" alt="E-mail">
-                    </a>
-
+                    <a href="https://www.instagram.com/zera.app_/" target="_blank"><img src="images/instagram.svg" alt="Instagram"></a>
+                    <a href="https://wa.me/5511933045181?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Zera!" target="_blank"><img src="images/whatsapp.svg" alt="WhatsApp"></a>
+                    <a href="mailto:zera.institutojef@gmail.com?subject=Interesse no projeto Zera&body=Olá, gostaria de saber mais sobre o projeto Zera!"><img src="images/email.svg" alt="E-mail"></a>
                 </div>
-
             </div>
 
-            <!-- Área restrita e direitos autorais -->
             <div class="footer-direita">
-
-                <!-- Botão de acesso à área restrita -->
                 <div id="botao-restrita">
-                    <a href="pages/login-restrita/login.html" title="Área restrita">
-
-                        <!-- Ícone de cadeado -->
-                        <svg
-                            class="icone-cadeado"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke-width="2.2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            role="img"
-                            aria-label="Área restrita"
-                        >
+                    <a href="/zera/admin/login" title="Área restrita">
+                        <svg class="icone-cadeado" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Área restrita">
                             <rect x="4.5" y="10.5" width="15" height="11" rx="2.5"/>
                             <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
                             <path d="M12 15v2.5"/>
                         </svg>
-
                     </a>
                 </div>
-
-                <!-- Direitos autorais -->
                 <p>&copy; 2026. Todos os direitos reservados.</p>
-
             </div>
-
         </div>
-
     </footer>
 
-    <!-- ========================================
-         JAVASCRIPT DO CARROSSEL
-         Controle dos slides, animações e giro
-    ======================================== -->
+    <!-- ================================
+         CARROSSEL — 4 slides, o do meio maior
+         (fica no final do body pra o HTML já estar carregado)
+    ================================= -->
     <script>
-
-        // ========================================
-        // ELEMENTOS DO CARROSSEL
-        // ========================================
-        const slides = document.querySelectorAll('#carrossel .slide');
-        const dots = document.querySelectorAll('#carrossel .dot');
-        const btnPrev = document.querySelector('#carrossel .nav-arrow.prev');
-        const btnNext = document.querySelector('#carrossel .nav-arrow.next');
+        const slides    = document.querySelectorAll('#carrossel .slide');
+        const dots      = document.querySelectorAll('#carrossel .dot');
+        const btnPrev   = document.querySelector('#carrossel .nav-arrow.prev');
+        const btnNext   = document.querySelector('#carrossel .nav-arrow.next');
         const carrossel = document.querySelector('#carrossel');
 
-        // Configurações da animação
-        const total = slides.length;
-        const TEMPO = 5000;
-        const DURACAO = 600;
-        const EASING = 'cubic-bezier(0.25, 0.8, 0.25, 1)';
-
-        // Estado atual do carrossel
-        let atual = 0;
+        const total   = slides.length;                      // 4
+        const TEMPO   = 5000;                               // troca sozinho a cada 5 segundos
+        const DURACAO = 600;                                // duração do "arrastar" (ms)
+        const EASING  = 'cubic-bezier(0.25, 0.8, 0.25, 1)'; // começa rápido e freia no fim
+        let atual = 0;          // qual slide está no meio
         let timer;
-        let animando = false;
+        let animando = false;   // trava cliques enquanto a animação roda
 
-        // ========================================
-        // POSICIONAMENTO DOS SLIDES
-        // ========================================
+        // ---------- 1. Coloca cada slide no lugar certo (sem animação) ----------
         function posicionar() {
             const esquerda = (atual - 1 + total) % total;
-            const direita = (atual + 1) % total;
+            const direita  = (atual + 1) % total;
 
             slides.forEach((slide, i) => {
-                slide.classList.remove(
-                    'slide-centro',
-                    'slide-lateral',
-                    'slide-escondido'
-                );
+                slide.classList.remove('slide-centro', 'slide-lateral', 'slide-escondido');
 
                 if (i === atual) {
                     slide.classList.add('slide-centro');
                     slide.style.order = 2;
-
                 } else if (i === esquerda) {
                     slide.classList.add('slide-lateral');
                     slide.style.order = 1;
-
                 } else if (i === direita) {
                     slide.classList.add('slide-lateral');
                     slide.style.order = 3;
-
                 } else {
                     slide.classList.add('slide-escondido');
                 }
             });
 
-            // Atualiza o indicador ativo
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === atual);
-            });
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === atual));
         }
 
-        // ========================================
-        // TROCA ANIMADA DE SLIDES
-        // Técnica FLIP
-        // ========================================
+        // ---------- 2. Troca de slide COM o efeito de arrastar ----------
+        // Técnica FLIP: First (onde estava), Last (onde vai ficar),
+        // Invert (finge que ainda está no lugar antigo), Play (anima até o novo)
         function mostrar(novo) {
             if (animando || novo === atual) return;
+            const direcao = novo > atual ? 1 : -1;   // 1 = desliza pra esquerda, -1 = pra direita
 
-            const direcao = novo > atual ? 1 : -1;
-
-            // FIRST: registra as posições iniciais
+            // FIRST: anota onde cada slide visível está agora
             const antes = new Map();
-
             slides.forEach(slide => {
                 const r = slide.getBoundingClientRect();
-
                 if (r.width > 0) {
                     const estilo = getComputedStyle(slide);
-
                     antes.set(slide, {
                         rect: r,
                         classe: slide.className,
@@ -796,7 +384,7 @@
                 }
             });
 
-            // LAST: atualiza as classes e posições
+            // LAST: muda as classes (os slides "pulam" pro lugar novo)
             atual = (novo + total) % total;
             posicionar();
 
@@ -807,50 +395,30 @@
                 const depois = slide.getBoundingClientRect();
                 const a = antes.get(slide);
 
-                // Slide que permanece visível
                 if (depois.width > 0 && a) {
-                    const dx = (a.rect.left + a.rect.width / 2) -
-                               (depois.left + depois.width / 2);
-
-                    const dy = (a.rect.top + a.rect.height / 2) -
-                               (depois.top + depois.height / 2);
-
+                    // INVERT + PLAY: continua visível -> desliza e muda de tamanho
+                    const dx = (a.rect.left + a.rect.width / 2) - (depois.left + depois.width / 2);
+                    const dy = (a.rect.top + a.rect.height / 2) - (depois.top + depois.height / 2);
                     const sx = a.rect.width / depois.width;
                     const sy = a.rect.height / depois.height;
 
                     slide.animate([
-                        {
-                            transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`
-                        },
-                        {
-                            transform: 'none'
-                        }
-                    ], {
-                        duration: DURACAO,
-                        easing: EASING
-                    });
+                        { transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})` },
+                        { transform: 'none' }
+                    ], { duration: DURACAO, easing: EASING });
 
-                // Slide que estava escondido e aparece
                 } else if (depois.width > 0) {
+                    // estava escondido e apareceu -> entra deslizando pela borda
                     slide.animate([
-                        {
-                            transform: `translateX(${direcao * 80}%)`,
-                            opacity: 0
-                        },
-                        {
-                            transform: 'none'
-                        }
-                    ], {
-                        duration: DURACAO,
-                        easing: EASING
-                    });
+                        { transform: `translateX(${direcao * 80}%)`, opacity: 0 },
+                        { transform: 'none' }
+                    ], { duration: DURACAO, easing: EASING });
 
-                // Slide que estava visível e desaparece
                 } else if (a) {
+                    // estava visível e sumiu -> uma cópia dele sai deslizando
                     const copia = slide.cloneNode(true);
                     copia.removeAttribute('id');
                     copia.className = a.classe;
-
                     Object.assign(copia.style, {
                         position: 'absolute',
                         left: (a.rect.left - caixa.left) + 'px',
@@ -863,34 +431,19 @@
                         pointerEvents: 'none',
                         zIndex: '0'
                     });
-
                     carrossel.appendChild(copia);
 
                     copia.animate([
-                        {
-                            transform: 'none',
-                            opacity: a.opacidade
-                        },
-                        {
-                            transform: `translateX(${-direcao * 80}%)`,
-                            opacity: 0
-                        }
-                    ], {
-                        duration: DURACAO,
-                        easing: EASING
-                    }).onfinish = () => copia.remove();
+                        { transform: 'none', opacity: a.opacidade },
+                        { transform: `translateX(${-direcao * 80}%)`, opacity: 0 }
+                    ], { duration: DURACAO, easing: EASING }).onfinish = () => copia.remove();
                 }
             });
 
-            // Libera novas interações após a animação
-            setTimeout(() => {
-                animando = false;
-            }, DURACAO);
+            setTimeout(() => { animando = false; }, DURACAO);
         }
 
-        // ========================================
-        // GIRO AUTOMÁTICO
-        // ========================================
+        // ---------- 3. Giro automático ----------
         function iniciarGiro() {
             clearInterval(timer);
             timer = setInterval(() => mostrar(atual + 1), TEMPO);
@@ -900,117 +453,63 @@
             clearInterval(timer);
         }
 
-        // ========================================
-        // EVENTOS DAS SETAS
-        // ========================================
-        btnNext.addEventListener('click', () => {
-            mostrar(atual + 1);
-            iniciarGiro();
-        });
+        // ---------- 4. Cliques ----------
+        btnNext.addEventListener('click', () => { mostrar(atual + 1); iniciarGiro(); });
+        btnPrev.addEventListener('click', () => { mostrar(atual - 1); iniciarGiro(); });
 
-        btnPrev.addEventListener('click', () => {
-            mostrar(atual - 1);
-            iniciarGiro();
-        });
-
-        // ========================================
-        // EVENTOS DOS INDICADORES
-        // ========================================
         dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                mostrar(i);
-                iniciarGiro();
-            });
+            dot.addEventListener('click', () => { mostrar(i); iniciarGiro(); });
         });
 
-        // ========================================
-        // CLIQUE NOS SLIDES LATERAIS
-        // ========================================
+        // clicar num slide pequeno traz ele pro meio, deslizando pro lado certo
         slides.forEach((slide, i) => {
             slide.addEventListener('click', () => {
                 if (!slide.classList.contains('slide-lateral')) return;
-
                 const esquerda = (atual - 1 + total) % total;
-
                 mostrar(i === esquerda ? atual - 1 : atual + 1);
                 iniciarGiro();
             });
         });
 
-        // ========================================
-        // PAUSA AO PASSAR O MOUSE
-        // ========================================
+        // pausa enquanto o mouse está em cima
         carrossel.addEventListener('mouseenter', pararGiro);
         carrossel.addEventListener('mouseleave', iniciarGiro);
 
-        // ========================================
-        // INICIALIZAÇÃO DO CARROSSEL
-        // ========================================
+        // ---------- 5. Começar ----------
         posicionar();
         iniciarGiro();
-
     </script>
-
-    <!-- ========================================
-         JAVASCRIPT DOS CARDS DE VALORES
-         Accordion interativo da seção Sobre nós
-    ======================================== -->
+    <!-- ================================
+         ACCORDION DOS VALORES (Sobre nós)
+         clica no card -> ele cresce e mostra o texto; só um aberto por vez
+    ================================= -->
     <script>
-
-        // ========================================
-        // ELEMENTOS E CONFIGURAÇÕES
-        // ========================================
         const cardsValores = document.querySelectorAll('.card-sobre');
-        const DURACAO_CARD = 400;
+        const DURACAO_CARD = 400;   // velocidade de abrir/fechar (ms)
 
-        // ========================================
-        // ANIMAÇÃO DE ABERTURA E FECHAMENTO
-        // ========================================
         function animarCard(card, abrir) {
-            const alturaInicio = card.getBoundingClientRect().height;
+            const alturaInicio = card.getBoundingClientRect().height;  // altura agora
 
-            // Cancela uma animação anterior, caso exista
-            if (card.anim) card.anim.cancel();
+            if (card.anim) card.anim.cancel();          // se estava no meio, continua daqui
 
-            // Altera o estado do card
-            card.classList.toggle('aberto', abrir);
+            card.classList.toggle('aberto', abrir);     // a classe muda o tamanho final
             card.setAttribute('aria-expanded', abrir);
+            const alturaFim = card.getBoundingClientRect().height;     // altura que vai ficar
 
-            const alturaFim = card.getBoundingClientRect().height;
-
-            // Anima a mudança de altura
             card.anim = card.animate(
-                {
-                    height: [
-                        alturaInicio + 'px',
-                        alturaFim + 'px'
-                    ]
-                },
-                {
-                    duration: DURACAO_CARD,
-                    easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)'
-                }
+                { height: [alturaInicio + 'px', alturaFim + 'px'] },
+                { duration: DURACAO_CARD, easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)' }
             );
-
-            // Limpa a referência ao terminar
-            card.anim.onfinish = () => {
-                card.anim = null;
-            };
+            card.anim.onfinish = () => { card.anim = null; };
         }
 
-        // ========================================
-        // CONTROLE DOS CARDS ABERTOS
-        // ========================================
         function clicarCard(card) {
             const abrir = !card.classList.contains('aberto');
 
-            // Fecha os demais cards quando um novo é aberto
+            // fecha os outros que estiverem abertos
             if (abrir) {
                 cardsValores.forEach(outro => {
-                    if (
-                        outro !== card &&
-                        outro.classList.contains('aberto')
-                    ) {
+                    if (outro !== card && outro.classList.contains('aberto')) {
                         animarCard(outro, false);
                     }
                 });
@@ -1019,22 +518,13 @@
             animarCard(card, abrir);
         }
 
-        // ========================================
-        // EVENTOS DE CLIQUE E TECLADO
-        // ========================================
         cardsValores.forEach(card => {
-
-            // Acessibilidade dos cards interativos
+            // deixa o card funcionar como botão também pelo teclado
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
             card.setAttribute('aria-expanded', 'false');
 
-            // Interação por clique
-            card.addEventListener('click', () => {
-                clicarCard(card);
-            });
-
-            // Interação por teclado
+            card.addEventListener('click', () => clicarCard(card));
             card.addEventListener('keydown', e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -1042,8 +532,6 @@
                 }
             });
         });
-
     </script>
-
 </body>
 </html>

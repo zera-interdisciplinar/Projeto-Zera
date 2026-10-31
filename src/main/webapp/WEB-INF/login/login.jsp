@@ -24,11 +24,12 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 
 <main class="tela-auth">
-
+    <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
     <%@ include file="../cadastro/painel.jspf" %>
 
     <%-- e-mail fica vermelho só quando ficou vazio; a mensagem aparece embaixo da senha --%>
@@ -97,5 +98,6 @@
         });
     });
 </script>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>

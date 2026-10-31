@@ -24,9 +24,10 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
-
+    <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <main class="tela-auth">
 
     <%@ include file="/WEB-INF/cadastro/painel.jspf" %>
@@ -100,5 +101,6 @@
         });
     });
 </script>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
