@@ -1,0 +1,64 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo plano - Zera</title>
+    <link rel="icon" type="image/png" href="../../../images/favicon.png">
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/crud.css">
+</head>
+<body>
+<div class = tela-auth>
+    <!--Painel esquerdo-->
+    <div class = painel-esquerda>
+        <div class = painel-conteudo>
+            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <nav>
+                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
+                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
+                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
+                <a class = botao-ativo href="lista-planos.jsp"><span>Planos</span></a>
+                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
+                <a href="../endereco/lista-enderecos.jsp"><span>Endereços</span></a>
+                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
+                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
+                <a href="../novo-admin.jsp"><span>Admin</span></a>
+                <hr class = barra-azul>
+                <a href="../configuracoes.jsp"><span>Configurações</span></a>
+                <a href="../../login/login.jsp"><span>Sair</span></a>
+            </nav>
+        </div>
+    </div>
+    <!--Área de informações-->
+    <div class = informacoes>
+        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
+        <a href="lista-planos.jsp" class="voltar">
+            <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
+            Voltar
+        </a>
+        <h3 class = nome-da-area>Novo plano</h3>
+        <div class="adicao">
+            <form action="${pageContext.request.contextPath}/adicionar" method="post">
+                <h5>Nome</h5>
+                <div id="nome">
+                    <input type="text" name="plano" id="plano" placeholder="Profissional">
+                </div>
+                <h5>Valor</h5>
+                <h5>Data de início</h5>
+                <div class="infos-de-mesma-linha">
+                    <input type="text" name="valor" id="valor" placeholder="R$ 99,90">
+                </div>
+                <div class="infos-de-mesma-linha"><select name="periodo" id="periodo">
+                    <option value="mensal">Mensal</option>
+                    <option value="anual">Anual</option>
+                </select>
+                </div>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
