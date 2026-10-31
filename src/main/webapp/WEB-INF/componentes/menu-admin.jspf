@@ -1,0 +1,15 @@
+<%-- Menu de navegação do administrador. A página define ctx e ativo antes do include. --%>
+<nav>
+    <a href="${ctx}/admin/home" class="${ativo == 'home' ? 'botao-ativo' : ''}">Home</a>
+    <a href="${ctx}/organizacao/lista" class="${ativo == 'organizacoes' ? 'botao-ativo' : ''}">Organizações</a>
+    <a href="${ctx}/assinatura/lista" class="${ativo == 'assinaturas' ? 'botao-ativo' : ''}">Assinaturas</a>
+    <a href="${ctx}/plano/lista" class="${ativo == 'planos' ? 'botao-ativo' : ''}">Planos</a>
+    <a href="${ctx}/unidade/lista" class="${ativo == 'unidades' ? 'botao-ativo' : ''}">Unidades</a>
+    <a href="${ctx}/endereco/lista" class="${ativo == 'enderecos' ? 'botao-ativo' : ''}">Endereços</a>
+    <a href="${ctx}/gestor/lista" class="${ativo == 'gestores' ? 'botao-ativo' : ''}">Gestores</a>
+    <a href="${ctx}/estoque/lista" class="${ativo == 'estoques' ? 'botao-ativo' : ''}">Estoques</a>
+    <a href="${ctx}/admin/perfil" class="${ativo == 'admin' ? 'botao-ativo' : ''}">Admin</a>
+    <hr class="barra-azul">
+    <a href="${ctx}/admin/perfil" class="${ativo == 'configuracoes' ? 'botao-ativo' : ''}">Configurações</a>
+    <a href="${ctx}/logout">Sair</a>
+</nav>
