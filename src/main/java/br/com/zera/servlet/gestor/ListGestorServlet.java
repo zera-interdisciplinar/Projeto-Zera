@@ -70,7 +70,7 @@ public class ListGestorServlet extends HttpServlet {
             request.setAttribute("enderecos", new EnderecoDAO().findAll());
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-gestores.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/gestor/lista-gestores.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

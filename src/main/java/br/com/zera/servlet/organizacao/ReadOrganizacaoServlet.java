@@ -58,10 +58,10 @@ public class ReadOrganizacaoServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/nova-organizacao.jsp";
+                    pagina = "/WEB-INF/admin/organizacao/nova-organizacao.jsp";
                 } else {
                     request.setAttribute("organizacao", dao.findByCodigo(codigo));
-                    pagina = "/WEB-INF/admin/editar-organizacao.jsp";
+                    pagina = "/WEB-INF/admin/organizacao/editar-organizacao.jsp";
                 }
             } else if (unidadeLogada != null) {
                 // a organização é a chave estrangeira da unidade do gestor

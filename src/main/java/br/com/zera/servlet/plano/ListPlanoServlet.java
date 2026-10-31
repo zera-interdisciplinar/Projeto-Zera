@@ -53,7 +53,7 @@ public class ListPlanoServlet extends HttpServlet {
             request.setAttribute("planos", planos);
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-planos.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/plano/lista-planos.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

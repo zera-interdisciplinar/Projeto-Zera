@@ -62,7 +62,7 @@ public class ListUnidadeServlet extends HttpServlet {
             request.setAttribute("enderecos", new EnderecoDAO().findAll());
 
             // envia para a JSP
-            request.getRequestDispatcher("/WEB-INF/admin/lista-unidades.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/unidade/lista-unidades.jsp").forward(request, response);
 
         } catch (ConnectionFailedException cfe) {
             cfe.printStackTrace();

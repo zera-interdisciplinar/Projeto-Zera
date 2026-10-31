@@ -64,10 +64,10 @@ public class ReadGestorServlet extends HttpServlet {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
                 if (codigo == null) {
-                    pagina = "/WEB-INF/admin/novo-gestor.jsp";
+                    pagina = "/WEB-INF/admin/gestor/novo-gestor.jsp";
                 } else {
                     request.setAttribute("gestor", semSenha(dao.findByCodigo(codigo)));
-                    pagina = "/WEB-INF/admin/editar-gestor.jsp";
+                    pagina = "/WEB-INF/admin/gestor/editar-gestor.jsp";
                 }
             } else if (gestorLogado != null) {
                 request.setAttribute("gestor", semSenha(dao.findByCodigo(gestorLogado.getCodigo())));
