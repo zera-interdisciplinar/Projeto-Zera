@@ -1,25 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <!-- ========================================
+         CONFIGURAÇÕES DA PÁGINA
+    ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil  - Zera</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/popup.css">
 </head>
+
 <body>
 
+    <!-- ========================================
+         CABEÇALHO DA PÁGINA
+    ======================================== -->
     <header class="header-crud">
+
+        <!-- Logo -->
         <div class="logo-topo">
             <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
         </div>
+
+        <!-- Avatar do usuário -->
         <div class="avatar-topo">MA</div>
+
     </header>
 
+    <!-- ========================================
+         ESTRUTURA PRINCIPAL
+    ======================================== -->
     <div class="tela-auth">
+
+        <!-- ========================================
+             BARRA LATERAL
+        ======================================== -->
         <aside class="painel-esquerda">
             <div class="painel-conteudo">
+
+                <!-- Menu de navegação -->
                 <nav>
                     <a href="crud-home-usuario.html">Home</a>
                     <a href="crud-estoques-usuario.html">Estoques</a>
@@ -30,98 +58,171 @@
 
                     <hr>
 
-                    <a href="crud-configuracoes-usuario.html">Configurações</a>
-                    <a href="../login/login.html">Sair</a>
+                    <!-- Opção de sair -->
+                    <a
+                        href="../login/log.html"
+                        data-modal-exclusao
+                        data-excluir-tipo="sair"
+                        data-excluir-titulo="Deseja mesmo sair?"
+                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
+                    >Sair</a>
                 </nav>
 
+                <!-- Perfil do usuário logado -->
                 <a href="crud-meuperfil-usuario.html" class="perfil-usuario perfil-ativo">
                     <div class="avatar">MA</div>
                     <span class="nome-usuario">Mariana Almeida</span>
                 </a>
+
             </div>
         </aside>
 
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ======================================== -->
         <main class="informacoes">
+
+            <!-- Marca d'água -->
             <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
 
+            <!-- Título da página -->
             <h1 class="nome-da-area">Meu perfil</h1>
 
+            <!-- ========================================
+                 FORMULÁRIO DE DADOS DO PERFIL
+            ======================================== -->
             <section class="tabela">
+
+                <!-- Título do formulário -->
                 <label class="tabela-titulo">Meu perfil</label>
 
                 <form action="#" method="POST">
+
+                    <!-- Dados pessoais -->
                     <div class="form-grid-duplo">
+
+                        <!-- Nome -->
                         <div class="filtrador">
                             <label for="nome">Nome</label>
-                            <input type="text" id="nome" name="nome" value="Mariana Almeida" class="form-campo-total">
+                            <input
+                                type="text"
+                                id="nome"
+                                name="nome"
+                                value="Mariana Almeida"
+                                class="form-campo-total"
+                            >
                         </div>
+
+                        <!-- E-mail -->
                         <div class="filtrador">
                             <label for="email">E-mail</label>
                             <input type="email" id="email" name="email" value="mariana@gmail.com" class="form-campo-total">
-                            <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                         </div>
+
+                        <!-- Telefone -->
                         <div class="filtrador">
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" value="(11) 99812-4410" class="form-campo-total">
+                            <input
+                                type="tel"
+                                id="telefone"
+                                name="telefone"
+                                value="(11) 99812-4410"
+                                class="form-campo-total"
+                            >
                         </div>
+
                     </div>
 
+                    <!-- Botão de salvar perfil -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Salvar perfil
                         </button>
                     </div>
+
                 </form>
             </section>
 
+            <!-- ========================================
+                 FORMULÁRIO DE ALTERAÇÃO DE SENHA
+            ======================================== -->
             <section class="tabela tabela-segunda">
+
+                <!-- Título do formulário -->
                 <label class="tabela-titulo">Alterar senha</label>
 
                 <form action="#" method="POST">
+
+                    <!-- ========================================
+                         SENHA ATUAL
+                    ======================================== -->
                     <div class="form-grid-duplo">
+
+                        <!-- Campo de senha atual -->
                         <div class="filtrador">
                             <label for="senha-atual">Senha Atual</label>
+
                             <div class="campo-senha">
                                 <input type="password" id="senha-atual" name="senha_atual" placeholder="Digite sua senha atual" class="form-campo-total">
-                                <span class="mensagem-erro">A senha está incorreta</span>
                                 <button type="button" class="btn-olho" aria-label="Mostrar senha">
                                     <img src="../../images/icone-ver.svg" class="icone-olho" alt="">
                                 </button>
                             </div>
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         NOVA SENHA E CONFIRMAÇÃO
+                    ======================================== -->
                     <div class="form-grid-duplo">
+
+                        <!-- Campo de nova senha -->
                         <div class="filtrador">
                             <label for="nova-senha">Nova senha</label>
+
                             <div class="campo-senha">
                                 <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" class="form-campo-total">
-                                <span class="mensagem-erro" style="font-size: 10px; bottom: -5px;">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
                                 <button type="button" class="btn-olho" aria-label="Mostrar senha">
                                     <img src="../../images/icone-ver.svg" class="icone-olho" alt="">
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Campo de confirmação da senha -->
                         <div class="filtrador">
                             <label for="confirmar-senha">Confirmar nova senha</label>
+
                             <div class="campo-senha">
                                 <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="Digite sua nova senha novamente" class="form-campo-total">
-                                <span class="mensagem-erro">A confirmação está diferente da senha informada</span>
                                 <button type="button" class="btn-olho" aria-label="Mostrar senha">
                                     <img src="../../images/icone-ver.svg" class="icone-olho" alt="">
                                 </button>
                             </div>
                         </div>
+
                     </div>
 
+                    <!-- ========================================
+                         BOTÃO DE ALTERAR SENHA
+                    ======================================== -->
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">
                             Alterar senha
                         </button>
                     </div>
+
                 </form>
             </section>
+
         </main>
+
     </div>
+
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+    ======================================== -->
+    <script src="../../js/popup.js" defer></script>
+
 </body>
 </html>

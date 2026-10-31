@@ -34,7 +34,7 @@ import static br.com.zera.regex.Constants.SESSAO_ADMIN;
 public class LoginAdminServlet extends HttpServlet {
 
     /** Página com o formulário de login da área restrita */
-    private static final String PAGINA_LOGIN = "/WEB-INF/admin/login-admin.jsp";
+    private static final String PAGINA_LOGIN = "/WEB-INF/login-restrita/login.jsp";
 
     /** Primeira tela do admin depois de entrar */
     private static final String HOME_ADMIN = "/admin/home";

@@ -6,25 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/crud-usuario.css">
+    <link rel="stylesheet" href="../../css/crud.css">
     <title>Assinaturas</title>
 </head>
 <body>
 <header class="header-crud">
-    <div class="logo-topo">
-        <img src="../../images/logo_completa.svg" alt="ZERA" class="logo">
-    </div>
-    <div class="avatar-topo">AD</div>
 </header>
 <div class="tela-auth">
     <div class="painel-esquerda">
         <div class="painel-conteudo">
             <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
             <nav>
-                <a href="crud-perfil-admin.jsp" class="perfil-usuario">
-                    <div class="avatar">AD</div>
-                    <span class="nome-usuario">Administrador</span>
-                </a>
                 <a href="crud-home-admin.jsp">Home</a>
                 <a href="crud-organizacoes-admin.jsp">Organizações</a>
                 <a href="crud-assinaturas-admin.jsp" class="botao-ativo">Assinaturas</a>
@@ -33,8 +25,9 @@
                 <a href="crud-enderecos-admin.jsp">Endereços</a>
                 <a href="crud-gestores-admin.jsp">Gestores</a>
                 <a href="crud-estoques-admin.jsp">Estoques</a>
+                <a href="crud-novo-admin.jsp">Admin</a>
                 <hr class="barra-azul">
-                <a href="#">Configurações</a>
+                <a href="crud-configuracoes-admin.jsp">Configurações</a>
                 <a href="../login/log.jsp">Sair</a>
             </nav>
         </div>
@@ -42,7 +35,7 @@
     <!--Área de informações-->
     <main class="informacoes">
         <img src="../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h1 class="nome-da-area">Assinaturas</h1>
+        <h4 class="nome-da-area">Assinaturas</h4>
         <section class="tabela">
             <form action="crud-assinaturas-admin.jsp" method="GET" class="tabela-filtros">
                 <div class="filtrador busca">

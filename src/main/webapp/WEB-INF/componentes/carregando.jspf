@@ -1,0 +1,4 @@
+<%-- Tela de carregamento compartilhada --%>
+<div id="tela-carregamento" class="carregamento-overlay" role="status" aria-label="Carregando" hidden>
+    <img src="${ctx}/images/carregando.svg" alt="" class="carregamento-icone" draggable="false">
+</div>

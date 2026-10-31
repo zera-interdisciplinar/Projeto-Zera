@@ -100,11 +100,14 @@
                     <span>Estoques</span>
                 </a>
 
-                <a href="<%= contexto %>/pages/crud-admin/crud-admins-admin.jp">
+                <a href="<%= contexto %>/pages/crud-admin/crud-novo-admin.jp">
                     <span>Admin</span>
                 </a>
 
                 <hr class="barra-azul">
+
+                <a href="<%= contexto %>/pages/crud-admin/crud-configuracoes-admin.jsp">
+                    <span>Configurações</span></a>
 
                 <a href="<%= contexto %>/pages/login/login.jsp">
                     <span>Sair</span>

@@ -51,11 +51,7 @@ body.pagina-erro {
     line-height: 1.45;
 }
 
-/*
-   Área da Imagem ajustada:
-   Subimos para 12vh e limitamos a altura a 42vh para a sombra
-   ficar com respiro confortável acima da faixa azul.
-*/
+/* Área da imagem */
 .erro-imagem-area {
     display: flex;
     justify-content: center;
@@ -67,13 +63,13 @@ body.pagina-erro {
 .erro-imagem {
     width: 100%;
     max-width: min(390px, 28vw);
-    max-height: 42vh; /* Impede a imagem de encostar na faixa azul */
+    max-height: 42vh;
     object-fit: contain;
     user-select: none;
     -webkit-user-drag: none;
 }
 
-/* Faixas diagonais no fundo ocupando 100% da tela */
+/* Faixas diagonais no fundo */
 .erro-faixas-fundo {
     position: absolute;
     inset: 0;
@@ -89,7 +85,10 @@ body.pagina-erro {
     display: block;
 }
 
-/* Ajuste para telas menores / mobile */
+/* ================================
+   RESPONSIVIDADE DA PÁGINA DE ERRO
+================================ */
+
 @media (max-width: 850px) {
     body.pagina-erro {
         overflow-y: auto;
@@ -130,5 +129,50 @@ body.pagina-erro {
         font-family: var(--fonte1);
         color: var(--cor3);
         text-decoration: underline;
+    }
+}
+
+/* ================================
+   TELA DE CARREGAMENTO
+================================ */
+
+#tela-carregamento {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #F5F1E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#tela-carregamento[hidden] {
+    display: none !important;
+}
+
+#tela-carregamento .carregamento-icone {
+    display: block;
+    width: 85px;
+    height: 85px;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    position: static;
+    animation: girar-carregamento 1.2s linear infinite;
+}
+
+@keyframes girar-carregamento {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }

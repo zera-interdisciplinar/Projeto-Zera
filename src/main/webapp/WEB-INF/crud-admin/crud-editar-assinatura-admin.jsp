@@ -16,18 +16,18 @@
     <div class = painel-conteudo>
       <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
       <nav>
-        <a href="crud-home-admin.jsp"><span>Home</span></a>
-        <a href="crud-organizacoes-admin.jsp"><span>Organizações</span></a>
-        <a class = botao-ativo href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
-        <a href="crud-planos-admin.jsp"><span>Planos</span></a>
-        <a href="crud-unidades-admin.jsp"><span>Unidades</span></a>
-        <a href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
-        <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
-        <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
-        <a href="crud-admins-admin.jsp"><span>Admin</span></a>
-        <hr class = barra-azul>
-        <a href="../login/login.jsp"><span>Sair</span></a>
-      </nav>
+                <a href="crud-home-admin.jsp">Home</a>
+                <a href="crud-organizacoes-admin.jsp">Organizações</a>
+                <a href="crud-assinaturas-admin.jsp" class="botao-ativo">Assinaturas</a>
+                <a href="crud-planos-admin.jsp">Planos</a>
+                <a href="crud-unidades-admin.jsp">Unidades</a>
+                <a href="crud-enderecos-admin.jsp">Endereços</a>
+                <a href="crud-gestores-admin.jsp">Gestores</a>
+                <a href="crud-estoques-admin.jsp">Estoques</a>
+                <hr class="barra-azul">
+                <a href="crud-configuracoes-admin.jsp">Configurações</a>
+                <a href="../login/login.jsp">Sair</a>
+            </nav>
     </div>
   </div>
   <!--Área de informações-->
@@ -55,7 +55,8 @@
           <option value="free">Free</option>
         </select>
         </div>
-        <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025"></div>
+        <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025">
+        <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span></div>
         <h5>Status de assinatura</h5>
         <h5>Data de término</h5>
         <div class="infos-de-mesma-linha"><select name="status" id="status">
@@ -65,7 +66,8 @@
           <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
         </select>
         </div>
-        <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026"></div>
+        <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026">
+        <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA e deve ser maior que a data de início</span></div>
         <button type="submit">Salvar</button>
       </form>
     </div>

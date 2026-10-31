@@ -78,14 +78,11 @@ public class ReadEstoqueServlet extends HttpServlet {
             } else if (unidadeLogada != null) {
                 int codUnidade = unidadeLogada.getCodigo();
 
-                // filtra só o que é da unidade do gestor
-                List<Estoque> estoques = new ArrayList<>();
-                for (Estoque estoque : dao.findAll()) {
-                    if (estoque.getCodUnidade() == codUnidade) {
-                        estoques.add(estoque);
-                    }
-                }
+                // o banco já devolve só os estoques da unidade, filtrados pela busca (se houver)
+                String busca = request.getParameter("busca");
+                List<Estoque> estoques = dao.findByUnidade(codUnidade, busca);
                 List<Gestor> gestores = new ArrayList<>();
+
                 for (Gestor gestor : gestorDAO.findAll()) {
                     if (gestor.getCodUnidade() == codUnidade) {
                         // não manda o hash da senha para a JSP
