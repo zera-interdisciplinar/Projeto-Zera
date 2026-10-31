@@ -1,92 +1,111 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="gestor"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
-
     <title>Gestores - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="../home.jsp"><span>Home</span></a>
-                <a href="../organizacao/lista-organizacoes.jsp"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="../endereco/lista-enderecos.jsp"><span>Endereços  </span></a>
-                <a class = botao-ativo href="lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="../novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../login/login.html"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h3 class = nome-da-area>Gestores</h3>
-        <div class = tabela>
-            <form action="lista-gestores.jsp" method="GET" class="tabela-filtros">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Gestores</h1>
+
+        <section class="tabela">
+            <form class="tabela-filtros" action="${ctx}/gestor/lista" method="get">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-                    <input type="text" id="buscar" name="buscar" placeholder="Nome ou e-mail">
+
+                    <input type="search" name="buscar" id="buscar"
+                           value="<c:out value='${param.buscar}'/>"
+                           placeholder="Pesquisar">
                 </div>
-                <div class="filtrador">
-                    <label for="ordem-de-nome">Ordem de nome</label>
-                    <select name="ordem" id="ordem">
-                        <option value="a-z">De A-Z</option>
-                        <option value="z-a">De Z-A</option>
-                    </select>
-                </div>
-                <a href="crud-novo-gestor-admin.jsp" class="adicionar"><img src="../../../images/adicionar.svg" alt="">Novo gestor</a>
+
+                <button type="submit" class="btn-lupa">Buscar</button>
+
+                <a href="${ctx}/gestor/perfil" class="adicionar">
+                    <img src="${ctx}/images/icone-adicionar.svg" alt="">
+                    Novo gestor
+                </a>
             </form>
+
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
-                    <colgroup>
-                        <col style="width: 24%">
-                        <col style="width: 22%">
-                        <col style="width: 18%">
-                        <col style="width: 24%">
-                        <col style="width: 12%">
-                    </colgroup>
                     <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
                         <th>Telefone</th>
                         <th>Unidade</th>
-                        <th></th>
+                        <th class="col-acoes">Ações</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>Mariana Almeida</td>
-                        <td>tijbs@exemplo.com</td>
-                        <td>(11) 99812-4410</td>
-                        <td>JBS Alimentos (Lins/SP)</td>
-                        <td class="acoes">
-                            <a href="editar-gestor.jsp"><img src="../../../images/editar.svg" alt=""></a>
-                            <a href="../../../pages/popups/popup-excluir.html"><img src="../../../images/excluir.svg" alt=""></a>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${not empty gestores}">
+                            <c:forEach var="item" items="${gestores}">
+                                <tr>
+                                    <td><c:out value="${item.nome}"/></td>
+                                    <td><c:out value="${item.email}"/></td>
+                                    <td><c:out value="${item.telefone}"/></td>
+                                    <td><c:out value="${item.codUnidade}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/gestor/perfil?codigo=${item.codigo}"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form action="${ctx}/gestor/excluir"
+                                                  method="post"
+                                                  onsubmit="return confirm('Confirma a exclusão?');">
+
+                                                <input type="hidden" name="codigo"
+                                                       value="${item.codigo}">
+
+                                                <button type="submit" aria-label="Excluir">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="5">Nenhum gestor cadastrado.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     </tbody>
                 </table>
             </div>
-
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
-
 </body>
 </html>

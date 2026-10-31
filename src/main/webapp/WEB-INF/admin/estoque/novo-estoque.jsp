@@ -1,64 +1,88 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="estoque"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo estoque - Zera</title>
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
-                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="../endereco/lista-enderecos.jsp"><span>Endereços</span></a>
-                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a class = botao-ativo href="lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="../novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <a href="lista-estoques.jsp" class="voltar">
-            <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-            Voltar
-        </a>
-        <h3 class = nome-da-area>Novo estoque</h3>
-        <div class="adicao">
-            <form action="${pageContext.request.contextPath}/adicionar" method="post">
-                <h5>Unidade</h5>
-                <div id ="nome"><select name="unidade" id="unidade">
-                    <option value="jbs-alimentos-lins-sp">JBS Alimentos (Lins/SP)</option>
-                </select>
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Novo estoque</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/estoque/inserir" method="post">
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="codUnidade">Unidade</label>
+
+                        <select id="codUnidade" name="codUnidade"
+                                class="form-campo-total" required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${unidades}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.cnpj}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="espacoNaUnidade">Espaço na unidade</label>
+
+                        <input type="text" id="espacoNaUnidade" name="espacoNaUnidade"
+                               class="form-campo-total"
+                               placeholder="Galpão 3, sala B" required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="codResponsavel">Gestor responsável</label>
+
+                        <select id="codResponsavel" name="codResponsavel"
+                                class="form-campo-total" required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${gestores}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </div>
-                <h5>Espaço na unidade</h5>
-                <h5>Gestor responsável</h5>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="espaco-na-unidade" id="-espaco-na-unidade" placeholder="Galpão 3, sala B">
-                </div>
-                <div class="infos-de-mesma-linha"><select name="gestor-responsavel" id="gestor-responsavel">
-                    <option value="mariana-almeida">Mariana Almeida</option>
-                </select>
-                </div>
-                <button type="submit">Adicionar</button>
+
+                <button type="submit" id="botao-salvar">Cadastrar</button>
             </form>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 </body>
 </html>
