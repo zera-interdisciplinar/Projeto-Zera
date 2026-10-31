@@ -14,8 +14,10 @@
     <link rel="icon" href="${ctx}/images/favicon.png" type="image/png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <%@ include file="menu.jspf" %>
 <main class="informacoes">
     <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
@@ -123,5 +125,6 @@
 })();
 </script>
 <script src="${ctx}/js/popup.js" defer></script>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
