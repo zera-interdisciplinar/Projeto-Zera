@@ -1,60 +1,72 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="organizacao"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova organização - Zera</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon.png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/crud.css">
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="${pageContext.request.contextPath}/images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="${pageContext.request.contextPath}/admin/home"><span>Home</span></a>
-                <a class = botao-ativo href="${pageContext.request.contextPath}/organizacao/lista"><span>Organizações</span></a>
-                <a href="${pageContext.request.contextPath}/assinatura/lista"><span>Assinaturas</span></a>
-                <a href="${pageContext.request.contextPath}/plano/lista"><span>Planos</span></a>
-                <a href="${pageContext.request.contextPath}/unidade/lista"><span>Unidades</span></a>
-                <a href="${pageContext.request.contextPath}/endereco/lista"><span>Endereços</span></a>
-                <a href="${pageContext.request.contextPath}/gestor/lista"><span>Gestores</span></a>
-                <a href="${pageContext.request.contextPath}/estoque/lista"><span>Estoques</span></a>
-                <a href="${pageContext.request.contextPath}/admin/novo"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="${pageContext.request.contextPath}/configuracoes/admin"><span>Configurações</span></a>
-                <a href="${pageContext.request.contextPath}/logout"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="${pageContext.request.contextPath}/images/z-transparente.png" alt="" class="z-marca-dagua">
-        <a href="${pageContext.request.contextPath}/organizacao/lista" class="voltar">
-            <img src="${pageContext.request.contextPath}/images/seta-voltar.svg" alt="Ícone de seta de voltar">
-            Voltar
-        </a>
-        <h3 class = nome-da-area>Nova organização</h3>
-        <div class="adicao">
-            <form action="${pageContext.request.contextPath}/organizacao/adicionar" method="post">
-                <h5>Nome</h5>
-                <div id="nome">
-                    <input type="text" name="nome-da-organizacao" id="nome-da-organizacao" placeholder="Nome da organização">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Nova organização</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/organizacao/inserir" method="post">
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="nome">Nome</label>
+
+                        <input type="text" id="nome" name="nome"
+                               class="form-campo-total"
+                               placeholder="Nome da organização" required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="cnpj">CNPJ</label>
+
+                        <input type="text" id="cnpj" name="cnpj"
+                               class="form-campo-total" placeholder="" required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="email">E-mail</label>
+
+                        <input type="email" id="email" name="email"
+                               class="form-campo-total" placeholder="" required>
+                    </div>
                 </div>
-                <h5>CNPJ</h5>
-                <h5>Email</h5>
-                <div class="infos-de-mesma-linha"><input type="text" name="cnpj" id="cnpj" placeholder="11.222.333/0001-81">
-                <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span></div>
-                <div class="infos-de-mesma-linha"><input type="text" name="email" id="email" placeholder="email@organizacao.com">
-                <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span></div>
-                <button type="submit">adicionar</button>
+
+                <button type="submit" id="botao-salvar">Cadastrar</button>
             </form>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 </body>
 </html>

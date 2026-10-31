@@ -1,105 +1,135 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="unidade"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova unidade - Zera</title>
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
+    <title>Adicionar endereço da unidade - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
-                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a class = botao-ativo href="lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="../endereco/lista-enderecos.jsp"><span>Endereços</span></a>
-                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="../novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <a href="nova-unidade.jsp" class="voltar">
-            <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-            Voltar
-        </a>
-        <h3 class = nome-da-area>Adicionar endereço da unidade</h3>
-        <div class="adicao">
-            <form action="${pageContext.request.contextPath}/adicionar" method="post">
-                <h4>Endereço</h4>
-                <h5>Logradouro</h5>
-                <h5>Estado</h5>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="logradouro" id="logradouro" placeholder="Rua José Irineu">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Adicionar endereço da unidade</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/endereco/inserir" method="post">
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="codUnidade">Unidade</label>
+
+                        <select id="codUnidade"
+                                name="codUnidade"
+                                class="form-campo-total"
+                                required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${unidades}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="logradouro">Logradouro</label>
+
+                        <input type="text"
+                               id="logradouro"
+                               name="logradouro"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="numero">Número</label>
+
+                        <input type="number"
+                               id="numero"
+                               name="numero"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="bairro">Bairro</label>
+
+                        <input type="text"
+                               id="bairro"
+                               name="bairro"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="cidade">Cidade</label>
+
+                        <input type="text"
+                               id="cidade"
+                               name="cidade"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="estado">Estado</label>
+
+                        <input type="text"
+                               id="estado"
+                               name="estado"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="cep">CEP</label>
+
+                        <input type="text"
+                               id="cep"
+                               name="cep"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
                 </div>
-                <div class="infos-de-mesma-linha">
-                    <select name="estado" id="estado">
-                        <option value="ac">AC</option>
-                        <option value="al">AL</option>
-                        <option value="ap">AP</option>
-                        <option value="am">AM</option>
-                        <option value="ba">BA</option>
-                        <option value="ce">CE</option>
-                        <option value="es">ES</option>
-                        <option value="go">GO</option>
-                        <option value="ma">MA</option>
-                        <option value="mt">MT</option>
-                        <option value="ms">MS</option>
-                        <option value="mg">MG</option>
-                        <option value="pa">PA</option>
-                        <option value="pb">PB</option>
-                        <option value="pr">PR</option>
-                        <option value="pe">PE</option>
-                        <option value="pi">PI</option>
-                        <option value="rj">RJ</option>
-                        <option value="rn">RN</option>
-                        <option value="rs">RS</option>
-                        <option value="ro">RO</option>
-                        <option value="rr">RR</option>
-                        <option value="sc">SC</option>
-                        <option value="sp">SP</option>
-                        <option value="se">SE</option>
-                        <option value="to">TO</option>
-                    </select>
-                </div>
-                <h5>número</h5>
-                <h5>Cidade</h5>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="numero" id="numero" placeholder="123">
-                </div>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="cidade" id="cidade" placeholder="São Paulo">
-                </div>
-                <h5>CEP</h5>
-                <h5>Bairro</h5>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="cep" id="cep" placeholder="00000000">
-                </div>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="bairro" id="bairro" placeholder="Vila Jaguara">
-                </div>
-                <a href="nova-unidade.jsp" id="outra-tela-primeira">1</a>
-                <p id="separador">|</p>
-                <a href="" id="tela-atual">2</a>
-                <button id="concluir" type="submit">Adicionar</button>
+
+                <button type="submit" id="botao-salvar">
+                    Cadastrar
+                </button>
             </form>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 </body>
 </html>

@@ -1,67 +1,91 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="unidade"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova unidade - Zera</title>
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.html"><span>Home</span></a>
-                <a href="crud-organizacoes-admin-feito.html"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a class = botao-ativo href="lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="crud-enderecos-admin.html"><span>Endereços</span></a>
-                <a href="crud-gestores-admin.html"><span>Gestores</span></a>
-                <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                <a href="crud-novo-admin.html"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../login/login.html"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <a href="lista-unidades.jsp" class="voltar">
-            <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-            Voltar
-        </a>
-        <h3 class = nome-da-area>Nova unidade</h3>
-        <div class="adicao">
-            <form action="${pageContext.request.contextPath}/adicionar" method="post">
-                <h5>Organização</h5>
-                <div id="nome">
-                    <input type="text" name="plano" id="plano" placeholder="JBS Alimentos">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Nova unidade</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/unidade/inserir" method="post">
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="codOrganizacao">Organização</label>
+
+                        <select id="codOrganizacao"
+                                name="codOrganizacao"
+                                class="form-campo-total"
+                                required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${organizacoes}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="cnpj">CNPJ</label>
+
+                        <input type="text"
+                               id="cnpj"
+                               name="cnpj"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="email">E-mail</label>
+
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               class="form-campo-total"
+                               placeholder=""
+                               required>
+                    </div>
                 </div>
-                <h5>Email da unidade</h5>
-                <h5>CNPJ da unidade</h5>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="email-da-unidade" id="email-da-unidade" placeholder="email@unidade.com">
-                    <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
-                </div>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" name="cnpj-da-unidade" id="cnpj-da-unidade" placeholder="11.222.333/0001-81">
-                    <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span>
-                </div>
-                <a href="" id="tela-atual-primeira">1</a>
-                <p id="separador">|</p>
-                <a href="nova-unidade-pt2.jsp" id="outra-tela">2</a>
-                <a href="nova-unidade-pt2.jsp" id="proxima-tela" onclick="this.closest('form').submit(); return false;">Próximo</a>
+
+                <button type="submit" id="botao-salvar">
+                    Cadastrar
+                </button>
             </form>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 </body>
 </html>
