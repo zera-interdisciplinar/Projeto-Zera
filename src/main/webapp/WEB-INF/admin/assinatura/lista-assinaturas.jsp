@@ -1,101 +1,110 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="assinatura"/>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
-    <title>Assinaturas</title>
+    <title>Assinaturas - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<header class="header-crud">
-</header>
 <div class="tela-auth">
-    <div class="painel-esquerda">
+    <aside class="painel-esquerda">
         <div class="painel-conteudo">
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="../home.jsp">Home</a>
-                <a href="../organizacao/lista-organizacoes.jsp">Organizações</a>
-                <a href="lista-assinaturas.jsp" class="botao-ativo">Assinaturas</a>
-                <a href="../plano/lista-planos.jsp">Planos</a>
-                <a href="../unidade/lista-unidades.jsp">Unidades</a>
-                <a href="../endereco/lista-enderecos.jsp">Endereços</a>
-                <a href="../gestor/lista-gestores.jsp">Gestores</a>
-                <a href="../estoque/lista-estoques.jsp">Estoques</a>
-                <a href="../novo-admin.jsp">Admin</a>
-                <hr class="barra-azul">
-                <a href="../configuracoes.jsp">Configurações</a>
-                <a href="../login/log.jsp">Sair</a>
-            </nav>
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
+    </aside>
+
     <main class="informacoes">
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h4 class="nome-da-area">Assinaturas</h4>
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Assinaturas</h1>
+
         <section class="tabela">
-            <form action="lista-assinaturas.jsp" method="GET" class="tabela-filtros">
+            <form class="tabela-filtros" action="${ctx}/assinatura/lista" method="get">
                 <div class="filtrador busca">
-                    <label for="busca">Buscar</label>
-                    <div class="campo-busca">
-                        <input type="search" id="busca" name="busca" placeholder="Organização ou plano">
-                        <button type="submit" class="btn-lupa" aria-label="Buscar">
-                            <img src="../../../images/icone-lupa.svg" alt="">
-                        </button>
-                    </div>
+                    <label for="buscar">Buscar</label>
+
+                    <input type="search" name="buscar" id="buscar"
+                           value="<c:out value='${param.buscar}'/>"
+                           placeholder="Pesquisar">
                 </div>
-                <div class="filtrador">
-                    <label for="situacao">Situação</label>
-                    <select id="situacao" name="situacao">
-                        <option value="todos">Todos</option>
-                        <option value="ativa">Ativa</option>
-                        <option value="cancelada">Cancelada</option>
-                        <option value="expirada">Expirada</option>
-                        <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
-                    </select>
-                </div>
-                <a href="crud-nova-assinatura-admin.jsp" class="adicionar">
-                    <img src="../../../images/icone-adicionar.svg" alt="">
+
+                <button type="submit" class="btn-lupa">Buscar</button>
+
+                <a href="${ctx}/assinatura/perfil" class="adicionar">
+                    <img src="${ctx}/images/icone-adicionar.svg" alt="">
                     Nova assinatura
                 </a>
             </form>
+
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
-                    <colgroup>
-                        <col style="width: 22%">
-                        <col style="width: 21%">
-                        <col style="width: 15%">
-                        <col style="width: 15%">
-                        <col style="width: 15%">
-                        <col style="width: 12%">
-                    </colgroup>
                     <thead>
                     <tr>
-                        <th>organização</th>
+                        <th>Código</th>
+                        <th>Organização</th>
                         <th>Plano</th>
-                        <th>início</th>
+                        <th>Início</th>
                         <th>Fim</th>
                         <th>Status</th>
-                        <th></th>
+                        <th class="col-acoes">Ações</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>JBS Alimentos</td>
-                        <td>Empresarial</td>
-                        <td>10/10/2025</td>
-                        <td>10/10/2026</td>
-                        <td class="texto-verde">Ativa</td>
-                        <td class="col-acoes">
-                            <div class="acoes">
-                                <a href="crud-editar-assinatura-admin.html" title="Editar"><img src="../../../images/icone-editar.svg" alt="Editar"></a>
-                                <a href="../../../pages/popups/popup-excluir.html" title="Excluir"><img src="../../../images/icone-excluir.svg" alt="Excluir"></a>
-                            </div>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${not empty assinaturas}">
+                            <c:forEach var="item" items="${assinaturas}">
+                                <tr>
+                                    <td><c:out value="${item.codigo}"/></td>
+                                    <td><c:out value="${item.codOrganizacao}"/></td>
+                                    <td><c:out value="${item.codPlano}"/></td>
+                                    <td><c:out value="${item.dataInicio}"/></td>
+                                    <td><c:out value="${item.dataFim}"/></td>
+                                    <td><c:out value="${item.status}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/assinatura/perfil?codigo=${item.codigo}"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form action="${ctx}/assinatura/excluir"
+                                                  method="post"
+                                                  onsubmit="return confirm('Confirma a exclusão?');">
+
+                                                <input type="hidden" name="codigo"
+                                                       value="${item.codigo}">
+
+                                                <button type="submit" aria-label="Excluir">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="7">Nenhuma assinatura encontrada.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     </tbody>
                 </table>
             </div>

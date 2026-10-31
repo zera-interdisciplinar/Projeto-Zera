@@ -1,86 +1,98 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="assinatura"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova assinatura - Zera</title>
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
-                <a href="crud-organizacoes-admin-feito.jsp"><span>Organizações</span></a>
-                <a class = botao-ativo href="lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a href="../plano/lista-planos.jsp"><span>Planos</span></a>
-                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="../endereco/lista-enderecos.jsp"><span>Endereços</span></a>
-                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="../novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <a href="lista-assinaturas.jsp" class="voltar">
-            <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-            Voltar
-        </a>
-        <h3 class = nome-da-area>Nova assinatura</h3>
-        <div class="adicao">
-            <form action="${pageContext.request.contextPath}/adicionar" method="post">
-                <h5>Organização</h5>
-                <div id="nome">
-                    <select name="organizacao" id="organizacao" required>
-                        <option value="" disabled selected hidden>Selecione</option>
-                        <option value="jbs-alimentos">JBS Alimentos</option>
-                        <option value="seara">Seara</option>
-                    </select>
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Nova assinatura</h1>
+
+        <section class="edicao">
+            <form action="${ctx}/assinatura/inserir" method="post">
+
+                <c:if test="${not empty erroInterno}">
+                    <p role="alert">
+                        <c:out value="${erroInterno}"/>
+                    </p>
+                </c:if>
+
+                <div class="form-coluna">
+                    <div class="filtrador">
+                        <label for="codOrganizacao">Organização</label>
+
+                        <select id="codOrganizacao" name="codOrganizacao"
+                                class="form-campo-total" required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${organizacoes}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="codPlano">Plano</label>
+
+                        <select id="codPlano" name="codPlano"
+                                class="form-campo-total" required>
+                            <option value="">Selecione</option>
+
+                            <c:forEach var="item" items="${planos}">
+                                <option value="${item.codigo}">
+                                    <c:out value="${item.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="dataFim">Data de término</label>
+
+                        <input type="date" id="dataFim" name="dataFim"
+                               class="form-campo-total" placeholder="" required>
+                    </div>
+
+                    <div class="filtrador">
+                        <label for="status">Status</label>
+
+                        <select id="status" name="status" required>
+                            <option value="Ativa">Ativa</option>
+                            <option value="Inativa">Inativa</option>
+                            <option value="Vencida">Vencida</option>
+                        </select>
+                    </div>
                 </div>
-                <h5>Plano</h5>
-                <h5>Data de início</h5>
-                <div class="infos-de-mesma-linha">
-                    <select name="plano" id="plano" required>
-                        <option value="" disabled selected hidden>Selecione</option>
-                        <option value="empresarial">Empresarial</option>
-                        <option value="profissional">Profissional</option>
-                        <option value="free">Free</option>
-                    </select>
-                </div>
-                <div class="infos-de-mesma-linha">
-                    <p>10/10/2026</p>
-                </div>
-                <h5>Status da assinatura</h5>
-                <h5>Data de término</h5>
-                <div class="infos-de-mesma-linha">
-                    <select name="status" id="status" required>
-                        <option value="" disabled selected hidden>Selecione</option>
-                        <option value="ativa">Ativa</option>
-                        <option value="cancelada">Cancelada</option>
-                        <option value="expirada">Expirada</option>
-                        <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
-                    </select>
-                </div>
-                <div class="infos-de-mesma-linha">
-                    <input type="text" id="data-termino" name="data-termino" placeholder="DD/MM/AAAA">
-                    <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA e ser maior que a data de início</span>
-                </div>
-                <button>Adicionar</button>
+
+                <button type="submit" id="botao-salvar">Cadastrar</button>
             </form>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 </body>
-
+</html>

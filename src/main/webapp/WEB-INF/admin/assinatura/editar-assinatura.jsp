@@ -1,77 +1,119 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="assinatura"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editar assinatura - Zera</title>
-  <link rel="icon" type="image/png" href="../../../images/favicon.png">
-  <link rel="stylesheet" href="../../../css/style.css">
-  <link rel="stylesheet" href="../../../css/crud.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar assinatura - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-  <!--Painel esquerdo-->
-  <div class = painel-esquerda>
-    <div class = painel-conteudo>
-      <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-      <nav>
-                <a href="../home.jsp">Home</a>
-                <a href="../organizacao/lista-organizacoes.jsp">Organizações</a>
-                <a href="lista-assinaturas.jsp" class="botao-ativo">Assinaturas</a>
-                <a href="../plano/lista-planos.jsp">Planos</a>
-                <a href="../unidade/lista-unidades.jsp">Unidades</a>
-                <a href="../endereco/lista-enderecos.jsp">Endereços</a>
-                <a href="../gestor/lista-gestores.jsp">Gestores</a>
-                <a href="../estoque/lista-estoques.jsp">Estoques</a>
-                <hr class="barra-azul">
-                <a href="../configuracoes.jsp">Configurações</a>
-                <a href="../../login/login.jsp">Sair</a>
-            </nav>
-    </div>
-  </div>
-  <!--Área de informações-->
-  <div class = informacoes>
-    <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-    <a href="lista-assinaturas.jsp" class="voltar">
-      <img src="../../../images/seta-voltar.svg" alt="Ícone de seta de voltar">
-      Voltar
-    </a>
-    <h3 class = nome-da-area>Editar assinatura</h3>
-    <div class="edicao">
-      <form action="${pageContext.request.contextPath}/editar" method="post">
-        <h5>Organização</h5>
-        <div id="nome">
-          <select name="organizacao" id="organizacao">
-            <option value="jbs-alimentos">JBS Alimentos</option>
-            <option value="seara">Seara</option>
-          </select>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-        <h5>Plano</h5>
-        <h5>Data de início</h5>
-        <div class="infos-de-mesma-linha"><select name="plano" id="plano">
-          <option value="empresarial">Empresarial</option>
-          <option value="profissional">Profissional</option>
-          <option value="free">Free</option>
-        </select>
-        </div>
-        <div class="infos-de-mesma-linha"><input type="text" id="data-inicio" name="data-inicio" placeholder="10/10/2025">
-        <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA</span></div>
-        <h5>Status de assinatura</h5>
-        <h5>Data de término</h5>
-        <div class="infos-de-mesma-linha"><select name="status" id="status">
-          <option value="ativa">Ativa</option>
-          <option value="cancelada">Cancelada</option>
-          <option value="expirada">Expirada</option>
-          <option value="vencendo-em-30-dias">Vencendo em 30 dias</option>
-        </select>
-        </div>
-        <div class="infos-de-mesma-linha"><input type="text" id="data-termino" name="data-termino" placeholder="01/03/2026">
-        <span class="mensagem-erro">A data deve estar no formato DD/MM/AAAA e deve ser maior que a data de início</span></div>
-        <button type="submit">Salvar</button>
-      </form>
-    </div>
-  </div>
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Editar assinatura</h1>
+
+        <c:choose>
+            <c:when test="${empty assinatura}">
+                <p>Registro não encontrado. Volte para a listagem.</p>
+            </c:when>
+
+            <c:otherwise>
+                <section class="edicao">
+                    <form action="${ctx}/assinatura/alterar" method="post">
+                        <input type="hidden" name="codigo" value="${assinatura.codigo}">
+
+                        <c:if test="${not empty erroInterno}">
+                            <p role="alert">
+                                <c:out value="${erroInterno}"/>
+                            </p>
+                        </c:if>
+
+                        <div class="form-coluna">
+                            <div class="filtrador">
+                                <label for="codOrganizacao">Organização</label>
+
+                                <select id="codOrganizacao" name="codOrganizacao"
+                                        class="form-campo-total" required>
+                                    <option value="">Selecione</option>
+
+                                    <c:forEach var="item" items="${organizacoes}">
+                                        <option value="${item.codigo}"
+                                            ${assinatura.codOrganizacao == item.codigo ? "selected" : ""}>
+                                            <c:out value="${item.nome}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <div class="filtrador">
+                                <label for="codPlano">Plano</label>
+
+                                <select id="codPlano" name="codPlano"
+                                        class="form-campo-total" required>
+                                    <option value="">Selecione</option>
+
+                                    <c:forEach var="item" items="${planos}">
+                                        <option value="${item.codigo}"
+                                            ${assinatura.codPlano == item.codigo ? "selected" : ""}>
+                                            <c:out value="${item.nome}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <div class="filtrador">
+                                <label for="dataFim">Data de término</label>
+
+                                <input type="date" id="dataFim" name="dataFim"
+                                       class="form-campo-total"
+                                       value="<c:out value='${assinatura.dataFim}'/>"
+                                       placeholder="" required>
+                            </div>
+
+                            <div class="filtrador">
+                                <label for="status">Status</label>
+
+                                <select id="status" name="status" required>
+                                    <option value="Ativa" ${assinatura.status == "Ativa" ? "selected" : ""}>
+                                        Ativa
+                                    </option>
+
+                                    <option value="Inativa" ${assinatura.status == "Inativa" ? "selected" : ""}>
+                                        Inativa
+                                    </option>
+
+                                    <option value="Vencida" ${assinatura.status == "Vencida" ? "selected" : ""}>
+                                        Vencida
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="botao-salvar">Salvar</button>
+                    </form>
+                </section>
+            </c:otherwise>
+        </c:choose>
+    </main>
 </div>
 </body>
 </html>

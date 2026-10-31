@@ -1,262 +1,100 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="br.com.zera.model.Plano" %>
 
-<%!
-    private String escaparHtml(String valor) {
-        if (valor == null) {
-            return "";
-        }
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
-        return valor
-                .replace("&", "&amp;")
-                .replace("\"", "&quot;")
-                .replace("'", "&#39;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;");
-    }
-%>
-
-<%
-    Plano plano = (Plano) request.getAttribute("plano");
-
-    if (plano == null) {
-        response.sendError(
-                HttpServletResponse.SC_NOT_FOUND,
-                "Plano não encontrado."
-        );
-        return;
-    }
-
-    String contexto = request.getContextPath();
-    String tempoAtual = plano.getTempo() == null
-            ? ""
-            : plano.getTempo().trim();
-
-    boolean mensal = "mensal".equalsIgnoreCase(tempoAtual);
-    boolean anual = "anual".equalsIgnoreCase(tempoAtual);
-%>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="plano"/>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Editar plano - Zera</title>
-
-    <link
-            rel="icon"
-            type="image/png"
-            href="<%= contexto %>/images/favicon.png"
-    >
-
-    <link rel="stylesheet" href="<%= contexto %>/css/style.css">
-    <link rel="stylesheet" href="<%= contexto %>/css/crud.css">
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
 
 <body>
 <div class="tela-auth">
-    <div class="painel-esquerda">
+    <aside class="painel-esquerda">
         <div class="painel-conteudo">
-            <img
-                    src="<%= contexto %>/images/logo_completa.svg"
-                    alt="Zera"
-                    class="logo-zera"
-            >
-
-            <nav>
-                <a href="<%= contexto %>/pages/crud-admin/crud-home-admin-feito.jsp">
-                    <span>Home</span>
-                </a>
-
-                <a href="<%= contexto %>/organizacao/lista">
-                    <span>Organizações</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-assinaturas-admin.jsp">
-                    <span>Assinaturas</span>
-                </a>
-
-                <a
-                        class="botao-ativo"
-                        href="<%= contexto %>/plano/lista"
-                >
-                    <span>Planos</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-unidades-admin.jsp">
-                    <span>Unidades</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-enderecos-admin.jsp">
-                    <span>Endereços</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-gestores-admin.jsp">
-                    <span>Gestores</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-estoques-admin.jsp">
-                    <span>Estoques</span>
-                </a>
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-novo-admin.jp">
-                    <span>Admin</span>
-                </a>
-
-                <hr class="barra-azul">
-
-                <a href="<%= contexto %>/pages/crud-admin/crud-configuracoes-admin.jsp">
-                    <span>Configurações</span></a>
-
-                <a href="<%= contexto %>/pages/login/login.jsp">
-                    <span>Sair</span>
-                </a>
-            </nav>
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
+    </aside>
 
-    <div class="informacoes">
-        <img
-                src="<%= contexto %>/images/z-transparente.png"
-                alt=""
-                class="z-marca-dagua"
-        >
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
-        <a href="<%= contexto %>/plano/lista" class="voltar">
-            <img
-                    src="<%= contexto %>/images/seta-voltar.svg"
-                    alt="Ícone de seta de voltar"
-            >
-            Voltar
-        </a>
+        <h1 class="nome-da-area">Editar plano</h1>
 
-        <h3 class="nome-da-area">Editar plano</h3>
+        <c:choose>
+            <c:when test="${empty plano}">
+                <p>Registro não encontrado. Volte para a listagem.</p>
+            </c:when>
 
-        <div class="edicao">
-            <form
-                    id="form-editar-plano"
-                    action="<%= contexto %>/plano/alterar"
-                    method="post"
-            >
-                <input
-                        type="hidden"
-                        name="codigo"
-                        value="<%= plano.getCodigo() %>"
-                >
+            <c:otherwise>
+                <section class="edicao">
+                    <form action="${ctx}/plano/alterar" method="post">
+                        <input type="hidden" name="codigo" value="${plano.codigo}">
 
-                <h5>
-                    <label for="plano">Nome</label>
-                </h5>
+                        <c:if test="${not empty erroInterno}">
+                            <p role="alert">
+                                <c:out value="${erroInterno}"/>
+                            </p>
+                        </c:if>
 
-                <div id="nome">
-                    <input
-                            type="text"
-                            name="nome"
-                            id="plano"
-                            placeholder="Profissional"
-                            value="<%= escaparHtml(plano.getNome()) %>"
-                            required
-                    >
-                </div>
+                        <div class="form-coluna">
+                            <div class="filtrador">
+                                <label for="nome">Nome</label>
 
-                <h5>
-                    <label for="valor">Valor</label>
-                </h5>
+                                <input type="text" id="nome" name="nome"
+                                       class="form-campo-total"
+                                       value="<c:out value='${plano.nome}'/>"
+                                       placeholder="" required>
+                            </div>
 
-                <h5>
-                    <label for="periodo">Período</label>
-                </h5>
+                            <div class="filtrador">
+                                <label for="valor">Valor</label>
 
-                <div class="infos-de-mesma-linha">
-                    <input
-                            type="number"
-                            name="valor"
-                            id="valor"
-                            placeholder="99,90"
-                            value="<%= plano.getValor() == null ? "" : plano.getValor().toPlainString() %>"
-                            min="0"
-                            step="0.01"
-                            inputmode="decimal"
-                            required
-                    >
-                </div>
+                                <input type="number" id="valor" name="valor"
+                                       class="form-campo-total"
+                                       value="<c:out value='${plano.valor}'/>"
+                                       placeholder="" min="0" step="0.01" required>
+                            </div>
 
-                <div class="infos-de-mesma-linha">
-                    <select name="tempo" id="periodo" required>
-                        <option value="">Selecione</option>
+                            <div class="filtrador">
+                                <label for="tempo">Período</label>
 
-                        <option
-                                value="mensal"
-                                <%= mensal ? "selected" : "" %>
-                        >
-                            Mensal
-                        </option>
+                                <select id="tempo" name="tempo" required>
+                                    <option value="mensal"
+                                        ${fn:toLowerCase(plano.tempo) == "mensal" ? "selected" : ""}>
+                                        Mensal
+                                    </option>
 
-                        <option
-                                value="anual"
-                                <%= anual ? "selected" : "" %>
-                        >
-                            Anual
-                        </option>
+                                    <option value="anual"
+                                        ${fn:toLowerCase(plano.tempo) == "anual" ? "selected" : ""}>
+                                        Anual
+                                    </option>
 
-                        <% if (!mensal && !anual && !tempoAtual.isEmpty()) { %>
-                        <option
-                                value="<%= escaparHtml(tempoAtual) %>"
-                                selected
-                        >
-                            <%= escaparHtml(tempoAtual) %> meses
-                        </option>
-                        <% } %>
-                    </select>
-                </div>
+                                    <c:if test="${not empty plano.tempo and fn:toLowerCase(plano.tempo) != 'mensal' and fn:toLowerCase(plano.tempo) != 'anual'}">
+                                        <option value="${fn:escapeXml(plano.tempo)}" selected>
+                                            <c:out value="${plano.tempo}"/> meses
+                                        </option>
+                                    </c:if>
+                                </select>
+                            </div>
+                        </div>
 
-                <button type="submit" id="botao-salvar">
-                    Salvar
-                </button>
-            </form>
-        </div>
-    </div>
+                        <button type="submit" id="botao-salvar">Salvar</button>
+                    </form>
+                </section>
+            </c:otherwise>
+        </c:choose>
+    </main>
 </div>
-
-<script>
-    const formulario = document.getElementById("form-editar-plano");
-    const campoNome = document.getElementById("plano");
-    const botaoSalvar = document.getElementById("botao-salvar");
-
-    let enviando = false;
-
-    campoNome.addEventListener("input", function () {
-        campoNome.setCustomValidity("");
-    });
-
-    formulario.addEventListener("submit", function (evento) {
-        if (enviando) {
-            evento.preventDefault();
-            return;
-        }
-
-        campoNome.value = campoNome.value.trim();
-
-        campoNome.setCustomValidity(
-            campoNome.value ? "" : "Informe o nome do plano."
-        );
-
-        if (!formulario.reportValidity()) {
-            evento.preventDefault();
-            return;
-        }
-
-        enviando = true;
-        botaoSalvar.disabled = true;
-        botaoSalvar.textContent = "Salvando...";
-    });
-
-    window.addEventListener("pageshow", function () {
-        enviando = false;
-        botaoSalvar.disabled = false;
-        botaoSalvar.textContent = "Salvar";
-    });
-</script>
 </body>
 </html>

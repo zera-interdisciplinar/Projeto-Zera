@@ -1,91 +1,111 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ativo" value="plano"/>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../../images/favicon.png">
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/crud.css">
     <title>Planos - Zera</title>
+    <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
+
 <body>
-<div class = tela-auth>
-    <!--Painel esquerdo-->
-    <div class = painel-esquerda>
-        <div class = painel-conteudo>
-            <img src="../../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-            <nav>
-                <a href="crud-home-admin-feito.jsp"><span>Home</span></a>
-                <a href="../organizacao/lista-organizacoes.jsp"><span>Organizações</span></a>
-                <a href="../assinatura/lista-assinaturas.jsp"><span>Assinaturas</span></a>
-                <a class = botao-ativo href="lista-planos.jsp"><span>Planos</span></a>
-                <a href="../unidade/lista-unidades.jsp"><span>Unidades</span></a>
-                <a href="../endereco/lista-enderecos.jsp"><span>Endereços  </span></a>
-                <a href="../gestor/lista-gestores.jsp"><span>Gestores</span></a>
-                <a href="../estoque/lista-estoques.jsp"><span>Estoques</span></a>
-                <a href="../novo-admin.jsp"><span>Admin</span></a>
-                <hr class = barra-azul>
-                <a href="../configuracoes.jsp"><span>Configurações</span></a>
-                <a href="../../login/login.jsp"><span>Sair</span></a>
-            </nav>
+<div class="tela-auth">
+    <aside class="painel-esquerda">
+        <div class="painel-conteudo">
+            <img src="${ctx}/images/logo_completa.svg" alt="Zera" class="logo-zera">
+            <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
-    </div>
-    <!--Área de informações-->
-    <div class = informacoes>
-        <img src="../../../images/z-transparente.png" alt="" class="z-marca-dagua">
-        <h3 class = nome-da-area>Planos</h3>
-        <div class = tabela>
-            <form action="lista-planos.jsp" method="GET" class="tabela-filtros">
+    </aside>
+
+    <main class="informacoes">
+        <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+
+        <h1 class="nome-da-area">Planos</h1>
+
+        <section class="tabela">
+            <form class="tabela-filtros" action="${ctx}/plano/lista" method="get">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-                    <input type="text" id="buscar" name="buscar" placeholder="Nome do plano">
+
+                    <input type="search" name="buscar" id="buscar"
+                           value="<c:out value='${param.buscar}'/>"
+                           placeholder="Pesquisar">
                 </div>
-                <div class="filtrador">
-                    <label for="tempo">Tempo</label>
-                    <select name="tempo" id="tempo">
-                        <option value="todos">Todos</option>
-                        <option value="mensal">Mensal</option>
-                        <option value="anual">Anual</option>
-                    </select>
-                </div>
-                <a href="crud-novo-plano-admin.jsp" class="adicionar"><img src="../../../images/adicionar.svg" alt="">Novo plano</a>
+
+                <button type="submit" class="btn-lupa">Buscar</button>
+
+                <a href="${ctx}/plano/perfil" class="adicionar">
+                    <img src="${ctx}/images/icone-adicionar.svg" alt="">
+                    Novo plano
+                </a>
             </form>
+
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
-                    <colgroup>
-                        <col style="width: 22%">
-                        <col style="width: 20%">
-                        <col style="width: 28%">
-                        <col style="width: 12%">
-                    </colgroup>
                     <thead>
                     <tr>
+                        <th>Código</th>
                         <th>Nome</th>
                         <th>Valor</th>
-                        <th>Tipo</th>
-                        <th></th>
+                        <th>Período</th>
+                        <th class="col-acoes">Ações</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>Free</td>
-                        <td>R$ 0,00</td>
-                        <td>Mensal</td>
-                        <td class="acoes">
 
-                            <a href="editar-plano-admin-feito.jsp"><img src="../../../images/editar.svg" alt=""></a>
-                            <a href="../../../pages/popups/popup-excluir.html"><img src="../../../images/excluir.svg" alt=""></a>
-                        </td>
-                    </tr>
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${not empty planos}">
+                            <c:forEach var="item" items="${planos}">
+                                <tr>
+                                    <td><c:out value="${item.codigo}"/></td>
+                                    <td><c:out value="${item.nome}"/></td>
+                                    <td><c:out value="${item.valor}"/></td>
+                                    <td><c:out value="${item.tempo}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/plano/perfil?codigo=${item.codigo}"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form action="${ctx}/plano/excluir"
+                                                  method="post"
+                                                  onsubmit="return confirm('Confirma a exclusão?');">
+
+                                                <input type="hidden" name="codigo"
+                                                       value="${item.codigo}">
+
+                                                <button type="submit" aria-label="Excluir">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="5">Nenhum plano encontrado.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     </tbody>
                 </table>
             </div>
-
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
-
-
 </body>
 </html>
