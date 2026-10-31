@@ -24,8 +24,9 @@
                 <a href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
                 <a class = botao-ativo href="crud-gestores-admin.jsp"><span>Gestores</span></a>
                 <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
-                <a href="crud-admins-admin.jsp"><span>Admin</span></a>
+                <a href="crud-novo-admin.jsp"><span>Admin</span></a>
                 <hr class = barra-azul>
+                <a href="crud-configuracoes-admin.jsp"><span>Configurações</span></a>
                 <a href="../login/login.jsp"><span>Sair</span></a>
             </nav>
         </div>
@@ -48,14 +49,17 @@
                 <h5>senha</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="email" id="email" placeholder="gestor@organizacao.com">
+                    <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                 </div>
                 <div class="infos-de-mesma-linha">
-                    <input type="password" name="senha" id="senha" placeholder="senha123">
+                    <input type="password" name="senha" id="senha" placeholder="senha123@">
+                    <span class="mensagem-erro">A senha precisa ter pelo menos 8 caractéres, um número e um caractére especial</span>
                 </div>
                 <h5>Telefone do gestor</h5>
                 <h5>Unidade</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="telefone" id="telefone" placeholder="+55 (11) 99812-4410">
+                    <span class="mensagem-erro">Telefone inválido, ele precisa conter o DDD + nove números</span>
                 </div>
                 <div class="infos-de-mesma-linha">
                     <select name="unidade" id="unidade">

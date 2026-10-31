@@ -44,11 +44,11 @@
                 <a href="${pageContext.request.contextPath}/estoque/lista">
                     <span>Estoques</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/admin/perfil">
+                <a href="${pageContext.request.contextPath}/admin/novo">
                     <span>Admin</span>
                 </a>
                 <hr class="barra-azul">
-                <a href="">
+                <a href="${pageContext.request.contextPath}/configuracoes/admin">
                     <span>Configurações</span>
                 </a>
                 <a href="${pageContext.request.contextPath}/logout">

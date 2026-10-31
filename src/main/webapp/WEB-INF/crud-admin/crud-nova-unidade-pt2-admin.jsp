@@ -10,28 +10,6 @@
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
-<<<<<<< HEAD:src/main/webapp/pages/crud-admin/crud-nova-unidade-pt2-admin.html
-    <div class = tela-auth>
-        <!--Painel esquerdo-->
-        <div class = painel-esquerda>
-            <div class = painel-conteudo>
-                <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-                <nav>
-                    <a href="crud-home-admin.html"><span>Home</span></a>
-                    <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
-                    <a href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
-                    <a href="crud-planos-admin.html"><span>Planos</span></a>
-                    <a class = botao-ativo href="crud-unidades-admin.html"><span>Unidades</span></a>
-                    <a href="crud-enderecos-admin.html"><span>Endereços</span></a>
-                    <a href="crud-gestores-admin.html"><span>Gestores</span></a>
-                    <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                    <a href="crud-novo-admin.html"><span>Admin</span></a>
-                    <hr class = barra-azul>
-                    <a href="crud-configuracoes-admin.html"><span>Configurações</span></a>
-                    <a href="../login/log.html"><span>Sair</span></a>
-                </nav>
-            </div>
-=======
 <div class = tela-auth>
     <!--Painel esquerdo-->
     <div class = painel-esquerda>
@@ -46,11 +24,11 @@
                 <a href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
                 <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
                 <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
-                <a href="crud-admins-admin.jsp"><span>Admin</span></a>
+                <a href="crud-novo-admin.jsp"><span>Admin</span></a>
                 <hr class = barra-azul>
+                <a href="crud-configuracoes-admin.jsp"><span>Configurações</span></a>
                 <a href="../login/login.jsp"><span>Sair</span></a>
             </nav>
->>>>>>> 01ca31d609ae8b29ecefdc02a46efc4669aafeb0:src/main/webapp/WEB-INF/crud-admin/crud-nova-unidade-pt2-admin.jsp
         </div>
     </div>
     <!--Área de informações-->

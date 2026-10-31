@@ -24,8 +24,9 @@
                 <a href="crud-enderecos-admin.html"><span>Endereços</span></a>
                 <a href="crud-gestores-admin.html"><span>Gestores</span></a>
                 <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                <a href="crud-admins-admin.html"><span>Admin</span></a>
+                <a href="crud-novo-admin.html"><span>Admin</span></a>
                 <hr class = barra-azul>
+                <a href="crud-configuracoes-admin.jsp"><span>Configurações</span></a>
                 <a href="../login/login.html"><span>Sair</span></a>
             </nav>
         </div>
@@ -48,9 +49,11 @@
                 <h5>CNPJ da unidade</h5>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="email-da-unidade" id="email-da-unidade" placeholder="email@unidade.com">
+                    <span class="mensagem-erro">Email inválido, ele precisa conter @ e o domínio</span>
                 </div>
                 <div class="infos-de-mesma-linha">
                     <input type="text" name="cnpj-da-unidade" id="cnpj-da-unidade" placeholder="11.222.333/0001-81">
+                    <span class="mensagem-erro">CNPJ inválido, ele precisa conter 14 números</span>
                 </div>
                 <a href="" id="tela-atual-primeira">1</a>
                 <p id="separador">|</p>

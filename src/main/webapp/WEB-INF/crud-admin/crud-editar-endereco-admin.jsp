@@ -10,47 +10,25 @@
     <link rel="stylesheet" href="../../css/crud.css">
 </head>
 <body>
-<<<<<<< HEAD:src/main/webapp/pages/crud-admin/crud-editar-endereco-admin.html
-    <div class = tela-auth>
-        <!--Painel esquerdo-->
-        <div class = painel-esquerda>
-            <div class = painel-conteudo>
-                <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
-                <nav>
-                    <a href="crud-home-admin.html"><span>Home</span></a>
-                    <a href="crud-organizacoes-admin.html"><span>Organizações</span></a>
-                    <a href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
-                    <a href="crud-planos-admin.html"><span>Planos</span></a>
-                    <a href="crud-unidades-admin.html"><span>Unidades</span></a>
-                    <a class = botao-ativo href="crud-enderecos-admin.html"><span>Endereços</span></a>
-                    <a href="crud-gestores-admin.html"><span>Gestores</span></a>
-                    <a href="crud-estoques-admin.html"><span>Estoques</span></a>
-                    <a href="crud-novo-admin.html"><span>Admin</span></a>
-                    <hr class = barra-azul>
-                    <a href="crud-configuracoes-admin.html"><span>Configurações</span></a>
-                    <a href="../login/log.html"><span>Sair</span></a>
-                </nav>
-            </div>
-=======
 <div class = tela-auth>
     <!--Painel esquerdo-->
     <div class = painel-esquerda>
         <div class = painel-conteudo>
             <img src="../../images/logo_completa.svg" alt="Zera" class="logo-zera">
             <nav>
-                <a href="crud-home-admin.jsp"><span>Home</span></a>
-                <a href="crud-organizacoes-admin.jsp"><span>Organizações</span></a>
-                <a href="crud-assinaturas-admin.jsp"><span>Assinaturas</span></a>
-                <a href="crud-planos-admin.jsp"><span>Planos</span></a>
-                <a href="crud-unidades-admin.jsp"><span>Unidades</span></a>
-                <a class = botao-ativo href="crud-enderecos-admin.jsp"><span>Endereços</span></a>
-                <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
-                <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
-                <a href="crud-admins-admin.jsp"><span>Admin</span></a>
+                <a href="crud-home-admin.jsp">Home</a>
+                <a href="crud-organizacoes-admin.jsp">Organizações</a>
+                <a href="crud-assinaturas-admin.jsp">Assinaturas</a>
+                <a href="crud-planos-admin.jsp">Planos</a>
+                <a href="crud-unidades-admin.jsp">Unidades</a>
+                <a class = botao-ativo href="crud-enderecos-admin.jsp">Endereços</a>
+                <a href="crud-gestores-admin.jsp">Gestores</a>
+                <a href="crud-estoques-admin.jsp">Estoques</a>
+                <a href="crud-novo-admin.jsp">Admin</a>
                 <hr class = barra-azul>
-                <a href="../login/login.jsp"><span>Sair</span></a>
+                <a href="crud-configuracoes-admin.jsp">Configurações</a>
+                <a href="../login/login.jsp">Sair</a>
             </nav>
->>>>>>> 01ca31d609ae8b29ecefdc02a46efc4669aafeb0:src/main/webapp/WEB-INF/crud-admin/crud-editar-endereco-admin.jsp
         </div>
     </div>
     <!--Área de informações-->

@@ -1,4 +1,4 @@
-*@charset* "UTF-8";
+@charset "UTF-8";
 
 :root {
 
@@ -54,19 +54,12 @@
 
     align-items: center;
 
-    min-height: calc(100vh - 70px);
-
     padding: 12px 0 20px 0;
 
     box-sizing: border-box;
 
 }
 
-<<<<<<< HEAD
-/* Lista de navegação vertical */
-=======
-
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
 .painel-esquerda nav {
 
@@ -78,7 +71,7 @@
 
     gap: 8px !important;
 
-    margin: 0 !important;
+    margin-top: 70px !important;
 
     padding: 0 !important;
 
@@ -88,10 +81,6 @@
 
 }
 
-<<<<<<< HEAD
-/* Links comuns: 191x46.95 com texto a exatamente 45px da borda do viewport  */
-=======
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
 .painel-esquerda nav a {
 
@@ -102,17 +91,9 @@
     justify-content: flex-start;
 
     width: 191px;
-<<<<<<< HEAD
-
-=======
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
     height: 46.95px;
 
     padding-left: 40.5px; /* 4.5px margem externa + 40.5px = 45px exatos da tela */
-<<<<<<< HEAD
-
-=======
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
     box-sizing: border-box;
 
     border-radius: 12px;
@@ -128,15 +109,12 @@
     text-decoration: none !important;
 
     transition: background-color 0.15s ease;
+    margin-top: 13px;
 
 }
 
-<<<<<<< HEAD
-/* Hover: #152D6B com 7%  */
-=======
 
 
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
 .painel-esquerda nav a:hover {
 
@@ -148,11 +126,6 @@
 
 }
 
-<<<<<<< HEAD
-/* Quadrado azul de seleção (191px x 46.95px)  */
-=======
-
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
 .painel-esquerda nav .botao-ativo {
 
@@ -166,11 +139,7 @@
 
     height: 46.95px !important;
 
-<<<<<<< HEAD
-    padding-left: 40.5px !important; /* Mantém o texto nos mesmos 45px do viewport  */
-=======
     padding-left: 40.5px !important;
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
     border-radius: 12px;
 
@@ -178,11 +147,6 @@
 
 }
 
-<<<<<<< HEAD
-/* Traço divisor: 154px de largura e #152D6B com 67%  */
-=======
-
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
 .painel-esquerda hr {
 
@@ -620,11 +584,7 @@ input para pesquisar algum registro específico
 
   background-repeat: no-repeat;
 
-<<<<<<< HEAD
-  background-position: right 18px center; /* distância da borda */
-=======
   background-position: right 18px center;
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 
   background-size: 14px 9px;
 
@@ -682,11 +642,6 @@ input para pesquisar algum registro específico
 
     display: inline-flex;
 
-<<<<<<< HEAD
-    /* visibility: hidden; */
-
-=======
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
     display: none;
 
     text-decoration: none;
@@ -1104,10 +1059,6 @@ Ações de modificação dos registros
 }
 
 .infos-de-mesma-linha{
-<<<<<<< HEAD
-
-=======
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
     border: 2px solid var(--cor2);
 
     border-radius: 9px;
@@ -1119,13 +1070,7 @@ Ações de modificação dos registros
     width: 465px;
 
     margin-right: 15px;
-<<<<<<< HEAD
-
     position: relative;
-
-=======
-    position: relative;
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 }   
 
 .edicao #nome{
@@ -1710,8 +1655,6 @@ Ações de modificação dos registros
 
 }
 
-<<<<<<< HEAD
-=======
 
 /* MODAL DE EXCLUSÃO DA UNIDADE */
 .botao-excluir-unidade { display:inline-flex; align-items:center; justify-content:center; background:transparent; border:0; color:#e53935; cursor:pointer; padding:4px; vertical-align:middle; }
@@ -1731,7 +1674,6 @@ Ações de modificação dos registros
 .modal-excluir:hover { background:#FF3B30; color:#fff; }
 @media(max-width:480px) { .modal-caixa { max-width:350px; min-height:190px; padding:25px 20px 22px; } .modal-caixa h2 { font-size:22px; } .modal-descricao { font-size:11px; } .modal-botoes { margin-top:35px; } .modal-voltar,.modal-excluir { font-size:13px; padding:8px 15px; } }
 
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
 #perfil-admin input{
 
     border: none;
@@ -2000,8 +1942,6 @@ Ações de modificação dos registros
 
 }
 
-<<<<<<< HEAD
-=======
 .visualizacao{
     background-color: var(--cor1);
     z-index: 2;
@@ -2130,4 +2070,84 @@ Ações de modificação dos registros
 .itens-organizacao .alerta-vencimento{
     color: #F59E0B;
 }
->>>>>>> 9bba71c215e5e98545d8726c7f39382e2729b8eb
+
+
+header.header-crud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: var(--cor1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+    box-sizing: border-box;
+    z-index: 1000;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+header.header-crud .logo-topo {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+header.header-crud .logo-topo img,
+header.header-crud .logo {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 156px !important;
+    height: 44.16px !important;
+    object-fit: contain;
+    display: block;
+}
+
+header.header-crud .avatar-topo {
+    width: 34px;
+    height: 34px;
+    background-color: var(--cor5);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: var(--fonte1);
+}
+
+.campo-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.campo-busca input {
+    width: 500px;
+    padding-right: 40px;
+
+}
+
+.btn-lupa {
+    position: absolute;
+    top: 50%;
+    left: 465px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}

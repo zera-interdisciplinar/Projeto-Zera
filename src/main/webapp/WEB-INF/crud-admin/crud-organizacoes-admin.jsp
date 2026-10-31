@@ -42,15 +42,10 @@
 <body>
 
 <header class="header-crud">
-    <div class="logo-topo">
-        <img src="<%= contexto %>/images/logo_completa.svg" alt="ZERA" class="logo">
-    </div>
-    <div class="avatar-topo">AD</div>
-</header>
-
 <div class="tela-auth">
     <aside class="painel-esquerda">
         <div class="painel-conteudo">
+            <img src="${pageContext.request.contextPath}/images/logo_completa.svg" alt="Zera" class="logo-zera">
             <nav>
                 <a href="<%= contexto %>/admin/home">Home</a>
                 <a href="<%= contexto %>/organizacao/lista" class="botao-ativo">Organizações</a>
@@ -131,13 +126,13 @@
                         </td>
                         <td class="col-acoes">
                             <div class="acoes">
-                                <a href="#" class="ver-organizacao" title="Visualizar">
+                                <a href="crud-ver-organizacao-admin.jsp" class="ver-organizacao" title="Visualizar">
                                     <img src="<%= contexto %>/images/icone-ver.svg" alt="Visualizar">
                                 </a>
                                 <a href="<%= contexto %>/organizacao/perfil?codigo=<%= organizacao.getCodigo() %>" title="Editar">
                                     <img src="<%= contexto %>/images/icone-editar.svg" alt="Editar">
                                 </a>
-                                <a href="#" class="excluir-organizacao"
+                                <a href="../../pages/popups/popup-excluir.html" class="excluir-organizacao"
                                    data-codigo="<%= organizacao.getCodigo() %>"
                                    title="Excluir">
                                     <img src="<%= contexto %>/images/icone-excluir.svg" alt="Excluir">

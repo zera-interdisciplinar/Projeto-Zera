@@ -24,10 +24,10 @@
                 <a href="crud-enderecos-admin.jsp"><span>Endereços  </span></a>
                 <a href="crud-gestores-admin.jsp"><span>Gestores</span></a>
                 <a href="crud-estoques-admin.jsp"><span>Estoques</span></a>
-                <a href="crud-perfil-admin.jsp"><span>Admin</span></a>
+                <a href="crud-novo-admin.jsp"><span>Admin</span></a>
                 <hr class = barra-azul>
-                <a href=""><span>Configurações</span></a>
-                <a href="../login/log.jsp"><span>Sair</span></a>
+                <a href="crud-configuracoes-admin.jsp"><span>Configurações</span></a>
+                <a href="../login/login.jsp"><span>Sair</span></a>
             </nav>
         </div>
     </div>
@@ -77,7 +77,7 @@
                         <td>01/03/2026</td>
                         <td class="acoes">
                             <a href="editar-unidade-admin-feito.jsp"><img src="../../images/editar.svg" alt=""></a>
-                            <a href=""><img src="../../images/excluir.svg" alt=""></a>
+                            <a href="../../pages/popups/popup-excluir.html"><img src="../../images/excluir.svg" alt=""></a>
                         </td>
                     </tr>
                     </tbody>
