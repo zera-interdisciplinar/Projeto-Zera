@@ -1,0 +1,19 @@
+name: Verify legacy web
+on:
+  pull_request:
+    branches: [main, qa]
+permissions:
+  contents: read
+jobs:
+  war:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: mvn -B verify
+      - name: Build complete servlet runtime
+        run: docker build --tag zera-landing:check .

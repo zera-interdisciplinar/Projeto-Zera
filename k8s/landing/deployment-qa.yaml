@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zera-landing
+  namespace: qa
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: zera-landing
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: zera-landing
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: landing
+          image: IMAGE_REF
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+              ephemeral-storage: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 256Mi
+          startupProbe:
+            httpGet:
+              path: /index.html
+              port: http
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: http
+            periodSeconds: 15
+          env:
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: zera-landing-db
+                  key: url
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zera-landing-db
+                  key: user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zera-landing-db
+                  key: password
+            - name: EMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zera-landing-mail
+                  key: EMAIL_USER
+                  optional: true
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zera-landing-mail
+                  key: EMAIL_PASSWORD
+                  optional: true
+          volumeMounts:
+            - name: temp
+              mountPath: /usr/local/tomcat/temp
+            - name: work
+              mountPath: /usr/local/tomcat/work
+            - name: logs
+              mountPath: /usr/local/tomcat/logs
+      volumes:
+        - name: temp
+          emptyDir:
+            sizeLimit: 32Mi
+        - name: work
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: logs
+          emptyDir:
+            sizeLimit: 64Mi
