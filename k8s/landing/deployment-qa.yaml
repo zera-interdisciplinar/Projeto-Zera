@@ -69,17 +69,17 @@ spec:
             - name: DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: legacy-db
+                  name: zera-landing-db
                   key: url
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: legacy-db
+                  name: zera-landing-db
                   key: user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: legacy-db
+                  name: zera-landing-db
                   key: password
             - name: EMAIL_USER
               valueFrom:

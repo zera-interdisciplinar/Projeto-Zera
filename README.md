@@ -32,13 +32,13 @@ O workflow nao altera DNS, certificado nem Ingress. O template `deploy/landing/k
 
 | Variavel | Secret Kubernetes existente / chave |
 |---|---|
-| `DB_URL` | `legacy-db` / `url` |
-| `DB_USER` | `legacy-db` / `user` |
-| `DB_PASSWORD` | `legacy-db` / `password` |
+| `DB_URL` | Producao: `legacy-db` / `url`; QA: `zera-landing-db` / `url` |
+| `DB_USER` | Producao: `legacy-db` / `user`; QA: `zera-landing-db` / `user` |
+| `DB_PASSWORD` | Producao: `legacy-db` / `password`; QA: `zera-landing-db` / `password` |
 | `EMAIL_USER` | `zera-landing-mail` / `EMAIL_USER` (opcional no boot) |
 | `EMAIL_PASSWORD` | `zera-landing-mail` / `EMAIL_PASSWORD` (opcional no boot) |
 
-`legacy-db` e suas tres chaves foram confirmados nos namespaces QA e producao, sem revelar valores. Antes de aceitar cadastro real, confirmar conectividade/esquema legado; nao apontar para o schema administrativo novo por suposicao. O cadastro persiste no banco legado via servlet, sem criar registros nas APIs modernas automaticamente.
+`legacy-db` e suas tres chaves foram confirmados nos namespaces QA e producao, sem revelar valores. A comparacao em memoria confirmou que ambos apontam para o MESMO banco e usam as mesmas credenciais. Por isso, o cadastro QA exige um Secret separado `zera-landing-db` (url/user/password) e banco legado isolado; ele nao reutiliza o Secret da sincronizacao read-only. Esse Secret dedicado ainda nao existe, e o workflow bloqueia o deploy antes do build/push enquanto faltar configuracao. Nao copiar simplesmente os valores de producao para ele. Antes de aceitar cadastro real, confirmar conectividade/esquema legado; nao apontar para o schema administrativo novo por suposicao. O cadastro persiste no banco legado via servlet, sem criar registros nas APIs modernas automaticamente.
 
 SMTP e usado **somente na recuperacao de senha do legado**, nao no cadastro. Sem o Secret opcional `zera-landing-mail`, a landing e os formularios sobem; recuperar senha gera o erro tratado pelo servlet. O codigo atual usa Gmail `smtp.gmail.com:587` com STARTTLS e senha de aplicativo. O Secret `resend` dos microsservicos nao e uma credencial SMTP equivalente e nao e reutilizado.
 
