@@ -1,0 +1,29 @@
+# Incorporar em infra-gtw-kong/manifests/prod/ depois do Service estar pronto.
+# As APIs existentes tambem usam regras sem host. Manter o mesmo numero de
+# criterios permite que seus prefixos especificos tenham prioridade sobre /.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zera-landing-ingress-prod
+  namespace: production
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/strip-path: "false"
+    konghq.com/protocols: https
+    konghq.com/https-redirect-status-code: "308"
+spec:
+  ingressClassName: kong
+  tls:
+    - hosts:
+        - www.zeratech.online
+      secretName: gateway-tls
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: zera-landing
+                port:
+                  number: 80
