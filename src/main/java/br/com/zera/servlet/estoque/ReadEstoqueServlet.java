@@ -1,3 +1,4 @@
+
 package br.com.zera.servlet.estoque;
 
 import br.com.zera.dao.EstoqueDAO;
@@ -59,10 +60,15 @@ public class ReadEstoqueServlet extends HttpServlet {
             if (admin != null) {
                 request.setAttribute("unidades", new UnidadeDAO().findAll());
                 List<Gestor> gestores = gestorDAO.findAll();
-                for (Gestor gestor : gestores) gestor.setSenha(null);
+
+                for (Gestor gestor : gestores) {
+                    gestor.setSenha(null);
+                }
+
                 request.setAttribute("gestores", gestores);
 
                 String codigoTexto = request.getParameter("codigo");
+
                 if (codigoTexto == null || codigoTexto.isBlank()) {
                     pagina = "/WEB-INF/admin/estoque/novo-estoque.jsp";
                 } else {
@@ -70,6 +76,7 @@ public class ReadEstoqueServlet extends HttpServlet {
                     request.setAttribute("estoque", estoqueDAO.findByCodigo(codigo));
                     pagina = "/WEB-INF/admin/estoque/editar-estoque.jsp";
                 }
+
             } else if (unidadeLogada != null) {
                 int codUnidade = unidadeLogada.getCodigo();
                 List<Gestor> gestores = new ArrayList<>();
@@ -80,51 +87,42 @@ public class ReadEstoqueServlet extends HttpServlet {
                         gestores.add(gestor);
                     }
                 }
+
                 request.setAttribute("gestores", gestores);
 
                 String editar = request.getParameter("editar");
+
                 if (editar != null && !editar.isBlank()) {
                     int codigo = Integer.parseInt(editar.trim());
                     Estoque estoque = estoqueDAO.findByCodigo(codigo);
+
                     if (estoque.getCodUnidade() != codUnidade) {
                         exibirErro(request, response, "Estoque não pertence à sua unidade.", ERROR_PAGE);
                         return;
                     }
+
                     request.setAttribute("estoqueEditado", estoque);
+
                 } else if (request.getParameter("novo") == null) {
                     String busca = request.getParameter("busca");
-                    String responsavelTexto = request.getParameter("codResponsavel");
-                    Integer codResponsavel = null;
 
-                    if (responsavelTexto != null && !responsavelTexto.isBlank()) {
-                        codResponsavel = Integer.parseInt(responsavelTexto.trim());
-                        if (codResponsavel <= 0) throw new NumberFormatException();
-                        boolean permitido = false;
-                        for (Gestor gestor : gestores) {
-                            if (gestor.getCodigo() == codResponsavel) {
-                                permitido = true;
-                                break;
-                            }
-                        }
-                        if (!permitido) {
-                            exibirErro(request, response, "Responsável não pertence à sua unidade.", ERROR_PAGE);
-                            return;
-                        }
-                    }
                     request.setAttribute("estoques",
-                            estoqueDAO.findByUnidade(codUnidade, busca, codResponsavel));
+                            estoqueDAO.findByUnidade(codUnidade, busca));
                 }
+
                 pagina = "/WEB-INF/gestor/estoques.jsp";
+
             } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
             request.getRequestDispatcher(pagina).forward(request, response);
+
         } catch (NotFoundException e) {
             exibirErro(request, response, "Estoque não cadastrado.", ERROR_PAGE);
         } catch (NumberFormatException e) {
-            exibirErro(request, response, "Código ou responsável inválido.", ERROR_PAGE);
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
         } catch (ConnectionFailedException e) {
             e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);
