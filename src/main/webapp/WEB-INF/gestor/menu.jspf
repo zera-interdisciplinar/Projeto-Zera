@@ -1,19 +1,12 @@
 
 <%@ page pageEncoding="UTF-8" %>
-
 <%--
     Topo e menu lateral das telas do gestor.
-
-    Antes do include, a JSP define qual item fica ativo:
-    home, estoques, unidade, endereco,
-    assinatura, organizacao ou perfil.
-
-    O nome vem da sessão "gestorLogado".
+    Cada JSP define a variável "ativo" antes de incluir este arquivo.
+    Valores: home, estoques, unidade, endereco, assinatura, organizacao, configuracoes, perfil.
 --%>
-
 <c:set var="partesNome" value="${fn:split(sessionScope.gestorLogado.nome, ' ')}"/>
 <c:set var="iniciais" value="${fn:toUpperCase(fn:substring(partesNome[0], 0, 1))}"/>
-
 <c:if test="${fn:length(partesNome) > 1}">
     <c:set var="iniciais" value="${iniciais}${fn:toUpperCase(fn:substring(partesNome[fn:length(partesNome) - 1], 0, 1))}"/>
 </c:if>
@@ -21,12 +14,11 @@
 <script>
     try {
         const temaSalvo = localStorage.getItem('zera-tema');
-
         if (temaSalvo) {
             document.documentElement.dataset.tema = temaSalvo;
         }
     } catch (erro) {
-        // Mantém o tema padrão.
+        // Sem localStorage, permanece o tema claro.
     }
 </script>
 
@@ -34,62 +26,34 @@
     <div class="logo-topo">
         <img src="${ctx}/images/logo_completa.svg" alt="ZERA" class="logo">
     </div>
-
-    <div class="avatar-topo">
-        <c:out value="${iniciais}"/>
-    </div>
+    <div class="avatar-topo">${iniciais}</div>
 </header>
 
 <div class="tela-auth">
     <aside class="painel-esquerda">
         <div class="painel-conteudo">
             <nav>
-                <a href="${ctx}/gestor/home" <c:if test="${ativo == 'home'}">class="botao-ativo"</c:if>>
-                    Home
-                </a>
-
-                <a href="${ctx}/estoque/perfil" <c:if test="${ativo == 'estoques'}">class="botao-ativo"</c:if>>
-                    Estoques
-                </a>
-
-                <a href="${ctx}/unidade/perfil" <c:if test="${ativo == 'unidade'}">class="botao-ativo"</c:if>>
-                    Unidade
-                </a>
-
-                <a href="${ctx}/endereco/perfil" <c:if test="${ativo == 'endereco'}">class="botao-ativo"</c:if>>
-                    Endereço
-                </a>
-
-                <a href="${ctx}/assinatura/perfil" <c:if test="${ativo == 'assinatura'}">class="botao-ativo"</c:if>>
-                    Assinatura
-                </a>
-
-                <a href="${ctx}/organizacao/perfil" <c:if test="${ativo == 'organizacao'}">class="botao-ativo"</c:if>>
-                    Organização
-                </a>
-
+                <a href="${ctx}/gestor/home"<c:if test="${ativo == 'home'}"> class="botao-ativo"</c:if>>Home</a>
+                <a href="${ctx}/estoque/perfil"<c:if test="${ativo == 'estoques'}"> class="botao-ativo"</c:if>>Estoques</a>
+                <a href="${ctx}/unidade/perfil"<c:if test="${ativo == 'unidade'}"> class="botao-ativo"</c:if>>Unidade</a>
+                <a href="${ctx}/endereco/perfil"<c:if test="${ativo == 'endereco'}"> class="botao-ativo"</c:if>>Endereço</a>
+                <a href="${ctx}/assinatura/perfil"<c:if test="${ativo == 'assinatura'}"> class="botao-ativo"</c:if>>Assinatura</a>
+                <a href="${ctx}/organizacao/perfil"<c:if test="${ativo == 'organizacao'}"> class="botao-ativo"</c:if>>Organização</a>
                 <hr>
-
+                <a href="${ctx}/gestor/configuracoes"<c:if test="${ativo == 'configuracoes'}"> class="botao-ativo"</c:if>>Configurações</a>
                 <a href="${ctx}/logout"
-                   class="botao-sair"
                    data-modal-exclusao
                    data-excluir-tipo="sair"
                    data-excluir-titulo="Deseja mesmo sair?"
-                   data-excluir-descricao="Você precisará entrar novamente para acessar seu painel.">
-                    Sair
-                </a>
+                   data-excluir-descricao="Você precisará entrar novamente para acessar seu painel.">Sair</a>
             </nav>
 
-            <a href="${ctx}/gestor/perfil"
-               class="perfil-usuario<c:if test="${ativo == 'perfil'}"> perfil-ativo</c:if>">
-
-                <div class="avatar">
-                    <c:out value="${iniciais}"/>
+            <a href="${ctx}/gestor/perfil" class="perfil-usuario<c:if test="${ativo == 'perfil'}"> perfil-ativo</c:if>">
+                <div class="avatar">${iniciais}</div>
+                <div class="perfil-usuario-textos">
+                    <span class="nome-usuario"><c:out value="${sessionScope.gestorLogado.nome}"/></span>
+                    <span class="perfil-usuario-legenda">Ver meu perfil</span>
                 </div>
-
-                <span class="nome-usuario">
-                    <c:out value="${sessionScope.gestorLogado.nome}"/>
-                </span>
             </a>
         </div>
     </aside>
