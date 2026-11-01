@@ -62,28 +62,28 @@
                 <div class="tabela-rolagem">
                     <table class="itens-tabela">
                         <thead>
-                            <tr><th>Nome</th><th>CNPJ</th><th>E-mail</th><th class="col-acoes"></th></tr>
+                        <tr><th>Nome</th><th>CNPJ</th><th>E-mail</th><th class="col-acoes"></th></tr>
                         </thead>
                         <tbody>
-                            <c:choose>
-                                <c:when test="${not empty organizacao}">
-                                    <tr>
-                                        <td><c:out value="${organizacao.nome}"/></td>
-                                        <td><c:out value="${organizacao.cnpj}"/></td>
-                                        <td><c:out value="${organizacao.email}"/></td>
-                                        <td class="col-acoes">
-                                            <div class="acoes">
-                                                <a href="${ctx}/organizacao/perfil?editar=1" title="Editar" aria-label="Editar organização">
-                                                    <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:when>
-                                <c:otherwise>
-                                    <tr><td colspan="4">Nenhuma organização encontrada.</td></tr>
-                                </c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${not empty organizacao}">
+                                <tr>
+                                    <td><c:out value="${organizacao.nome}"/></td>
+                                    <td><c:out value="${organizacao.cnpj}"/></td>
+                                    <td><c:out value="${organizacao.email}"/></td>
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/organizacao/perfil?editar=1" title="Editar" aria-label="Editar organização">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <tr><td colspan="4">Nenhuma organização encontrada.</td></tr>
+                            </c:otherwise>
+                        </c:choose>
                         </tbody>
                     </table>
                 </div>
@@ -94,58 +94,58 @@
 </div>
 <script src="${ctx}/js/popup.js" defer></script>
 <script>
-(() => {
-    const form = document.getElementById('form-organizacao');
-    if (!form) return;
-    const cnpj = document.getElementById('cnpj');
-    const email = document.getElementById('email');
-    const erroCnpj = document.getElementById('erro-cnpj');
-    const erroEmail = document.getElementById('erro-email');
-    const mascara = valor => {
-        const n = valor.replace(/\D/g, '').slice(0, 14);
-        return n.replace(/^(\d{2})(\d)/, '$1.$2')
+    (function () {
+        const form = document.getElementById('form-organizacao');
+        if (!form) return;
+
+        const cnpj = document.getElementById('cnpj');
+        const email = document.getElementById('email');
+        const erroCnpj = document.getElementById('erro-cnpj');
+        const erroEmail = document.getElementById('erro-email');
+
+        function mascara(valor) {
+            const n = valor.replace(/\D/g, '').slice(0, 14);
+
+            return n.replace(/^(\d{2})(\d)/, '$1.$2')
                 .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
                 .replace(/\.(\d{3})(\d)/, '.$1/$2')
                 .replace(/(\d{4})(\d)/, '$1-$2');
-    };
-    const cnpjValido = valor => {
-        const n = valor.replace(/\D/g, '');
-        if (n.length !== 14 || /^(\d)\1{13}$/.test(n)) return false;
-        const digito = tamanho => {
-            let soma = 0;
-            let peso = tamanho - 7;
-            for (let i = 0; i < tamanho; i++) {
-                soma += Number(n[i]) * peso--;
-                if (peso < 2) peso = 9;
-            }
-            const resto = soma % 11;
-            return resto < 2 ? 0 : 11 - resto;
-        };
-        return digito(12) === Number(n[12]) && digito(13) === Number(n[13]);
-    };
-    cnpj.value = mascara(cnpj.value);
-    cnpj.addEventListener('input', () => {
-        cnpj.value = mascara(cnpj.value);
-        erroCnpj.style.display = 'none';
-        cnpj.setCustomValidity('');
-    });
-    email.addEventListener('input', () => {
-        erroEmail.style.display = 'none';
-        email.setCustomValidity('');
-    });
-    form.addEventListener('submit', evento => {
-        const validoCnpj = cnpjValido(cnpj.value);
-        const validoEmail = email.validity.valid && email.value.trim() !== '';
-        erroCnpj.style.display = validoCnpj ? 'none' : 'block';
-        erroEmail.style.display = validoEmail ? 'none' : 'block';
-        cnpj.setCustomValidity(validoCnpj ? '' : 'CNPJ inválido');
-        email.setCustomValidity(validoEmail ? '' : 'E-mail inválido');
-        if (!validoCnpj || !validoEmail) {
-            evento.preventDefault();
-            (validoCnpj ? email : cnpj).reportValidity();
         }
-    });
-})();
+
+        function cnpjValido(valor) {
+            const n = valor.replace(/\D/g, '');
+            return n.length === 14;
+        }
+
+        cnpj.value = mascara(cnpj.value);
+
+        cnpj.addEventListener('input', function () {
+            cnpj.value = mascara(cnpj.value);
+            erroCnpj.style.display = 'none';
+            cnpj.setCustomValidity('');
+        });
+
+        email.addEventListener('input', function () {
+            erroEmail.style.display = 'none';
+            email.setCustomValidity('');
+        });
+
+        form.addEventListener('submit', function (evento) {
+            const validoCnpj = cnpjValido(cnpj.value);
+            const validoEmail = email.validity.valid && email.value.trim() !== '';
+
+            erroCnpj.style.display = validoCnpj ? 'none' : 'block';
+            erroEmail.style.display = validoEmail ? 'none' : 'block';
+
+            cnpj.setCustomValidity(validoCnpj ? '' : 'CNPJ inválido');
+            email.setCustomValidity(validoEmail ? '' : 'E-mail inválido');
+
+            if (!validoCnpj || !validoEmail) {
+                evento.preventDefault();
+                (validoCnpj ? email : cnpj).reportValidity();
+            }
+        });
+    })();
 </script>
 <script src="${ctx}/js/carregando.js" defer></script>
 </body>

@@ -104,33 +104,47 @@
 </main>
 </div> <%-- fecha o contêiner aberto pelo menu.jspf, como no JSP original --%>
 <script>
-"use strict";
-// Renderiza somente os dados reais fornecidos pelo HomeGestorServlet.
-document.addEventListener("DOMContentLoaded", () => {
-  const locais = [...document.querySelectorAll("#lista-locais .local-item")];
-  const quantidadesLocais = locais.map(el => Math.max(0, Number(el.dataset.quantidade) || 0));
-  const maiorLocal = Math.max(1, ...quantidadesLocais);
-  locais.forEach((el, i) => {
-    el.querySelector(".barra-preenchimento").style.width = `${100 * quantidadesLocais[i] / maiorLocal}%`;
-  });
+    "use strict";
 
-  const colunas = [...document.querySelectorAll("#grafico-barras .grafico-coluna-item")];
-  if (!colunas.length) return;
-  const quantidades = colunas.map(el => Math.max(0, Number(el.dataset.quantidade) || 0));
-  const maior = Math.max(1, ...quantidades);
-  const teto = Math.max(4, Math.ceil(maior / 4) * 4);
-  const eixo = document.getElementById("grafico-eixo-y");
-  const linhas = document.getElementById("grafico-linhas");
-  for (let i = 4; i >= 0; i--) {
-    const marca = document.createElement("span");
-    marca.textContent = String(teto * i / 4);
-    eixo.append(marca);
-    linhas.append(document.createElement("span"));
-  }
-  colunas.forEach((el, i) => {
-    el.querySelector(".grafico-barra").style.height = `${100 * quantidades[i] / teto}%`;
-  });
-});
+    // Renderiza somente os dados reais fornecidos pelo HomeGestorServlet.
+    document.addEventListener("DOMContentLoaded", function () {
+        const locais = [...document.querySelectorAll("#lista-locais .local-item")];
+
+        const quantidadesLocais = locais.map(function (el) {
+            return Math.max(0, Number(el.dataset.quantidade) || 0);
+        });
+
+        const maiorLocal = Math.max(1, ...quantidadesLocais);
+
+        locais.forEach(function (el, i) {
+            el.querySelector(".barra-preenchimento").style.width = `${100 * quantidadesLocais[i] / maiorLocal}%`;
+        });
+
+        const colunas = [...document.querySelectorAll("#grafico-barras .grafico-coluna-item")];
+
+        if (!colunas.length) return;
+
+        const quantidades = colunas.map(function (el) {
+            return Math.max(0, Number(el.dataset.quantidade) || 0);
+        });
+
+        const maior = Math.max(1, ...quantidades);
+        const teto = Math.max(4, Math.ceil(maior / 4) * 4);
+
+        const eixo = document.getElementById("grafico-eixo-y");
+        const linhas = document.getElementById("grafico-linhas");
+
+        for (let i = 4; i >= 0; i--) {
+            const marca = document.createElement("span");
+            marca.textContent = String(teto * i / 4);
+            eixo.append(marca);
+            linhas.append(document.createElement("span"));
+        }
+
+        colunas.forEach(function (el, i) {
+            el.querySelector(".grafico-barra").style.height = `${100 * quantidades[i] / teto}%`;
+        });
+    });
 </script>
 <script src="${ctx}/js/popup.js" defer></script>
 </body>

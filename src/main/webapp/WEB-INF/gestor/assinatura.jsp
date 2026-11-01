@@ -105,24 +105,34 @@
 </main>
 </div>
 <script>
-(() => {
-    const form = document.getElementById('form-assinatura');
-    if (!form) return;
-    const inicio = document.getElementById('data-inicio');
-    const fim = document.getElementById('data-termino');
-    const erro = document.getElementById('erro-data');
-    if (inicio.value) fim.min = inicio.value;
-    function validar() {
-        const valido = Boolean(fim.value) && (!inicio.value || fim.value > inicio.value);
-        erro.style.display = valido ? 'none' : 'block';
-        fim.setCustomValidity(valido ? '' : 'A data de término deve ser posterior à data de início.');
-        return valido;
-    }
-    fim.addEventListener('input', validar);
-    form.addEventListener('submit', event => {
-        if (!validar()) { event.preventDefault(); fim.reportValidity(); }
-    });
-})();
+    (function () {
+        const form = document.getElementById('form-assinatura');
+        if (!form) return;
+
+        const inicio = document.getElementById('data-inicio');
+        const fim = document.getElementById('data-termino');
+        const erro = document.getElementById('erro-data');
+
+        if (inicio.value) fim.min = inicio.value;
+
+        function validar() {
+            const valido = Boolean(fim.value) && (!inicio.value || fim.value > inicio.value);
+
+            erro.style.display = valido ? 'none' : 'block';
+            fim.setCustomValidity(valido ? '' : 'A data de término deve ser posterior à data de início.');
+
+            return valido;
+        }
+
+        fim.addEventListener('input', validar);
+
+        form.addEventListener('submit', function (event) {
+            if (!validar()) {
+                event.preventDefault();
+                fim.reportValidity();
+            }
+        });
+    })();
 </script>
 <script src="${ctx}/js/popup.js" defer></script>
 <script src="${ctx}/js/carregando.js" defer></script>

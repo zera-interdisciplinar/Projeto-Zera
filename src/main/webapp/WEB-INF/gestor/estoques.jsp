@@ -38,14 +38,6 @@
                             <label for="espacoNaUnidade">Espaço na unidade</label>
                             <input type="text" id="espacoNaUnidade" name="espacoNaUnidade" placeholder="ex: Galpão 3, sala B" class="form-campo-total" required>
                         </div>
-                        <div class="filtrador">
-                            <label for="codResponsavel">Responsável</label>
-                            <select id="codResponsavel" name="codResponsavel" class="form-campo-total" required>
-                                <c:forEach var="gestor" items="${gestores}">
-                                    <option value="${gestor.codigo}"><c:out value="${gestor.nome}"/></option>
-                                </c:forEach>
-                            </select>
-                        </div>
                     </div>
                     <div class="alinhar-direita">
                         <button type="submit" class="adicionar botao-submit">Salvar</button>
@@ -95,7 +87,7 @@
                 </c:choose>
             </section>
         </c:when>
-        <%-- LISTAGEM E FILTROS --%>
+        <%-- LISTAGEM--%>
         <c:otherwise>
             <h1 class="nome-da-area">Estoques</h1>
             <section class="tabela">
@@ -109,19 +101,6 @@
                             </button>
                         </div>
                     </div>
-                    <div class="filtrador">
-                        <label for="codResponsavel">Responsável</label>
-                        <select id="codResponsavel" name="codResponsavel">
-                            <option value="">Todos</option>
-                            <c:forEach var="gestor" items="${gestores}">
-                                <option value="${gestor.codigo}" ${param.codResponsavel eq gestor.codigo.toString() ? 'selected' : ''}>
-                                    <c:out value="${gestor.nome}"/>
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <button type="submit" class="adicionar">Filtrar</button>
-                    <a href="${ctx}/estoque/perfil" class="adicionar">Limpar</a>
                     <a href="${ctx}/estoque/perfil?novo=1" class="adicionar">
                         <img src="${ctx}/images/icone-adicionar.svg" alt="">
                         Novo estoque
@@ -193,11 +172,12 @@
 </div>
 
 <script>
-    (() => {
+    (function () {
         const modal = document.getElementById("zera-modal-exclusao-estoque");
         const cancelar = document.getElementById("zera-cancelar-exclusao");
         const fechar = document.getElementById("zera-fechar-exclusao");
         const confirmar = document.getElementById("zera-confirmar-exclusao");
+
         let formularioSelecionado = null;
         let botaoAnterior = null;
 
@@ -214,23 +194,30 @@
             modal.hidden = true;
             document.body.style.overflow = "";
             formularioSelecionado = null;
+
             if (botaoAnterior) botaoAnterior.focus();
         }
 
-        document.querySelectorAll(".zera-abrir-exclusao").forEach(botao => {
-            botao.addEventListener("click", () => abrir(botao));
+        document.querySelectorAll(".zera-abrir-exclusao").forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                abrir(botao);
+            });
         });
 
         cancelar.addEventListener("click", encerrar);
         fechar.addEventListener("click", encerrar);
-        modal.addEventListener("click", evento => {
+
+        modal.addEventListener("click", function (evento) {
             if (evento.target === modal) encerrar();
         });
-        document.addEventListener("keydown", evento => {
+
+        document.addEventListener("keydown", function (evento) {
             if (evento.key === "Escape" && !modal.hidden) encerrar();
         });
-        confirmar.addEventListener("click", () => {
+
+        confirmar.addEventListener("click", function () {
             if (!formularioSelecionado) return;
+
             confirmar.disabled = true;
             formularioSelecionado.requestSubmit();
         });
