@@ -154,8 +154,8 @@
 <script>
     // MOSTRAR E OCULTAR SENHAS
 
-    document.querySelectorAll('.btn-olho').forEach((botao) => {
-        botao.addEventListener('click', () => {
+    document.querySelectorAll('.btn-olho').forEach(function (botao) {
+        botao.addEventListener('click', function () {
             const campo = botao.parentElement.querySelector('input');
             const mostrar = campo.type === 'password';
 
@@ -187,13 +187,13 @@
         }
     }
 
-    telefone.addEventListener('input', () => {
+    telefone.addEventListener('input', function () {
         formatarTelefone();
         erroTelefone.hidden = true;
         telefone.setCustomValidity('');
     });
 
-    document.getElementById('form-perfil').addEventListener('submit', (evento) => {
+    document.getElementById('form-perfil').addEventListener('submit', function (evento) {
         const digitos = telefone.value.replace(/\D/g, '');
         const valido = digitos.length === 10 || digitos.length === 11;
 
@@ -220,7 +220,7 @@
     novaSenha.addEventListener('input', limparErroSenha);
     confirmacao.addEventListener('input', limparErroSenha);
 
-    document.getElementById('form-senha').addEventListener('submit', (evento) => {
+    document.getElementById('form-senha').addEventListener('submit', function (evento) {
         const iguais = novaSenha.value === confirmacao.value;
 
         erroConfirmacao.hidden = iguais;

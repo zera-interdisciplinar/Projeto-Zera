@@ -388,7 +388,7 @@ fundo da tabela
 
     overflow: hidden;
 
-    min-height: 0;  
+    min-height: 0;
 
     margin-left: 5px;
 
@@ -1071,7 +1071,7 @@ Ações de modificação dos registros
 
     margin-right: 15px;
     position: relative;
-}   
+}
 
 .edicao #nome{
 
@@ -1255,7 +1255,7 @@ Ações de modificação dos registros
 
     margin-right: 15px;
 
-}   
+}
 
 .adicao #nome{
 
@@ -1746,7 +1746,7 @@ Ações de modificação dos registros
 
 #perfil-admin .erro label{
 
-    color:#FF0000;   
+    color:#FF0000;
 
 }
 
@@ -1920,7 +1920,7 @@ Ações de modificação dos registros
 
 .infos-de-mesma-linha.erro label{
 
-    color:#FF0000;   
+    color:#FF0000;
 
 }
 

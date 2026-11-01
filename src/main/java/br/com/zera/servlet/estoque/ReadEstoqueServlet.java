@@ -1,3 +1,4 @@
+
 package br.com.zera.servlet.estoque;
 
 import br.com.zera.dao.EstoqueDAO;
@@ -39,79 +40,95 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class ReadEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa requisições GET para exibir estoques ou o formulário de novo estoque.
+     * Exibe as informações dos estoques conforme o perfil autenticado.
      *
-     * @param request objeto que contém os dados da requisição
-     * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
-     * @throws ServletException se ocorrer falha no encaminhamento para a JSP
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws ServletException caso ocorra erro no encaminhamento
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Unidade unidadeLogada = Sessao.unidade(request);
-            EstoqueDAO dao = new EstoqueDAO();
+            EstoqueDAO estoqueDAO = new EstoqueDAO();
             GestorDAO gestorDAO = new GestorDAO();
-
             String pagina;
-            if (admin != null) {
-                // listas para os campos de seleção
-                request.setAttribute("unidades", new UnidadeDAO().findAll());
-                request.setAttribute("gestores", gestorDAO.findAll());
 
-                // lê o código
-                String codigoTexto = request.getParameter("codigo");
-                Integer codigo = null;
-                if (codigoTexto != null && !codigoTexto.isBlank()) {
-                    codigo = Integer.parseInt(codigoTexto.trim());
+            if (admin != null) {
+                request.setAttribute("unidades", new UnidadeDAO().findAll());
+                List<Gestor> gestores = gestorDAO.findAll();
+
+                for (Gestor gestor : gestores) {
+                    gestor.setSenha(null);
                 }
-                if (codigo == null) {
+
+                request.setAttribute("gestores", gestores);
+
+                String codigoTexto = request.getParameter("codigo");
+
+                if (codigoTexto == null || codigoTexto.isBlank()) {
                     pagina = "/WEB-INF/admin/estoque/novo-estoque.jsp";
                 } else {
-                    request.setAttribute("estoque", dao.findByCodigo(codigo));
+                    int codigo = Integer.parseInt(codigoTexto.trim());
+                    request.setAttribute("estoque", estoqueDAO.findByCodigo(codigo));
                     pagina = "/WEB-INF/admin/estoque/editar-estoque.jsp";
                 }
+
             } else if (unidadeLogada != null) {
                 int codUnidade = unidadeLogada.getCodigo();
-
-                // o banco já devolve só os estoques da unidade, filtrados pela busca (se houver)
-                String busca = request.getParameter("busca");
-                List<Estoque> estoques = dao.findByUnidade(codUnidade, busca);
                 List<Gestor> gestores = new ArrayList<>();
 
                 for (Gestor gestor : gestorDAO.findAll()) {
                     if (gestor.getCodUnidade() == codUnidade) {
-                        // não manda o hash da senha para a JSP
                         gestor.setSenha(null);
                         gestores.add(gestor);
                     }
                 }
 
-                request.setAttribute("estoques", estoques);
                 request.setAttribute("gestores", gestores);
+
+                String editar = request.getParameter("editar");
+
+                if (editar != null && !editar.isBlank()) {
+                    int codigo = Integer.parseInt(editar.trim());
+                    Estoque estoque = estoqueDAO.findByCodigo(codigo);
+
+                    if (estoque.getCodUnidade() != codUnidade) {
+                        exibirErro(request, response, "Estoque não pertence à sua unidade.", ERROR_PAGE);
+                        return;
+                    }
+
+                    request.setAttribute("estoqueEditado", estoque);
+
+                } else if (request.getParameter("novo") == null) {
+                    String busca = request.getParameter("busca");
+
+                    request.setAttribute("estoques",
+                            estoqueDAO.findByUnidade(codUnidade, busca));
+                }
+
                 pagina = "/WEB-INF/gestor/estoques.jsp";
+
             } else {
                 exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
                 return;
             }
 
-            // envia para a JSP
             request.getRequestDispatcher(pagina).forward(request, response);
 
-        } catch (NotFoundException nfe) {
+        } catch (NotFoundException e) {
             exibirErro(request, response, "Estoque não cadastrado.", ERROR_PAGE);
-        } catch (NumberFormatException nmfe) {
-            exibirErro(request, response, "Código do estoque inválido.", ERROR_PAGE);
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (NumberFormatException e) {
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            exibirErro(request, response, "Erro inesperado encontrado", ERROR_PAGE);
+            exibirErro(request, response, "Erro inesperado encontrado.", ERROR_PAGE);
         }
     }
 }

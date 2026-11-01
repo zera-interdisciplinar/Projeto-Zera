@@ -1,11 +1,13 @@
+@charset "UTF-8";
+
 /* ================================
    PÁGINA DE ERRO
 ================================ */
 
 body.pagina-erro {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--cor1);
     font-family: var(--fonte1);
     position: relative;
@@ -14,23 +16,30 @@ body.pagina-erro {
     padding: 0;
 }
 
-/* Grade de 2 colunas ocupando a tela inteira */
+/* Grade principal */
+
 .erro-tela {
     position: relative;
     z-index: 2;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    padding: 0 8vw;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+    gap: 35px;
+    padding: 0 7vw;
     box-sizing: border-box;
 }
 
-/* Bloco de texto no topo esquerdo */
+/* ================================
+   CONTEÚDO DO ERRO
+================================ */
+
 .erro-conteudo {
-    align-self: flex-start;
+    align-self: start;
     margin-top: 16vh;
-    max-width: 480px;
+    max-width: 500px;
 }
 
 .erro-titulo {
@@ -40,7 +49,7 @@ body.pagina-erro {
     color: var(--cor2);
     text-transform: none;
     line-height: 1.15;
-    margin-bottom: 24px;
+    margin: 0 0 24px;
 }
 
 .erro-descricao {
@@ -49,27 +58,109 @@ body.pagina-erro {
     font-weight: 400;
     color: var(--cor3);
     line-height: 1.45;
+    margin: 0;
 }
 
-/* Área da imagem */
+.erro-detalhe {
+    font-family: var(--fonte1);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--cor2);
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* ================================
+   BOTÃO VOLTAR
+================================ */
+
+.erro-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    width: fit-content;
+    min-width: 190px;
+    height: 55px;
+
+    margin-top: 35px;
+    padding: 0 25px;
+
+    background-color: #2958D1;
+    border: 2px solid #2958D1;
+    border-radius: 16px;
+
+    color: #F5F1E6;
+    font-family: var(--fonte1);
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-sizing: border-box;
+    cursor: pointer;
+    transition:
+            background-color 0.25s ease,
+            color 0.25s ease,
+            border-color 0.25s ease,
+            transform 0.25s ease;
+}
+
+.erro-voltar svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transition: transform 0.25s ease;
+}
+
+.erro-voltar:hover {
+    background-color: transparent;
+    color: #2958D1;
+    border-color: #2958D1;
+}
+
+.erro-voltar:hover svg {
+    transform: translateX(-4px);
+}
+
+.erro-voltar:focus-visible {
+    outline: 3px solid var(--cor2);
+    outline-offset: 4px;
+}
+
+/* ================================
+   IMAGEM DO ERRO
+================================ */
+
 .erro-imagem-area {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: flex-start;
-    margin-top: 12vh;
+    align-self: start;
+    width: 100%;
+    margin-top: 9vh;
 }
 
 .erro-imagem {
+    display: block;
     width: 100%;
-    max-width: min(390px, 28vw);
-    max-height: 42vh;
+    max-width: 580px;
+    max-height: 65vh;
+    height: auto;
     object-fit: contain;
     user-select: none;
     -webkit-user-drag: none;
 }
 
-/* Faixas diagonais no fundo */
+/* ================================
+   FAIXAS DIAGONAIS
+================================ */
+
 .erro-faixas-fundo {
     position: absolute;
     inset: 0;
@@ -80,55 +171,122 @@ body.pagina-erro {
 }
 
 .erro-faixas-fundo svg {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
 }
 
 /* ================================
-   RESPONSIVIDADE DA PÁGINA DE ERRO
+   RESPONSIVIDADE
 ================================ */
+
+@media (max-width: 1100px) {
+    .erro-tela {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 0 5vw;
+    }
+
+    .erro-imagem {
+        max-width: 470px;
+        max-height: 55vh;
+    }
+
+    .erro-conteudo {
+        margin-top: 14vh;
+    }
+}
 
 @media (max-width: 850px) {
     body.pagina-erro {
+        overflow-x: hidden;
         overflow-y: auto;
     }
 
     .erro-tela {
         grid-template-columns: 1fr;
-        padding: 50px 24px 140px;
+        align-content: start;
+        gap: 25px;
+        padding: 50px 24px 150px;
         text-align: center;
     }
 
     .erro-conteudo {
-        margin-top: 4vh;
+        margin-top: 3vh;
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
 
-    .erro-imagem-area {
-        margin-top: 30px;
+    .erro-titulo {
+        font-size: clamp(32px, 6vw, 44px);
+        margin-bottom: 20px;
     }
 
-    .erro-imagem {
-        max-width: 270px;
-        max-height: 32vh;
+    .erro-descricao {
+        font-size: clamp(16px, 3vw, 19px);
     }
 
     .erro-detalhe {
-        font-family: var(--fonte1);
-        font-size: clamp(14px, 1.1vw, 17px);
-        color: var(--cor2);
+        font-size: 15px;
         margin-top: 16px;
     }
 
     .erro-voltar {
-        display: inline-block;
-        margin-top: 24px;
-        font-family: var(--fonte1);
-        color: var(--cor3);
-        text-decoration: underline;
+        margin-top: 28px;
+        min-width: 170px;
+        height: 52px;
+        font-size: 22px;
+        border-radius: 15px;
+    }
+
+    .erro-imagem-area {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .erro-imagem {
+        width: 100%;
+        max-width: 390px;
+        max-height: 42vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .erro-tela {
+        padding: 35px 20px 130px;
+        gap: 20px;
+    }
+
+    .erro-conteudo {
+        margin-top: 2vh;
+    }
+
+    .erro-titulo {
+        font-size: 32px;
+    }
+
+    .erro-descricao {
+        font-size: 16px;
+    }
+
+    .erro-voltar {
+        min-width: 155px;
+        height: 48px;
+        padding: 0 20px;
+        gap: 12px;
+        font-size: 20px;
+        border-radius: 14px;
+    }
+
+    .erro-voltar svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .erro-imagem {
+        max-width: 320px;
+        max-height: 35vh;
     }
 }
 
