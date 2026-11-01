@@ -1,11 +1,8 @@
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-<%-- HomeGestorServlet: GET /gestor/home
-     Atributos existentes: nomeGestor, estoquesNaUnidade, assinatura, plano.
-     Opcionais para os gráficos: estoquesPorLocal e unidadesPorEstado,
-     ambos Map<String, Number>. totalUnidadesOrganizacao também é opcional.
---%>
+<%-- HomeGestorServlet: GET /gestor/home --%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="ativo" value="home" />
 <c:set var="nomeExibicao" value="${empty nomeGestor ? 'Gestor' : nomeGestor}" />
@@ -18,6 +15,7 @@
     <title>Home - Zera</title>
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
+    <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
@@ -42,7 +40,7 @@
         <div class="home-card">
             <span class="titulo-metrica">Plano</span>
             <span class="plano-metrica"><c:out value="${empty plano ? 'Sem plano' : plano.nome}"/></span>
-            <span class="descricao-metrica">Plano atual</span>
+            <span class="descricao-metrica"><c:choose><c:when test="${not empty plano and plano.duracaoEmMeses == 1}">Pago mensalmente</c:when><c:when test="${not empty plano and plano.duracaoEmMeses == 12}">Pago anualmente</c:when></c:choose></span>
         </div>
         <div class="home-card borda-amarela">
             <span class="titulo-metrica">Assinatura válida até</span>
@@ -53,28 +51,11 @@
                 </c:when>
                 <c:otherwise><span class="plano-metrica">—</span></c:otherwise>
             </c:choose>
-            <span class="descricao-metrica">${empty assinatura ? 'Nenhuma assinatura ativa' : 'Data de vencimento'}</span>
+            <span class="descricao-metrica"><c:if test="${empty assinatura}">Nenhuma assinatura ativa</c:if></span>
         </div>
     </section>
 
-    <section class="home-painel-inferior">
-        <article class="home-painel">
-            <h2>Estoques por local</h2>
-            <div class="lista-locais" id="lista-locais">
-                <c:choose>
-                    <c:when test="${not empty estoquesPorLocal}">
-                        <c:forEach var="entrada" items="${estoquesPorLocal}">
-                            <div class="local-item" data-quantidade="${fn:escapeXml(entrada.value)}">
-                                <div class="local-info"><span><c:out value="${entrada.key}"/></span><span><c:out value="${entrada.value}"/> estoque(s)</span></div>
-                                <div class="barra-fundo"><div class="barra-preenchimento" style="width:0%"></div></div>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise><p>Distribuição por local ainda não disponível.</p></c:otherwise>
-                </c:choose>
-            </div>
-            <div class="home-painel-rodape"><a href="${ctx}/gestor/estoques" class="botao-ver">Ver todos &rsaquo;</a></div>
-        </article>
+    <section class="home-painel-inferior home-painel-inferior-unico">
         <article class="home-painel">
             <div class="grafico-cabecalho">
                 <h2>Unidades da organização por estado</h2>
@@ -102,49 +83,27 @@
         </article>
     </section>
 </main>
-</div> <%-- fecha o contêiner aberto pelo menu.jspf, como no JSP original --%>
+</div>
 <script>
-    "use strict";
-
-    // Renderiza somente os dados reais fornecidos pelo HomeGestorServlet.
-    document.addEventListener("DOMContentLoaded", function () {
-        const locais = [...document.querySelectorAll("#lista-locais .local-item")];
-
-        const quantidadesLocais = locais.map(function (el) {
-            return Math.max(0, Number(el.dataset.quantidade) || 0);
-        });
-
-        const maiorLocal = Math.max(1, ...quantidadesLocais);
-
-        locais.forEach(function (el, i) {
-            el.querySelector(".barra-preenchimento").style.width = `${100 * quantidadesLocais[i] / maiorLocal}%`;
-        });
-
-        const colunas = [...document.querySelectorAll("#grafico-barras .grafico-coluna-item")];
-
-        if (!colunas.length) return;
-
-        const quantidades = colunas.map(function (el) {
-            return Math.max(0, Number(el.dataset.quantidade) || 0);
-        });
-
-        const maior = Math.max(1, ...quantidades);
-        const teto = Math.max(4, Math.ceil(maior / 4) * 4);
-
-        const eixo = document.getElementById("grafico-eixo-y");
-        const linhas = document.getElementById("grafico-linhas");
-
-        for (let i = 4; i >= 0; i--) {
-            const marca = document.createElement("span");
-            marca.textContent = String(teto * i / 4);
-            eixo.append(marca);
-            linhas.append(document.createElement("span"));
-        }
-
-        colunas.forEach(function (el, i) {
-            el.querySelector(".grafico-barra").style.height = `${100 * quantidades[i] / teto}%`;
-        });
+"use strict";
+document.addEventListener("DOMContentLoaded", () => {
+    const colunas = [...document.querySelectorAll("#grafico-barras .grafico-coluna-item")];
+    if (!colunas.length) return;
+    const quantidades = colunas.map(el => Math.max(0, Number(el.dataset.quantidade) || 0));
+    const maior = Math.max(1, ...quantidades);
+    const teto = Math.max(4, Math.ceil(maior / 4) * 4);
+    const eixo = document.getElementById("grafico-eixo-y");
+    const linhas = document.getElementById("grafico-linhas");
+    for (let i = 4; i >= 0; i--) {
+        const marca = document.createElement("span");
+        marca.textContent = String(teto * i / 4);
+        eixo.append(marca);
+        linhas.append(document.createElement("span"));
+    }
+    colunas.forEach((el, i) => {
+        el.querySelector(".grafico-barra").style.height = `${100 * quantidades[i] / teto}%`;
     });
+});
 </script>
 <script src="${ctx}/js/popup.js" defer></script>
 </body>
