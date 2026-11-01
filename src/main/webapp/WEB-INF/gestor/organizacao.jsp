@@ -112,9 +112,41 @@
                 .replace(/(\d{4})(\d)/, '$1-$2');
         }
 
-        function cnpjValido(valor) {
-            const n = valor.replace(/\D/g, '');
-            return n.length === 14;
+        function validarCnpj(valor) {
+            const cnpj = valor.replace(/\D/g, "");
+
+            if (cnpj.length !== 14) {
+                return false;
+            }
+
+            if (/^(\d)\1{13}$/.test(cnpj)) {
+                return false;
+            }
+
+            function calcularDigito(tamanho) {
+                let soma = 0;
+                let peso = tamanho - 7;
+
+                for (let i = 0; i < tamanho; i++) {
+                    soma += Number(cnpj[i]) * peso;
+                    peso--;
+
+                    if (peso < 2) {
+                        peso = 9;
+                    }
+                }
+
+                const resto = soma % 11;
+                return resto < 2 ? 0 : 11 - resto;
+            }
+
+            const primeiroDigito = calcularDigito(12);
+            const segundoDigito = calcularDigito(13);
+
+            return (
+                primeiroDigito === Number(cnpj[12]) &&
+                segundoDigito === Number(cnpj[13])
+            );
         }
 
         cnpj.value = mascara(cnpj.value);

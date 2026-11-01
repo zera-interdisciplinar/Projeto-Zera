@@ -388,7 +388,7 @@ fundo da tabela
 
     overflow: hidden;
 
-    min-height: 0;  
+    min-height: 0;
 
     margin-left: 5px;
 
@@ -1071,7 +1071,7 @@ Ações de modificação dos registros
 
     margin-right: 15px;
     position: relative;
-}   
+}
 
 .edicao #nome{
 
@@ -1255,7 +1255,7 @@ Ações de modificação dos registros
 
     margin-right: 15px;
 
-}   
+}
 
 .adicao #nome{
 
@@ -1746,7 +1746,7 @@ Ações de modificação dos registros
 
 #perfil-admin .erro label{
 
-    color:#FF0000;   
+    color:#FF0000;
 
 }
 
@@ -1920,7 +1920,7 @@ Ações de modificação dos registros
 
 .infos-de-mesma-linha.erro label{
 
-    color:#FF0000;   
+    color:#FF0000;
 
 }
 
@@ -2150,4 +2150,1135 @@ header.header-crud .avatar-topo {
     justify-content: center;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.2s;
+}
+
+
+/* ==========================================================================
+   RESPONSIVIDADE - TELAS DE CRUD
+   Apenas seletores de CRUD são alterados. Landing Page permanece intacta.
+   ========================================================================== */
+
+/* ---------- Até 1440px – Ajustes leves para desktops menores ---------- */
+@media (max-width: 1440px) {
+
+    #informacoes-gerais {
+        padding-right: 60px;
+    }
+
+    .informacoes {
+        padding-right: 60px;
+    }
+
+    .card {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card .dado {
+        margin: 30px auto 0;
+    }
+
+    .edicao #nome,
+    .adicao #nome,
+    .adicao #linha-completa {
+        width: 100%;
+        max-width: 950px;
+    }
+
+    .edicao #nome input,
+    .edicao #nome select,
+    .adicao #nome input,
+    .adicao #nome select,
+    .adicao #linha-completa input {
+        width: 100%;
+        max-width: 920px;
+    }
+
+    .edicao button {
+        margin-left: auto;
+        display: block;
+    }
+
+    .adicao button {
+        margin-left: auto;
+        display: block;
+    }
+
+    #perfil-admin button {
+        margin-left: auto;
+        display: block;
+    }
+
+    #alterar-senha button {
+        margin-left: auto;
+        display: block;
+    }
+
+    .visualizacao .editar {
+        margin-left: auto;
+    }
+
+    .visualizacao h4 {
+        padding-right: 0;
+    }
+}
+
+/* ---------- Até 1024px – Tablets paisagem / laptops pequenos ---------- */
+@media (max-width: 1024px) {
+
+    .painel-esquerda {
+        width: 60px;
+        min-width: 60px;
+        max-width: 60px;
+    }
+
+    .painel-esquerda nav a {
+        width: 50px;
+        height: 42px;
+        padding-left: 0;
+        justify-content: center;
+        font-size: 0;
+        overflow: hidden;
+    }
+
+    .painel-esquerda nav .botao-ativo {
+        width: 50px !important;
+        height: 42px !important;
+        padding-left: 0 !important;
+        justify-content: center !important;
+        font-size: 0 !important;
+        overflow: hidden;
+    }
+
+    .painel-esquerda hr {
+        width: 44px !important;
+    }
+
+    .logo-zera {
+        max-width: 40px;
+        margin-left: 10px;
+        padding-bottom: 30px;
+    }
+
+    #informacoes-gerais {
+        padding: 30px 30px 30px 0;
+        margin-top: 80px;
+    }
+
+    #home {
+        font-size: 32px;
+        padding-bottom: 30px;
+    }
+
+    .card {
+        grid-template-columns: repeat(2, 1fr);
+        padding-bottom: 30px;
+    }
+
+    .card .dado {
+        width: 180px;
+        height: 180px;
+        margin: 25px auto 0;
+    }
+
+    .card .dado .nome-do-dado {
+        font-size: 19px;
+        padding-top: 22px;
+        height: 50px;
+    }
+
+    .card .dado .numero-do-dado {
+        font-size: 60px;
+    }
+
+    .informacoes {
+        padding: 30px 30px 30px 0;
+        margin-top: 80px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .nome-da-area {
+        font-size: 32px;
+        margin-left: 30px;
+        margin-bottom: 25px;
+    }
+
+    .tabela {
+        margin-left: 30px;
+        padding: 18px 20px;
+    }
+
+    .tabela-filtros {
+        flex-wrap: wrap;
+    }
+
+    .tabela-filtros input {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .tabela-filtros select {
+        font-size: 16px;
+    }
+
+    .adicionar {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .campo-busca input {
+        width: 350px;
+    }
+
+    .btn-lupa {
+        left: 315px;
+    }
+
+    .itens-tabela th {
+        font-size: 16px;
+        padding: 10px 6px;
+    }
+
+    .itens-tabela td {
+        font-size: 14px;
+        padding: 10px 6px;
+    }
+
+    .voltar {
+        margin-left: 30px;
+        font-size: 20px;
+    }
+
+    .edicao,
+    .adicao {
+        margin-left: 30px;
+        padding: 25px;
+    }
+
+    .edicao h5,
+    .adicao h5 {
+        width: 100%;
+        display: block;
+        font-size: 18px;
+    }
+
+    .infos-de-mesma-linha {
+        width: 100%;
+        max-width: 465px;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .edicao .infos-de-mesma-linha input,
+    .adicao .infos-de-mesma-linha input,
+    .edicao .infos-de-mesma-linha select,
+    .adicao .infos-de-mesma-linha select {
+        width: 100%;
+    }
+
+    .edicao select,
+    .adicao .infos-de-mesma-linha select {
+        width: 100%;
+    }
+
+    .edicao #nome,
+    .adicao #nome,
+    .adicao #linha-completa {
+        width: 100%;
+    }
+
+    .edicao #nome input,
+    .edicao #nome select,
+    .adicao #nome input,
+    .adicao #nome select,
+    .adicao #linha-completa input {
+        width: 100%;
+    }
+
+    .edicao button {
+        margin-left: 0;
+        float: right;
+    }
+
+    .adicao button {
+        margin-left: 0;
+        float: right;
+    }
+
+    .adicao #proxima-tela {
+        margin-left: 0;
+    }
+
+    .adicao #concluir {
+        margin-left: 0;
+    }
+
+    .adicao #tela-atual-primeira,
+    .adicao #outra-tela-primeira {
+        margin-left: 0;
+    }
+
+    #perfil-admin {
+        margin-left: 30px;
+        padding-right: 24px;
+    }
+
+    #perfil-admin h5 {
+        padding-right: 0;
+        display: block;
+        width: 100%;
+    }
+
+    #perfil-admin div {
+        width: 100%;
+        max-width: 450px;
+        box-sizing: border-box;
+    }
+
+    #perfil-admin input {
+        width: 100%;
+        max-width: 410px;
+    }
+
+    #perfil-admin button {
+        margin-left: 0;
+        float: right;
+    }
+
+    #alterar-senha {
+        margin-left: 30px;
+        padding-right: 24px;
+    }
+
+    #alterar-senha input {
+        width: 100%;
+        max-width: 411px;
+        box-sizing: border-box;
+    }
+
+    #alterar-senha #senha-atual {
+        width: 100%;
+        max-width: 411px;
+        box-sizing: border-box;
+    }
+
+    #alterar-senha label {
+        margin-right: 0;
+    }
+
+    #alterar-senha button {
+        margin-left: 0;
+        float: right;
+    }
+
+    .visualizacao {
+        margin-left: 30px;
+        padding: 18px 20px;
+    }
+
+    .visualizacao .editar {
+        margin-left: 0;
+        float: right;
+    }
+
+    .visualizacao h4 {
+        padding-right: 0;
+    }
+
+    #alterar-senha form .erro#confirmar-nova-senha + .mensagem-erro {
+        margin-left: 46px;
+    }
+
+    header.header-crud {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+
+/* ---------- Até 768px – Tablets retrato / celulares grandes ---------- */
+@media (max-width: 768px) {
+
+    .tela-auth {
+        flex-direction: column;
+    }
+
+    .painel-esquerda {
+        display: none;
+    }
+
+    #informacoes-gerais {
+        margin-left: 0;
+        margin-top: 70px;
+        padding: 25px 16px;
+        border-top-left-radius: 0;
+        min-height: auto;
+        justify-content: stretch;
+    }
+
+    #home {
+        font-size: 28px;
+        padding-bottom: 20px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .card {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px 10px;
+        gap: 0;
+    }
+
+    .card .dado {
+        width: 100%;
+        max-width: 180px;
+        height: 170px;
+        margin: 18px auto 0;
+    }
+
+    .card .dado .nome-do-dado {
+        font-size: 17px;
+        padding-top: 18px;
+        height: 45px;
+    }
+
+    .card .dado .numero-do-dado {
+        font-size: 50px;
+    }
+
+    .informacoes {
+        margin-left: 0;
+        margin-top: 70px;
+        padding: 25px 16px;
+        border-top-left-radius: 0;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .nome-da-area {
+        font-size: 26px;
+        margin-left: 16px;
+        margin-bottom: 18px;
+    }
+
+    .tabela {
+        margin-left: 16px;
+        margin-right: 0;
+        padding: 16px 14px;
+    }
+
+    .tabela label {
+        font-size: 17px;
+    }
+
+    .tabela-filtros {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .tabela-filtros input {
+        width: 100% !important;
+        font-size: 15px;
+        padding: 8px 14px;
+        box-sizing: border-box;
+    }
+
+    .tabela-filtros select {
+        width: 100%;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .filtrador {
+        width: 100%;
+    }
+
+    .busca {
+        width: 100%;
+    }
+
+    .campo-busca {
+        width: 100%;
+    }
+
+    .campo-busca input {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .btn-lupa {
+        left: auto;
+        right: 12px;
+    }
+
+    .adicionar {
+        width: 100%;
+        justify-content: center;
+        font-size: 16px;
+        padding: 10px 16px;
+        box-sizing: border-box;
+    }
+
+    .tabela-rolagem {
+        overflow-x: auto;
+    }
+
+    .itens-tabela {
+        table-layout: auto;
+        min-width: 600px;
+    }
+
+    .itens-tabela th {
+        font-size: 14px;
+        padding: 8px 5px;
+        white-space: nowrap;
+    }
+
+    .itens-tabela td {
+        font-size: 13px;
+        padding: 8px 5px;
+    }
+
+    .acoes a {
+        width: 32px;
+    }
+
+    .acoes a + a {
+        margin-left: 6px;
+    }
+
+    .voltar {
+        margin-left: 16px;
+        font-size: 18px;
+    }
+
+    .edicao,
+    .adicao {
+        margin-left: 16px;
+        padding: 20px 16px;
+    }
+
+    .edicao h5,
+    .adicao h5 {
+        width: 100%;
+        display: block;
+        font-size: 17px;
+    }
+
+    .infos-de-mesma-linha {
+        width: 100%;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    .adicao .infos-de-mesma-linha {
+        width: 100%;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    .edicao .infos-de-mesma-linha input,
+    .adicao .infos-de-mesma-linha input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edicao .infos-de-mesma-linha select,
+    .adicao .infos-de-mesma-linha select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edicao select {
+        width: 100%;
+    }
+
+    .edicao #nome,
+    .adicao #nome,
+    .adicao #linha-completa {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edicao #nome input,
+    .edicao #nome select,
+    .adicao #nome input,
+    .adicao #nome select,
+    .adicao #linha-completa input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edicao button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        float: none;
+    }
+
+    .adicao button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        float: none;
+    }
+
+    .adicao #proxima-tela {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    .adicao #concluir {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    .adicao #tela-atual-primeira {
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    .adicao #outra-tela-primeira {
+        margin-left: 0;
+    }
+
+    .adicao h4 {
+        font-size: 21px;
+    }
+
+    #perfil-admin {
+        margin-left: 16px;
+        padding: 25px 16px 21px;
+    }
+
+    #perfil-admin h4 {
+        font-size: 20px;
+    }
+
+    #perfil-admin h5 {
+        padding-right: 0;
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        font-size: 17px;
+    }
+
+    #perfil-admin div {
+        width: 100%;
+        margin-left: 0;
+        box-sizing: border-box;
+    }
+
+    #perfil-admin input {
+        width: 100%;
+    }
+
+    #perfil-admin button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #alterar-senha {
+        margin-left: 16px;
+        padding: 25px 16px 21px;
+    }
+
+    #alterar-senha h4 {
+        font-size: 20px;
+    }
+
+    #alterar-senha label {
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 17px;
+    }
+
+    #alterar-senha input {
+        width: 100%;
+        margin-left: 0;
+        box-sizing: border-box;
+    }
+
+    #alterar-senha #senha-atual {
+        width: 100%;
+        margin-left: 0;
+        box-sizing: border-box;
+    }
+
+    #alterar-senha button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #alterar-senha form .erro#senha-atual + .mensagem-erro {
+        margin-left: 0;
+    }
+
+    #alterar-senha form .erro#nova-senha + .mensagem-erro {
+        margin-left: 0;
+    }
+
+    #alterar-senha form .erro#confirmar-nova-senha + .mensagem-erro {
+        margin-left: 0;
+    }
+
+    .visualizacao {
+        margin-left: 16px;
+        padding: 16px 14px;
+    }
+
+    .visualizacao .editar {
+        margin-left: 0;
+        display: block;
+        text-align: right;
+    }
+
+    .visualizacao .cancelar {
+        width: auto;
+        margin-left: 0;
+    }
+
+    .visualizacao .excluir {
+        margin-left: 10px;
+    }
+
+    .visualizacao h4 {
+        padding-right: 0;
+        font-size: 17px;
+    }
+
+    .itens-organizacao {
+        table-layout: auto;
+    }
+
+    .itens-organizacao th {
+        font-size: 15px;
+        padding: 5px 6px;
+    }
+
+    .itens-organizacao td {
+        font-size: 14px;
+        padding: 2px 6px;
+    }
+
+    .unidades-rolagem {
+        overflow-x: auto;
+    }
+
+    header.header-crud {
+        height: 60px;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    header.header-crud .logo-topo img,
+    header.header-crud .logo {
+        width: 120px !important;
+        height: auto !important;
+    }
+
+    .z-marca-dagua {
+        opacity: 0.30;
+    }
+}
+
+/* ---------- Até 480px – Celulares ---------- */
+@media (max-width: 480px) {
+
+    #informacoes-gerais {
+        padding: 20px 10px;
+    }
+
+    #home {
+        font-size: 24px;
+        padding-bottom: 16px;
+    }
+
+    .card {
+        grid-template-columns: 1fr;
+        padding: 16px 10px;
+    }
+
+    .card .dado {
+        width: 100%;
+        max-width: 200px;
+        height: 160px;
+        margin: 14px auto 0;
+    }
+
+    .card .dado .nome-do-dado {
+        font-size: 16px;
+        padding-top: 16px;
+        height: 40px;
+    }
+
+    .card .dado .numero-do-dado {
+        font-size: 44px;
+    }
+
+    .informacoes {
+        padding: 20px 10px;
+    }
+
+    .nome-da-area {
+        font-size: 22px;
+        margin-left: 10px;
+        margin-bottom: 14px;
+    }
+
+    .tabela {
+        margin-left: 10px;
+        padding: 12px 10px;
+    }
+
+    .tabela label {
+        font-size: 15px;
+    }
+
+    .tabela-filtros input {
+        font-size: 14px;
+    }
+
+    .tabela-filtros select {
+        font-size: 14px;
+    }
+
+    .adicionar {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .itens-tabela {
+        min-width: 500px;
+    }
+
+    .itens-tabela th {
+        font-size: 13px;
+        padding: 6px 4px;
+    }
+
+    .itens-tabela td {
+        font-size: 12px;
+        padding: 6px 4px;
+    }
+
+    .voltar {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .edicao,
+    .adicao {
+        margin-left: 10px;
+        padding: 16px 12px;
+    }
+
+    .edicao h5,
+    .adicao h5 {
+        font-size: 15px;
+        margin-top: 18px;
+    }
+
+    .edicao .infos-de-mesma-linha input,
+    .adicao .infos-de-mesma-linha input {
+        font-size: 16px;
+    }
+
+    .edicao .infos-de-mesma-linha select,
+    .adicao .infos-de-mesma-linha select {
+        font-size: 16px;
+    }
+
+    .edicao #nome input,
+    .edicao #nome select,
+    .adicao #nome input,
+    .adicao #nome select,
+    .adicao #linha-completa input {
+        font-size: 16px;
+    }
+
+    .edicao p,
+    .adicao p {
+        font-size: 16px;
+    }
+
+    .edicao button {
+        font-size: 16px;
+        padding: 10px 30px;
+        margin-top: 30px;
+    }
+
+    .adicao button {
+        font-size: 16px;
+        padding: 10px 30px;
+        margin-top: 30px;
+    }
+
+    .adicao #proxima-tela {
+        font-size: 16px;
+        padding: 10px 30px;
+        margin-top: 30px;
+    }
+
+    .adicao #concluir {
+        font-size: 16px;
+        padding: 10px 30px;
+        margin-top: 30px;
+    }
+
+    .adicao h4 {
+        font-size: 19px;
+    }
+
+    .adicao #separador {
+        font-size: 16px;
+    }
+
+    .adicao #tela-atual,
+    .adicao #tela-atual-primeira,
+    .adicao #outra-tela,
+    .adicao #outra-tela-primeira {
+        font-size: 16px;
+        width: 38px;
+    }
+
+    #perfil-admin {
+        margin-left: 10px;
+        padding: 20px 12px 18px;
+    }
+
+    #perfil-admin h4 {
+        font-size: 18px;
+    }
+
+    #perfil-admin h5 {
+        font-size: 15px;
+        padding-bottom: 8px;
+    }
+
+    #perfil-admin p {
+        font-size: 16px;
+    }
+
+    #perfil-admin button {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+
+    #alterar-senha {
+        margin-left: 10px;
+        padding: 20px 12px 18px;
+    }
+
+    #alterar-senha h4 {
+        font-size: 18px;
+    }
+
+    #alterar-senha label {
+        font-size: 15px;
+    }
+
+    #alterar-senha input::placeholder {
+        font-size: 16px;
+    }
+
+    #alterar-senha button {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+
+    .visualizacao {
+        margin-left: 10px;
+        padding: 14px 10px;
+    }
+
+    .visualizacao h4 {
+        font-size: 15px;
+    }
+
+    .visualizacao .cancelar {
+        width: auto;
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .itens-organizacao th {
+        font-size: 13px;
+    }
+
+    .itens-organizacao td {
+        font-size: 13px;
+    }
+
+    header.header-crud {
+        height: 55px;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    header.header-crud .logo-topo img,
+    header.header-crud .logo {
+        width: 100px !important;
+        height: auto !important;
+    }
+
+    header.header-crud .avatar-topo {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .z-marca-dagua {
+        opacity: 0.20;
+    }
+}
+
+/* ---------- Até 375px – Celulares pequenos (iPhone SE, etc.) ---------- */
+@media (max-width: 375px) {
+
+    #informacoes-gerais {
+        padding: 16px 6px;
+    }
+
+    #home {
+        font-size: 21px;
+    }
+
+    .card .dado {
+        max-width: 170px;
+        height: 150px;
+    }
+
+    .card .dado .nome-do-dado {
+        font-size: 14px;
+        height: 36px;
+        padding-top: 14px;
+    }
+
+    .card .dado .numero-do-dado {
+        font-size: 38px;
+    }
+
+    .informacoes {
+        padding: 16px 6px;
+    }
+
+    .nome-da-area {
+        font-size: 20px;
+        margin-left: 8px;
+    }
+
+    .tabela {
+        margin-left: 8px;
+        padding: 10px 8px;
+    }
+
+    .edicao,
+    .adicao {
+        margin-left: 8px;
+        padding: 14px 10px;
+    }
+
+    #perfil-admin {
+        margin-left: 8px;
+        padding: 16px 10px;
+    }
+
+    #alterar-senha {
+        margin-left: 8px;
+        padding: 16px 10px;
+    }
+
+    .visualizacao {
+        margin-left: 8px;
+        padding: 12px 8px;
+    }
+
+    .voltar {
+        margin-left: 8px;
+        font-size: 15px;
+    }
+
+    header.header-crud {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
+
+/* ---------- Até 320px – Telas muito pequenas ---------- */
+@media (max-width: 320px) {
+
+    #home {
+        font-size: 19px;
+    }
+
+    .card .dado {
+        max-width: 150px;
+        height: 140px;
+    }
+
+    .card .dado .nome-do-dado {
+        font-size: 13px;
+        height: 32px;
+        padding-top: 12px;
+    }
+
+    .card .dado .numero-do-dado {
+        font-size: 34px;
+    }
+
+    .nome-da-area {
+        font-size: 18px;
+    }
+
+    .tabela label {
+        font-size: 14px;
+    }
+
+    .itens-tabela {
+        min-width: 450px;
+    }
+
+    .edicao h5,
+    .adicao h5 {
+        font-size: 14px;
+    }
+
+    .edicao .infos-de-mesma-linha input,
+    .edicao #nome input,
+    .edicao #nome select,
+    .adicao .infos-de-mesma-linha input,
+    .adicao #nome input,
+    .adicao #nome select,
+    .adicao #linha-completa input,
+    .adicao .infos-de-mesma-linha select {
+        font-size: 15px;
+    }
+
+    #perfil-admin h4,
+    #alterar-senha h4 {
+        font-size: 16px;
+    }
+
+    #perfil-admin h5 {
+        font-size: 14px;
+    }
+
+    header.header-crud .logo-topo img,
+    header.header-crud .logo {
+        width: 85px !important;
+    }
 }

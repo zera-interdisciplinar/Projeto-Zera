@@ -62,14 +62,14 @@
                                     <input type="text" id="espacoNaUnidade" name="espacoNaUnidade" class="form-campo-total" value="<c:out value='${estoqueEditado.espacoNaUnidade}'/>" required>
                                 </div>
                                 <div class="filtrador">
-                                    <label for="codResponsavel">Responsável</label>
-                                    <select id="codResponsavel" name="codResponsavel" class="form-campo-total" required>
-                                        <c:forEach var="gestor" items="${gestores}">
-                                            <option value="${gestor.codigo}" ${gestor.codigo == estoqueEditado.codResponsavel ? 'selected' : ''}>
-                                                <c:out value="${gestor.nome}"/>
-                                            </option>
-                                        </c:forEach>
-                                    </select>
+                                    <label for="responsavel">Responsável</label>
+                                    <input
+                                            type="text"
+                                            id="responsavel"
+                                            value="<c:out value='${estoqueEditado.responsavel}'/>"
+                                            readonly
+                                            class="form-campo-total campo-fixo"
+                                    >
                                 </div>
                                 <div class="filtrador">
                                     <label for="codigo">Código</label>
@@ -112,7 +112,6 @@
                         <tr>
                             <th class="col-cod">Código</th>
                             <th>Espaço na unidade</th>
-                            <th>Responsável</th>
                             <th class="col-acoes"></th>
                         </tr>
                         </thead>
@@ -120,16 +119,9 @@
                         <c:choose>
                             <c:when test="${not empty estoques}">
                                 <c:forEach var="e" items="${estoques}">
-                                    <c:set var="nomeResponsavel" value=""/>
-                                    <c:forEach var="gestor" items="${gestores}">
-                                        <c:if test="${gestor.codigo == e.codResponsavel}">
-                                            <c:set var="nomeResponsavel" value="${gestor.nome}"/>
-                                        </c:if>
-                                    </c:forEach>
                                     <tr>
                                         <td><c:out value="${e.codigo}"/></td>
                                         <td><c:out value="${e.espacoNaUnidade}"/></td>
-                                        <td><c:out value="${nomeResponsavel}" default="Não informado"/></td>
                                         <td class="col-acoes">
                                             <div class="acoes">
                                                 <a href="${ctx}/estoque/perfil?editar=${e.codigo}" title="Editar">
@@ -147,7 +139,7 @@
                                 </c:forEach>
                             </c:when>
                             <c:otherwise>
-                                <tr><td colspan="4">Nenhum estoque encontrado para os filtros selecionados.</td></tr>
+                                <tr><td colspan="3">Nenhum estoque encontrado para os filtros selecionados.</td></tr>
                             </c:otherwise>
                         </c:choose>
                         </tbody>
