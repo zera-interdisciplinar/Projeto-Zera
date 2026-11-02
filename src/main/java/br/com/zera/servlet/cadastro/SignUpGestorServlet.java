@@ -68,44 +68,29 @@ public class SignUpGestorServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String nome = request.getParameter("nome");
-        if (nome == null || nome.trim().isEmpty()) {
-            exibirErro(request, response, "Informe o nome.", ERROR_PAGE);
-            return;
-        }
-        nome = nome.trim();
-
         String email = request.getParameter("email");
-        if (email == null || email.trim().isEmpty()) {
-            exibirErro(request, response, "Informe o email.", ERROR_PAGE);
-            return;
-        }
-        email = email.trim();
-
         String telefone = request.getParameter("telefone");
-        if (telefone == null || telefone.trim().isEmpty()) {
-            exibirErro(request, response, "Informe o telefone.", ERROR_PAGE);
-            return;
-        }
-        telefone = telefone.trim().replaceAll("\\D", "");
-
         String senha = request.getParameter("senha");
         String confirmacao = request.getParameter("confirmacao");
 
-        // devolve o que foi digitado para o formulário, caso precise voltar
+        nome = nome == null ? "" : nome.trim();
+        email = email == null ? "" : email.trim();
+        telefone = telefone == null ? "" : telefone.trim().replaceAll("\\D", "");
+
         request.setAttribute("nome", nome);
         request.setAttribute("email", email);
         request.setAttribute("telefone", telefone);
 
         try {
-            if (nome == null) {
+            if (nome.isEmpty()) {
                 voltarAoFormulario(request, response, "Informe o nome completo.", PAGINA);
                 return;
             }
-            if (email == null || !Regex.validarEmail(email)) {
+            if (!Regex.validarEmail(email)) {
                 voltarAoFormulario(request, response, "Email inválido, ele precisa conter @ e o domínio.", PAGINA);
                 return;
             }
-            if (telefone == null || !Regex.validarTel(telefone)) {
+            if (!Regex.validarTel(telefone)) {
                 voltarAoFormulario(request, response, "Telefone inválido, ele precisa conter o DDD + nove números.", PAGINA);
                 return;
             }
@@ -113,7 +98,7 @@ public class SignUpGestorServlet extends HttpServlet {
                 voltarAoFormulario(request, response, "A senha precisa ter pelo menos 8 caracteres, um número e um caractere especial.", PAGINA);
                 return;
             }
-            if (!senha.equals(confirmacao)) {
+            if (confirmacao == null || !senha.equals(confirmacao)) {
                 voltarAoFormulario(request, response, "A confirmação está diferente da senha informada.", PAGINA);
                 return;
             }
