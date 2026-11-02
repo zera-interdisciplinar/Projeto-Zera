@@ -140,6 +140,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
 </head>
 
 <body>
@@ -284,5 +285,6 @@
 </script>
 
 <script src="${ctx}/js/popup.js" defer></script>
+    <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
 </html>
