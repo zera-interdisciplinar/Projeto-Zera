@@ -4,6 +4,7 @@ import br.com.zera.dao.AssinaturaDAO;
 import br.com.zera.dao.EstoqueDAO;
 import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.dao.UnidadeDAO;
+import br.com.zera.dao.GestorDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.model.Admin;
 import br.com.zera.model.Assinatura;
@@ -82,6 +83,7 @@ public class HomeAdminServlet extends HttpServlet {
             request.setAttribute("totalEstoques", new EstoqueDAO().findAll().size());
             request.setAttribute("assinaturasAtivas", ativas);
             request.setAttribute("assinaturasVencendo", vencendo);
+            request.setAttribute("totalGestores", new GestorDAO().findAll().size());
 
             request.getRequestDispatcher(PAGINA).forward(request, response);
 
