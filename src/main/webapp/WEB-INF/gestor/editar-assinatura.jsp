@@ -27,10 +27,9 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
-    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
-<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+
 <%@ include file="menu.jspf" %>
 
 <main class="informacoes">
@@ -98,6 +97,6 @@
     </section>
 </main>
 </div>
-<script src="${ctx}/js/carregando.js" defer></script>
+
 </body>
 </html>

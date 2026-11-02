@@ -66,7 +66,14 @@ public class ReadOrganizacaoServlet extends HttpServlet {
                     pagina = "/WEB-INF/admin/organizacao/nova-organizacao.jsp";
                 } else {
                     request.setAttribute("organizacao", organizacao);
-                    pagina = "/WEB-INF/admin/organizacao/editar-organizacao.jsp";
+
+                    boolean visualizar = "true".equalsIgnoreCase(request.getParameter("ver"));
+
+                    if (visualizar) {
+                        pagina = "/WEB-INF/admin/organizacao/ver-organizacao.jsp";
+                    } else {
+                        pagina = "/WEB-INF/admin/organizacao/editar-organizacao.jsp";
+                    }
                 }
             } else if (unidadeLogada != null) {
                 request.setAttribute("organizacao", dao.findByCodigo(unidadeLogada.getCodOrganizacao()));

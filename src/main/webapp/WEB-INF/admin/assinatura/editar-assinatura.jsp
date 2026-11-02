@@ -108,7 +108,6 @@
 </div>
 
 <script>
-    // Panangrikus ti pana no malukatan ti listaan
     document.querySelectorAll('select').forEach(sel => {
         sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
         sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
