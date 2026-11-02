@@ -94,84 +94,52 @@
 </div>
 <script src="${ctx}/js/popup.js" defer></script>
 <script>
-    (function () {
+    (() => {
         const form = document.getElementById('form-organizacao');
         if (!form) return;
-
         const cnpj = document.getElementById('cnpj');
         const email = document.getElementById('email');
         const erroCnpj = document.getElementById('erro-cnpj');
         const erroEmail = document.getElementById('erro-email');
-
-        function mascara(valor) {
+        const mascara = valor => {
             const n = valor.replace(/\D/g, '').slice(0, 14);
-
             return n.replace(/^(\d{2})(\d)/, '$1.$2')
                 .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
                 .replace(/\.(\d{3})(\d)/, '.$1/$2')
                 .replace(/(\d{4})(\d)/, '$1-$2');
-        }
-
-        function validarCnpj(valor) {
-            const cnpj = valor.replace(/\D/g, "");
-
-            if (cnpj.length !== 14) {
-                return false;
-            }
-
-            if (/^(\d)\1{13}$/.test(cnpj)) {
-                return false;
-            }
-
-            function calcularDigito(tamanho) {
+        };
+        const cnpjValido = valor => {
+            const n = valor.replace(/\D/g, '');
+            if (n.length !== 14 || /^(\d)\1{13}$/.test(n)) return false;
+            const digito = tamanho => {
                 let soma = 0;
                 let peso = tamanho - 7;
-
                 for (let i = 0; i < tamanho; i++) {
-                    soma += Number(cnpj[i]) * peso;
-                    peso--;
-
-                    if (peso < 2) {
-                        peso = 9;
-                    }
+                    soma += Number(n[i]) * peso--;
+                    if (peso < 2) peso = 9;
                 }
-
                 const resto = soma % 11;
                 return resto < 2 ? 0 : 11 - resto;
-            }
-
-            const primeiroDigito = calcularDigito(12);
-            const segundoDigito = calcularDigito(13);
-
-            return (
-                primeiroDigito === Number(cnpj[12]) &&
-                segundoDigito === Number(cnpj[13])
-            );
-        }
-
+            };
+            return digito(12) === Number(n[12]) && digito(13) === Number(n[13]);
+        };
         cnpj.value = mascara(cnpj.value);
-
-        cnpj.addEventListener('input', function () {
+        cnpj.addEventListener('input', () => {
             cnpj.value = mascara(cnpj.value);
             erroCnpj.style.display = 'none';
             cnpj.setCustomValidity('');
         });
-
-        email.addEventListener('input', function () {
+        email.addEventListener('input', () => {
             erroEmail.style.display = 'none';
             email.setCustomValidity('');
         });
-
-        form.addEventListener('submit', function (evento) {
+        form.addEventListener('submit', evento => {
             const validoCnpj = cnpjValido(cnpj.value);
             const validoEmail = email.validity.valid && email.value.trim() !== '';
-
             erroCnpj.style.display = validoCnpj ? 'none' : 'block';
             erroEmail.style.display = validoEmail ? 'none' : 'block';
-
             cnpj.setCustomValidity(validoCnpj ? '' : 'CNPJ inválido');
             email.setCustomValidity(validoEmail ? '' : 'E-mail inválido');
-
             if (!validoCnpj || !validoEmail) {
                 evento.preventDefault();
                 (validoCnpj ? email : cnpj).reportValidity();

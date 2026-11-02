@@ -76,17 +76,17 @@
                     <table class="itens-tabela">
                         <thead><tr><th>Logradouro</th><th>CEP</th><th>Cidade/UF</th><th class="col-acoes"></th></tr></thead>
                         <tbody>
-                            <c:choose>
-                                <c:when test="${not empty endereco}">
-                                    <tr>
-                                        <td><c:out value="${endereco.logradouro}"/>, <c:out value="${endereco.numero}"/> - <c:out value="${endereco.bairro}"/></td>
-                                        <td><c:out value="${endereco.cep}"/></td>
-                                        <td><c:out value="${endereco.cidade}"/>/<c:out value="${endereco.estado}"/></td>
-                                        <td class="col-acoes"><div class="acoes"><a href="${ctx}/endereco/perfil?editar=1" title="Editar endereço"><img src="${ctx}/images/icone-editar.svg" alt="Editar"></a></div></td>
-                                    </tr>
-                                </c:when>
-                                <c:otherwise><tr><td colspan="4">Esta unidade ainda não tem endereço cadastrado.</td></tr></c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${not empty endereco}">
+                                <tr>
+                                    <td><c:out value="${endereco.logradouro}"/>, <c:out value="${endereco.numero}"/> - <c:out value="${endereco.bairro}"/></td>
+                                    <td><c:out value="${endereco.cep}"/></td>
+                                    <td><c:out value="${endereco.cidade}"/>/<c:out value="${endereco.estado}"/></td>
+                                    <td class="col-acoes"><div class="acoes"><a href="${ctx}/endereco/perfil?editar=1" title="Editar endereço"><img src="${ctx}/images/icone-editar.svg" alt="Editar"></a></div></td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise><tr><td colspan="4">Esta unidade ainda não tem endereço cadastrado.</td></tr></c:otherwise>
+                        </c:choose>
                         </tbody>
                     </table>
                 </div>
@@ -96,26 +96,26 @@
 </main>
 </div>
 <script>
-(function () {
-    const campoCep = document.getElementById('cep');
-    const formulario = document.getElementById('form-endereco');
-    if (!campoCep || !formulario) return;
-    function formatarCep() {
-        const numeros = campoCep.value.replace(/\D/g, '').slice(0, 8);
-        campoCep.value = numeros.length > 5 ? numeros.slice(0, 5) + '-' + numeros.slice(5) : numeros;
-    }
-    campoCep.addEventListener('input', formatarCep);
-    formatarCep();
-    formulario.addEventListener('submit', function (event) {
-        formatarCep();
-        if (!/^[0-9]{5}-[0-9]{3}$/.test(campoCep.value)) {
-            campoCep.setCustomValidity('Informe um CEP válido no formato 00000-000.');
-            campoCep.reportValidity();
-            event.preventDefault();
+    (function () {
+        const campoCep = document.getElementById('cep');
+        const formulario = document.getElementById('form-endereco');
+        if (!campoCep || !formulario) return;
+        function formatarCep() {
+            const numeros = campoCep.value.replace(/\D/g, '').slice(0, 8);
+            campoCep.value = numeros.length > 5 ? numeros.slice(0, 5) + '-' + numeros.slice(5) : numeros;
         }
-    });
-    campoCep.addEventListener('input', function () { campoCep.setCustomValidity(''); });
-})();
+        campoCep.addEventListener('input', formatarCep);
+        formatarCep();
+        formulario.addEventListener('submit', function (event) {
+            formatarCep();
+            if (!/^[0-9]{5}-[0-9]{3}$/.test(campoCep.value)) {
+                campoCep.setCustomValidity('Informe um CEP válido no formato 00000-000.');
+                campoCep.reportValidity();
+                event.preventDefault();
+            }
+        });
+        campoCep.addEventListener('input', function () { campoCep.setCustomValidity(''); });
+    })();
 </script>
 <script src="${ctx}/js/popup.js" defer></script>
 <script src="${ctx}/js/carregando.js" defer></script>

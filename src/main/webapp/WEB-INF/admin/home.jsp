@@ -69,15 +69,8 @@
             <a class="dado" href="${ctx}/gestor/lista">
                 <p class="nome-do-dado">Gestores</p>
                 <p class="numero-do-dado">
-                    <c:choose>
-                        <c:when test="${not empty totalGestores}">
-                            <c:out value="${totalGestores}"/>
-                        </c:when>
-                        <c:when test="${not empty gestores}">
-                            <c:out value="${fn:length(gestores)}"/>
-                        </c:when>
-                        <c:otherwise>0</c:otherwise>
-                    </c:choose>
+                    <c:out value="${totalGestores}" default="0"/>
+                </p>
                 </p>
             </a>
         </section>
