@@ -1,8 +1,8 @@
 package br.com.zera.servlet.endereco;
 
-import br.com.zera.dao.EnderecoDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.util.ExclusaoCascata;
 import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,10 +15,13 @@ import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
 /**
- * Servlet responsável por excluir um endereço.
+ * Servlet responsável por excluir um endereço e sua unidade.
  *
  * Apenas o admin pode excluir: ele escolhe o endereço na lista e confirma
  * no modal "Deseja mesmo excluir?". O código chega por parâmetro.
+ *
+ * A exclusão é em cascata: a unidade vinculada, seu gestor e seus estoques
+ * também são apagados (veja {@link ExclusaoCascata}).
  *
  * @author Mayte B
  * @since 2026-09-28
@@ -27,7 +30,7 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class DeleteEnderecoServlet extends HttpServlet {
 
     /**
-     * Processa POST para excluir o endereço informado.
+     * Processa POST para excluir o endereço e os dados vinculados.
      *
      * @param request objeto HttpServletRequest com o parâmetro codigo
      * @param response objeto HttpServletResponse para redirecionamento ou erro
@@ -36,7 +39,6 @@ public class DeleteEnderecoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-
         try {
             // só o admin pode fazer isso
             if (Sessao.admin(request) == null) {
@@ -46,23 +48,24 @@ public class DeleteEnderecoServlet extends HttpServlet {
 
             // lê o código
             String codigoTexto = request.getParameter("codigo");
-            Integer codigo = null;
-            if (codigoTexto != null && !codigoTexto.isBlank()) {
-                codigo = Integer.parseInt(codigoTexto.trim());
-            }
-            if (codigo == null) {
+            if (codigoTexto == null || codigoTexto.isBlank()) {
                 exibirErro(request, response, "Endereço não informado.", ERROR_PAGE);
                 return;
             }
 
-            // exclui do banco
-            new EnderecoDAO().delete(codigo);
+            int codigo = Integer.parseInt(codigoTexto.trim());
+            if (codigo <= 0) {
+                exibirErro(request, response, "Código do endereço inválido.", ERROR_PAGE);
+                return;
+            }
+
+            // exclui a unidade, o endereço, o gestor e os estoques na mesma transação
+            ExclusaoCascata.excluirEndereco(codigo);
 
             // redirect
             response.sendRedirect(request.getContextPath() + "/endereco/lista");
 
         } catch (NotFoundException nfe) {
-            nfe.printStackTrace();
             exibirErro(request, response, nfe, ERROR_PAGE);
         } catch (NumberFormatException nmfe) {
             exibirErro(request, response, "Código do endereço inválido.", ERROR_PAGE);
