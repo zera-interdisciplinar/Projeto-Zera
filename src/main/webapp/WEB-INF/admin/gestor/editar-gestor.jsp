@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -27,22 +26,19 @@
 
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-
         <a href="${ctx}/gestor/lista" class="voltar">
             <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
             <span>Voltar</span>
         </a>
-
         <h1 class="nome-da-area">Editar gestor</h1>
 
         <c:choose>
             <c:when test="${empty gestor}">
                 <p class="mensagem-erro-registro">Registro não encontrado. Volte para a listagem.</p>
             </c:when>
-
             <c:otherwise>
                 <section class="edicao">
-                    <form action="${ctx}/gestor/alterar" method="post" class="form-crud">
+                    <form action="${ctx}/gestor/alterar" method="post" class="form-crud" id="form-editar-gestor">
                         <input type="hidden" name="codigo" value="${gestor.codigo}">
 
                         <c:if test="${not empty erroInterno}">
@@ -90,7 +86,8 @@
                                 <label for="senha">Nova senha (opcional)</label>
                                 <div class="campo-senha-container">
                                     <input type="password" id="senha" name="senha"
-                                           placeholder="Digite uma nova senha">
+                                           placeholder="Digite uma nova senha"
+                                           aria-describedby="erro-senha">
                                     <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
                                         <img src="${ctx}/images/icone-ver.svg"
                                              data-icone-ver="${ctx}/images/icone-ver.svg"
@@ -98,13 +95,16 @@
                                              alt="Ver senha">
                                     </button>
                                 </div>
+                                <p id="erro-senha" role="alert" hidden
+                                   style="color:#c62828;font-size:14px;margin-top:6px;"></p>
                             </div>
 
                             <div class="campo-grupo">
                                 <label for="confirmacao">Confirmar nova senha</label>
                                 <div class="campo-senha-container">
                                     <input type="password" id="confirmacao" name="confirmacao"
-                                           placeholder="Confirme a nova senha">
+                                           placeholder="Confirme a nova senha"
+                                           aria-describedby="erro-confirmacao">
                                     <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
                                         <img src="${ctx}/images/icone-ver.svg"
                                              data-icone-ver="${ctx}/images/icone-ver.svg"
@@ -112,6 +112,8 @@
                                              alt="Ver senha">
                                     </button>
                                 </div>
+                                <p id="erro-confirmacao" role="alert" hidden
+                                   style="color:#c62828;font-size:14px;margin-top:6px;"></p>
                             </div>
                         </div>
 
@@ -126,35 +128,121 @@
 </div>
 
 <script>
-    // Rotação da seta do select
-    document.querySelectorAll('select').forEach(sel => {
-        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
-        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
-        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    document.querySelectorAll("select").forEach(function(sel) {
+        sel.addEventListener("click", function() {
+            sel.classList.toggle("select-girar");
+        });
+        sel.addEventListener("blur", function() {
+            sel.classList.remove("select-girar");
+        });
+        sel.addEventListener("change", function() {
+            sel.classList.remove("select-girar");
+        });
     });
 
-    // Alternância do botão de mostrar/ocultar senha
-    document.querySelectorAll('.btn-olho-senha').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const container = btn.closest('.campo-senha-container');
-            const input = container.querySelector('input');
-            const img = btn.querySelector('img');
+    document.querySelectorAll(".btn-olho-senha").forEach(function(btn) {
+        btn.addEventListener("click", function(evento) {
+            evento.preventDefault();
 
-            const iconeVer = img.getAttribute('data-icone-ver');
-            const iconeNaoVer = img.getAttribute('data-icone-naover');
+            const container = btn.closest(".campo-senha-container");
+            const input = container.querySelector("input");
+            const img = btn.querySelector("img");
+            const iconeVer = img.getAttribute("data-icone-ver");
+            const iconeNaoVer = img.getAttribute("data-icone-naover");
 
-            if (input.type === 'password') {
-                input.type = 'text';
+            if (input.type === "password") {
+                input.type = "text";
                 img.src = iconeNaoVer;
-                img.alt = 'Ocultar senha';
+                img.alt = "Ocultar senha";
             } else {
-                input.type = 'password';
+                input.type = "password";
                 img.src = iconeVer;
-                img.alt = 'Ver senha';
+                img.alt = "Ver senha";
             }
         });
     });
+
+    const formulario = document.getElementById("form-editar-gestor");
+
+    if (formulario !== null) {
+        const senha = document.getElementById("senha");
+        const confirmacao = document.getElementById("confirmacao");
+        const erroSenha = document.getElementById("erro-senha");
+        const erroConfirmacao = document.getElementById("erro-confirmacao");
+
+        function mostrarErro(campo, elementoErro, mensagem) {
+            elementoErro.textContent = mensagem;
+            elementoErro.hidden = false;
+            campo.style.borderColor = "#c62828";
+            campo.setAttribute("aria-invalid", "true");
+        }
+
+        function limparErro(campo, elementoErro) {
+            elementoErro.textContent = "";
+            elementoErro.hidden = true;
+            campo.style.borderColor = "";
+            campo.removeAttribute("aria-invalid");
+        }
+
+        function validarSenhas() {
+            limparErro(senha, erroSenha);
+            limparErro(confirmacao, erroConfirmacao);
+
+            const novaSenha = senha.value;
+            const confirmarSenha = confirmacao.value;
+
+            if (novaSenha === "" && confirmarSenha === "") {
+                return true;
+            }
+
+            if (novaSenha === "") {
+                mostrarErro(senha, erroSenha, "Digite a nova senha.");
+                return false;
+            }
+
+            if (confirmarSenha === "") {
+                mostrarErro(confirmacao, erroConfirmacao, "Confirme a nova senha.");
+                return false;
+            }
+
+            if (novaSenha.length < 8) {
+                mostrarErro(senha, erroSenha, "A senha deve ter pelo menos 8 caracteres.");
+                return false;
+            }
+
+            if (!/[0-9]/.test(novaSenha)) {
+                mostrarErro(senha, erroSenha, "A senha deve conter pelo menos um número.");
+                return false;
+            }
+
+            if (!/[^a-zA-Z0-9]/.test(novaSenha)) {
+                mostrarErro(senha, erroSenha, "A senha deve conter pelo menos um caractere especial.");
+                return false;
+            }
+
+            if (novaSenha !== confirmarSenha) {
+                mostrarErro(confirmacao, erroConfirmacao, "As senhas não coincidem.");
+                return false;
+            }
+
+            return true;
+        }
+
+        formulario.addEventListener("submit", function(evento) {
+            if (!validarSenhas()) {
+                evento.preventDefault();
+            }
+        });
+
+        senha.addEventListener("input", function() {
+            limparErro(senha, erroSenha);
+            limparErro(confirmacao, erroConfirmacao);
+        });
+
+        confirmacao.addEventListener("input", function() {
+            limparErro(confirmacao, erroConfirmacao);
+        });
+    }
 </script>
 </body>
 </html>

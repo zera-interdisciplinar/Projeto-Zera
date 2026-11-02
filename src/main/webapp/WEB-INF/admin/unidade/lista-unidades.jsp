@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -16,7 +17,6 @@
     <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -28,7 +28,6 @@
 
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-
         <h1 class="nome-da-area">Unidades</h1>
 
         <section class="tabela">
@@ -59,12 +58,17 @@
                         <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
-
                     <tbody>
                     <c:forEach var="item" items="${unidades}">
+                        <c:set var="nomeOrganizacao" value="Não encontrada"/>
+                        <c:forEach var="org" items="${organizacoes}">
+                            <c:if test="${org.codigo == item.codOrganizacao}">
+                                <c:set var="nomeOrganizacao" value="${org.nome}"/>
+                            </c:if>
+                        </c:forEach>
+
                         <tr class="linha-unidade">
                             <td><c:out value="${item.codigo}"/></td>
-
                             <td class="col-cnpj">
                                 <c:choose>
                                     <c:when test="${fn:length(item.cnpj) == 14}">
@@ -75,30 +79,19 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-
                             <td><c:out value="${item.email}"/></td>
-                            <td><c:out value="${item.codOrganizacao}"/></td>
-
+                            <td><c:out value="${nomeOrganizacao}"/></td>
                             <td class="col-acoes">
                                 <div class="acoes">
                                     <a href="${ctx}/unidade/perfil?codigo=${item.codigo}"
-                                       class="btn-icone"
-                                       title="Visualizar">
-                                        <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
-                                    </a>
-
-                                    <a href="${ctx}/unidade/perfil?codigo=${item.codigo}"
-                                       class="btn-icone"
-                                       title="Editar">
+                                       class="btn-icone" title="Editar">
                                         <img src="${ctx}/images/icone-editar.svg" alt="Editar">
                                     </a>
 
                                     <form method="post" action="${ctx}/unidade/excluir" class="form-excluir">
                                         <input type="hidden" name="codigo" value="${item.codigo}">
-                                        <button type="button"
-                                                class="btn-icone zera-abrir-exclusao"
-                                                title="Excluir unidade"
-                                                aria-label="Excluir unidade">
+                                        <button type="button" class="btn-icone zera-abrir-exclusao"
+                                                title="Excluir unidade" aria-label="Excluir unidade">
                                             <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
                                         </button>
                                     </form>
@@ -118,7 +111,8 @@
 </div>
 
 <div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
-    <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-exclusao-titulo" aria-describedby="zera-exclusao-descricao">
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true"
+         aria-labelledby="zera-exclusao-titulo" aria-describedby="zera-exclusao-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
         <h2 id="zera-exclusao-titulo">Deseja mesmo excluir?</h2>
         <p id="zera-exclusao-descricao" class="zera-modal-descricao">
@@ -132,7 +126,8 @@
 </div>
 
 <div id="zera-modal-sair" class="zera-modal-overlay" hidden>
-    <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-sair-titulo" aria-describedby="zera-sair-descricao">
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true"
+         aria-labelledby="zera-sair-titulo" aria-describedby="zera-sair-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
         <h2 id="zera-sair-titulo">Deseja realmente sair?</h2>
         <p id="zera-sair-descricao" class="zera-modal-descricao">
@@ -140,7 +135,8 @@
         </p>
         <div class="zera-modal-botoes">
             <button type="button" class="zera-modal-voltar" id="zera-cancelar-sair">Voltar</button>
-            <a href="${ctx}/logout" class="zera-modal-confirmar" id="zera-confirmar-sair" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Sair</a>
+            <a href="${ctx}/logout" class="zera-modal-confirmar" id="zera-confirmar-sair"
+               style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Sair</a>
         </div>
     </div>
 </div>
@@ -173,7 +169,6 @@
         const cancelarExcluir = document.getElementById("zera-cancelar-exclusao");
         const fecharExcluir = document.getElementById("zera-fechar-exclusao");
         const confirmarExcluir = document.getElementById("zera-confirmar-exclusao");
-
         let formExclusao = null;
 
         function abrirModal(botao) {
@@ -239,7 +234,6 @@
         });
     })();
 </script>
-
 <script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>
