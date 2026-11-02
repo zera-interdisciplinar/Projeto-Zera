@@ -24,29 +24,13 @@
 <body>
 
 <%@ include file="menu.jspf" %>
+<main class="informacoes tela-scroll">
+    <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
+    <h1 class="nome-da-area">Olá, <c:out value="${primeiroNome}"/>!</h1>
+    <p class="subtitulo-area">Gerencie os dados da sua unidade pelo seu painel.</p>
 
-<main class="informacoes">
-
-    <img
-            src="${ctx}/images/z-transparente.png"
-            alt=""
-            class="z-marca-dagua"
-    >
-
-    <h1 class="nome-da-area">
-        Olá, <c:out value="${primeiroNome}"/>!
-    </h1>
-
-    <p class="subtitulo-area">
-        Gerencie os dados da sua unidade pelo seu painel.
-    </p>
-
-    <!-- Cards Superiores -->
-    <section
-            class="home-cards-container home-cards-container-tres"
-            aria-label="Resumo do painel"
-    >
-
+    <!-- 3 Cards superiores ocupando 100% da largura -->
+    <section class="home-cards-container" aria-label="Resumo do painel">
         <div class="home-card">
             <span class="titulo-metrica">Estoques</span>
 
@@ -73,106 +57,47 @@
 
         <div class="home-card">
             <span class="titulo-metrica">Plano</span>
-
-            <span class="plano-metrica">
-                <c:out value="${empty plano ? 'Sem plano' : plano.nome}"/>
+            <span class="plano-metrica"><c:out value="${empty plano ? 'Sem plano' : plano.nome}"/></span>
+            <span class="descricao-metrica">
+                <c:choose>
+                    <c:when test="${not empty plano and plano.duracaoEmMeses == 1}">Pago mensalmente</c:when>
+                    <c:when test="${not empty plano and plano.duracaoEmMeses == 12}">Pago anualmente</c:when>
+                </c:choose>
             </span>
-
-            <c:choose>
-                <c:when test="${not empty plano and plano.duracaoEmMeses == 1}">
-                    <span class="descricao-metrica">Pago mensalmente</span>
-                </c:when>
-
-                <c:when test="${not empty plano and plano.duracaoEmMeses == 12}">
-                    <span class="descricao-metrica">Pago anualmente</span>
-                </c:when>
-                <c:otherwise>
-                    <span class="descricao-metrica">Assinatura ativa</span>
-                </c:otherwise>
-            </c:choose>
         </div>
 
     </section>
 
-    <!-- Vigência da Assinatura -->
-    <section class="home-vigencia" aria-labelledby="titulo-vigencia">
+    <!-- Painel de Vigência da Assinatura -->
+    <section class="home-painel-inferior home-painel-inferior-unico">
+        <article class="home-painel">
+            <div class="grafico-cabecalho">
+                <h2 class="titulo-grafico-vigencia">Vigência da assinatura</h2>
+                <a href="${ctx}/assinatura/perfil" class="botao-ver-azul">Ver assinatura &rsaquo;</a>
+            </div>
 
-        <h2 id="titulo-vigencia">
-            Vigência da assinatura
-        </h2>
-
-        <c:choose>
-
-            <c:when test="${not empty assinatura and not empty assinatura.dataInicio and not empty assinatura.dataFim}">
-
-                <div
-                        class="home-vigencia-conteudo"
-                        id="vigencia-conteudo"
-                        data-inicio="${fn:escapeXml(assinatura.dataInicio)}"
-                        data-fim="${fn:escapeXml(assinatura.dataFim)}"
-                >
-
-                    <!-- Gráfico Circular em 2 Cores: Laranja (gastos) e Azul Claro (restantes) -->
-                    <div class="home-vigencia-grafico">
-
-                        <svg
-                                class="home-vigencia-svg"
-                                id="vigencia-grafico"
-                                viewBox="0 0 240 240"
-                                role="img"
-                                aria-label="Calculando a vigência em dias"
-                        >
-                            <!-- Base: Azul Claro (dias restantes) -->
-                            <circle
-                                    cx="120"
-                                    cy="120"
-                                    r="94"
-                                    fill="none"
-                                    stroke="#38BDF8"
-                                    stroke-width="26"
-                            />
-
-                            <!-- Preenchimento: Laranja (dias já gastos) -->
-                            <circle
-                                    id="vigencia-circulo-usado"
-                                    cx="120"
-                                    cy="120"
-                                    r="94"
-                                    fill="none"
-                                    stroke="#F59E0B"
-                                    stroke-width="26"
-                                    transform="rotate(-90 120 120)"
-                                    stroke-dasharray="0 1000"
-                            />
-                        </svg>
-
-                        <div class="home-vigencia-centro">
-                            <strong id="vigencia-dias">0</strong>
-                            <span id="vigencia-rotulo">dias gastos</span>
-                        </div>
-
+            <div class="vigencia-conteudo">
+                <!-- Caixa de Início e Término -->
+                <div class="card-datas-vigencia">
+                    <div class="bloco-data">
+                        <span class="legenda-data">Início</span>
+                        <span class="valor-data" id="campo-data-inicio"><c:out value="${empty assinatura ? '—' : assinatura.dataInicio}"/></span>
                     </div>
+                    <hr class="divisor-data">
+                    <div class="bloco-data">
+                        <span class="legenda-data">Término</span>
+                        <span class="valor-data" id="campo-data-termino"><c:out value="${empty assinatura ? '—' : assinatura.dataFim}"/></span>
+                    </div>
+                </div>
 
-                    <!-- Lateral: Legenda 2 cores + Datas Início/Fim + Botão "Ver assinatura" -->
-                    <div class="home-vigencia-painel-lateral">
-
-                        <!-- Legenda com contagem e cores -->
-                        <div class="home-vigencia-legenda-cores">
-                            <div class="legenda-cor-item">
-                                <span class="badge-cor badge-laranja"></span>
-                                <div class="legenda-cor-info">
-                                    <span class="legenda-cor-titulo">Dias já gastos</span>
-                                    <strong class="legenda-cor-valor" id="legenda-dias-gastos">0 dias</strong>
-                                </div>
-                            </div>
-
-                            <div class="legenda-cor-item">
-                                <span class="badge-cor badge-azul-claro"></span>
-                                <div class="legenda-cor-info">
-                                    <span class="legenda-cor-titulo">Dias que ainda faltam</span>
-                                    <strong class="legenda-cor-valor" id="legenda-dias-restantes">0 dias</strong>
-                                </div>
-                            </div>
+                <!-- Gráfico Donut -->
+                <div class="grafico-rosca-wrapper">
+                    <div class="grafico-rosca" id="grafico-rosca-donut"
+                         data-inicio="${assinatura.dataInicio}"
+                         data-fim="${assinatura.dataFim}">
+                        <div class="rosca-centro">
+                            <span class="rosca-numero" id="rosca-valor">0</span>
+                            <span class="rosca-rotulo" id="rosca-legenda">dias gastos</span>
                         </div>
 
                         <!-- Datas de Início e Término -->
@@ -203,115 +128,134 @@
                         </a>
 
                     </div>
-
                 </div>
 
-            </c:when>
-
-            <c:otherwise>
-                <p class="home-vigencia-indisponivel">
-                    Não há dados de vigência disponíveis para esta assinatura.
-                </p>
-            </c:otherwise>
-
-        </c:choose>
-
+                <!-- Legenda Lateral Interativa -->
+                <div class="vigencia-legenda">
+                    <div class="item-legenda interativo" data-tipo="gastos">
+                        <span class="indicador-cor cor-gastos"></span>
+                        <div class="detalhes-legenda">
+                            <span class="texto-legenda">Dias gastos</span>
+                            <small class="subtexto-legenda" id="qtd-dias-gastos">0 dias</small>
+                        </div>
+                    </div>
+                    <div class="item-legenda interativo" data-tipo="restantes">
+                        <span class="indicador-cor cor-restantes"></span>
+                        <div class="detalhes-legenda">
+                            <span class="texto-legenda">Dias restantes</span>
+                            <small class="subtexto-legenda" id="qtd-dias-restantes">0 dias</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
     </section>
 
 </main>
 
 </div>
 
+<!-- SCRIPT QUE PROCESSA AS DATAS DO BACKEND E ALINHA O GRÁFICO -->
 <script>
-    "use strict";
+(function() {
+    function parseLocalDate(str) {
+        if (!str || str === "—") return null;
+        str = String(str).trim();
+        if (str.indexOf("-") !== -1) {
+            var p = str.split("-");
+            return new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+        } else if (str.indexOf("/") !== -1) {
+            var p = str.split("/");
+            return new Date(parseInt(p[2], 10), parseInt(p[1], 10) - 1, parseInt(p[0], 10));
+        }
+        return null;
+    }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    function formatarParaBR(date) {
+        if (!date) return "—";
+        var dia = String(date.getDate()).padStart(2, '0');
+        var mes = String(date.getMonth() + 1).padStart(2, '0');
+        var ano = date.getFullYear();
+        return dia + "/" + mes + "/" + ano;
+    }
 
-        const conteudo = document.getElementById("vigencia-conteudo");
-        if (!conteudo) return;
+    function processarVigencia() {
+        try {
+            var rosca = document.getElementById("grafico-rosca-donut");
+            var elInicio = document.getElementById("campo-data-inicio");
+            var elTermino = document.getElementById("campo-data-termino");
+            if (!rosca) return;
 
-        const circulo = document.getElementById("vigencia-circulo-usado");
-        const grafico = document.getElementById("vigencia-grafico");
+            var elNumero = document.getElementById("rosca-valor");
+            var elLegenda = document.getElementById("rosca-legenda");
+            var elQtdGastos = document.getElementById("qtd-dias-gastos");
+            var elQtdRestantes = document.getElementById("qtd-dias-restantes");
+            var itens = document.querySelectorAll(".item-legenda.interativo");
 
-        const gastosEl = document.getElementById("vigencia-dias");
-        const rotuloEl = document.getElementById("vigencia-rotulo");
-        const legendaGastosEl = document.getElementById("legenda-dias-gastos");
-        const legendaRestantesEl = document.getElementById("legenda-dias-restantes");
+            var dtInicio = parseLocalDate(rosca.getAttribute("data-inicio"));
+            var dtFim = parseLocalDate(rosca.getAttribute("data-fim"));
 
-        const MS_DIA = 86400000;
-
-        function dataUtc(valor) {
-            const resultado = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(valor || "").trim());
-            if (!resultado) return NaN;
-
-            const ano = Number(resultado[1]);
-            const mes = Number(resultado[2]);
-            const dia = Number(resultado[3]);
-
-            const numero = Date.UTC(ano, mes - 1, dia);
-            const teste = new Date(numero);
-
-            if (
-                teste.getUTCFullYear() !== ano ||
-                teste.getUTCMonth() !== mes - 1 ||
-                teste.getUTCDate() !== dia
-            ) {
-                return NaN;
+            if (!dtInicio || !dtFim) {
+                if (elNumero) elNumero.textContent = "0";
+                if (elQtdGastos) elQtdGastos.textContent = "0 dias";
+                if (elQtdRestantes) elQtdRestantes.textContent = "0 dias";
+                rosca.style.background = "#dfddd6";
+                return;
             }
 
-            return numero;
+            if (elInicio) elInicio.textContent = formatarParaBR(dtInicio);
+            if (elTermino) elTermino.textContent = formatarParaBR(dtFim);
+
+            dtInicio.setHours(0, 0, 0, 0);
+            dtFim.setHours(0, 0, 0, 0);
+            var hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+
+            var msPorDia = 1000 * 60 * 60 * 24;
+            var totalDias = Math.round((dtFim.getTime() - dtInicio.getTime()) / msPorDia);
+            if (totalDias <= 0) totalDias = 1;
+
+            var diasGastos = Math.round((hoje.getTime() - dtInicio.getTime()) / msPorDia);
+            if (diasGastos < 0) diasGastos = 0;
+            if (diasGastos > totalDias) diasGastos = totalDias;
+
+            var diasRestantes = totalDias - diasGastos;
+            var pctGastos = (diasGastos / totalDias) * 100;
+
+            rosca.style.background = "conic-gradient(#F59E0B 0% " + pctGastos + "%, #2958D1 " + pctGastos + "% 100%)";
+
+            if (elNumero) elNumero.textContent = diasGastos;
+            if (elLegenda) elLegenda.textContent = "dias gastos";
+            if (elQtdGastos) elQtdGastos.textContent = diasGastos + " dias";
+            if (elQtdRestantes) elQtdRestantes.textContent = diasRestantes + " dias";
+
+            itens.forEach(function(item) {
+                var tipo = item.getAttribute("data-tipo");
+                item.onmouseenter = function() {
+                    if (tipo === "restantes") {
+                        if (elNumero) elNumero.textContent = diasRestantes;
+                        if (elLegenda) elLegenda.textContent = "dias restantes";
+                    } else {
+                        if (elNumero) elNumero.textContent = diasGastos;
+                        if (elLegenda) elLegenda.textContent = "dias gastos";
+                    }
+                };
+                item.onmouseleave = function() {
+                    if (elNumero) elNumero.textContent = diasGastos;
+                    if (elLegenda) elLegenda.textContent = "dias gastos";
+                };
+            });
+        } catch (e) {
+            console.error("Erro no processamento da vigência:", e);
         }
+    }
 
-        const inicio = dataUtc(conteudo.dataset.inicio);
-        const fim = dataUtc(conteudo.dataset.fim);
-        const agora = new Date();
-        const hoje = Date.UTC(agora.getFullYear(), agora.getMonth(), agora.getDate());
-
-        if (!Number.isFinite(inicio) || !Number.isFinite(fim) || fim <= inicio) {
-            if (gastosEl) gastosEl.textContent = "—";
-            if (rotuloEl) rotuloEl.textContent = "dias gastos";
-            if (legendaGastosEl) legendaGastosEl.textContent = "—";
-            if (legendaRestantesEl) legendaRestantesEl.textContent = "—";
-
-            if (grafico) {
-                grafico.setAttribute("aria-label", "Datas inválidas para calcular a vigência");
-            }
-            return;
-        }
-
-        const total = Math.max(1, Math.round((fim - inicio) / MS_DIA));
-        const passados = Math.round((hoje - inicio) / MS_DIA);
-        const usados = Math.min(total, Math.max(0, passados));
-        const restantes = Math.max(0, total - usados);
-
-        if (gastosEl) gastosEl.textContent = String(usados);
-        if (rotuloEl) rotuloEl.textContent = usados === 1 ? "dia gasto" : "dias gastos";
-        if (legendaGastosEl) {
-            legendaGastosEl.textContent = usados + (usados === 1 ? " dia" : " dias");
-        }
-
-        if (legendaRestantesEl) {
-            legendaRestantesEl.textContent = restantes + (restantes === 1 ? " dia" : " dias");
-        }
-
-        const circunferencia = 2 * Math.PI * 94; // ~590.62
-        const segmentoUsado = (circunferencia * usados) / total;
-
-        if (circulo) {
-            circulo.setAttribute(
-                "stroke-dasharray",
-                segmentoUsado + " " + circunferencia
-            );
-        }
-
-        if (grafico) {
-            grafico.setAttribute(
-                "aria-label",
-                usados + " dias gastos, " + restantes + " dias que ainda faltam de um total de " + total + " dias"
-            );
-        }
-
-    });
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", processarVigencia);
+    } else {
+        processarVigencia();
+    }
+})();
 </script>
 
 <script src="${ctx}/js/popup.js" defer></script>

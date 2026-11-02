@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -11,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endereços - Zera</title>
+    <title>Editar endereço - Zera</title>
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
@@ -29,83 +28,89 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
-        <h1 class="nome-da-area">Endereços</h1>
+        <a href="${ctx}/endereco/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
 
-        <section class="tabela">
-            <form class="tabela-filtros" action="${ctx}/endereco/lista" method="get">
-                <div class="filtrador busca">
-                    <label for="buscar">Buscar</label>
+        <h1 class="nome-da-area">Editar endereço</h1>
 
-                    <input type="search" name="buscar" id="buscar"
-                           value="<c:out value='${param.buscar}'/>"
-                           placeholder="Pesquisar">
-                </div>
+        <c:choose>
+            <c:when test="${empty endereco}">
+                <p class="mensagem-erro-registro">Registro não encontrado. Volte para a listagem.</p>
+            </c:when>
 
-                <button type="submit" class="btn-lupa">Buscar</button>
+            <c:otherwise>
+                <section class="edicao">
+                    <form action="${ctx}/endereco/alterar" method="post" class="form-crud">
+                        <input type="hidden" name="codigo" value="${endereco.codigo}">
 
-            </form>
+                        <c:if test="${not empty erroInterno}">
+                            <p role="alert" class="alerta-erro">
+                                <c:out value="${erroInterno}"/>
+                            </p>
+                        </c:if>
 
-            <div class="tabela-rolagem">
-                <table class="itens-tabela">
-                    <thead>
-                    <tr>
-                        <th>Logradouro</th>
-                        <th>Número</th>
-                        <th>Bairro</th>
-                        <th>Cidade</th>
-                        <th>Estado</th>
-                        <th>CEP</th>
-                        <th class="col-acoes">Ações</th>
-                    </tr>
-                    </thead>
+                        <div class="form-grid">
+                            <div class="campo-grupo">
+                                <label for="logradouro">Logradouro</label>
+                                <input type="text" id="logradouro" name="logradouro"
+                                       value="<c:out value='${endereco.logradouro}'/>"
+                                       placeholder="Rua, Avenida, Alameda" required>
+                            </div>
 
-                    <tbody>
-                    <c:choose>
-                        <c:when test="${not empty enderecos}">
-                            <c:forEach var="item" items="${enderecos}">
-                                <tr>
-                                    <td><c:out value="${item.logradouro}"/></td>
-                                    <td><c:out value="${item.numero}"/></td>
-                                    <td><c:out value="${item.bairro}"/></td>
-                                    <td><c:out value="${item.cidade}"/></td>
-                                    <td><c:out value="${item.estado}"/></td>
-                                    <td><c:out value="${item.cep}"/></td>
+                            <div class="campo-grupo">
+                                <label for="numero">Número</label>
+                                <input type="number" id="numero" name="numero"
+                                       value="<c:out value='${endereco.numero}'/>"
+                                       placeholder="123" required>
+                            </div>
 
-                                    <td class="col-acoes">
-                                        <div class="acoes">
-                                            <a href="${ctx}/endereco/perfil?codigo=${item.codigo}"
-                                               title="Editar">
-                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                            </a>
+                            <div class="campo-grupo">
+                                <label for="bairro">Bairro</label>
+                                <input type="text" id="bairro" name="bairro"
+                                       value="<c:out value='${endereco.bairro}'/>"
+                                       placeholder="Bairro" required>
+                            </div>
 
-                                            <form action="${ctx}/endereco/excluir"
-                                                  method="post"
-                                                  onsubmit="return confirm('Confirma a exclusão?');">
+                            <div class="campo-grupo">
+                                <label for="cidade">Cidade</label>
+                                <input type="text" id="cidade" name="cidade"
+                                       value="<c:out value='${endereco.cidade}'/>"
+                                       placeholder="Cidade" required>
+                            </div>
 
-                                                <input type="hidden" name="codigo"
-                                                       value="${item.codigo}">
+                            <div class="campo-grupo">
+                                <label for="estado">Estado</label>
+                                <input type="text" id="estado" name="estado"
+                                       value="<c:out value='${endereco.estado}'/>"
+                                       placeholder="UF (Ex: SP)" maxlength="2" required>
+                            </div>
 
-                                                <button type="submit" aria-label="Excluir">
-                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:when>
+                            <div class="campo-grupo">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" name="cep"
+                                       value="<c:out value='${endereco.cep}'/>"
+                                       placeholder="00000-000" maxlength="9" required>
+                            </div>
+                        </div>
 
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="7">Nenhum endereço encontrado.</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                        <div class="form-rodape">
+                            <button type="submit" id="botao-salvar">Salvar</button>
+                        </div>
+                    </form>
+                </section>
+            </c:otherwise>
+        </c:choose>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

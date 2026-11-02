@@ -24,7 +24,7 @@
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <%@ include file="menu.jspf" %>
 
-<main class="informacoes">
+<main class="informacoes tela-scroll">
     <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
     <h1 class="nome-da-area">Meu perfil</h1>

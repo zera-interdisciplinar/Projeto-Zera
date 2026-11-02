@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -31,84 +30,132 @@
 
         <h1 class="nome-da-area">Configurações</h1>
 
-        <section class="tabela">
-            <h2>Meu perfil</h2>
+        <%-- Seção de alteração do perfil --%>
+        <section class="edicao secao-config">
+            <h2 class="subtitulo-secao">Meu perfil</h2>
 
-            <form method="post" action="${ctx}/admin/alterar">
-                <div class="filtrador">
-                    <label for="nome">Nome</label>
+            <form method="post" action="${ctx}/admin/alterar" class="form-crud">
+                <div class="form-grid">
+                    <div class="campo-grupo">
+                        <label for="nome">Nome</label>
+                        <input
+                                type="text"
+                                id="nome"
+                                name="nome"
+                                value="<c:out value='${sessionScope.adminLogado.nome}'/>"
+                                placeholder="Digite seu nome completo"
+                                required>
+                    </div>
 
-                    <input
-                            class="form-campo-total"
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            value="<c:out value='${sessionScope.adminLogado.nome}'/>"
-                            placeholder=""
-                            required>
+                    <div class="campo-grupo">
+                        <label for="email">E-mail</label>
+                        <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="<c:out value='${sessionScope.adminLogado.email}'/>"
+                                placeholder="Digite seu e-mail"
+                                required>
+                    </div>
                 </div>
 
-                <div class="filtrador">
-                    <label for="email">E-mail</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="<c:out value='${sessionScope.adminLogado.email}'/>"
-                            placeholder=""
-                            required>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Salvar perfil</button>
                 </div>
-
-                <button type="submit">Salvar perfil</button>
             </form>
         </section>
 
-        <section class="tabela">
-            <h2>Alterar senha</h2>
+        <%-- Seção de alteração de senha --%>
+        <section class="edicao secao-config">
+            <h2 class="subtitulo-secao">Alterar senha</h2>
 
-            <form method="post" action="${ctx}/admin/alterarSenha">
-                <div class="filtrador">
-                    <label for="senhaAtual">Senha atual</label>
+            <form method="post" action="${ctx}/admin/alterarSenha" class="form-crud">
+                <div class="form-grid">
+                    <div class="campo-grupo campo-cheio">
+                        <label for="senhaAtual">Senha atual</label>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="senhaAtual"
+                                    name="senhaAtual"
+                                    placeholder="Digite sua senha atual"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
+                    </div>
 
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="senhaAtual"
-                            name="senhaAtual"
-                            placeholder=""
-                            required>
+                    <div class="campo-grupo">
+                        <label for="novaSenha">Nova senha</label>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="novaSenha"
+                                    name="novaSenha"
+                                    placeholder="Digite a nova senha"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label for="confirmacao">Confirmar nova senha</label>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="confirmacao"
+                                    name="confirmacao"
+                                    placeholder="Confirme a nova senha"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="filtrador">
-                    <label for="novaSenha">Nova senha</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="novaSenha"
-                            name="novaSenha"
-                            placeholder=""
-                            required>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar-senha">Alterar senha</button>
                 </div>
-
-                <div class="filtrador">
-                    <label for="confirmacao">Confirmar nova senha</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="confirmacao"
-                            name="confirmacao"
-                            placeholder=""
-                            required>
-                </div>
-
-                <button type="submit">Alterar senha</button>
             </form>
         </section>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('.btn-olho-senha').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const container = btn.closest('.campo-senha-container');
+            const input = container.querySelector('input');
+            const img = btn.querySelector('img');
+
+            const iconeVer = img.getAttribute('data-icone-ver');
+            const iconeNaoVer = img.getAttribute('data-icone-naover');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                img.src = iconeNaoVer;
+                img.alt = 'Ocultar senha';
+            } else {
+                input.type = 'password';
+                img.src = iconeVer;
+                img.alt = 'Ver senha';
+            }
+        });
+    });
+</script>
 </body>
 </html>

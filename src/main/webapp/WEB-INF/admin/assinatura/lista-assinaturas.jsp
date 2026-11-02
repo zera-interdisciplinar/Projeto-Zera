@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -15,6 +14,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
+    <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -28,29 +28,29 @@
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
         <h1 class="nome-da-area">Assinaturas</h1>
         <section class="tabela">
-            <form class="tabela-filtros" id="form-filtros">
+            <form class="tabela-filtros" onsubmit="event.preventDefault()">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-                    <div class="campo-busca">
-                        <input type="search" id="buscar" name="buscar" placeholder="Organização ou plano">
-                        <button type="submit" class="btn-lupa" aria-label="Buscar">
-                            <img src="${ctx}/images/icone-lupa.svg" alt="">
-                        </button>
-                    </div>
+                    <input id="buscar" name="buscar" type="search"
+                           placeholder="Código, organização ou plano">
+                    <button type="button" class="btn-lupa-busca" onclick="filtrar()" aria-label="Buscar">
+                        <img src="${ctx}/images/icone-lupa.svg" alt="Buscar">
+                    </button>
                 </div>
+
                 <div class="filtrador">
                     <label for="situacao">Situação</label>
                     <select id="situacao" name="situacao">
-                        <option value="todos">Todas</option>
-                        <option value="ativa">Ativa</option>
-                        <option value="cancelada">Cancelada</option>
-                        <option value="expirada">Expirada</option>
-                        <option value="vencendo">Vencendo em 30 dias</option>
+                        <option value="todos">Todos</option>
+                        <option value="Ativa">Ativa</option>
+                        <option value="Inativa">Inativa</option>
+                        <option value="Vencida">Vencida</option>
                     </select>
                 </div>
+
                 <a href="${ctx}/assinatura/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
-                    Nova assinatura
+                    <span>Nova assinatura</span>
                 </a>
             </form>
             <div class="tabela-rolagem">
@@ -63,53 +63,58 @@
                         <th>Início</th>
                         <th>Fim</th>
                         <th>Status</th>
-                        <th class="col-acoes">Ações</th>
+                        <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="item" items="${assinaturas}">
-                        <tr class="linha-assinatura" data-status="<c:out value='${fn:toLowerCase(item.status)}'/>" data-fim="${item.dataFim}">
-                            <td><c:out value="${item.codigo}"/></td>
-                            <td>
-                                <c:set var="organizacaoEncontrada" value="false"/>
-                                <c:forEach var="org" items="${organizacoes}">
-                                    <c:if test="${org.codigo == item.codOrganizacao}">
-                                        <c:out value="${org.nome}"/>
-                                        <c:set var="organizacaoEncontrada" value="true"/>
-                                    </c:if>
-                                </c:forEach>
-                                <c:if test="${not organizacaoEncontrada}"><c:out value="${item.codOrganizacao}"/></c:if>
-                            </td>
-                            <td>
-                                <c:set var="planoEncontrado" value="false"/>
-                                <c:forEach var="plano" items="${planos}">
-                                    <c:if test="${plano.codigo == item.codPlano}">
-                                        <c:out value="${plano.nome}"/>
-                                        <c:set var="planoEncontrado" value="true"/>
-                                    </c:if>
-                                </c:forEach>
-                                <c:if test="${not planoEncontrado}"><c:out value="${item.codPlano}"/></c:if>
-                            </td>
-                            <td><c:out value="${item.dataInicio}"/></td>
-                            <td><c:out value="${item.dataFim}"/></td>
-                            <td><c:out value="${item.status}"/></td>
-                            <td class="col-acoes">
-                                <div class="acoes">
-                                    <a href="${ctx}/assinatura/perfil?codigo=${item.codigo}" title="Editar">
-                                        <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                    </a>
-                                    <form action="${ctx}/assinatura/excluir" method="post" onsubmit="return confirm('Confirma a exclusão desta assinatura?');">
-                                        <input type="hidden" name="codigo" value="${item.codigo}">
-                                        <button type="submit" aria-label="Excluir">
-                                            <img src="${ctx}/images/icone-excluir.svg" alt="">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${not empty assinaturas}">
+                            <c:forEach var="item" items="${assinaturas}">
+                                <tr class="linha-assinatura" data-status="${item.status}">
+                                    <td><c:out value="${item.codigo}"/></td>
+                                    <td><c:out value="${item.codOrganizacao}"/></td>
+                                    <td><c:out value="${item.codPlano}"/></td>
+                                    <td><c:out value="${item.dataInicio}"/></td>
+                                    <td><c:out value="${item.dataFim}"/></td>
+                                    <td><c:out value="${item.status}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/assinatura/perfil?codigo=${item.codigo}"
+                                               class="btn-icone"
+                                               title="Visualizar">
+                                                <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
+                                            </a>
+
+                                            <a href="${ctx}/assinatura/perfil?codigo=${item.codigo}"
+                                               class="btn-icone"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form method="post" action="${ctx}/assinatura/excluir" class="form-excluir">
+                                                <input type="hidden" name="codigo" value="${item.codigo}">
+                                                <button type="button"
+                                                        class="btn-icone zera-abrir-exclusao"
+                                                        title="Excluir assinatura"
+                                                        aria-label="Excluir assinatura">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="7" class="sem-dados">Nenhuma assinatura cadastrada.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+
                     <tr id="sem-resultados" hidden>
-                        <td colspan="7">Nenhuma assinatura encontrada.</td>
+                        <td colspan="7" class="sem-dados">Nenhuma assinatura encontrada.</td>
                     </tr>
                     </tbody>
                 </table>
@@ -118,75 +123,65 @@
     </main>
 </div>
 
+<div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
+        <h2>Deseja mesmo excluir?</h2>
+        <p class="zera-modal-descricao">Essa ação excluirá a assinatura e não poderá ser desfeita.</p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-exclusao">Voltar</button>
+            <button type="button" class="zera-modal-confirmar" id="zera-confirmar-exclusao">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<div id="zera-modal-sair" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
+        <h2>Deseja realmente sair?</h2>
+        <p class="zera-modal-descricao">Você será desconectado da sua conta de administrador.</p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-sair">Voltar</button>
+            <a href="${ctx}/logout" class="zera-modal-confirmar" id="zera-confirmar-sair" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Sair</a>
+        </div>
+    </div>
+</div>
+
 <script>
-    let busca = document.getElementById("buscar");
-    let situacao = document.getElementById("situacao");
-    let linhas = document.querySelectorAll(".linha-assinatura");
-    let aviso = document.getElementById("sem-resultados");
+    const busca = document.getElementById('buscar');
+    const situacao = document.getElementById('situacao');
+    const linhas = [...document.querySelectorAll('.linha-assinatura')];
+    const aviso = document.getElementById('sem-resultados');
 
     function filtrar() {
-        let termo = busca.value.toLowerCase().trim();
-        let filtro = situacao.value;
-        let quantidade = 0;
+        const termo = busca.value.trim().toLowerCase();
+        const statusFiltro = situacao.value.toLowerCase();
+        let visiveis = 0;
 
-        let hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
+        linhas.forEach((linha) => {
+            const conteudoLinha = linha.textContent.toLowerCase();
+            const statusLinha = (linha.dataset.status || '').toLowerCase();
 
-        let limite = new Date();
-        limite.setHours(0, 0, 0, 0);
-        limite.setDate(limite.getDate() + 30);
+            const textoOk = conteudoLinha.includes(termo);
+            const statusOk = statusFiltro === 'todos' || statusLinha === statusFiltro;
 
-        for (let i = 0; i < linhas.length; i++) {
-            let linha = linhas[i];
-            let texto = linha.innerText.toLowerCase();
-            let status = linha.getAttribute("data-status").toLowerCase().trim();
-            let dataFim = linha.getAttribute("data-fim");
+            linha.hidden = !(textoOk && statusOk);
+            if (!linha.hidden) visiveis++;
+        });
 
-            let buscaOk = texto.includes(termo);
-            let situacaoOk = false;
-
-            if (filtro == "todos") {
-                situacaoOk = true;
-            } else if (filtro == "ativa") {
-                situacaoOk = status == "ativa";
-            } else if (filtro == "cancelada") {
-                situacaoOk = status == "cancelada";
-            } else if (filtro == "expirada") {
-                situacaoOk = status == "expirada";
-            } else if (filtro == "vencendo") {
-                if (dataFim != null && dataFim != "") {
-                    let data = new Date(dataFim + "T00:00:00");
-                    if (status == "ativa" && data >= hoje && data <= limite) {
-                        situacaoOk = true;
-                    }
-                }
-            }
-
-            if (buscaOk && situacaoOk) {
-                linha.hidden = false;
-                quantidade++;
-            } else {
-                linha.hidden = true;
-            }
-        }
-
-        if (quantidade == 0) {
-            aviso.hidden = false;
-        } else {
-            aviso.hidden = true;
-        }
+        if (aviso) aviso.hidden = visiveis !== 0 || linhas.length === 0;
     }
 
-    function enviarFiltros(evento) {
-        evento.preventDefault();
-        filtrar();
-    }
-
-    document.getElementById("form-filtros").addEventListener("submit", enviarFiltros);
-    busca.addEventListener("input", filtrar);
-    situacao.addEventListener("change", filtrar);
-
+    busca?.addEventListener('input', filtrar);
+    situacao?.addEventListener('change', filtrar);
     filtrar();
+
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
 </script>
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>

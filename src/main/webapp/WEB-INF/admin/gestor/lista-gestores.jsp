@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -15,6 +14,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
+    <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -28,30 +28,19 @@
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
         <h1 class="nome-da-area">Gestores</h1>
         <section class="tabela">
-            <form class="tabela-filtros" id="form-filtros">
+            <form class="tabela-filtros" onsubmit="event.preventDefault()">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-                    <div class="campo-busca">
-                        <input type="search" id="buscar" placeholder="Nome, e-mail ou telefone">
-                        <button type="submit" class="btn-lupa" aria-label="Buscar">
-                            <img src="${ctx}/images/icone-lupa.svg" alt="">
-                        </button>
-                    </div>
+                    <input id="buscar" name="buscar" type="search"
+                           placeholder="Nome, email, telefone ou unidade">
+                    <button type="button" class="btn-lupa-busca" onclick="filtrar()" aria-label="Buscar">
+                        <img src="${ctx}/images/icone-lupa.svg" alt="Buscar">
+                    </button>
                 </div>
-                <div class="filtrador">
-                    <label for="filtrarUnidade">Unidade</label>
-                    <select id="filtrarUnidade">
-                        <option value="">Todas</option>
-                        <c:forEach var="unidade" items="${unidades}">
-                            <option value="${unidade.codigo}"><c:out value="${unidade.cnpj}"/></option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <button type="submit" class="adicionar">Filtrar</button>
-                <a href="${ctx}/gestor/lista" class="adicionar">Limpar</a>
+
                 <a href="${ctx}/gestor/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
-                    Novo gestor
+                    <span>Novo gestor</span>
                 </a>
             </form>
             <div class="tabela-rolagem">
@@ -62,47 +51,56 @@
                         <th>E-mail</th>
                         <th>Telefone</th>
                         <th>Unidade</th>
-                        <th>Organização</th>
-                        <th class="col-acoes">Ações</th>
+                        <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="item" items="${gestores}">
-                        <c:set var="nomeUnidade" value=""/>
-                        <c:set var="nomeOrganizacao" value=""/>
-                        <c:forEach var="unidade" items="${unidades}">
-                            <c:if test="${unidade.codigo == item.codUnidade}">
-                                <c:set var="nomeUnidade" value="${unidade.cnpj}"/>
-                                <c:forEach var="org" items="${organizacoes}">
-                                    <c:if test="${org.codigo == unidade.codOrganizacao}">
-                                        <c:set var="nomeOrganizacao" value="${org.nome}"/>
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
-                        <tr class="linha-gestor" data-unidade="${item.codUnidade}">
-                            <td><c:out value="${item.nome}"/></td>
-                            <td><c:out value="${item.email}"/></td>
-                            <td><c:out value="${item.telefone}"/></td>
-                            <td><c:out value="${nomeUnidade}" default="Não informada"/></td>
-                            <td><c:out value="${nomeOrganizacao}" default="Não informada"/></td>
-                            <td class="col-acoes">
-                                <div class="acoes">
-                                    <a href="${ctx}/gestor/perfil?codigo=${item.codigo}" title="Editar">
-                                        <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                    </a>
-                                    <form action="${ctx}/gestor/excluir" method="post" onsubmit="return confirm('Confirma a exclusão deste gestor?');">
-                                        <input type="hidden" name="codigo" value="${item.codigo}">
-                                        <button type="submit" aria-label="Excluir">
-                                            <img src="${ctx}/images/icone-excluir.svg" alt="">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${not empty gestores}">
+                            <c:forEach var="item" items="${gestores}">
+                                <tr class="linha-gestor">
+                                    <td><c:out value="${item.nome}"/></td>
+                                    <td><c:out value="${item.email}"/></td>
+                                    <td><c:out value="${item.telefone}"/></td>
+                                    <td><c:out value="${item.codUnidade}"/></td>
+
+                                    <td class="col-acoes">
+                                        <div class="acoes">
+                                            <a href="${ctx}/gestor/perfil?codigo=${item.codigo}"
+                                               class="btn-icone"
+                                               title="Visualizar">
+                                                <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
+                                            </a>
+
+                                            <a href="${ctx}/gestor/perfil?codigo=${item.codigo}"
+                                               class="btn-icone"
+                                               title="Editar">
+                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                            </a>
+
+                                            <form method="post" action="${ctx}/gestor/excluir" class="form-excluir">
+                                                <input type="hidden" name="codigo" value="${item.codigo}">
+                                                <button type="button"
+                                                        class="btn-icone zera-abrir-exclusao"
+                                                        title="Excluir gestor"
+                                                        aria-label="Excluir gestor">
+                                                    <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="5" class="sem-dados">Nenhum gestor cadastrado.</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+
                     <tr id="sem-resultados" hidden>
-                        <td colspan="6">Nenhum gestor encontrado.</td>
+                        <td colspan="5" class="sem-dados">Nenhum gestor encontrado.</td>
                     </tr>
                     </tbody>
                 </table>
@@ -110,50 +108,58 @@
         </section>
     </main>
 </div>
+
+<div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
+        <h2>Deseja mesmo excluir?</h2>
+        <p class="zera-modal-descricao">Essa ação excluirá o gestor selecionado e não poderá ser desfeita.</p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-exclusao">Voltar</button>
+            <button type="button" class="zera-modal-confirmar" id="zera-confirmar-exclusao">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<div id="zera-modal-sair" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
+        <h2>Deseja realmente sair?</h2>
+        <p class="zera-modal-descricao">Você será desconectado da sua conta de administrador.</p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-sair">Voltar</button>
+            <a href="${ctx}/logout" class="zera-modal-confirmar" id="zera-confirmar-sair" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Sair</a>
+        </div>
+    </div>
+</div>
+
 <script>
-    let busca = document.getElementById("buscar");
-    let unidade = document.getElementById("filtrarUnidade");
-    let linhas = document.querySelectorAll(".linha-gestor");
-    let aviso = document.getElementById("sem-resultados");
+    const busca = document.getElementById('buscar');
+    const linhas = [...document.querySelectorAll('.linha-gestor')];
+    const aviso = document.getElementById('sem-resultados');
 
     function filtrar() {
-        let termo = busca.value.toLowerCase().trim();
-        let unidadeSelecionada = unidade.value;
-        let quantidade = 0;
+        const termo = busca.value.trim().toLowerCase();
+        let visiveis = 0;
 
-        for (let i = 0; i < linhas.length; i++) {
-            let linha = linhas[i];
-            let texto = linha.innerText.toLowerCase();
-            let codigoUnidade = linha.getAttribute("data-unidade");
+        linhas.forEach((linha) => {
+            const ok = linha.textContent.toLowerCase().includes(termo);
+            linha.hidden = !ok;
+            if (!linha.hidden) visiveis++;
+        });
 
-            let buscaOk = texto.includes(termo);
-            let unidadeOk = unidadeSelecionada == "" || codigoUnidade == unidadeSelecionada;
-
-            if (buscaOk && unidadeOk) {
-                linha.hidden = false;
-                quantidade++;
-            } else {
-                linha.hidden = true;
-            }
-        }
-
-        if (quantidade == 0) {
-            aviso.hidden = false;
-        } else {
-            aviso.hidden = true;
-        }
+        if (aviso) aviso.hidden = visiveis !== 0 || linhas.length === 0;
     }
 
-    function enviarFiltros(evento) {
-        evento.preventDefault();
-        filtrar();
-    }
-
-    document.getElementById("form-filtros").addEventListener("submit", enviarFiltros);
-    busca.addEventListener("input", filtrar);
-    unidade.addEventListener("change", filtrar);
-
+    busca?.addEventListener('input', filtrar);
     filtrar();
+
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
 </script>
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>
