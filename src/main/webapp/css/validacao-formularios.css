@@ -1,0 +1,7 @@
+/* Validação uniforme dos formulários */
+.campo.erro label,.campo-grupo.erro label,.filtrador.erro label,.zera-validacao-erro label{color:#ff3030!important}
+.campo.erro input,.campo-grupo.erro input,.filtrador.erro input,.zera-validacao-erro input,.zera-validacao-erro select,.zera-validacao-erro textarea{border:2px solid #ff3030!important;outline-color:#ff3030!important}
+.zera-mensagem-validacao{display:block;color:#ff3030;font-size:11px;line-height:1.25;margin-top:3px;overflow-wrap:anywhere}
+.zera-mensagem-validacao[hidden]{display:none!important}
+.campo-icone:has(>.zera-mensagem-validacao){flex-wrap:wrap}
+.campo-icone>.zera-mensagem-validacao{flex-basis:100%;padding-left:3px}
