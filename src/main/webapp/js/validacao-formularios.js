@@ -15,8 +15,8 @@
             var senha = input.form.querySelector('[name="senha"],[name="novaSenha"]');
             if (senha && senha.value !== input.value) return "A confirmação está diferente da senha informada.";
         }
-        if (input.type === "email" && valor && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(valor)) return "Email inválido, ele precisa conter @ e o domínio.";
-        if (nome.indexOf("telefone") >= 0 && valor && input.value.replace(/\\D/g, "").length !== 11) return "Telefone inválido, ele precisa conter o DDD + nove números.";
+        if (input.type === "email" && valor && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) return "Email inválido, ele precisa conter @ e o domínio.";
+        if (nome.indexOf("telefone") >= 0 && valor && input.value.replace(/\D/g, "").length !== 11) return "Telefone inválido, ele precisa conter o DDD + nove números.";
         if (nome === "senha" && input.form.closest(".card") && valor && (!/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(valor))) return "A senha precisa ter pelo menos 8 caracteres, um número e um caractere especial.";
         return "";
     }
