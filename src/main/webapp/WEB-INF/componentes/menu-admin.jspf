@@ -1,3 +1,4 @@
+
 <%-- Menu compartilhado do administrador. Exige as variáveis ctx e ativo. --%>
 <nav>
     <a href="${ctx}/admin/home" ${ativo == 'home' ? 'class="botao-ativo"' : ''}>Home</a>
@@ -8,8 +9,12 @@
     <a href="${ctx}/endereco/lista" ${ativo == 'endereco' ? 'class="botao-ativo"' : ''}>Endere&ccedil;os</a>
     <a href="${ctx}/gestor/lista" ${ativo == 'gestor' ? 'class="botao-ativo"' : ''}>Gestores</a>
     <a href="${ctx}/estoque/lista" ${ativo == 'estoque' ? 'class="botao-ativo"' : ''}>Estoques</a>
-    <a href="${ctx}/admin/perfil" ${ativo == 'admin' ? 'class="botao-ativo"' : ''}>Admin</a>
+    <a href="${ctx}/admin/inserir" ${ativo == 'admin' ? 'class="botao-ativo"' : ''}>Admin</a>
     <hr class="barra-azul">
-    <a href="${ctx}/configuracoes/admin" ${ativo == 'configuracoes' ? 'class="botao-ativo"' : ''}>Configura&ccedil;&otilde;es</a>
-    <a href="${ctx}/logout">Sair</a>
+    <a href="${ctx}/admin/perfil" ${ativo == 'configuracoes' ? 'class="botao-ativo"' : ''}>Configura&ccedil;&otilde;es</a>
+    <a href="${ctx}/logout"
+       data-modal-exclusao
+       data-excluir-tipo="sair"
+       data-excluir-titulo="Deseja realmente sair?"
+       data-excluir-descricao="Você será desconectado da sua conta de administrador.">Sair</a>
 </nav>
