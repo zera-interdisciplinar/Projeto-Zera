@@ -5,6 +5,11 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="organizacao"/>
 
+<%-- Redirecionamento interno para ver-organizacao.jsp caso o parâmetro ver=true seja passado --%>
+<c:if test="${param.ver == 'true'}">
+    <jsp:forward page="ver-organizacao.jsp" />
+</c:if>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -89,7 +94,6 @@
 </div>
 
 <script>
-    // Máscara dinâmica de CNPJ
     const inputCnpj = document.getElementById('cnpj');
     inputCnpj?.addEventListener('input', (e) => {
         let v = e.target.value.replace(/\D/g, '');

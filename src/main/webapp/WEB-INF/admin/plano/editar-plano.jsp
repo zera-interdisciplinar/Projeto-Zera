@@ -28,7 +28,6 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
-        <%-- Botão voltar no topo deslocado à esquerda --%>
         <a href="${ctx}/plano/lista" class="voltar">
             <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
             <span>Voltar</span>
@@ -57,6 +56,7 @@
                                 <label for="nome">Nome</label>
                                 <input type="text" id="nome" name="nome"
                                        value="<c:out value='${plano.nome}'/>"
+                                       placeholder="Nome do plano"
                                        required>
                             </div>
 
@@ -64,32 +64,27 @@
                                 <label for="valor">Valor</label>
                                 <input type="number" id="valor" name="valor"
                                        value="<c:out value='${plano.valor}'/>"
-                                       min="0" step="0.01" required>
+                                       min="0" step="0.01"
+                                       placeholder="0,00"
+                                       required>
                             </div>
 
                             <div class="campo-grupo">
                                 <label for="tempo">Período</label>
                                 <select id="tempo" name="tempo" required>
-                                    <option value="mensal"
-                                        ${fn:toLowerCase(plano.tempo) == "mensal" ? "selected" : ""}>
+                                    <option value="1 mês"
+                                        ${fn:contains(fn:toLowerCase(plano.tempo), 'mês') or fn:contains(fn:toLowerCase(plano.tempo), 'mes') or plano.tempo == '1' ? "selected" : ""}>
                                         Mensal
                                     </option>
 
-                                    <option value="anual"
-                                        ${fn:toLowerCase(plano.tempo) == "anual" ? "selected" : ""}>
+                                    <option value="1 ano"
+                                        ${fn:contains(fn:toLowerCase(plano.tempo), 'ano') or plano.tempo == '12' ? "selected" : ""}>
                                         Anual
                                     </option>
-
-                                    <c:if test="${not empty plano.tempo and fn:toLowerCase(plano.tempo) != 'mensal' and fn:toLowerCase(plano.tempo) != 'anual'}">
-                                        <option value="${fn:escapeXml(plano.tempo)}" selected>
-                                            <c:out value="${plano.tempo}"/> meses
-                                        </option>
-                                    </c:if>
                                 </select>
                             </div>
                         </div>
 
-                        <%-- Botão posicionado no canto inferior direito --%>
                         <div class="form-rodape">
                             <button type="submit" id="botao-salvar">Salvar</button>
                         </div>
@@ -99,5 +94,13 @@
         </c:choose>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

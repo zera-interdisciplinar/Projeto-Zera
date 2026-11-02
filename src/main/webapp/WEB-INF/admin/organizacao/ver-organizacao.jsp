@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-rodape">
-                            <a href="${ctx}/organizacao/editar?codigo=${organizacao.codigo}" id="botao-salvar">
+                            <a href="${ctx}/organizacao/perfil?codigo=${organizacao.codigo}" id="botao-salvar">
                                 Editar
                             </a>
                         </div>

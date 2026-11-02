@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+/* ==========================================================================
+   VARIÁVEIS E CORES DO TEMA
+   ========================================================================== */
+
 :root {
     --fonte1: 'Inria Sans', sans-serif;
     --fonte2: 'Instrument Sans', sans-serif;
@@ -67,7 +71,6 @@ html, body {
     overflow-x: hidden !important;
 }
 
-/* Trava a logo de forma idêntica em qualquer tela, mesmo sem a classe */
 .logo-zera,
 .painel-conteudo > img:first-child {
     width: 140px !important;
@@ -180,10 +183,9 @@ html, body {
 }
 
 /* ==========================================================================
-   BOTÃO VOLTAR E TÍTULOS (ALINHAMENTOS DESLOCADOS)
+   BOTÃO VOLTAR E TÍTULOS
    ========================================================================== */
 
-/* Botão voltar: deslocadinho para a esquerda (55px) */
 .voltar,
 .informacoes .voltar {
     display: inline-flex !important;
@@ -212,7 +214,6 @@ html, body {
     transform: translateX(-4px);
 }
 
-/* Título padrão: em telas de formulário fica alinhado ao card bege (110px) */
 .nome-da-area,
 #home,
 .informacoes h1.nome-da-area {
@@ -227,7 +228,6 @@ html, body {
     z-index: 2;
 }
 
-/* Na tela de lista de tabela sem botão voltar, o título fica em 55px */
 .tela-auth:not(:has(.voltar)) .nome-da-area {
     margin-left: 55px !important;
 }
@@ -238,6 +238,29 @@ html, body {
 .tabela-titulo::first-letter,
 .nome-do-dado::first-letter,
 .card .dado .nome-do-dado::first-letter {
+    text-transform: uppercase !important;
+}
+
+/* Subtítulos das secções com apenas a primeira letra maiúscula */
+.subtitulo-secao,
+.edicao h2,
+.adicao h2,
+.tabela h2,
+.secao-config h2 {
+    font-family: var(--fonte1) !important;
+    font-size: 23px !important;
+    font-weight: 700 !important;
+    color: var(--cor2) !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+    text-transform: lowercase !important;
+}
+
+.subtitulo-secao::first-letter,
+.edicao h2::first-letter,
+.adicao h2::first-letter,
+.tabela h2::first-letter,
+.secao-config h2::first-letter {
     text-transform: uppercase !important;
 }
 
@@ -256,7 +279,7 @@ html, body {
     z-index: 2;
     border-radius: 28px !important;
     box-sizing: border-box;
-    margin-left: 110px !important; /* Alinhado perfeitamente com o título */
+    margin-left: 110px !important;
     padding: 34px 42px !important;
     display: flex;
     flex-direction: column;
@@ -267,7 +290,213 @@ html, body {
 }
 
 /* ==========================================================================
-   FILTROS DA LISTA (BUSCA, TEMPO E ADICIONAR)
+   PADRONIZAÇÃO GERAL DE INPUTS, SELECTS E LABELS
+   ========================================================================== */
+
+.form-grid label,
+.campo-grupo label,
+.filtrador label,
+.edicao label,
+.adicao label,
+.visualizacao label,
+.tabela-filtros label {
+    font-family: var(--fonte1) !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: var(--cor2) !important;
+    margin: 0 0 6px 0 !important;
+    display: block !important;
+}
+
+.form-grid .campo-grupo input,
+.form-grid .campo-grupo select,
+.filtrador input,
+.filtrador select,
+.edicao input,
+.edicao select,
+.adicao input,
+.adicao select,
+.visualizacao input,
+.visualizacao select {
+    width: 100% !important;
+    height: 46px !important;
+    padding: 10px 14px !important;
+    border: 1.83px solid var(--cor2) !important;
+    border-radius: 8px !important;
+    background-color: #ffffff !important;
+    font-size: 15px !important;
+    color: var(--cor2) !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    font-family: inherit !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-grid .campo-grupo input:focus,
+.filtrador input:focus,
+.edicao input:focus,
+.adicao input:focus {
+    box-shadow: 0 0 0 3px rgba(21, 45, 107, 0.18);
+}
+
+.form-grid .campo-grupo input::placeholder,
+.filtrador input::placeholder,
+.edicao input::placeholder,
+.adicao input::placeholder {
+    color: rgba(21, 45, 107, 0.45) !important;
+    font-style: normal;
+}
+
+/* Customização e rotação da seta dos selects */
+.form-grid .campo-grupo select,
+.filtrador select,
+.edicao select,
+.adicao select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 14px !important;
+    padding-right: 40px !important;
+    cursor: pointer !important;
+    transition: background-image 0.2s ease;
+}
+
+.form-grid .campo-grupo select.select-girar,
+.filtrador select.select-girar,
+.form-grid .campo-grupo select.select-aberto,
+.filtrador select.select-aberto,
+.form-grid .campo-grupo select:focus,
+.filtrador select:focus,
+.edicao select:focus,
+.adicao select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+/* ==========================================================================
+   INPUTS DE SENHA & BOTÃO DO OLHO (ISOLADO E TRANSPARENTE)
+   ========================================================================== */
+
+/* Remove o olho padrão do Edge/Windows */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none !important;
+}
+
+.campo-senha-container {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.campo-senha-container input {
+    width: 100% !important;
+    padding-right: 48px !important;
+}
+
+/* O botão do olho sobrescreve as propriedades de .edicao button */
+.edicao button.btn-olho-senha,
+.adicao button.btn-olho-senha,
+.campo-senha-container .btn-olho-senha,
+.btn-olho-senha {
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 5 !important;
+    line-height: 0 !important;
+    outline: none !important;
+}
+
+.edicao button.btn-olho-senha:hover,
+.adicao button.btn-olho-senha:hover,
+.campo-senha-container .btn-olho-senha:hover,
+.btn-olho-senha:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transform: translateY(-50%) !important;
+    opacity: 0.8 !important;
+}
+
+.btn-olho-senha img {
+    background: transparent !important;
+    background-color: transparent !important;
+    width: 22px !important;
+    height: 22px !important;
+    object-fit: contain !important;
+    display: block !important;
+    pointer-events: none !important;
+    filter: brightness(0) saturate(100%) invert(14%) sepia(61%) saturate(2672%) hue-rotate(213deg) brightness(92%) contrast(97%) !important;
+}
+
+/* ==========================================================================
+   CAMPO DE BUSCA COM LUPA
+   ========================================================================== */
+
+.filtrador.busca {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.filtrador.busca input[type="search"] {
+    padding-right: 42px !important;
+}
+
+.filtrador.busca input[type="search"]::-webkit-search-decoration,
+.filtrador.busca input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.filtrador.busca .btn-lupa-busca {
+    position: absolute !important;
+    right: 14px !important;
+    bottom: 13px !important;
+    top: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 20px !important;
+    height: 20px !important;
+    z-index: 3 !important;
+}
+
+.filtrador.busca .btn-lupa-busca img {
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain !important;
+    display: block !important;
+    filter: brightness(0) saturate(100%) invert(14%) sepia(61%) saturate(2672%) hue-rotate(213deg) brightness(92%) contrast(97%) !important;
+}
+
+/* ==========================================================================
+   FILTROS DA LISTA E BOTÃO ADICIONAR
    ========================================================================== */
 
 .tabela-filtros {
@@ -281,67 +510,12 @@ html, body {
 .tabela-filtros .filtrador {
     display: flex !important;
     flex-direction: column !important;
-    gap: 6px !important;
+    gap: 0 !important;
     position: relative !important;
 }
 
-.tabela-filtros .filtrador.busca {
-    flex: 1 !important;
-    min-width: 0 !important;
-}
-
-.tabela-filtros label {
-    font-family: var(--fonte1) !important;
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    color: var(--cor2) !important;
-    margin: 0 0 6px 0 !important;
-    display: block !important;
-}
-
-.tabela-filtros input {
-    height: 44px !important;
-    border-radius: 10px !important;
-    border: 2px solid var(--cor2) !important;
-    font-size: 15px !important;
-    color: var(--cor2) !important;
-    font-family: var(--fonte1) !important;
-    padding: 0 16px !important;
-    background-color: transparent !important;
-    outline: none !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-}
-
-.tabela-filtros input::placeholder {
-    color: rgba(21, 45, 107, 0.55) !important;
-}
-
-.tabela-filtros select {
-    height: 44px !important;
-    min-width: 130px !important;
-    border-radius: 10px !important;
-    border: 2px solid var(--cor2) !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    color: var(--cor2) !important;
-    font-family: var(--fonte1) !important;
-    padding: 0 38px 0 16px !important;
-    background-color: transparent !important;
-    outline: none !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    cursor: pointer !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23152D6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 14px center !important;
-    background-size: 15px !important;
-}
-
 .adicionar {
-    height: 44px !important;
+    height: 46px !important;
     background-color: var(--cor3) !important;
     color: #ffffff !important;
     border: none !important;
@@ -391,47 +565,12 @@ html, body {
 .campo-grupo {
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 0 !important;
     width: 100% !important;
 }
 
 .campo-cheio {
     grid-column: 1 / -1 !important;
-}
-
-.form-grid label,
-.edicao label,
-.adicao label,
-.visualizacao label {
-    font-family: var(--fonte1) !important;
-    font-size: 19px !important;
-    font-weight: 700 !important;
-    color: var(--cor2) !important;
-    margin: 0 !important;
-    display: block !important;
-}
-
-.form-grid input,
-.edicao input,
-.adicao input,
-.visualizacao input {
-    height: 48px !important;
-    border-radius: 12px !important;
-    border: 1.83px solid var(--cor2) !important;
-    font-size: 16px !important;
-    color: var(--cor2) !important;
-    font-family: var(--fonte1) !important;
-    padding: 0 16px !important;
-    background-color: transparent !important;
-    outline: none !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-}
-
-.form-grid input:focus,
-.edicao input:focus,
-.adicao input:focus {
-    background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .form-rodape {
@@ -441,10 +580,12 @@ html, body {
     margin-top: 36px !important;
 }
 
-.edicao button,
-.adicao button,
-.visualizacao button,
+/* Botões de submissão padrão (exclui explicitamente o botão do olho) */
+.edicao button:not(.btn-olho-senha),
+.adicao button:not(.btn-olho-senha),
+.visualizacao button:not(.btn-olho-senha),
 #botao-salvar,
+#botao-salvar-senha,
 #concluir,
 .botao-submit {
     height: 46px !important;
@@ -465,10 +606,11 @@ html, body {
     transition: background-color .2s ease, transform .15s ease, box-shadow .2s ease !important;
 }
 
-.edicao button:hover,
-.adicao button:hover,
-.visualizacao button:hover,
+.edicao button:not(.btn-olho-senha):hover,
+.adicao button:not(.btn-olho-senha):hover,
+.visualizacao button:not(.btn-olho-senha):hover,
 #botao-salvar:hover,
+#botao-salvar-senha:hover,
 #concluir:hover,
 .botao-submit:hover {
     background-color: var(--cor2) !important;
@@ -647,7 +789,7 @@ html, body {
 }
 
 /* ==========================================================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE (MOBILE & TABLET)
    ========================================================================== */
 
 @media (max-width: 1100px) {
@@ -676,28 +818,46 @@ html, body {
         min-width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        padding: 10px 0 !important;
+        padding: 14px 0 10px 0 !important;
+        border-bottom: 1.5px solid rgba(21, 45, 107, 0.12);
+    }
+
+    .painel-conteudo {
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .logo-zera,
+    .painel-conteudo > img:first-child {
+        display: block !important;
+        width: 95px !important;
+        min-width: 95px !important;
+        max-width: 95px !important;
+        margin: 0 auto 12px auto !important;
+        align-self: center !important;
     }
 
     .painel-esquerda nav {
         flex-direction: row !important;
-        justify-content: flex-start;
-        overflow-x: auto;
+        justify-content: flex-start !important;
+        overflow-x: auto !important;
         padding: 0 16px 8px !important;
+        width: 100% !important;
+        gap: 8px !important;
+        -webkit-overflow-scrolling: touch;
     }
 
     .painel-esquerda nav a,
     .painel-esquerda nav .botao-ativo {
         width: auto !important;
-        min-width: fit-content;
+        min-width: fit-content !important;
         height: 38px !important;
         padding: 0 16px !important;
         font-size: 15px !important;
+        white-space: nowrap !important;
     }
 
-    .painel-esquerda hr,
-    .logo-zera,
-    .painel-conteudo > img:first-child {
+    .painel-esquerda hr {
         display: none !important;
     }
 
@@ -705,6 +865,7 @@ html, body {
     #informacoes-gerais {
         padding: 24px 16px 40px !important;
         border-top-right-radius: 24px !important;
+        border-top-left-radius: 24px !important;
     }
 
     .voltar,
@@ -749,66 +910,4 @@ html, body {
     .adicionar {
         width: 100%;
     }
-}
-
-/* --- CAMPO DE BUSCA COM LUPA À DIREITA --- */
-.filtrador.busca {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.filtrador.busca input[type="search"] {
-    width: 100%;
-    padding-right: 42px; /* espaço para o botão de lupa */
-}
-
-/* Remove o botão 'x' nativo de input search nos navegadores */
-.filtrador.busca input[type="search"]::-webkit-search-cancel-button,
-.filtrador.busca input[type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.filtrador.busca .btn-lupa-busca {
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-}
-
-.filtrador.busca .btn-lupa-busca img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-}
-
-/* --- SETA PERSONALIZADA COM ROTAÇÃO DE 180 GRAUS --- */
-.campo-grupo select,
-.filtrador select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
-    background-image: url('../images/seta-baixo.svg'); /* ajuste se o seu nome for seta-select.svg */
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 13px;
-    padding-right: 36px !important;
-    cursor: pointer;
-    transition: background-image 0.2s ease-in-out, transform 0.2s ease;
-}
-
-/* Rotação da setinha via classe ativa controlada por JS */
-.campo-grupo select.select-aberto,
-.filtrador select.select-aberto {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b418b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
 }

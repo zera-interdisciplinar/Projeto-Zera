@@ -51,7 +51,7 @@
                     </select>
                 </div>
 
-                <a href="${ctx}/plano/novo" class="adicionar">
+                <a href="${ctx}/plano/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
                     <span>Novo plano</span>
                 </a>
@@ -73,7 +73,6 @@
                     <c:choose>
                         <c:when test="${not empty planos}">
                             <c:forEach var="item" items="${planos}">
-                                <%-- Tradução do valor vindo do backend (1 mês/1 ano) --%>
                                 <c:set var="periodoExibicao" value="${item.tempo}"/>
                                 <c:set var="tempoNormalizado" value="${fn:toLowerCase(item.tempo)}"/>
                                 <c:choose>
@@ -98,13 +97,13 @@
 
                                     <td class="col-acoes">
                                         <div class="acoes">
-                                            <a href="${ctx}/plano/ver?codigo=${item.codigo}"
+                                            <a href="${ctx}/plano/perfil?codigo=${item.codigo}"
                                                class="btn-icone"
                                                title="Visualizar">
                                                 <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
                                             </a>
 
-                                            <a href="${ctx}/plano/editar?codigo=${item.codigo}"
+                                            <a href="${ctx}/plano/perfil?codigo=${item.codigo}"
                                                class="btn-icone"
                                                title="Editar">
                                                 <img src="${ctx}/images/icone-editar.svg" alt="Editar">
@@ -183,9 +182,9 @@
     filtroTempo?.addEventListener('change', filtrar);
 
     document.querySelectorAll('select').forEach(sel => {
-        sel.addEventListener('click', () => sel.classList.toggle('select-aberto'));
-        sel.addEventListener('blur', () => sel.classList.remove('select-aberto'));
-        sel.addEventListener('change', () => sel.classList.remove('select-aberto'));
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
     });
 </script>
 <script src="${ctx}/js/popup.js" defer></script>

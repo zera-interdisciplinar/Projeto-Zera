@@ -72,5 +72,13 @@
         </section>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

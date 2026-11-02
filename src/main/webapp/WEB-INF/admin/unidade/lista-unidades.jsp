@@ -37,6 +37,9 @@
                     <label for="buscar">Buscar</label>
                     <input id="buscar" name="buscar" type="search"
                            placeholder="Código, CNPJ, email ou organização">
+                    <button type="button" class="btn-lupa-busca" onclick="filtrar()" aria-label="Buscar">
+                        <img src="${ctx}/images/icone-lupa.svg" alt="Buscar">
+                    </button>
                 </div>
 
                 <a href="${ctx}/unidade/perfil" class="adicionar">
@@ -61,13 +64,24 @@
                     <c:forEach var="item" items="${unidades}">
                         <tr class="linha-unidade">
                             <td><c:out value="${item.codigo}"/></td>
-                            <td><c:out value="${item.cnpj}"/></td>
+
+                            <td class="col-cnpj">
+                                <c:choose>
+                                    <c:when test="${fn:length(item.cnpj) == 14}">
+                                        ${fn:substring(item.cnpj,0,2)}.${fn:substring(item.cnpj,2,5)}.${fn:substring(item.cnpj,5,8)}/${fn:substring(item.cnpj,8,12)}-${fn:substring(item.cnpj,12,14)}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="${item.cnpj}"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
                             <td><c:out value="${item.email}"/></td>
                             <td><c:out value="${item.codOrganizacao}"/></td>
 
                             <td class="col-acoes">
                                 <div class="acoes">
-                                    <a href="${ctx}/unidade/perfil?visualizar=${item.codigo}"
+                                    <a href="${ctx}/unidade/perfil?codigo=${item.codigo}"
                                        class="btn-icone"
                                        title="Visualizar">
                                         <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
@@ -103,7 +117,6 @@
     </main>
 </div>
 
-<%-- POPUP DE CONFIRMAÇÃO DE EXCLUSÃO --%>
 <div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
     <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-exclusao-titulo" aria-describedby="zera-exclusao-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
@@ -118,7 +131,6 @@
     </div>
 </div>
 
-<%-- POPUP DE CONFIRMAÇÃO DE SAIR (LOGOUT) --%>
 <div id="zera-modal-sair" class="zera-modal-overlay" hidden>
     <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-sair-titulo" aria-describedby="zera-sair-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
@@ -156,7 +168,6 @@
     busca?.addEventListener('input', filtrar);
     filtrar();
 
-    // Controle do popup de exclusão
     (() => {
         const modalExcluir = document.getElementById("zera-modal-exclusao");
         const cancelarExcluir = document.getElementById("zera-cancelar-exclusao");
@@ -198,7 +209,6 @@
         });
     })();
 
-    // Controle do popup de sair
     (() => {
         const modalSair = document.getElementById("zera-modal-sair");
         const cancelarSair = document.getElementById("zera-cancelar-sair");

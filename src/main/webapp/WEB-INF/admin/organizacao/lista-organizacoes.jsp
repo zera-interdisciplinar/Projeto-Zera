@@ -76,7 +76,6 @@
 
                             <td><c:out value="${org.nome}"/></td>
 
-                            <%-- Formatação visual do CNPJ se vier sem pontos --%>
                             <td class="col-cnpj">
                                 <c:choose>
                                     <c:when test="${fn:length(org.cnpj) == 14}">
@@ -95,8 +94,7 @@
 
                             <td class="col-acoes">
                                 <div class="acoes">
-                                    <%-- Caminho corrigido para visualização --%>
-                                    <a href="${ctx}/organizacao/ver?codigo=${org.codigo}&ver=true"
+                                    <a href="${ctx}/organizacao/perfil?codigo=${org.codigo}&ver=true"
                                        class="btn-icone"
                                        title="Visualizar">
                                         <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
@@ -132,7 +130,6 @@
     </main>
 </div>
 
-<%-- POPUP DE EXCLUSÃO DE ORGANIZAÇÃO --%>
 <div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
     <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-exclusao-titulo" aria-describedby="zera-exclusao-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
@@ -147,7 +144,6 @@
     </div>
 </div>
 
-<%-- POPUP DE SAIR (LOGOUT) --%>
 <div id="zera-modal-sair" class="zera-modal-overlay" hidden>
     <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-sair-titulo" aria-describedby="zera-sair-descricao">
         <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
@@ -196,14 +192,12 @@
     cadastro?.addEventListener('change', filtrar);
     filtrar();
 
-    // Giro da seta do select
     document.querySelectorAll('select').forEach(sel => {
         sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
         sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
         sel.addEventListener('change', () => sel.classList.remove('select-girar'));
     });
 
-    // Controle do Modal de Exclusão
     (() => {
         const modalExcluir = document.getElementById("zera-modal-exclusao");
         const cancelarExcluir = document.getElementById("zera-cancelar-exclusao");
@@ -245,7 +239,6 @@
         });
     })();
 
-    // Controle do Modal de Sair (Logout)
     (() => {
         const modalSair = document.getElementById("zera-modal-sair");
         const cancelarSair = document.getElementById("zera-cancelar-sair");

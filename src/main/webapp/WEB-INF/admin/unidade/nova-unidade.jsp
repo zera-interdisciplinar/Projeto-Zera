@@ -62,8 +62,6 @@
                                name="cnpj"
                                placeholder="00.000.000/0000-00"
                                maxlength="18"
-                               pattern="\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}"
-                               title="Digite um CNPJ válido"
                                required>
                     </div>
 
@@ -84,5 +82,24 @@
         </section>
     </main>
 </div>
+
+<script>
+    const inputCnpj = document.getElementById('cnpj');
+    inputCnpj?.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v.length > 14) v = v.substring(0, 14);
+        v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
+        e.target.value = v;
+    });
+
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

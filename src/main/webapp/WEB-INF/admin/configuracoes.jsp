@@ -43,7 +43,7 @@
                                 id="nome"
                                 name="nome"
                                 value="<c:out value='${sessionScope.adminLogado.nome}'/>"
-                                placeholder=""
+                                placeholder="Digite seu nome completo"
                                 required>
                     </div>
 
@@ -54,7 +54,7 @@
                                 id="email"
                                 name="email"
                                 value="<c:out value='${sessionScope.adminLogado.email}'/>"
-                                placeholder=""
+                                placeholder="Digite seu e-mail"
                                 required>
                     </div>
                 </div>
@@ -73,32 +73,56 @@
                 <div class="form-grid">
                     <div class="campo-grupo campo-cheio">
                         <label for="senhaAtual">Senha atual</label>
-                        <input
-                                type="password"
-                                id="senhaAtual"
-                                name="senhaAtual"
-                                placeholder=""
-                                required>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="senhaAtual"
+                                    name="senhaAtual"
+                                    placeholder="Digite sua senha atual"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
                     </div>
 
                     <div class="campo-grupo">
                         <label for="novaSenha">Nova senha</label>
-                        <input
-                                type="password"
-                                id="novaSenha"
-                                name="novaSenha"
-                                placeholder=""
-                                required>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="novaSenha"
+                                    name="novaSenha"
+                                    placeholder="Digite a nova senha"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
                     </div>
 
                     <div class="campo-grupo">
                         <label for="confirmacao">Confirmar nova senha</label>
-                        <input
-                                type="password"
-                                id="confirmacao"
-                                name="confirmacao"
-                                placeholder=""
-                                required>
+                        <div class="campo-senha-container">
+                            <input
+                                    type="password"
+                                    id="confirmacao"
+                                    name="confirmacao"
+                                    placeholder="Confirme a nova senha"
+                                    required>
+                            <button type="button" class="btn-olho-senha" aria-label="Mostrar ou ocultar senha">
+                                <img src="${ctx}/images/icone-ver.svg"
+                                     data-icone-ver="${ctx}/images/icone-ver.svg"
+                                     data-icone-naover="${ctx}/images/icone-naover.svg"
+                                     alt="Ver senha">
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -109,5 +133,29 @@
         </section>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('.btn-olho-senha').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const container = btn.closest('.campo-senha-container');
+            const input = container.querySelector('input');
+            const img = btn.querySelector('img');
+
+            const iconeVer = img.getAttribute('data-icone-ver');
+            const iconeNaoVer = img.getAttribute('data-icone-naover');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                img.src = iconeNaoVer;
+                img.alt = 'Ocultar senha';
+            } else {
+                input.type = 'password';
+                img.src = iconeVer;
+                img.alt = 'Ver senha';
+            }
+        });
+    });
+</script>
 </body>
 </html>
