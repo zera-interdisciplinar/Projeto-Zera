@@ -1,7 +1,10 @@
+
 package br.com.zera.servlet.organizacao;
 
+import br.com.zera.dao.OrganizacaoDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
+import br.com.zera.model.Organizacao;
 import br.com.zera.util.ExclusaoCascata;
 import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,48 +33,56 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class DeleteOrganizacaoServlet extends HttpServlet {
 
     /**
-     * Processa POST para excluir a organização informada.
+     * Exclui uma organização identificada pelo código ou CNPJ.
      *
-     * @param request objeto HttpServletRequest com o parâmetro codigo
-     * @param response objeto HttpServletResponse para redirecionamento ou erro
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-
+        request.setCharacterEncoding("UTF-8");
         try {
-            // só o admin pode fazer isso
             if (Sessao.admin(request) == null) {
                 exibirErro(request, response, "Acesso permitido apenas ao administrador.", ERROR_PAGE);
                 return;
             }
 
-            // lê o código
             String codigoTexto = request.getParameter("codigo");
-            Integer codigo = null;
-            if (codigoTexto != null && !codigoTexto.isBlank()) {
-                codigo = Integer.parseInt(codigoTexto.trim());
-            }
-            if (codigo == null) {
-                exibirErro(request, response, "Organização não informada.", ERROR_PAGE);
+            String cnpj = request.getParameter("cnpj");
+            boolean temCodigo = codigoTexto != null && !codigoTexto.isBlank();
+            boolean temCnpj = cnpj != null && !cnpj.isBlank();
+
+            if (!temCodigo && !temCnpj) {
+                exibirErro(request, response, "Informe o código ou CNPJ da organização.", ERROR_PAGE);
                 return;
             }
 
-            // exclui a organização e tudo o que é dela
-            ExclusaoCascata.excluirOrganizacao(codigo);
+            OrganizacaoDAO dao = new OrganizacaoDAO();
+            Organizacao organizacao;
 
-            // redirect
+            if (temCodigo) {
+                int codigo = Integer.parseInt(codigoTexto.trim());
+                organizacao = dao.findByCodigo(codigo);
+                if (temCnpj && !organizacao.getCnpj().equals(cnpj.trim())) {
+                    exibirErro(request, response, "O código e o CNPJ não correspondem à mesma organização.", ERROR_PAGE);
+                    return;
+                }
+            } else {
+                organizacao = dao.findByCnpj(cnpj.trim());
+            }
+
+            ExclusaoCascata.excluirOrganizacao(organizacao.getCodigo());
             response.sendRedirect(request.getContextPath() + "/organizacao/lista");
 
-        } catch (NotFoundException nfe) {
-            nfe.printStackTrace();
-            exibirErro(request, response, nfe, ERROR_PAGE);
-        } catch (NumberFormatException nmfe) {
-            exibirErro(request, response, "Código da organização inválido.", ERROR_PAGE);
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+        } catch (NotFoundException e) {
+            exibirErro(request, response, e, ERROR_PAGE);
+        } catch (NumberFormatException e) {
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            e.printStackTrace();
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);

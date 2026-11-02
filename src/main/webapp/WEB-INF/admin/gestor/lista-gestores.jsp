@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -25,12 +24,9 @@
             <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
     </aside>
-
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-
         <h1 class="nome-da-area">Gestores</h1>
-
         <section class="tabela">
             <form class="tabela-filtros" onsubmit="event.preventDefault()">
                 <div class="filtrador busca">
@@ -47,7 +43,6 @@
                     <span>Novo gestor</span>
                 </a>
             </form>
-
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
                     <thead>
@@ -59,7 +54,6 @@
                         <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
-
                     <tbody>
                     <c:choose>
                         <c:when test="${not empty gestores}">

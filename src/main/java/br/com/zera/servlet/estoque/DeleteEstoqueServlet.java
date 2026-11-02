@@ -4,7 +4,6 @@ import br.com.zera.dao.EstoqueDAO;
 import br.com.zera.exception.ConnectionFailedException;
 import br.com.zera.exception.NotFoundException;
 import br.com.zera.model.Admin;
-import br.com.zera.model.Estoque;
 import br.com.zera.model.Unidade;
 import br.com.zera.util.Sessao;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,66 +28,47 @@ import static br.com.zera.regex.Constants.ERROR_PAGE;
 public class DeleteEstoqueServlet extends HttpServlet {
 
     /**
-     * Processa POST para excluir o estoque informado.
+     * Exclui um estoque por código, restringindo a unidade no perfil gestor.
      *
-     * @param request objeto HttpServletRequest com o parâmetro codigo
-     * @param response objeto HttpServletResponse para redirecionamento ou erro
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
+     * @param request requisição HTTP
+     * @param response resposta HTTP
+     * @throws IOException caso ocorra erro de entrada ou saída
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Unidade unidadeLogada = Sessao.unidade(request);
+
             if (admin == null && unidadeLogada == null) {
-                exibirErro(request, response, "Sessão expirada. Faça login novamente.", ERROR_PAGE);
+                exibirErro(request, response, "Sessão expirada.", ERROR_PAGE);
                 return;
             }
 
-            // lê o código
             String codigoTexto = request.getParameter("codigo");
-            Integer codigo = null;
-            if (codigoTexto != null && !codigoTexto.isBlank()) {
-                codigo = Integer.parseInt(codigoTexto.trim());
-            }
-            if (codigo == null) {
+            if (codigoTexto == null || codigoTexto.isBlank()) {
                 exibirErro(request, response, "Estoque não informado.", ERROR_PAGE);
                 return;
             }
 
+            int codigo = Integer.parseInt(codigoTexto.trim());
             EstoqueDAO dao = new EstoqueDAO();
-            if (admin == null) {
-                // gestor não pode excluir estoque de outra unidade
-                Estoque estoque = dao.findByCodigo(codigo);
-                if (estoque.getCodUnidade() != unidadeLogada.getCodigo()) {
-                    exibirErro(request, response, "Este estoque não pertence à sua unidade.", ERROR_PAGE);
-                    return;
-                }
-            }
 
-            // exclui do banco
-            dao.delete(codigo);
-
-            String destino;
             if (admin != null) {
-                destino = "/estoque/lista";
+                dao.delete(codigo);
             } else {
-                destino = "/estoque/perfil";
+                dao.deleteByUnidade(codigo, unidadeLogada.getCodigo());
             }
-            // redirect
-            response.sendRedirect(request.getContextPath() + destino);
 
-        } catch (NotFoundException nfe) {
-            nfe.printStackTrace();
-            exibirErro(request, response, nfe, ERROR_PAGE);
-        } catch (NumberFormatException nmfe) {
-            exibirErro(request, response, "Código do estoque inválido.", ERROR_PAGE);
-        } catch (ConnectionFailedException cfe) {
-            cfe.printStackTrace();
-            exibirErro(request, response, cfe, ERROR_PAGE);
+            response.sendRedirect(request.getContextPath() +
+                    (admin != null ? "/estoque/lista" : "/estoque/perfil"));
+
+        } catch (NotFoundException e) {
+            exibirErro(request, response, e, ERROR_PAGE);
+        } catch (NumberFormatException e) {
+            exibirErro(request, response, "Código inválido.", ERROR_PAGE);
+        } catch (ConnectionFailedException e) {
+            exibirErro(request, response, e, ERROR_PAGE);
         } catch (Exception e) {
             e.printStackTrace();
             exibirErro(request, response, e, ERROR_PAGE);

@@ -21,194 +21,228 @@ import java.util.List;
 public class EstoqueDAO {
 
     /**
-     * Insere um novo estoque no banco de dados.
+     * Insere um estoque.
      *
-     * @param estoque Objeto {@link Estoque} contendo os dados a serem persistidos
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     * @param estoque objeto a ser cadastrado
+     * @throws ConnectionFailedException em caso de falha no banco
      */
     public void insert(Estoque estoque) {
         String sql = "INSERT INTO estoque (espaco_na_unidade, cod_responsavel, cod_unidade) VALUES (?, ?, ?)";
-
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, estoque.getEspacoNaUnidade());
             stmt.setInt(2, estoque.getCodResponsavel());
             stmt.setInt(3, estoque.getCodUnidade());
-
             stmt.executeUpdate();
-
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao cadastrar o estoque no banco de dados.", e);
+            throw new ConnectionFailedException("Erro ao cadastrar estoque.", e);
         }
     }
 
     /**
-     * Atualiza os dados de um estoque já existente no banco de dados,
-     * identificado pelo seu código.
+     * Atualiza um estoque pelo código.
      *
-     * @param estoque Objeto {@link Estoque} com os dados atualizados (o código deve estar preenchido)
-     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     * @param estoque dados atualizados
+     * @throws NotFoundException se não houver registro
+     * @throws ConnectionFailedException em caso de falha no banco
      */
     public void update(Estoque estoque) {
         String sql = "UPDATE estoque SET espaco_na_unidade = ?, cod_responsavel = ?, cod_unidade = ? WHERE codigo = ?";
-
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, estoque.getEspacoNaUnidade());
             stmt.setInt(2, estoque.getCodResponsavel());
             stmt.setInt(3, estoque.getCodUnidade());
             stmt.setInt(4, estoque.getCodigo());
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas == 0) {
+            if (stmt.executeUpdate() == 0) {
                 throw new NotFoundException("Estoque", estoque.getCodigo());
             }
-
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao atualizar os dados do estoque.", e);
+            throw new ConnectionFailedException("Erro ao atualizar estoque.", e);
         }
     }
 
     /**
-     * Busca um estoque no banco de dados a partir do seu código identificador.
+     * Atualiza um estoque somente quando pertence à unidade informada.
      *
-     * @param codigo Código (chave primária) do estoque a ser buscado
-     * @return o {@link Estoque} correspondente ao código informado
-     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     * @param estoque dados atualizados
+     * @param codUnidade unidade autorizada
+     * @throws NotFoundException se não houver registro correspondente
+     * @throws ConnectionFailedException em caso de falha no banco
+     */
+    public void updateByUnidade(Estoque estoque, int codUnidade) {
+        String sql = "UPDATE estoque SET espaco_na_unidade = ?, cod_responsavel = ? WHERE codigo = ? AND cod_unidade = ?";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, estoque.getEspacoNaUnidade());
+            stmt.setInt(2, estoque.getCodResponsavel());
+            stmt.setInt(3, estoque.getCodigo());
+            stmt.setInt(4, codUnidade);
+            if (stmt.executeUpdate() == 0) {
+                throw new NotFoundException("Estoque", estoque.getCodigo());
+            }
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao atualizar estoque da unidade.", e);
+        }
+    }
+
+    /**
+     * Busca um estoque pelo código.
+     *
+     * @param codigo identificador do estoque
+     * @return estoque encontrado
+     * @throws NotFoundException se não houver registro
+     * @throws ConnectionFailedException em caso de falha no banco
      */
     public Estoque findByCodigo(int codigo) {
         String sql = "SELECT * FROM estoque WHERE codigo = ?";
-
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, codigo);
-
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Estoque(
-                            rs.getInt("codigo"),
-                            rs.getString("espaco_na_unidade"),
-                            rs.getInt("cod_responsavel"),
-                            rs.getInt("cod_unidade")
-                    );
-                } else {
-                    throw new NotFoundException("Estoque", codigo);
+                    return new Estoque(rs.getInt("codigo"), rs.getString("espaco_na_unidade"),
+                            rs.getInt("cod_responsavel"), rs.getInt("cod_unidade"));
                 }
+                throw new NotFoundException("Estoque", codigo);
             }
-
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao buscar o estoque pelo código.", e);
+            throw new ConnectionFailedException("Erro ao buscar estoque.", e);
         }
     }
 
     /**
-     * Lista todos os estoques cadastrados no banco de dados.
+     * Lista todos os estoques.
      *
-     * @return uma {@link List} com todos os {@link Estoque} encontrados;
-     *         lista vazia caso não existam registros
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     * @return lista de estoques
+     * @throws ConnectionFailedException em caso de falha no banco
      */
     public List<Estoque> findAll() {
-        String sql = "SELECT * FROM estoque";
+        String sql = "SELECT * FROM estoque ORDER BY codigo";
         List<Estoque> lista = new ArrayList<>();
-
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
-                lista.add(new Estoque(
-                        rs.getInt("codigo"),
-                        rs.getString("espaco_na_unidade"),
-                        rs.getInt("cod_responsavel"),
-                        rs.getInt("cod_unidade")
-                ));
+                lista.add(new Estoque(rs.getInt("codigo"), rs.getString("espaco_na_unidade"),
+                        rs.getInt("cod_responsavel"), rs.getInt("cod_unidade")));
             }
-
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao listar os estoques.", e);
+            throw new ConnectionFailedException("Erro ao listar estoques.", e);
         }
-
         return lista;
     }
 
     /**
-     * Remove um estoque do banco de dados utilizando o seu código identificador.
+     * Consulta estoques com filtros opcionais e combináveis.
      *
-     * @param codigo Código (chave primária) do estoque a ser deletado
-     * @throws NotFoundException se nenhum estoque com o código informado for encontrado
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
+     * @param busca código ou parte do espaço
+     * @param codUnidade unidade selecionada
+     * @param codResponsavel responsável selecionado
+     * @param codOrganizacao organização selecionada
+     * @return estoques correspondentes
+     * @throws ConnectionFailedException em caso de falha no banco
      */
-    public void delete(int codigo) {
-        String sql = "DELETE FROM estoque WHERE codigo = ?";
-
-        try (Connection conn = Conexao.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, codigo);
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas == 0) {
-                throw new NotFoundException("Estoque", codigo);
-            }
-
-        } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao deletar o estoque do banco de dados.", e);
-        }
-    }
-
-    /**
-     * Lista os estoques de uma unidade, com busca opcional por código
-     * ou por parte do espaço na unidade.
-     *
-     * @param codUnidade código da unidade dona dos estoques
-     * @param busca texto digitado na busca; se for nulo ou vazio, traz todos da unidade
-     * @return lista de {@link Estoque} encontrados (vazia se nenhum)
-     * @throws ConnectionFailedException se ocorrer falha na conexão ou execução do SQL
-     */
-    public List<Estoque> findByUnidade(int codUnidade, String busca) {
+    public List<Estoque> findByFiltros(String busca, Integer codUnidade,
+                                       Integer codResponsavel, Integer codOrganizacao) {
         boolean temBusca = busca != null && !busca.isBlank();
+        StringBuilder sql = new StringBuilder(
+                "SELECT e.* FROM estoque e INNER JOIN unidade u ON u.codigo = e.cod_unidade WHERE 1=1");
 
-        String sql = "SELECT * FROM estoque WHERE cod_unidade = ?";
-        if (temBusca) {
-            sql += " AND (CAST(codigo AS TEXT) = ? OR espaco_na_unidade ILIKE ?)";
-        }
-        sql += " ORDER BY codigo";
+        if (temBusca) sql.append(" AND (CAST(e.codigo AS TEXT) = ? OR e.espaco_na_unidade ILIKE ?)");
+        if (codUnidade != null) sql.append(" AND e.cod_unidade = ?");
+        if (codResponsavel != null) sql.append(" AND e.cod_responsavel = ?");
+        if (codOrganizacao != null) sql.append(" AND u.cod_organizacao = ?");
+        sql.append(" ORDER BY e.codigo");
 
         List<Estoque> lista = new ArrayList<>();
-
         try (Connection conn = Conexao.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, codUnidade);
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int indice = 1;
             if (temBusca) {
-                String termo = busca.trim();
-                stmt.setString(2, termo);
-                stmt.setString(3, "%" + termo + "%");
+                stmt.setString(indice++, busca.trim());
+                stmt.setString(indice++, "%" + busca.trim() + "%");
             }
+            if (codUnidade != null) stmt.setInt(indice++, codUnidade);
+            if (codResponsavel != null) stmt.setInt(indice++, codResponsavel);
+            if (codOrganizacao != null) stmt.setInt(indice, codOrganizacao);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    lista.add(new Estoque(
-                            rs.getInt("codigo"),
-                            rs.getString("espaco_na_unidade"),
-                            rs.getInt("cod_responsavel"),
-                            rs.getInt("cod_unidade")
-                    ));
+                    lista.add(new Estoque(rs.getInt("codigo"), rs.getString("espaco_na_unidade"),
+                            rs.getInt("cod_responsavel"), rs.getInt("cod_unidade")));
                 }
             }
-
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Erro ao buscar os estoques da unidade.", e);
+            throw new ConnectionFailedException("Erro ao filtrar estoques.", e);
         }
-
         return lista;
+    }
+
+    /**
+     * Consulta estoques de uma unidade por código ou espaço.
+     *
+     * @param codUnidade unidade do gestor
+     * @param busca texto pesquisado
+     * @return estoques encontrados
+     * @throws ConnectionFailedException em caso de falha no banco
+     */
+    public List<Estoque> findByUnidade(int codUnidade, String busca) {
+        return findByFiltros(busca, codUnidade, null, null);
+    }
+
+    /**
+     * Consulta estoques de uma unidade com dois filtros combináveis.
+     *
+     * @param codUnidade unidade do gestor
+     * @param busca código ou espaço
+     * @param codResponsavel responsável selecionado
+     * @return estoques encontrados
+     * @throws ConnectionFailedException em caso de falha no banco
+     */
+    public List<Estoque> findByUnidade(int codUnidade, String busca, Integer codResponsavel) {
+        return findByFiltros(busca, codUnidade, codResponsavel, null);
+    }
+
+    /**
+     * Exclui um estoque pelo código.
+     *
+     * @param codigo identificador do estoque
+     * @throws NotFoundException se não houver registro
+     * @throws ConnectionFailedException em caso de falha no banco
+     */
+    public void delete(int codigo) {
+        String sql = "DELETE FROM estoque WHERE codigo = ?";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, codigo);
+            if (stmt.executeUpdate() == 0) {
+                throw new NotFoundException("Estoque", codigo);
+            }
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao excluir estoque.", e);
+        }
+    }
+
+    /**
+     * Exclui um estoque somente quando pertence à unidade indicada.
+     *
+     * @param codigo identificador do estoque
+     * @param codUnidade unidade autorizada
+     * @throws NotFoundException se não houver registro correspondente
+     * @throws ConnectionFailedException em caso de falha no banco
+     */
+    public void deleteByUnidade(int codigo, int codUnidade) {
+        String sql = "DELETE FROM estoque WHERE codigo = ? AND cod_unidade = ?";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, codigo);
+            stmt.setInt(2, codUnidade);
+            if (stmt.executeUpdate() == 0) {
+                throw new NotFoundException("Estoque", codigo);
+            }
+        } catch (SQLException e) {
+            throw new ConnectionFailedException("Erro ao excluir estoque da unidade.", e);
+        }
     }
 }

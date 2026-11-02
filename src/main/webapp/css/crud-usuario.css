@@ -743,17 +743,19 @@ header.header-crud .logo {
     display: block;
 }
 
+/* Ícone superior direito com hover de borda e link */
+header.header-crud a.avatar-topo,
 header.header-crud .avatar-topo {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     background-color: var(--cor5);
     border-radius: 50%;
-    color: #fff;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 13px;
     font-family: var(--fonte1);
     text-decoration: none !important;
     cursor: pointer;
@@ -771,23 +773,237 @@ header.header-crud .avatar-topo:focus {
    CARD COM TABELA & FILTROS (ESTOQUES, UNIDADE, ETC.)
    ========================================================================== */
 
+.home-cards-container {
+    position: relative;
+    z-index: 2;
+    margin: 0 0 28px 0 !important;
+    width: 100% !important;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.home-card {
+    background: var(--cor1);
+    border-left: 6px solid var(--cor5);
+    border-radius: 16px;
+    padding: 18px 20px;
+    min-height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    box-sizing: border-box;
+    font-family: var(--fonte1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.home-card.borda-amarela {
+    border-left-color: var(--cor4);
+}
+
+.home-card .titulo-metrica {
+    font-family: var(--fonte1);
+    font-size: 19px;
+    font-weight: 700;
+    color: rgba(21, 45, 107, 0.75);
+    line-height: 1.2;
+}
+
+.home-card .numero-metrica {
+    font-family: var(--fonte1);
+    font-size: clamp(40px, 4vw, 56px);
+    font-weight: 700;
+    color: var(--cor2);
+    line-height: 1.1;
+    margin-top: 4px;
+}
+
+.home-card .plano-metrica {
+    font-family: var(--fonte1);
+    font-size: clamp(20px, 2.2vw, 34px);
+    font-weight: 700;
+    color: var(--cor2);
+    line-height: 1.1;
+    margin-top: 6px;
+}
+
+.home-card .descricao-metrica {
+    font-family: var(--fonte1);
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(21, 45, 107, 0.7);
+    margin-top: 6px;
+}
+
+/* ========================================================
+   HOME: VIGÊNCIA DA ASSINATURA (LEGENDA AO LADO E 100% RESPONSIVO)
+   ======================================================== */
+
+.home-vigencia {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: 360px;
+    padding: 28px 36px 36px;
+    border-radius: 20px;
+    background: var(--cor1);
+    color: var(--cor2);
+    font-family: var(--fonte1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.home-vigencia h2 {
+    margin: 0;
+    color: var(--cor2);
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--fonte1);
+    line-height: 1.2;
+    align-self: flex-start;
+}
+
+.home-vigencia-conteudo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    width: 100%;
+    margin-top: 20px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.home-vigencia-grafico {
+    position: relative;
+    width: clamp(210px, 20vw, 260px);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-vigencia-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.home-vigencia-centro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+}
+
+.home-vigencia-centro strong {
+    font-size: clamp(44px, 4.5vw, 64px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cor2);
+    font-family: var(--fonte1);
+}
+
+.home-vigencia-centro span {
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #687B9F;
+    font-family: var(--fonte1);
+}
+
+.home-vigencia-legenda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.home-vigencia-legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.home-vigencia-quadrado {
+    display: block;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 9px;
+}
+
+.home-vigencia-inicio {
+    background-color: #2958D1;
+}
+
+.home-vigencia-termino {
+    background-color: #DEDCD6;
+}
+
+.home-vigencia-legenda-textos {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.home-vigencia-legenda-textos strong {
+    color: var(--cor2);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: var(--fonte1);
+    line-height: 1.2;
+}
+
+.home-vigencia-legenda-textos span {
+    color: #687B9F;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--fonte1);
+    line-height: 1.2;
+}
+
+.home-vigencia-indisponivel {
+    color: #687B9F;
+    font-size: 16px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+/* ========================================================
+   CARD COM TABELA
+   ======================================================== */
+
 .tabela {
     background-color: var(--cor1);
     position: relative;
     z-index: 2;
     border-radius: 20px;
     box-sizing: border-box;
-    margin-left: 95px !important;
+    margin: 0 0 24px 0 !important;
     padding: 24px 38px 30px;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 135px);
-    max-width: 860px;
-    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    width: 100% !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .tabela-segunda {
-    margin-top: 24px;
+    margin-top: 24px !important;
 }
 
 .tabela-titulo {
@@ -900,7 +1116,7 @@ header.header-crud .avatar-topo:focus {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: opacity .2s,transform .2s;
+    transition: opacity 0.2s, transform 0.2s;
 }
 
 .btn-lupa img {
@@ -917,7 +1133,7 @@ header.header-crud .avatar-topo:focus {
 }
 
 .btn-lupa:hover {
-    opacity: .75;
+    opacity: 0.75;
     transform: translateY(-50%) scale(1.08);
 }
 
@@ -953,7 +1169,7 @@ header.header-crud .avatar-topo:focus {
     font-family: var(--fonte1);
     font-size: 19.96px;
     font-weight: bold;
-    border-bottom: 2px solid rgba(21,45,107,.4);
+    border-bottom: 2px solid rgba(21, 45, 107, 0.4);
 }
 
 .itens-tabela td {
@@ -962,7 +1178,7 @@ header.header-crud .avatar-topo:focus {
     color: var(--cor2);
     font-family: var(--fonte1);
     font-size: 16px;
-    border-bottom: 1.5px solid rgba(21,45,107,.2);
+    border-bottom: 1.5px solid rgba(21, 45, 107, 0.2);
     vertical-align: middle;
 }
 
@@ -984,7 +1200,7 @@ header.header-crud .avatar-topo:focus {
 
 .acoes a {
     display: inline-block;
-    transition: transform .15s ease;
+    transition: transform 0.15s ease;
 }
 
 .acoes a:hover {
@@ -1051,7 +1267,7 @@ header.header-crud .avatar-topo:focus {
 
 .form-coluna input[readonly],
 .form-grid-duplo input[readonly] {
-    color: rgba(21,45,107,.55);
+    color: rgba(21, 45, 107, 0.55);
     cursor: default;
 }
 
@@ -1121,12 +1337,6 @@ header.header-crud .avatar-topo:focus {
 .form-grid-duplo select option {
     background-color: var(--cor1);
     color: var(--cor2);
-}
-
-.form-coluna input::placeholder,
-.form-grid-duplo input::placeholder {
-    color: rgba(21,45,107,.5);
-    font-size: 16px;
 }
 
 .alinhar-direita {
@@ -1223,18 +1433,6 @@ header.header-crud .avatar-topo:focus {
         padding-right: 30px !important;
     }
 
-    .informacoes h1.nome-da-area,
-    h1.nome-da-area,
-    .nome-da-area {
-        margin: 0 0 24px 30px !important;
-    }
-
-    .tabela {
-        margin-left: 30px !important;
-        width: calc(100% - 60px) !important;
-        padding: 24px 28px !important;
-    }
-
     .z-marca-dagua {
         width: 600px !important;
         height: auto !important;
@@ -1303,7 +1501,7 @@ header.header-crud .avatar-topo:focus {
 
     .painel-esquerda hr,
     .perfil-usuario {
-        display: none;
+        display: none !important;
     }
 
     .informacoes,
@@ -1338,8 +1536,6 @@ header.header-crud .avatar-topo:focus {
     }
 
     .tabela {
-        margin-left: 0 !important;
-        width: 100% !important;
         padding: 20px 16px !important;
         border-radius: 16px;
     }
@@ -1365,24 +1561,10 @@ header.header-crud .avatar-topo:focus {
         gap: 14px !important;
     }
 
-    .alinhar-direita {
-        justify-content: stretch;
-    }
-
-    .botao-submit {
-        width: 100%;
-    }
-
-    .bloco-codigo-convite {
-        width: 100%;
-        min-width: 0;
-        box-sizing: border-box;
-    }
-
     .z-marca-dagua {
         width: 380px !important;
         height: auto !important;
-        opacity: .15 !important;
+        opacity: 0.15 !important;
     }
 }
 

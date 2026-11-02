@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-<%-- HomeGestorServlet: GET /gestor/home --%>
+
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="ativo" value="home" />
 <c:set var="nomeExibicao" value="${empty nomeGestor ? 'Gestor' : nomeGestor}" />
@@ -12,14 +12,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Home - Zera</title>
+
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
-    <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
+
 <body>
+
 <%@ include file="menu.jspf" %>
 <main class="informacoes tela-scroll">
     <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
@@ -30,14 +33,28 @@
     <section class="home-cards-container" aria-label="Resumo do painel">
         <div class="home-card">
             <span class="titulo-metrica">Estoques</span>
-            <span class="numero-metrica"><c:out value="${empty estoquesNaUnidade ? 0 : estoquesNaUnidade}"/></span>
-            <span class="descricao-metrica">Na sua unidade</span>
+
+            <span class="numero-metrica">
+                <c:out value="${empty estoquesNaUnidade ? 0 : estoquesNaUnidade}"/>
+            </span>
+
+            <span class="descricao-metrica">
+                Na sua unidade
+            </span>
         </div>
+
         <div class="home-card borda-amarela">
             <span class="titulo-metrica">Unidades</span>
-            <span class="numero-metrica"><c:out value="${empty totalUnidadesOrganizacao ? '—' : totalUnidadesOrganizacao}"/></span>
-            <span class="descricao-metrica">Na sua organização</span>
+
+            <span class="numero-metrica">
+                <c:out value="${empty totalUnidadesOrganizacao ? '—' : totalUnidadesOrganizacao}"/>
+            </span>
+
+            <span class="descricao-metrica">
+                Na sua organização
+            </span>
         </div>
+
         <div class="home-card">
             <span class="titulo-metrica">Plano</span>
             <span class="plano-metrica"><c:out value="${empty plano ? 'Sem plano' : plano.nome}"/></span>
@@ -48,6 +65,7 @@
                 </c:choose>
             </span>
         </div>
+
     </section>
 
     <!-- Painel de Vigência da Assinatura -->
@@ -81,6 +99,34 @@
                             <span class="rosca-numero" id="rosca-valor">0</span>
                             <span class="rosca-rotulo" id="rosca-legenda">dias gastos</span>
                         </div>
+
+                        <!-- Datas de Início e Término -->
+                        <div class="home-vigencia-datas-container">
+                            <div class="bloco-data">
+                                <span class="bloco-data-label">Início</span>
+                                <strong class="bloco-data-valor">
+                                    <c:out value="${fn:substring(assinatura.dataInicio,8,10)}"/>/<c:out value="${fn:substring(assinatura.dataInicio,5,7)}"/>/<c:out value="${fn:substring(assinatura.dataInicio,0,4)}"/>
+                                </strong>
+                            </div>
+
+                            <div class="divisor-datas"></div>
+
+                            <div class="bloco-data">
+                                <span class="bloco-data-label">Término</span>
+                                <strong class="bloco-data-valor">
+                                    <c:out value="${fn:substring(assinatura.dataFim,8,10)}"/>/<c:out value="${fn:substring(assinatura.dataFim,5,7)}"/>/<c:out value="${fn:substring(assinatura.dataFim,0,4)}"/>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <!-- Botão com seta -->
+                        <a href="${ctx}/assinatura/perfil" class="btn-ver-assinatura">
+                            <span>Ver assinatura</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icone-seta">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </a>
+
                     </div>
                 </div>
 
@@ -104,7 +150,9 @@
             </div>
         </article>
     </section>
+
 </main>
+
 </div>
 
 <!-- SCRIPT QUE PROCESSA AS DATAS DO BACKEND E ALINHA O GRÁFICO -->
@@ -209,6 +257,8 @@
     }
 })();
 </script>
+
 <script src="${ctx}/js/popup.js" defer></script>
+
 </body>
 </html>

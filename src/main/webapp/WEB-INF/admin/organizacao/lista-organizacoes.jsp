@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="${ctx}/css/crud.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
-
 <body>
 <div class="tela-auth">
     <aside class="painel-esquerda">
@@ -25,14 +24,11 @@
             <%@ include file="/WEB-INF/componentes/menu-admin.jspf" %>
         </div>
     </aside>
-
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
-
         <h1 class="nome-da-area">Organizações</h1>
-
         <section class="tabela">
-            <form class="tabela-filtros" onsubmit="event.preventDefault()">
+            <form class="tabela-filtros" id="form-filtros">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
                     <input id="buscar" name="buscar" type="search"
@@ -41,7 +37,6 @@
                         <img src="${ctx}/images/icone-lupa.svg" alt="Buscar">
                     </button>
                 </div>
-
                 <div class="filtrador">
                     <label for="cadastro">Tempo</label>
                     <select id="cadastro" name="cadastro">
@@ -50,30 +45,27 @@
                         <option value="90">Últimos 90 dias</option>
                     </select>
                 </div>
-
+                <button type="submit" class="adicionar">Filtrar</button>
+                <button type="button" class="adicionar" id="limpar-filtros">Limpar</button>
                 <a href="${ctx}/organizacao/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
                     <span>Nova organização</span>
                 </a>
             </form>
-
             <div class="tabela-rolagem">
                 <table class="itens-tabela">
                     <thead>
                     <tr>
                         <th>Nome</th>
                         <th>CNPJ</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
                         <th>Cadastrada em</th>
                         <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
-
                     <tbody>
                     <c:forEach var="org" items="${organizacoes}">
-                        <tr class="linha-organizacao"
-                            data-cadastro="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : ''}">
-
+                        <tr class="linha-organizacao" data-cadastro="${org.criadoEm != null ? fn:substring(org.criadoEm,0,10) : ''}">
                             <td><c:out value="${org.nome}"/></td>
 
                             <td class="col-cnpj">
@@ -159,18 +151,21 @@
 </div>
 
 <script>
-    const busca = document.getElementById('buscar');
-    const cadastro = document.getElementById('cadastro');
-    const linhas = [...document.querySelectorAll('.linha-organizacao')];
-    const aviso = document.getElementById('sem-resultados');
+    let busca = document.getElementById("buscar");
+    let cadastro = document.getElementById("cadastro");
+    let linhas = document.querySelectorAll(".linha-organizacao");
+    let aviso = document.getElementById("sem-resultados");
 
     function filtrar() {
-        const termo = busca.value.trim().toLowerCase();
-        const dias = cadastro.value;
-        let visiveis = 0;
+        let termo = busca.value.toLowerCase().trim();
+        let dias = cadastro.value;
+        let quantidade = 0;
 
-        linhas.forEach((linha) => {
-            const ok = linha.textContent.toLowerCase().includes(termo);
+        for (let i = 0; i < linhas.length; i++) {
+            let linha = linhas[i];
+            let texto = linha.innerText.toLowerCase();
+            let dataCadastro = linha.getAttribute("data-cadastro");
+            let buscaOk = texto.includes(termo);
             let dataOk = true;
 
             if (dias !== 'todos') {
@@ -185,7 +180,11 @@
             if (!linha.hidden) visiveis++;
         });
 
-        aviso.hidden = visiveis !== 0;
+        if (quantidade == 0) {
+            aviso.hidden = false;
+        } else {
+            aviso.hidden = true;
+        }
     }
 
     busca?.addEventListener('input', filtrar);
