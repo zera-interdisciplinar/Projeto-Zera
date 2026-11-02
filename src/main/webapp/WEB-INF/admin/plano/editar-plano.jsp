@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -29,46 +28,47 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <%-- Botão voltar no topo deslocado à esquerda --%>
+        <a href="${ctx}/plano/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Editar plano</h1>
 
         <c:choose>
             <c:when test="${empty plano}">
-                <p>Registro não encontrado. Volte para a listagem.</p>
+                <p class="mensagem-erro-registro">Registro não encontrado. Volte para a listagem.</p>
             </c:when>
 
             <c:otherwise>
                 <section class="edicao">
-                    <form action="${ctx}/plano/alterar" method="post">
+                    <form action="${ctx}/plano/alterar" method="post" class="form-crud">
                         <input type="hidden" name="codigo" value="${plano.codigo}">
 
                         <c:if test="${not empty erroInterno}">
-                            <p role="alert">
+                            <p role="alert" class="alerta-erro">
                                 <c:out value="${erroInterno}"/>
                             </p>
                         </c:if>
 
-                        <div class="form-coluna">
-                            <div class="filtrador">
+                        <div class="form-grid">
+                            <div class="campo-grupo campo-cheio">
                                 <label for="nome">Nome</label>
-
                                 <input type="text" id="nome" name="nome"
-                                       class="form-campo-total"
                                        value="<c:out value='${plano.nome}'/>"
-                                       placeholder="" required>
+                                       required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="valor">Valor</label>
-
                                 <input type="number" id="valor" name="valor"
-                                       class="form-campo-total"
                                        value="<c:out value='${plano.valor}'/>"
-                                       placeholder="" min="0" step="0.01" required>
+                                       min="0" step="0.01" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="tempo">Período</label>
-
                                 <select id="tempo" name="tempo" required>
                                     <option value="mensal"
                                         ${fn:toLowerCase(plano.tempo) == "mensal" ? "selected" : ""}>
@@ -89,7 +89,10 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="botao-salvar">Salvar</button>
+                        <%-- Botão posicionado no canto inferior direito --%>
+                        <div class="form-rodape">
+                            <button type="submit" id="botao-salvar">Salvar</button>
+                        </div>
                     </form>
                 </section>
             </c:otherwise>

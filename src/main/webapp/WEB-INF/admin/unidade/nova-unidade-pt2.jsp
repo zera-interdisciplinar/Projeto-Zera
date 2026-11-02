@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -29,26 +28,27 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <%-- Botão voltar no topo deslocado à esquerda --%>
+        <a href="${ctx}/unidade/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Adicionar endereço da unidade</h1>
 
-        <section class="edicao">
-            <form action="${ctx}/endereco/inserir" method="post">
+        <section class="adicao">
+            <form action="${ctx}/endereco/inserir" method="post" class="form-crud">
                 <c:if test="${not empty erroInterno}">
-                    <p role="alert">
+                    <p role="alert" class="alerta-erro">
                         <c:out value="${erroInterno}"/>
                     </p>
                 </c:if>
 
-                <div class="form-coluna">
-                    <div class="filtrador">
+                <div class="form-grid">
+                    <div class="campo-grupo campo-cheio">
                         <label for="codUnidade">Unidade</label>
-
-                        <select id="codUnidade"
-                                name="codUnidade"
-                                class="form-campo-total"
-                                required>
+                        <select id="codUnidade" name="codUnidade" required>
                             <option value="">Selecione</option>
-
                             <c:forEach var="item" items="${unidades}">
                                 <option value="${item.codigo}">
                                     <c:out value="${item.nome}"/>
@@ -57,76 +57,65 @@
                         </select>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="logradouro">Logradouro</label>
-
                         <input type="text"
                                id="logradouro"
                                name="logradouro"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="numero">Número</label>
-
                         <input type="number"
                                id="numero"
                                name="numero"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="bairro">Bairro</label>
-
                         <input type="text"
                                id="bairro"
                                name="bairro"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="cidade">Cidade</label>
-
                         <input type="text"
                                id="cidade"
                                name="cidade"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="estado">Estado</label>
-
                         <input type="text"
                                id="estado"
                                name="estado"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="cep">CEP</label>
-
                         <input type="text"
                                id="cep"
                                name="cep"
-                               class="form-campo-total"
                                placeholder=""
                                required>
                     </div>
                 </div>
 
-                <button type="submit" id="botao-salvar">
-                    Cadastrar
-                </button>
+                <%-- Botão posicionado no canto inferior direito --%>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Cadastrar</button>
+                </div>
             </form>
         </section>
     </main>

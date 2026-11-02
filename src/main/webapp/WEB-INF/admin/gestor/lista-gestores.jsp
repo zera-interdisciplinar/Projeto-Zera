@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -15,6 +14,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
+    <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
 
 <body>
@@ -32,20 +32,16 @@
         <h1 class="nome-da-area">Gestores</h1>
 
         <section class="tabela">
-            <form class="tabela-filtros" action="${ctx}/gestor/lista" method="get">
+            <form class="tabela-filtros" onsubmit="event.preventDefault()">
                 <div class="filtrador busca">
                     <label for="buscar">Buscar</label>
-
-                    <input type="search" name="buscar" id="buscar"
-                           value="<c:out value='${param.buscar}'/>"
-                           placeholder="Pesquisar">
+                    <input id="buscar" name="buscar" type="search"
+                           placeholder="Nome, email, telefone ou unidade">
                 </div>
-
-                <button type="submit" class="btn-lupa">Buscar</button>
 
                 <a href="${ctx}/gestor/perfil" class="adicionar">
                     <img src="${ctx}/images/icone-adicionar.svg" alt="">
-                    Novo gestor
+                    <span>Novo gestor</span>
                 </a>
             </form>
 
@@ -57,55 +53,183 @@
                         <th>E-mail</th>
                         <th>Telefone</th>
                         <th>Unidade</th>
-                        <th class="col-acoes">Ações</th>
+                        <th class="col-acoes-th"></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <c:choose>
-                        <c:when test="${not empty gestores}">
-                            <c:forEach var="item" items="${gestores}">
-                                <tr>
-                                    <td><c:out value="${item.nome}"/></td>
-                                    <td><c:out value="${item.email}"/></td>
-                                    <td><c:out value="${item.telefone}"/></td>
-                                    <td><c:out value="${item.codUnidade}"/></td>
+                    <c:forEach var="item" items="${gestores}">
+                        <tr class="linha-gestor">
+                            <td><c:out value="${item.nome}"/></td>
+                            <td><c:out value="${item.email}"/></td>
+                            <td><c:out value="${item.telefone}"/></td>
+                            <td><c:out value="${item.codUnidade}"/></td>
 
-                                    <td class="col-acoes">
-                                        <div class="acoes">
-                                            <a href="${ctx}/gestor/perfil?codigo=${item.codigo}"
-                                               title="Editar">
-                                                <img src="${ctx}/images/icone-editar.svg" alt="Editar">
-                                            </a>
+                            <td class="col-acoes">
+                                <div class="acoes">
+                                    <a href="${ctx}/gestor/perfil?visualizar=${item.codigo}"
+                                       class="btn-icone"
+                                       title="Visualizar">
+                                        <img src="${ctx}/images/icone-ver.svg" alt="Visualizar">
+                                    </a>
 
-                                            <form action="${ctx}/gestor/excluir"
-                                                  method="post"
-                                                  onsubmit="return confirm('Confirma a exclusão?');">
+                                    <a href="${ctx}/gestor/perfil?codigo=${item.codigo}"
+                                       class="btn-icone"
+                                       title="Editar">
+                                        <img src="${ctx}/images/icone-editar.svg" alt="Editar">
+                                    </a>
 
-                                                <input type="hidden" name="codigo"
-                                                       value="${item.codigo}">
+                                    <form method="post" action="${ctx}/gestor/excluir" class="form-excluir">
+                                        <input type="hidden" name="codigo" value="${item.codigo}">
+                                        <button type="button"
+                                                class="btn-icone zera-abrir-exclusao"
+                                                title="Excluir gestor"
+                                                aria-label="Excluir gestor">
+                                            <img src="${ctx}/images/icone-excluir.svg" alt="Excluir">
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
 
-                                                <button type="submit" aria-label="Excluir">
-                                                    <img src="${ctx}/images/icone-excluir.svg" alt="">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:when>
-
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="5">Nenhum gestor cadastrado.</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
+                    <tr id="sem-resultados" hidden>
+                        <td colspan="5" class="sem-dados">Nenhum gestor encontrado.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
 </div>
+
+<%-- POPUP DE CONFIRMAÇÃO DE EXCLUSÃO --%>
+<div id="zera-modal-exclusao" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-exclusao-titulo" aria-describedby="zera-exclusao-descricao">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-exclusao" aria-label="Fechar"></button>
+        <h2 id="zera-exclusao-titulo">Deseja mesmo excluir?</h2>
+        <p id="zera-exclusao-descricao" class="zera-modal-descricao">
+            Essa ação excluirá o gestor selecionado e não poderá ser desfeita.
+        </p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-exclusao">Voltar</button>
+            <button type="button" class="zera-modal-confirmar" id="zera-confirmar-exclusao">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<%-- POPUP DE CONFIRMAÇÃO DE SAIR (LOGOUT) --%>
+<div id="zera-modal-sair" class="zera-modal-overlay" hidden>
+    <div class="zera-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="zera-sair-titulo" aria-describedby="zera-sair-descricao">
+        <button type="button" class="zera-modal-fechar" id="zera-fechar-sair" aria-label="Fechar"></button>
+        <h2 id="zera-sair-titulo">Deseja realmente sair?</h2>
+        <p id="zera-sair-descricao" class="zera-modal-descricao">
+            Você será desconectado da sua conta de administrador.
+        </p>
+        <div class="zera-modal-botoes">
+            <button type="button" class="zera-modal-voltar" id="zera-cancelar-sair">Voltar</button>
+            <a href="${ctx}/logout" class="zera-modal-confirmar" id="zera-confirmar-sair" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Sair</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const busca = document.getElementById('buscar');
+    const linhas = [...document.querySelectorAll('.linha-gestor')];
+    const aviso = document.getElementById('sem-resultados');
+
+    function filtrar() {
+        const termo = busca.value.trim().toLowerCase();
+        let visiveis = 0;
+
+        linhas.forEach((linha) => {
+            const ok = linha.textContent.toLowerCase().includes(termo);
+            linha.hidden = !ok;
+            if (!linha.hidden) visiveis++;
+        });
+
+        if (aviso) {
+            aviso.hidden = (visiveis !== 0 || linhas.length === 0);
+        }
+    }
+
+    busca?.addEventListener('input', filtrar);
+    filtrar();
+
+    // Controle do popup de exclusão
+    (() => {
+        const modalExcluir = document.getElementById("zera-modal-exclusao");
+        const cancelarExcluir = document.getElementById("zera-cancelar-exclusao");
+        const fecharExcluir = document.getElementById("zera-fechar-exclusao");
+        const confirmarExcluir = document.getElementById("zera-confirmar-exclusao");
+
+        let formExclusao = null;
+
+        function abrirModal(botao) {
+            formExclusao = botao.closest("form");
+            confirmarExcluir.disabled = false;
+            modalExcluir.hidden = false;
+            document.body.style.overflow = "hidden";
+            cancelarExcluir.focus();
+        }
+
+        function fecharModal() {
+            modalExcluir.hidden = true;
+            document.body.style.overflow = "";
+            formExclusao = null;
+        }
+
+        document.querySelectorAll(".zera-abrir-exclusao").forEach(btn => {
+            btn.addEventListener("click", () => abrirModal(btn));
+        });
+
+        cancelarExcluir?.addEventListener("click", fecharModal);
+        fecharExcluir?.addEventListener("click", fecharModal);
+
+        modalExcluir?.addEventListener("click", e => {
+            if (e.target === modalExcluir) fecharModal();
+        });
+
+        confirmarExcluir?.addEventListener("click", () => {
+            if (formExclusao) {
+                confirmarExcluir.disabled = true;
+                formExclusao.submit();
+            }
+        });
+    })();
+
+    // Controle do popup de logout
+    (() => {
+        const modalSair = document.getElementById("zera-modal-sair");
+        const cancelarSair = document.getElementById("zera-cancelar-sair");
+        const fecharSair = document.getElementById("zera-fechar-sair");
+        const linkSairMenu = document.querySelector(".painel-esquerda nav a[href*='logout'], .painel-esquerda nav a.botao-sair");
+
+        function abrirModalSair(e) {
+            if (e) e.preventDefault();
+            modalSair.hidden = false;
+            document.body.style.overflow = "hidden";
+            cancelarSair.focus();
+        }
+
+        function fecharModalSair() {
+            modalSair.hidden = true;
+            document.body.style.overflow = "";
+        }
+
+        if (linkSairMenu) {
+            linkSairMenu.addEventListener("click", abrirModalSair);
+        }
+
+        cancelarSair?.addEventListener("click", fecharModalSair);
+        fecharSair?.addEventListener("click", fecharModalSair);
+
+        modalSair?.addEventListener("click", e => {
+            if (e.target === modalSair) fecharModalSair();
+        });
+    })();
+</script>
+
+<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>

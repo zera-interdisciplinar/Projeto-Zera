@@ -1,7 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="organizacao"/>
@@ -29,37 +27,52 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/organizacao/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Dados da organização</h1>
 
         <c:choose>
             <c:when test="${empty organizacao}">
-                <p>Organização não encontrada.</p>
+                <p class="mensagem-erro-registro">Organização não encontrada.</p>
             </c:when>
 
             <c:otherwise>
-                <section class="tabela">
-                    <table class="itens-tabela">
-                        <tbody>
-                        <tr>
-                            <th>Nome</th>
-                            <td><c:out value="${organizacao.nome}"/></td>
-                        </tr>
+                <section class="visualizacao">
+                    <div class="form-crud">
+                        <div class="form-grid">
+                            <div class="campo-grupo campo-cheio">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome"
+                                       value="<c:out value='${organizacao.nome}'/>"
+                                       readonly>
+                            </div>
 
-                        <tr>
-                            <th>CNPJ</th>
-                            <td><c:out value="${organizacao.cnpj}"/></td>
-                        </tr>
+                            <div class="campo-grupo">
+                                <label for="cnpj">CNPJ</label>
+                                <input type="text" id="cnpj" name="cnpj"
+                                       value="<c:out value='${organizacao.cnpj}'/>"
+                                       placeholder="00.000.000/0000-00"
+                                       readonly>
+                            </div>
 
-                        <tr>
-                            <th>E-mail</th>
-                            <td><c:out value="${organizacao.email}"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            <div class="campo-grupo">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email"
+                                       value="<c:out value='${organizacao.email}'/>"
+                                       placeholder="contato@empresa.com"
+                                       readonly>
+                            </div>
+                        </div>
 
-                    <a href="${ctx}/organizacao/perfil?codigo=${organizacao.codigo}">
-                        Editar organização
-                    </a>
+                        <div class="form-rodape">
+                            <a href="${ctx}/organizacao/editar?codigo=${organizacao.codigo}" id="botao-salvar">
+                                Editar
+                            </a>
+                        </div>
+                    </div>
                 </section>
             </c:otherwise>
         </c:choose>

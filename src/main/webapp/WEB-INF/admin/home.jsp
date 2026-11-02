@@ -32,46 +32,48 @@
         <h1 class="nome-da-area">Home</h1>
 
         <section class="card">
-            <a class="dado" href="${ctx}/organizacao/lista">
-                <p class="nome-do-dado">Organizações</p>
+                <a class="dado" href="${ctx}/organizacao/lista">
+                    <p class="nome-do-dado">Organizações</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${totalOrganizacoes}" default="0"/>
+                    </p>
+                </a>
 
-                <p class="numero-do-dado">
-                    <c:out value="${totalOrganizacoes}" default="0"/>
-                </p>
-            </a>
+                <a class="dado" href="${ctx}/assinatura/lista">
+                    <p class="nome-do-dado">Assinaturas ativas</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${assinaturasAtivas}" default="0"/>
+                    </p>
+                </a>
 
-            <a class="dado" href="${ctx}/assinatura/lista">
-                <p class="nome-do-dado">Assinaturas ativas</p>
+                <a class="dado" href="${ctx}/assinatura/lista">
+                    <p class="nome-do-dado">Vencendo em 30 dias</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${assinaturasVencendo}" default="0"/>
+                    </p>
+                </a>
 
-                <p class="numero-do-dado">
-                    <c:out value="${assinaturasAtivas}" default="0"/>
-                </p>
-            </a>
+                <a class="dado" href="${ctx}/unidade/lista">
+                    <p class="nome-do-dado">Unidades</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${totalUnidades}" default="0"/>
+                    </p>
+                </a>
 
-            <a class="dado" href="${ctx}/assinatura/lista">
-                <p class="nome-do-dado">Vencendo em 30 dias</p>
+                <a class="dado" href="${ctx}/estoque/lista">
+                    <p class="nome-do-dado">Estoques</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${totalEstoques}" default="0"/>
+                    </p>
+                </a>
 
-                <p class="numero-do-dado">
-                    <c:out value="${assinaturasVencendo}" default="0"/>
-                </p>
-            </a>
-
-            <a class="dado" href="${ctx}/unidade/lista">
-                <p class="nome-do-dado">Unidades</p>
-
-                <p class="numero-do-dado">
-                    <c:out value="${totalUnidades}" default="0"/>
-                </p>
-            </a>
-
-            <a class="dado" href="${ctx}/estoque/lista">
-                <p class="nome-do-dado">Estoques</p>
-
-                <p class="numero-do-dado">
-                    <c:out value="${totalEstoques}" default="0"/>
-                </p>
-            </a>
-        </section>
+                <a class="dado" href="${ctx}/gestor/lista">
+                    <p class="nome-do-dado">Gestores</p>
+                    <p class="numero-do-dado">
+                        <c:out value="${totalGestores}" default="0"/>
+                    </p>
+                </a>
+            </section>
     </main>
 </div>
 </body>

@@ -1,7 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="gestor"/>
@@ -29,42 +27,44 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/gestor/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Novo gestor</h1>
 
-        <section class="edicao">
-            <form action="${ctx}/gestor/inserir" method="post">
+        <section class="adicao">
+            <form action="${ctx}/gestor/inserir" method="post" class="form-crud">
                 <c:if test="${not empty erroInterno}">
-                    <p role="alert">
+                    <p role="alert" class="alerta-erro">
                         <c:out value="${erroInterno}"/>
                     </p>
                 </c:if>
 
-                <div class="form-coluna">
-                    <div class="filtrador">
-                        <label for="nome">Nome</label>
+                <div class="form-grid">
+                    <div class="campo-grupo">
+                        <label for="nome">Nome completo</label>
                         <input type="text" id="nome" name="nome"
-                               class="form-campo-total" placeholder="" required>
+                               placeholder="Nome do gestor" required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="email">E-mail</label>
                         <input type="email" id="email" name="email"
-                               class="form-campo-total" placeholder="" required>
+                               placeholder="gestor@empresa.com" required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="telefone">Telefone</label>
                         <input type="tel" id="telefone" name="telefone"
-                               class="form-campo-total" placeholder="" required>
+                               placeholder="(00) 00000-0000" required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="codUnidade">Unidade</label>
-
-                        <select id="codUnidade" name="codUnidade"
-                                class="form-campo-total" required>
-                            <option value="">Selecione</option>
-
+                        <select id="codUnidade" name="codUnidade" required>
+                            <option value="" disabled selected>Selecione a unidade</option>
                             <c:forEach var="item" items="${unidades}">
                                 <option value="${item.codigo}">
                                     <c:out value="${item.cnpj}"/>
@@ -73,20 +73,22 @@
                         </select>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="senha">Senha</label>
                         <input type="password" id="senha" name="senha"
-                               class="form-campo-total" placeholder="" required>
+                               placeholder="••••••••" required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="confirmacao">Confirmar senha</label>
                         <input type="password" id="confirmacao" name="confirmacao"
-                               class="form-campo-total" placeholder="" required>
+                               placeholder="••••••••" required>
                     </div>
                 </div>
 
-                <button type="submit" id="botao-salvar">Cadastrar</button>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Cadastrar</button>
+                </div>
             </form>
         </section>
     </main>

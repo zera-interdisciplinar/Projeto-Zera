@@ -1,7 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="unidade"/>
@@ -29,26 +27,26 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/unidade/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Nova unidade</h1>
 
-        <section class="edicao">
-            <form action="${ctx}/unidade/inserir" method="post">
+        <section class="adicao">
+            <form action="${ctx}/unidade/inserir" method="post" class="form-crud">
                 <c:if test="${not empty erroInterno}">
-                    <p role="alert">
+                    <p role="alert" class="alerta-erro">
                         <c:out value="${erroInterno}"/>
                     </p>
                 </c:if>
 
-                <div class="form-coluna">
-                    <div class="filtrador">
+                <div class="form-grid">
+                    <div class="campo-grupo campo-cheio">
                         <label for="codOrganizacao">Organização</label>
-
-                        <select id="codOrganizacao"
-                                name="codOrganizacao"
-                                class="form-campo-total"
-                                required>
-                            <option value="">Selecione</option>
-
+                        <select id="codOrganizacao" name="codOrganizacao" required>
+                            <option value="" disabled selected>Selecione uma organização</option>
                             <c:forEach var="item" items="${organizacoes}">
                                 <option value="${item.codigo}">
                                     <c:out value="${item.nome}"/>
@@ -57,32 +55,31 @@
                         </select>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="cnpj">CNPJ</label>
-
                         <input type="text"
                                id="cnpj"
                                name="cnpj"
-                               class="form-campo-total"
-                               placeholder=""
+                               placeholder="00.000.000/0000-00"
+                               maxlength="18"
+                               pattern="\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}"
+                               title="Digite um CNPJ válido"
                                required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="email">E-mail</label>
-
                         <input type="email"
                                id="email"
                                name="email"
-                               class="form-campo-total"
-                               placeholder=""
+                               placeholder="unidade@empresa.com"
                                required>
                     </div>
                 </div>
 
-                <button type="submit" id="botao-salvar">
-                    Cadastrar
-                </button>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Cadastrar</button>
+                </div>
             </form>
         </section>
     </main>

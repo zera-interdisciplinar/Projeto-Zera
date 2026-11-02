@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -29,80 +28,89 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/endereco/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Editar endereço</h1>
 
         <c:choose>
             <c:when test="${empty endereco}">
-                <p>Registro não encontrado. Volte para a listagem.</p>
+                <p class="mensagem-erro-registro">Registro não encontrado. Volte para a listagem.</p>
             </c:when>
 
             <c:otherwise>
                 <section class="edicao">
-                    <form action="${ctx}/endereco/alterar" method="post">
+                    <form action="${ctx}/endereco/alterar" method="post" class="form-crud">
                         <input type="hidden" name="codigo" value="${endereco.codigo}">
 
                         <c:if test="${not empty erroInterno}">
-                            <p role="alert">
+                            <p role="alert" class="alerta-erro">
                                 <c:out value="${erroInterno}"/>
                             </p>
                         </c:if>
 
-                        <div class="form-coluna">
-                            <div class="filtrador">
+                        <div class="form-grid">
+                            <div class="campo-grupo">
                                 <label for="logradouro">Logradouro</label>
                                 <input type="text" id="logradouro" name="logradouro"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.logradouro}'/>"
-                                       placeholder="" required>
+                                       placeholder="Rua, Avenida, Alameda" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="numero">Número</label>
                                 <input type="number" id="numero" name="numero"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.numero}'/>"
-                                       placeholder="" required>
+                                       placeholder="123" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="bairro">Bairro</label>
                                 <input type="text" id="bairro" name="bairro"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.bairro}'/>"
-                                       placeholder="" required>
+                                       placeholder="Bairro" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="cidade">Cidade</label>
                                 <input type="text" id="cidade" name="cidade"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.cidade}'/>"
-                                       placeholder="" required>
+                                       placeholder="Cidade" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="estado">Estado</label>
                                 <input type="text" id="estado" name="estado"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.estado}'/>"
-                                       placeholder="" required>
+                                       placeholder="UF (Ex: SP)" maxlength="2" required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="cep">CEP</label>
                                 <input type="text" id="cep" name="cep"
-                                       class="form-campo-total"
                                        value="<c:out value='${endereco.cep}'/>"
-                                       placeholder="" required>
+                                       placeholder="00000-000" maxlength="9" required>
                             </div>
                         </div>
 
-                        <button type="submit" id="botao-salvar">Salvar</button>
+                        <div class="form-rodape">
+                            <button type="submit" id="botao-salvar">Salvar</button>
+                        </div>
                     </form>
                 </section>
             </c:otherwise>
         </c:choose>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

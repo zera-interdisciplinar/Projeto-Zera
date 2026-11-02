@@ -1,7 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="estoque"/>
@@ -29,24 +27,26 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/estoque/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Novo estoque</h1>
 
-        <section class="edicao">
-            <form action="${ctx}/estoque/inserir" method="post">
+        <section class="adicao">
+            <form action="${ctx}/estoque/inserir" method="post" class="form-crud">
                 <c:if test="${not empty erroInterno}">
-                    <p role="alert">
+                    <p role="alert" class="alerta-erro">
                         <c:out value="${erroInterno}"/>
                     </p>
                 </c:if>
 
-                <div class="form-coluna">
-                    <div class="filtrador">
+                <div class="form-grid">
+                    <div class="campo-grupo campo-cheio">
                         <label for="codUnidade">Unidade</label>
-
-                        <select id="codUnidade" name="codUnidade"
-                                class="form-campo-total" required>
-                            <option value="">Selecione</option>
-
+                        <select id="codUnidade" name="codUnidade" required>
+                            <option value="" disabled selected>Selecione a unidade</option>
                             <c:forEach var="item" items="${unidades}">
                                 <option value="${item.codigo}">
                                     <c:out value="${item.cnpj}"/>
@@ -55,21 +55,16 @@
                         </select>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="espacoNaUnidade">Espaço na unidade</label>
-
                         <input type="text" id="espacoNaUnidade" name="espacoNaUnidade"
-                               class="form-campo-total"
-                               placeholder="Galpão 3, sala B" required>
+                               placeholder="Ex: Galpão 3, Sala B" required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="codResponsavel">Gestor responsável</label>
-
-                        <select id="codResponsavel" name="codResponsavel"
-                                class="form-campo-total" required>
-                            <option value="">Selecione</option>
-
+                        <select id="codResponsavel" name="codResponsavel" required>
+                            <option value="" disabled selected>Selecione o gestor</option>
                             <c:forEach var="item" items="${gestores}">
                                 <option value="${item.codigo}">
                                     <c:out value="${item.nome}"/>
@@ -79,10 +74,20 @@
                     </div>
                 </div>
 
-                <button type="submit" id="botao-salvar">Cadastrar</button>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Cadastrar</button>
+                </div>
             </form>
         </section>
     </main>
 </div>
+
+<script>
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -31,81 +30,81 @@
 
         <h1 class="nome-da-area">Configurações</h1>
 
-        <section class="tabela">
-            <h2>Meu perfil</h2>
+        <%-- Seção de alteração do perfil --%>
+        <section class="edicao secao-config">
+            <h2 class="subtitulo-secao">Meu perfil</h2>
 
-            <form method="post" action="${ctx}/admin/alterar">
-                <div class="filtrador">
-                    <label for="nome">Nome</label>
+            <form method="post" action="${ctx}/admin/alterar" class="form-crud">
+                <div class="form-grid">
+                    <div class="campo-grupo">
+                        <label for="nome">Nome</label>
+                        <input
+                                type="text"
+                                id="nome"
+                                name="nome"
+                                value="<c:out value='${sessionScope.adminLogado.nome}'/>"
+                                placeholder=""
+                                required>
+                    </div>
 
-                    <input
-                            class="form-campo-total"
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            value="<c:out value='${sessionScope.adminLogado.nome}'/>"
-                            placeholder=""
-                            required>
+                    <div class="campo-grupo">
+                        <label for="email">E-mail</label>
+                        <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="<c:out value='${sessionScope.adminLogado.email}'/>"
+                                placeholder=""
+                                required>
+                    </div>
                 </div>
 
-                <div class="filtrador">
-                    <label for="email">E-mail</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="<c:out value='${sessionScope.adminLogado.email}'/>"
-                            placeholder=""
-                            required>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Salvar perfil</button>
                 </div>
-
-                <button type="submit">Salvar perfil</button>
             </form>
         </section>
 
-        <section class="tabela">
-            <h2>Alterar senha</h2>
+        <%-- Seção de alteração de senha --%>
+        <section class="edicao secao-config">
+            <h2 class="subtitulo-secao">Alterar senha</h2>
 
-            <form method="post" action="${ctx}/admin/alterarSenha">
-                <div class="filtrador">
-                    <label for="senhaAtual">Senha atual</label>
+            <form method="post" action="${ctx}/admin/alterarSenha" class="form-crud">
+                <div class="form-grid">
+                    <div class="campo-grupo campo-cheio">
+                        <label for="senhaAtual">Senha atual</label>
+                        <input
+                                type="password"
+                                id="senhaAtual"
+                                name="senhaAtual"
+                                placeholder=""
+                                required>
+                    </div>
 
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="senhaAtual"
-                            name="senhaAtual"
-                            placeholder=""
-                            required>
+                    <div class="campo-grupo">
+                        <label for="novaSenha">Nova senha</label>
+                        <input
+                                type="password"
+                                id="novaSenha"
+                                name="novaSenha"
+                                placeholder=""
+                                required>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label for="confirmacao">Confirmar nova senha</label>
+                        <input
+                                type="password"
+                                id="confirmacao"
+                                name="confirmacao"
+                                placeholder=""
+                                required>
+                    </div>
                 </div>
 
-                <div class="filtrador">
-                    <label for="novaSenha">Nova senha</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="novaSenha"
-                            name="novaSenha"
-                            placeholder=""
-                            required>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar-senha">Alterar senha</button>
                 </div>
-
-                <div class="filtrador">
-                    <label for="confirmacao">Confirmar nova senha</label>
-
-                    <input
-                            class="form-campo-total"
-                            type="password"
-                            id="confirmacao"
-                            name="confirmacao"
-                            placeholder=""
-                            required>
-                </div>
-
-                <button type="submit">Alterar senha</button>
             </form>
         </section>
     </main>
