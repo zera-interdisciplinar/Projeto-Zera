@@ -28,6 +28,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 
@@ -48,7 +49,7 @@
                 <h1>Entrar na área restrita</h1>
                 <p class="subtitulo">Preencha seus dados para entrar na sua conta</p>
 
-                <form action="${ctx}/admin/login" method="post" novalidate>
+                <form method="post" action="${ctx}/admin/login" data-carregamento>
 
                     <!-- Campo de email -->
                     <div class="campo<c:if test='${erroEmail}'> erro</c:if>">
@@ -98,6 +99,7 @@
         });
     });
 </script>
-
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
