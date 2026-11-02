@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
     <link rel="stylesheet" href="${ctx}/css/erro.css">
+    <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
 </head>
 <body>
     <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
@@ -63,5 +64,6 @@
 </main>
     <script src="${ctx}/js/carregando.js" defer></script>
 
+    <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
 </html>

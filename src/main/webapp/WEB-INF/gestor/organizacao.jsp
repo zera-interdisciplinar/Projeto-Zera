@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="${ctx}/css/crud-usuario.css">
     <link rel="stylesheet" href="${ctx}/css/popup.css">
     <link rel="stylesheet" href="${ctx}/css/erro.css">
+    <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
 </head>
 <body>
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
@@ -148,5 +149,6 @@
     })();
 </script>
 <script src="${ctx}/js/carregando.js" defer></script>
+    <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
 </html>
