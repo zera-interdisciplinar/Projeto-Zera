@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/crud.css">
+    <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
 </head>
 
 <body>
@@ -141,5 +142,6 @@
         });
     });
 </script>
+    <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
 </html>

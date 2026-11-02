@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
+    <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
 </head>
 
 <body>
@@ -84,5 +85,6 @@
         e.target.value = v;
     });
 </script>
+    <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
 </html>
