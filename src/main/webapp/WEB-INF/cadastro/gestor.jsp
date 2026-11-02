@@ -50,14 +50,14 @@
                 <h1>Dados do gestor</h1>
                 <p class="subtitulo">Preencha seus dados para criar a conta</p>
 
-                <form method="post" action="${ctx}/cadastro/gestor" data-carregamento>
+                <form method="post" action="${ctx}/cadastro/gestor" data-carregamento novalidate>
                     <%-- a classe "erro" no campo deixa ele vermelho e mostra a mensagem --%>
                     <div class="campo<c:if test="${erroNome}"> erro</c:if>">
                         <label for="nome">Nome</label>
                         <div class="campo-icone">
                             <img src="${ctx}/images/pessoa.svg" class="icone-input" alt="">
                             <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"
-                                   value="<c:out value='${nome}'/>">
+                                   value="<c:out value='${nome}'/ required>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="campo-icone">
                             <img src="${ctx}/images/email.svg" class="icone-input" alt="">
                             <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com"
-                                   value="<c:out value='${email}'/>">
+                                   value="<c:out value='${email}'/ required>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="campo-icone">
                             <img src="${ctx}/images/telefone.svg" class="icone-input" alt="">
                             <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000"
-                                   value="<c:out value='${telefone}'/>">
+                                   value="<c:out value='${telefone}'/ required>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <label for="senha">Senha</label>
                         <div class="campo-icone">
                             <img src="${ctx}/images/cadeado.svg" class="icone-input" alt="">
-                            <input type="password" id="senha" name="senha" placeholder="Crie uma senha">
+                            <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
                             <button type="button" class="btn-olho" aria-label="Mostrar senha">
                                 <img src="${ctx}/images/icone-ver.svg" class="icone-olho" alt="">
                             </button>
@@ -99,7 +99,7 @@
                         <label for="confirmacao">Confirmar senha</label>
                         <div class="campo-icone">
                             <img src="${ctx}/images/cadeado.svg" class="icone-input" alt="">
-                            <input type="password" id="confirmacao" name="confirmacao" placeholder="Repita sua senha">
+                            <input type="password" id="confirmacao" name="confirmacao" placeholder="Repita sua senha" required>
                             <button type="button" class="btn-olho" aria-label="Mostrar senha">
                                 <img src="${ctx}/images/icone-ver.svg" class="icone-olho" alt="">
                             </button>
