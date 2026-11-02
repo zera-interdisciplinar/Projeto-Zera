@@ -1,5 +1,6 @@
 package br.com.zera.servlet.gestor;
 
+import br.com.zera.config.HashSenha;
 import br.com.zera.dao.GestorDAO;
 import br.com.zera.dao.UnidadeDAO;
 import br.com.zera.exception.ConnectionFailedException;
@@ -33,11 +34,11 @@ import static br.com.zera.regex.Constants.SESSAO_GESTOR;
 public class UpdateGestorServlet extends HttpServlet {
 
     /**
-     * Processa POST para atualizar o gestor.
+     * Processa a atualização dos dados de um gestor.
      *
-     * @param request objeto HttpServletRequest com nome, email, telefone e, para o admin, codigo e codUnidade
-     * @param response objeto HttpServletResponse para redirecionamento ou erro
-     * @throws IOException caso haja um erro de input/output (entrada/saída)
+     * @param request requisição contendo os dados do formulário
+     * @param response resposta utilizada para redirecionamento ou erro
+     * @throws IOException caso ocorra falha de entrada ou saída
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,39 +47,42 @@ public class UpdateGestorServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Gestor gestorLogado = Sessao.gestor(request);
             GestorDAO dao = new GestorDAO();
 
-            // busca o gestor atual
             Gestor existente;
             int codUnidade;
+
             if (admin != null) {
-                // lê o código
                 String codigoTexto = request.getParameter("codigo");
                 Integer codigo = null;
+
                 if (codigoTexto != null && !codigoTexto.isBlank()) {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
+
                 if (codigo == null) {
                     exibirErro(request, response, "Gestor não informado.", ERROR_PAGE);
                     return;
                 }
+
                 existente = dao.findByCodigo(codigo);
 
-                // o admin pode trocar a unidade. Campo vazio mantém a atual
                 String novaUnidadeTexto = request.getParameter("codUnidade");
                 Integer novaUnidade = null;
+
                 if (novaUnidadeTexto != null && !novaUnidadeTexto.isBlank()) {
                     novaUnidade = Integer.parseInt(novaUnidadeTexto.trim());
                 }
+
                 if (novaUnidade == null) {
                     codUnidade = existente.getCodUnidade();
                 } else {
                     new UnidadeDAO().findByCodigo(novaUnidade);
                     codUnidade = novaUnidade;
                 }
+
             } else if (gestorLogado != null) {
                 existente = dao.findByCodigo(gestorLogado.getCodigo());
                 codUnidade = existente.getCodUnidade();
@@ -87,57 +91,89 @@ public class UpdateGestorServlet extends HttpServlet {
                 return;
             }
 
-            // lê os campos do formulário
             String nomeTexto = request.getParameter("nome");
-            String nome = null;
-            if (nomeTexto != null && !nomeTexto.isBlank()) {
-                nome = nomeTexto.trim();
-            }
             String emailTexto = request.getParameter("email");
-            String email = null;
-            if (emailTexto != null && !emailTexto.isBlank()) {
-                email = emailTexto.trim();
-            }
             String telefoneTexto = request.getParameter("telefone");
-            String telefone = null;
-            if (telefoneTexto != null && !telefoneTexto.isBlank()) {
-                telefone = telefoneTexto.trim().replaceAll("\\D", "");
-            }
+
+            String nome = nomeTexto == null ? null : nomeTexto.trim();
+            String email = emailTexto == null ? null : emailTexto.trim();
+            String telefone = telefoneTexto == null
+                    ? null : telefoneTexto.trim().replaceAll("\\D", "");
 
             if (nome == null || !Regex.validarNome(nome)) {
                 exibirErro(request, response, "Informe o nome completo.", ERROR_PAGE);
                 return;
             }
+
             if (email == null || !Regex.validarEmail(email)) {
-                exibirErro(request, response, "Email inválido, ele precisa conter @ e o domínio.", ERROR_PAGE);
-                return;
-            }
-            if (telefone == null || !Regex.validarTel(telefone)) {
-                exibirErro(request, response, "Telefone inválido, ele precisa conter o DDD + nove números.", ERROR_PAGE);
-                return;
-            }
-            // se o e-mail mudou, confere se já existe
-            if (!email.equalsIgnoreCase(existente.getEmail()) && emailJaCadastrado(dao, email)) {
-                exibirErro(request, response, "Já existe um gestor com esse e-mail.", ERROR_PAGE);
+                exibirErro(request, response,
+                        "Email inválido, ele precisa conter @ e o domínio.", ERROR_PAGE);
                 return;
             }
 
-            // mantém a senha do banco para o update não apagar
-            Gestor atualizado = new Gestor(existente.getCodigo(), nome, email, existente.getSenha(), telefone, codUnidade);
+            if (telefone == null || !Regex.validarTel(telefone)) {
+                exibirErro(request, response,
+                        "Telefone inválido, ele precisa conter o DDD + nove números.", ERROR_PAGE);
+                return;
+            }
+
+            if (!email.equalsIgnoreCase(existente.getEmail())
+                    && emailJaCadastrado(dao, email)) {
+                exibirErro(request, response,
+                        "Já existe um gestor com esse e-mail.", ERROR_PAGE);
+                return;
+            }
+
+            String senha = existente.getSenha();
+
+            if (admin != null) {
+                String novaSenha = request.getParameter("senha");
+                String confirmacao = request.getParameter("confirmacao");
+
+                boolean senhaInformada = novaSenha != null && !novaSenha.isEmpty();
+                boolean confirmacaoInformada = confirmacao != null && !confirmacao.isEmpty();
+
+                if (senhaInformada || confirmacaoInformada) {
+                    if (!senhaInformada || !confirmacaoInformada) {
+                        exibirErro(request, response,
+                                "Preencha a nova senha e a confirmação.", ERROR_PAGE);
+                        return;
+                    }
+
+                    if (!novaSenha.equals(confirmacao)) {
+                        exibirErro(request, response,
+                                "A confirmação está diferente da senha informada.", ERROR_PAGE);
+                        return;
+                    }
+
+                    if (!Regex.validarSenha(novaSenha)) {
+                        exibirErro(request, response,
+                                "A senha precisa ter pelo menos 8 caracteres, um número e um caractere especial.",
+                                ERROR_PAGE);
+                        return;
+                    }
+
+                    senha = HashSenha.gerarHash(novaSenha);
+                }
+            }
+
+            Gestor atualizado = new Gestor(
+                    existente.getCodigo(),
+                    nome,
+                    email,
+                    senha,
+                    telefone,
+                    codUnidade
+            );
+
             dao.update(atualizado);
 
-            // se o gestor editou ele mesmo, atualiza a sessão
-            if (gestorLogado != null && gestorLogado.getCodigo() == atualizado.getCodigo()) {
+            if (gestorLogado != null
+                    && gestorLogado.getCodigo() == atualizado.getCodigo()) {
                 request.getSession().setAttribute(SESSAO_GESTOR, atualizado);
             }
 
-            String destino;
-            if (admin != null) {
-                destino = "/gestor/lista";
-            } else {
-                destino = "/gestor/perfil";
-            }
-            // redirect
+            String destino = admin != null ? "/gestor/lista" : "/gestor/perfil";
             response.sendRedirect(request.getContextPath() + destino);
 
         } catch (NotFoundException nfe) {
@@ -155,11 +191,11 @@ public class UpdateGestorServlet extends HttpServlet {
     }
 
     /**
-     * Verifica se já existe um gestor com o e-mail informado.
+     * Verifica se o e-mail já está cadastrado para outro gestor.
      *
-     * @param dao DAO de gestor
-     * @param email e-mail digitado
-     * @return true se o e-mail já estiver cadastrado
+     * @param dao DAO utilizado para consultar os gestores
+     * @param email e-mail que será verificado
+     * @return true quando o e-mail já está cadastrado
      */
     private boolean emailJaCadastrado(GestorDAO dao, String email) {
         try {

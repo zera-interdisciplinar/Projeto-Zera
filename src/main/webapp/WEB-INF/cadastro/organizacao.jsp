@@ -21,6 +21,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -47,7 +48,7 @@
                 <h1>Dados da organização</h1>
                 <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-                <form action="${ctx}/cadastro/organizacao" method="post" novalidate>
+                <form method="post" action="${ctx}/cadastro/organização" data-carregamento>
                     <div class="campo<c:if test="${erroNome}"> erro</c:if>">
                         <label for="nome">Nome da organização</label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome da organização"
@@ -83,5 +84,7 @@
     </div>
 
 </div>
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>

@@ -23,6 +23,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -54,7 +55,7 @@
                     <p class="subtitulo">Preencha os dados para prosseguir</p>
                 </c:if>
 
-                <form action="${ctx}/cadastro/unidade" method="post" novalidate>
+                <form method="post" action="${ctx}/cadastro/unidade" data-carregamento>
                     <div class="campo<c:if test="${erroEmail}"> erro</c:if>">
                         <label for="email">Email da unidade</label>
                         <div class="campo-icone">
@@ -81,5 +82,7 @@
     </div>
 
 </div>
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
