@@ -22,6 +22,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -49,7 +50,7 @@
                 <h1>Endereço da unidade</h1>
                 <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-                <form action="${ctx}/cadastro/endereco" method="post" novalidate>
+                <form method="post" action="${ctx}/cadastro/endereco" data-carregamento>
                     <div class="campo">
                         <label for="logradouro">Logradouro</label>
                         <input type="text" id="logradouro" name="logradouro" placeholder="Digite o endereço (rua, avenida...)"
@@ -103,5 +104,7 @@
     </div>
 
 </div>
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>

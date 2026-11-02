@@ -20,6 +20,7 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
+    <link rel="stylesheet" href="${ctx}/css/erro.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -41,7 +42,7 @@
                 <h1>CNPJ da organização</h1>
                 <p class="subtitulo">Insira o CNPJ da organização</p>
 
-                <form action="${ctx}/cadastro/cnpj" method="post" novalidate>
+                <form method="post" action="${ctx}/cadastro/cnpj" data-carregamento>
                     <%-- só tem um campo, então qualquer erro é dele --%>
                     <div class="campo<c:if test="${not empty erroInterno}"> erro</c:if>">
                         <label for="cnpj">CNPJ</label>
@@ -61,5 +62,7 @@
     </div>
 
 </div>
+<%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
