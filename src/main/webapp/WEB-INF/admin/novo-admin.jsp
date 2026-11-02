@@ -1,7 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="ativo" value="admin"/>
@@ -31,67 +29,55 @@
 
         <h1 class="nome-da-area">Adicionar administrador</h1>
 
-        <section class="edicao">
-            <form action="${ctx}/admin/inserir" method="post">
+        <section class="adicao">
+            <form action="${ctx}/admin/inserir" method="post" class="form-crud">
                 <c:if test="${not empty erroInterno}">
-                    <p role="alert">
+                    <p role="alert" class="alerta-erro">
                         <c:out value="${erroInterno}"/>
                     </p>
                 </c:if>
 
-                <div class="form-coluna">
-                    <div class="filtrador">
-                        <label for="nome">Nome</label>
-
-                        <input
-                                class="form-campo-total"
-                                type="text"
-                                id="nome"
-                                name="nome"
-                                placeholder=""
-                                required>
+                <div class="form-grid">
+                    <div class="campo-grupo">
+                        <label for="nome">Nome completo</label>
+                        <input type="text"
+                               id="nome"
+                               name="nome"
+                               placeholder="Nome do administrador"
+                               required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="email">E-mail</label>
-
-                        <input
-                                class="form-campo-total"
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder=""
-                                required>
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               placeholder="admin@zera.com"
+                               required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="senha">Senha</label>
-
-                        <input
-                                class="form-campo-total"
-                                type="password"
-                                id="senha"
-                                name="senha"
-                                placeholder=""
-                                required>
+                        <input type="password"
+                               id="senha"
+                               name="senha"
+                               placeholder="••••••••"
+                               required>
                     </div>
 
-                    <div class="filtrador">
+                    <div class="campo-grupo">
                         <label for="confirmacao">Confirmar senha</label>
-
-                        <input
-                                class="form-campo-total"
-                                type="password"
-                                id="confirmacao"
-                                name="confirmacao"
-                                placeholder=""
-                                required>
+                        <input type="password"
+                               id="confirmacao"
+                               name="confirmacao"
+                               placeholder="••••••••"
+                               required>
                     </div>
                 </div>
 
-                <button type="submit" id="botao-salvar">
-                    Cadastrar
-                </button>
+                <div class="form-rodape">
+                    <button type="submit" id="botao-salvar">Cadastrar</button>
+                </div>
             </form>
         </section>
     </main>

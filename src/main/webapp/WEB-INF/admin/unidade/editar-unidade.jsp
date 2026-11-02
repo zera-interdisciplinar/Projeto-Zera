@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -29,32 +28,34 @@
     <main class="informacoes">
         <img src="${ctx}/images/z-transparente.png" alt="" class="z-marca-dagua">
 
+        <a href="${ctx}/unidade/lista" class="voltar">
+            <img src="${ctx}/images/seta-voltar.svg" alt="Voltar">
+            <span>Voltar</span>
+        </a>
+
         <h1 class="nome-da-area">Editar unidade</h1>
 
         <c:choose>
             <c:when test="${empty unidade}">
-                <p>Registro não encontrado. Volte para a listagem.</p>
+                <p class="mensagem-erro-registro">Registro não encontrado. Volte para a listagem.</p>
             </c:when>
 
             <c:otherwise>
                 <section class="edicao">
-                    <form action="${ctx}/unidade/alterar" method="post">
+                    <form action="${ctx}/unidade/alterar" method="post" class="form-crud">
                         <input type="hidden" name="codigo" value="${unidade.codigo}">
 
                         <c:if test="${not empty erroInterno}">
-                            <p role="alert">
+                            <p role="alert" class="alerta-erro">
                                 <c:out value="${erroInterno}"/>
                             </p>
                         </c:if>
 
-                        <div class="form-coluna">
-                            <div class="filtrador">
+                        <div class="form-grid">
+                            <div class="campo-grupo campo-cheio">
                                 <label for="codOrganizacao">Organização</label>
-
-                                <select id="codOrganizacao" name="codOrganizacao"
-                                        class="form-campo-total" required>
-                                    <option value="">Selecione</option>
-
+                                <select id="codOrganizacao" name="codOrganizacao" required>
+                                    <option value="" disabled>Selecione</option>
                                     <c:forEach var="item" items="${organizacoes}">
                                         <option value="${item.codigo}"
                                             ${unidade.codOrganizacao == item.codigo ? "selected" : ""}>
@@ -64,31 +65,51 @@
                                 </select>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="cnpj">CNPJ</label>
-
                                 <input type="text" id="cnpj" name="cnpj"
-                                       class="form-campo-total"
                                        value="<c:out value='${unidade.cnpj}'/>"
-                                       placeholder="" required>
+                                       placeholder="00.000.000/0000-00"
+                                       maxlength="18"
+                                       required>
                             </div>
 
-                            <div class="filtrador">
+                            <div class="campo-grupo">
                                 <label for="email">E-mail</label>
-
                                 <input type="email" id="email" name="email"
-                                       class="form-campo-total"
                                        value="<c:out value='${unidade.email}'/>"
-                                       placeholder="" required>
+                                       placeholder="unidade@empresa.com"
+                                       required>
                             </div>
                         </div>
 
-                        <button type="submit" id="botao-salvar">Salvar</button>
+                        <div class="form-rodape">
+                            <button type="submit" id="botao-salvar">Salvar</button>
+                        </div>
                     </form>
                 </section>
             </c:otherwise>
         </c:choose>
     </main>
 </div>
+
+<script>
+    const inputCnpj = document.getElementById('cnpj');
+    inputCnpj?.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v.length > 14) v = v.substring(0, 14);
+        v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
+        e.target.value = v;
+    });
+
+    document.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('click', () => sel.classList.toggle('select-girar'));
+        sel.addEventListener('blur', () => sel.classList.remove('select-girar'));
+        sel.addEventListener('change', () => sel.classList.remove('select-girar'));
+    });
+</script>
 </body>
 </html>

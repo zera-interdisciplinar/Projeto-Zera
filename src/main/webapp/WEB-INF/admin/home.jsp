@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -34,7 +33,6 @@
         <section class="card">
             <a class="dado" href="${ctx}/organizacao/lista">
                 <p class="nome-do-dado">Organizações</p>
-
                 <p class="numero-do-dado">
                     <c:out value="${totalOrganizacoes}" default="0"/>
                 </p>
@@ -42,15 +40,13 @@
 
             <a class="dado" href="${ctx}/assinatura/lista">
                 <p class="nome-do-dado">Assinaturas ativas</p>
-
                 <p class="numero-do-dado">
                     <c:out value="${assinaturasAtivas}" default="0"/>
                 </p>
             </a>
 
-            <a class="dado" href="${ctx}/assinatura/lista">
+            <a class="dado" id="alerta" href="${ctx}/assinatura/lista">
                 <p class="nome-do-dado">Vencendo em 30 dias</p>
-
                 <p class="numero-do-dado">
                     <c:out value="${assinaturasVencendo}" default="0"/>
                 </p>
@@ -58,7 +54,6 @@
 
             <a class="dado" href="${ctx}/unidade/lista">
                 <p class="nome-do-dado">Unidades</p>
-
                 <p class="numero-do-dado">
                     <c:out value="${totalUnidades}" default="0"/>
                 </p>
@@ -66,9 +61,23 @@
 
             <a class="dado" href="${ctx}/estoque/lista">
                 <p class="nome-do-dado">Estoques</p>
-
                 <p class="numero-do-dado">
                     <c:out value="${totalEstoques}" default="0"/>
+                </p>
+            </a>
+
+            <a class="dado" href="${ctx}/gestor/lista">
+                <p class="nome-do-dado">Gestores</p>
+                <p class="numero-do-dado">
+                    <c:choose>
+                        <c:when test="${not empty totalGestores}">
+                            <c:out value="${totalGestores}"/>
+                        </c:when>
+                        <c:when test="${not empty gestores}">
+                            <c:out value="${fn:length(gestores)}"/>
+                        </c:when>
+                        <c:otherwise>0</c:otherwise>
+                    </c:choose>
                 </p>
             </a>
         </section>

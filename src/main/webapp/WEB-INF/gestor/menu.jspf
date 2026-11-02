@@ -53,17 +53,12 @@
                 class="logo"
         >
     </div>
-
-    <!-- Ícone com link para ver o perfil e hover de borda -->
-    <a
-            href="${ctx}/gestor/perfil"
-            class="avatar-topo"
-            title="Ver meu perfil"
-            aria-label="Ver meu perfil"
-    >
-        ${iniciais}
-    </a>
-
+    <header class="header-crud">
+        <div class="logo-topo">
+            <img src="${ctx}/images/logo_completa.svg" alt="ZERA" class="logo">
+        </div>
+        <a href="${ctx}/gestor/perfil" class="avatar-topo" title="Ver meu perfil">${iniciais}</a>
+    </header>
 </header>
 
 <div class="tela-auth">
@@ -117,18 +112,12 @@
                 </a>
 
                 <hr>
-
-                <a
-                        href="${ctx}/logout"
-                        class="botao-sair"
-                        data-modal-exclusao
-                        data-excluir-tipo="sair"
-                        data-excluir-titulo="Deseja mesmo sair?"
-                        data-excluir-descricao="Você precisará entrar novamente para acessar seu painel."
-                >
-                    Sair
-                </a>
-
+                <a href="${ctx}/logout"
+                   class="botao-sair"
+                   data-modal-exclusao
+                   data-excluir-tipo="sair"
+                   data-excluir-titulo="Deseja mesmo sair?"
+                   data-excluir-descricao="Você precisará entrar novamente para acessar seu painel.">Sair</a>
             </nav>
 
             <a
@@ -155,5 +144,4 @@
             </a>
 
         </div>
-
     </aside>
