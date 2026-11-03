@@ -49,7 +49,7 @@
                 <h1>Dados da organização</h1>
                 <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-                <form method="post" action="${ctx}/cadastro/organização" data-carregamento>
+                <form method="post" action="${ctx}/cadastro/organizacao" data-carregamento>
                     <div class="campo<c:if test="${erroNome}"> erro</c:if>">
                         <label for="nome">Nome da organização</label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome da organização"
@@ -70,7 +70,7 @@
                     <div class="campo<c:if test="${erroCnpj}"> erro</c:if>">
                         <label for="cnpj">CNPJ</label>
                         <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00"
-                               inputmode="numeric" maxlength="18" value="<c:out value='${cnpj}'/>">
+                               maxlength="18" value="<c:out value='${cnpj}'/>">
                         <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                     </div>
 
@@ -88,5 +88,6 @@
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <script src="${ctx}/js/carregando.js" defer></script>
     <script src="${ctx}/js/validacao-formularios.js" defer></script>
+    <script src="${ctx}/js/mascara-cnpj.js" defer></script>
 </body>
 </html>
