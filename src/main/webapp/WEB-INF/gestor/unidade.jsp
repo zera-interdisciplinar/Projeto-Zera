@@ -33,6 +33,21 @@
     <link rel="stylesheet" href="${ctx}/css/popup.css">
     <link rel="stylesheet" href="${ctx}/css/erro.css">
     <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
+    <style>
+        #form-unidade .filtrador .mensagem-erro {
+            position: static;
+            display: none;
+            margin: 5px 0 0;
+            padding: 0;
+            background: transparent;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            line-height: 1.35;
+            font-size: 12px;
+        }
+        #form-unidade .filtrador:has(input[aria-invalid="true"]) label { color: #ff3030; }
+        #form-unidade .filtrador input[aria-invalid="true"] { border-color: #ff3030; }
+    </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
@@ -266,6 +281,6 @@
 
 <script src="${ctx}/js/popup.js" defer></script>
 <script src="${ctx}/js/carregando.js" defer></script>
-    <script src="${ctx}/js/validacao-formularios.js" defer></script>
+
 </body>
 </html>
