@@ -48,7 +48,7 @@
                     <div class="campo<c:if test="${not empty erroInterno}"> erro</c:if>">
                         <label for="cnpj">CNPJ</label>
                         <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00"
-                               inputmode="numeric" maxlength="18" value="<c:out value='${cnpj}'/>">
+                               maxlength="18" value="<c:out value='${cnpj}'/>">
                         <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                     </div>
 
@@ -66,5 +66,6 @@
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <script src="${ctx}/js/carregando.js" defer></script>
     <script src="${ctx}/js/validacao-formularios.js" defer></script>
+    <script src="${ctx}/js/mascara-cnpj.js" defer></script>
 </body>
 </html>
