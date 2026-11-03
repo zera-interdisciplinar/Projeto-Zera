@@ -24,6 +24,22 @@
     <link rel="stylesheet" href="${ctx}/css/cadastro.css">
     <link rel="stylesheet" href="${ctx}/css/erro.css">
     <link rel="stylesheet" href="${ctx}/css/validacao-formularios.css">
+    <style>
+        .form-endereco .linha-campos { align-items: flex-start; }
+        .form-endereco .linha-campos > .campo { min-width: 0; position: relative; }
+        .form-endereco .campo .mensagem-erro {
+            position: static;
+            display: none;
+            margin: 4px 0 0;
+            padding: 0;
+            background: transparent;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            line-height: 1.3;
+            font-size: 11px;
+        }
+        .form-endereco .campo.erro .mensagem-erro { display: block; }
+    </style>
 </head>
 <body>
 <div class="tela-auth">
@@ -51,7 +67,7 @@
                 <h1>Endereço da unidade</h1>
                 <p class="subtitulo">Preencha os dados para prosseguir</p>
 
-                <form method="post" action="${ctx}/cadastro/endereco" data-carregamento>
+                <form method="post" action="${ctx}/cadastro/endereco" data-carregamento class="form-endereco">
                     <div class="campo">
                         <label for="logradouro">Logradouro</label>
                         <input type="text" id="logradouro" name="logradouro" placeholder="Digite o endereço (rua, avenida...)"
@@ -68,7 +84,7 @@
 
                         <div class="campo campo-cep<c:if test="${erroCep}"> erro</c:if>">
                             <label for="cep">CEP</label>
-                            <input type="text" id="cep" name="cep" placeholder="00000000" inputmode="numeric" maxlength="9"
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" inputmode="numeric" maxlength="9"
                                    value="<c:out value='${cep}'/>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
@@ -106,6 +122,19 @@
 
 </div>
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+<script>
+    (function () {
+        var campoCep = document.getElementById('cep');
+        function formatarCep() {
+            var digitos = campoCep.value.replace(/\D/g, '').slice(0, 8);
+            campoCep.value = digitos.length > 5
+                ? digitos.slice(0, 5) + '-' + digitos.slice(5)
+                : digitos;
+        }
+        campoCep.addEventListener('input', formatarCep);
+        formatarCep();
+    })();
+</script>
 <script src="${ctx}/js/carregando.js" defer></script>
     <script src="${ctx}/js/validacao-formularios.js" defer></script>
 </body>
