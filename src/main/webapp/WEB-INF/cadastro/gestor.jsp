@@ -58,7 +58,7 @@
                         <div class="campo-icone">
                             <img src="${ctx}/images/pessoa.svg" class="icone-input" alt="">
                             <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"
-                                   value="<c:out value='${nome}'/>" required>">
+                                   value="<c:out value='${nome}'/>" required>
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         <div class="campo-icone">
                             <img src="${ctx}/images/email.svg" class="icone-input" alt="">
                             <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com"
-                                   value="<c:out value='${email}'/>" required>">
+                                   value="<c:out value='${email}'/>" required>
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <div class="campo-icone">
                             <img src="${ctx}/images/telefone.svg" class="icone-input" alt="">
                             <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000"
-                                   value="<c:out value='${telefone}'/>" required>">
+                                   value="<c:out value='${telefone}'/>" required>
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
                     </div>
