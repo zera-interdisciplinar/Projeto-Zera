@@ -76,7 +76,7 @@
                                    inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00"
                                    value="<c:out value='${unidade.cnpj}'/>" required>
                             <span id="erro-cnpj" class="mensagem-erro" style="display: none;" role="alert">
-                                CNPJ inválido. Verifique os 14 dígitos.
+                                CNPJ inválido. Verifique os 14 dígitos..
                             </span>
                         </div>
                     </div>
@@ -177,39 +177,7 @@
 
         function validarCnpj(valor) {
             const cnpj = valor.replace(/\D/g, "");
-
-            if (cnpj.length !== 14) {
-                return false;
-            }
-
-            if (/^(\d)\1{13}$/.test(cnpj)) {
-                return false;
-            }
-
-            function calcularDigito(tamanho) {
-                let soma = 0;
-                let peso = tamanho - 7;
-
-                for (let i = 0; i < tamanho; i++) {
-                    soma += Number(cnpj[i]) * peso;
-                    peso--;
-
-                    if (peso < 2) {
-                        peso = 9;
-                    }
-                }
-
-                const resto = soma % 11;
-                return resto < 2 ? 0 : 11 - resto;
-            }
-
-            const primeiroDigito = calcularDigito(12);
-            const segundoDigito = calcularDigito(13);
-
-            return (
-                primeiroDigito === Number(cnpj[12]) &&
-                segundoDigito === Number(cnpj[13])
-            );
+            return cnpj.length === 14;
         }
 
         function validarEmail(valor) {
