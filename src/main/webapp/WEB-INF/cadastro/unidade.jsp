@@ -84,5 +84,30 @@
 </div>
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <script src="${ctx}/js/carregando.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const campoCnpj = document.getElementById("cnpj");
+
+        if (!campoCnpj) {
+            return;
+        }
+
+        function aplicarMascaraCnpj(valor) {
+            const numeros = valor.replace(/\D/g, "").slice(0, 14);
+
+            return numeros
+                .replace(/^(\d{2})(\d)/, "$1.$2")
+                .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+                .replace(/\.(\d{3})(\d)/, ".$1/$2")
+                .replace(/(\d{4})(\d)/, "$1-$2");
+        }
+
+        campoCnpj.addEventListener("input", function () {
+            campoCnpj.value = aplicarMascaraCnpj(campoCnpj.value);
+        });
+
+        campoCnpj.value = aplicarMascaraCnpj(campoCnpj.value);
+    });
+</script>
 </body>
 </html>
