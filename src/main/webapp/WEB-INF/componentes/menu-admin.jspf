@@ -1,4 +1,5 @@
-
+<link rel="stylesheet" href="${ctx}/css/popup.css">
+<script src="${ctx}/js/popup.js" defer></script>
 <%-- Menu compartilhado do administrador. Exige as variáveis ctx e ativo. --%>
 <nav>
     <a href="${ctx}/admin/home" ${ativo == 'home' ? 'class="botao-ativo"' : ''}>Home</a>
@@ -16,5 +17,5 @@
        data-modal-exclusao
        data-excluir-tipo="sair"
        data-excluir-titulo="Deseja realmente sair?"
-       data-excluir-descricao="Você será desconectado da sua conta de administrador.">Sair</a>
+       data-excluir-descricao="Voc&#234; ser&#225; desconectado da sua conta de administrador.">Sair</a>
 </nav>

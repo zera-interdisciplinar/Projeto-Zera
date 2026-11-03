@@ -14,7 +14,6 @@
     <link rel="icon" type="image/png" href="${ctx}/images/favicon.png">
     <link rel="stylesheet" href="${ctx}/css/style.css">
     <link rel="stylesheet" href="${ctx}/css/crud.css">
-    <link rel="stylesheet" href="${ctx}/css/popup.css">
 </head>
 <body>
 <div class="tela-auth">
@@ -192,6 +191,5 @@
 
     filtrar();
 </script>
-<script src="${ctx}/js/popup.js" defer></script>
 </body>
 </html>

@@ -108,21 +108,10 @@
                 .replace(/\.(\d{3})(\d)/, '.$1/$2')
                 .replace(/(\d{4})(\d)/, '$1-$2');
         };
-        const cnpjValido = valor => {
-            const n = valor.replace(/\D/g, '');
-            if (n.length !== 14 || /^(\d)\1{13}$/.test(n)) return false;
-            const digito = tamanho => {
-                let soma = 0;
-                let peso = tamanho - 7;
-                for (let i = 0; i < tamanho; i++) {
-                    soma += Number(n[i]) * peso--;
-                    if (peso < 2) peso = 9;
-                }
-                const resto = soma % 11;
-                return resto < 2 ? 0 : 11 - resto;
-            };
-            return digito(12) === Number(n[12]) && digito(13) === Number(n[13]);
-        };
+        function cnpjValido(valor) {
+            const numeros = valor.replace(/\D/g, '');
+            return numeros.length === 14;
+        }
         cnpj.value = mascara(cnpj.value);
         cnpj.addEventListener('input', () => {
             cnpj.value = mascara(cnpj.value);

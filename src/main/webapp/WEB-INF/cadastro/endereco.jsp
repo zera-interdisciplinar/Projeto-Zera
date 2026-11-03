@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
@@ -29,7 +30,7 @@
 
     <%@ include file="painel.jspf" %>
 
-    <%-- descobre em qual campo foi o erro, pelo começo da mensagem --%>
+    <%-- Descobre em qual campo foi o erro, pelo começo da mensagem --%>
     <c:set var="erroNumero" value="${fn:startsWith(erroInterno, 'Número')}"/>
     <c:set var="erroCep" value="${fn:startsWith(erroInterno, 'CEP')}"/>
     <%-- "Preencha todos os campos" não é de um campo só, então aparece embaixo do formulário --%>
@@ -53,46 +54,56 @@
                 <form method="post" action="${ctx}/cadastro/endereco" data-carregamento>
                     <div class="campo">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" id="logradouro" name="logradouro" placeholder="Digite o endereço (rua, avenida...)"
+                        <input type="text" id="logradouro" name="logradouro"
+                               placeholder="Digite o endereço (rua, avenida...)"
                                value="<c:out value='${logradouro}'/>">
                     </div>
 
                     <div class="linha-campos">
                         <div class="campo campo-numero<c:if test="${erroNumero}"> erro</c:if>">
                             <label for="numero">Número</label>
-                            <input type="text" id="numero" name="numero" placeholder="123" inputmode="numeric"
+                            <input type="text" id="numero" name="numero"
+                                   placeholder="123" inputmode="numeric"
                                    value="<c:out value='${numero}'/>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
 
                         <div class="campo campo-cep<c:if test="${erroCep}"> erro</c:if>">
                             <label for="cep">CEP</label>
-                            <input type="text" id="cep" name="cep" placeholder="00000000" inputmode="numeric" maxlength="9"
+                            <input type="text" id="cep" name="cep"
+                                   placeholder="00000-000"
+                                   inputmode="numeric"
+                                   maxlength="9"
                                    value="<c:out value='${cep}'/>">
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
 
                         <div class="campo campo-estado">
                             <label for="estado">Estado</label>
-                            <input type="text" id="estado" name="estado" placeholder="SP" maxlength="2"
+                            <input type="text" id="estado" name="estado"
+                                   placeholder="SP" maxlength="2"
                                    value="<c:out value='${estado}'/>">
                         </div>
                     </div>
 
                     <div class="campo">
                         <label for="cidade">Cidade</label>
-                        <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade"
+                        <input type="text" id="cidade" name="cidade"
+                               placeholder="Digite a cidade"
                                value="<c:out value='${cidade}'/>">
                     </div>
 
                     <div class="campo">
                         <label for="bairro">Bairro</label>
-                        <input type="text" id="bairro" name="bairro" placeholder="Digite o bairro"
+                        <input type="text" id="bairro" name="bairro"
+                               placeholder="Digite o bairro"
                                value="<c:out value='${bairro}'/>">
                     </div>
 
                     <c:if test="${erroGeral}">
-                        <span class="mensagem-erro" style="display: block"><c:out value="${erroInterno}"/></span>
+                        <span class="mensagem-erro" style="display: block">
+                            <c:out value="${erroInterno}"/>
+                        </span>
                     </c:if>
 
                     <div class="linha-botao">
@@ -104,7 +115,35 @@
     </div>
 
 </div>
+
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const campoCep = document.getElementById("cep");
+
+        if (!campoCep) {
+            return;
+        }
+
+        function aplicarMascaraCep(valor) {
+            const numeros = valor.replace(/\D/g, "").slice(0, 8);
+
+            if (numeros.length > 5) {
+                return numeros.slice(0, 5) + "-" + numeros.slice(5);
+            }
+
+            return numeros;
+        }
+
+        campoCep.addEventListener("input", function () {
+            campoCep.value = aplicarMascaraCep(campoCep.value);
+        });
+
+        campoCep.value = aplicarMascaraCep(campoCep.value);
+    });
+</script>
+
 <script src="${ctx}/js/carregando.js" defer></script>
 </body>
 </html>
