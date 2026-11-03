@@ -19,56 +19,42 @@ import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
 /**
- * Servlet responsável por mostrar um endereço.
- *
- * O que aparece depende de quem está logado:
- * - Admin com o parâmetro codigo: formulário de edição do endereço.
- * - Admin com o parâmetro codUnidade: se a unidade já tem endereço, abre a edição;
- *   senão, abre o formulário de novo endereço com a unidade já selecionada
- *   (é para cá que o admin vem depois de criar uma unidade).
- * - Admin sem parâmetros: formulário de novo endereço.
- * - Gestor: endereço da própria unidade.
- *
- * @author Mayte B
- * @since 2026-09-18
+ * Exibe o cadastro ou a edição de endereço.
+ * Para o admin, codUnidade abre a segunda etapa do cadastro de unidade
+ * somente quando a unidade ainda não possui endereço.
  */
 @WebServlet(name = "ReadEndereco", value = "/endereco/perfil")
 public class ReadEnderecoServlet extends HttpServlet {
 
     private static final String EDITAR = "/WEB-INF/admin/endereco/editar-endereco.jsp";
     private static final String NOVO = "/WEB-INF/admin/endereco/novo-endereco.jsp";
+    private static final String NOVA_UNIDADE_PT2 = "/WEB-INF/admin/unidade/nova-unidade-pt2.jsp";
     private static final String GESTOR = "/WEB-INF/gestor/endereco.jsp";
 
-    /**
-     * Processa requisições GET para exibir um endereço ou o formulário de novo endereço.
-     *
-     * @param request objeto que contém os dados da requisição
-     * @param response objeto usado para enviar respostas ao cliente (forward ou erro)
-     * @throws ServletException se ocorrer falha no encaminhamento para a JSP
-     * @throws IOException caso ocorra erro de entrada/saída ao responder
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            // descobre quem está logado: admin ou gestor
             Admin admin = Sessao.admin(request);
             Unidade unidadeLogada = Sessao.unidade(request);
             EnderecoDAO dao = new EnderecoDAO();
-
             String pagina;
+
             if (admin != null) {
-                // lista de unidades para o campo de seleção
+                if (request.getServletPath().equals("/unidade/etapa2")
+                        && (request.getParameter("codUnidade") == null
+                        || request.getParameter("codUnidade").isBlank())) {
+                    exibirErro(request, response, "Unidade não informada para a segunda etapa.", ERROR_PAGE);
+                    return;
+                }
                 request.setAttribute("unidades", new UnidadeDAO().findAll());
 
-                // lê o código
                 String codigoTexto = request.getParameter("codigo");
                 Integer codigo = null;
                 if (codigoTexto != null && !codigoTexto.isBlank()) {
                     codigo = Integer.parseInt(codigoTexto.trim());
                 }
-                // codUnidade vem da tela da unidade
+
                 String codUnidadeTexto = request.getParameter("codUnidade");
                 Integer codUnidade = null;
                 if (codUnidadeTexto != null && !codUnidadeTexto.isBlank()) {
@@ -79,22 +65,23 @@ public class ReadEnderecoServlet extends HttpServlet {
                     request.setAttribute("endereco", dao.findByCodigo(codigo));
                     pagina = EDITAR;
                 } else if (codUnidade != null) {
+                    // Confere que o código recebido aponta para uma unidade real.
+                    new UnidadeDAO().findByCodigo(codUnidade);
                     try {
                         request.setAttribute("endereco", dao.findByCodUnidade(codUnidade));
                         pagina = EDITAR;
                     } catch (NotFoundException semEndereco) {
-                        // unidade ainda sem endereço: abre o formulário novo
                         request.setAttribute("codUnidade", codUnidade);
-                        pagina = NOVO;
+                        pagina = NOVA_UNIDADE_PT2;
                     }
                 } else {
+                    // Cadastro independente de endereço continua usando sua tela original.
                     pagina = NOVO;
                 }
             } else if (unidadeLogada != null) {
                 try {
                     request.setAttribute("endereco", dao.findByCodUnidade(unidadeLogada.getCodigo()));
                 } catch (NotFoundException semEndereco) {
-                    // unidade sem endereço: a JSP mostra o formulário vazio
                     request.setAttribute("endereco", null);
                 }
                 pagina = GESTOR;
@@ -103,11 +90,9 @@ public class ReadEnderecoServlet extends HttpServlet {
                 return;
             }
 
-            // envia para a JSP
             request.getRequestDispatcher(pagina).forward(request, response);
-
         } catch (NotFoundException nfe) {
-            exibirErro(request, response, "Endereço não cadastrado.", ERROR_PAGE);
+            exibirErro(request, response, "Unidade ou endereço não cadastrado.", ERROR_PAGE);
         } catch (NumberFormatException nmfe) {
             exibirErro(request, response, "Código inválido.", ERROR_PAGE);
         } catch (ConnectionFailedException cfe) {

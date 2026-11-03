@@ -17,49 +17,27 @@ import java.io.IOException;
 import static br.com.zera.exception.ErroServlet.exibirErro;
 import static br.com.zera.regex.Constants.ERROR_PAGE;
 
-/**
- * Servlet responsável por cadastrar uma unidade pela área do admin.
- *
- * Depois de gravar, leva o admin direto ao formulário de endereço da unidade
- * recém-criada. O gestor cadastra a unidade pelo fluxo de cadastro, no pacote servlet.cadastro.
- *
- * @author Mayte B
- * @since 2026-10-02
- */
+/** Cadastra a unidade e encaminha para a segunda etapa (endereço). */
 @WebServlet(name = "InsertUnidade", value = "/unidade/inserir")
 public class InsertUnidadeServlet extends HttpServlet {
 
-    /**
-     * Processa POST para inserir uma nova unidade.
-     *
-     * @param request objeto HttpServletRequest com cnpj, email e codOrganizacao
-     * @param response objeto HttpServletResponse para redirecionamento ou erro
-     * @throws IOException caso haja um erro de input/output (entrada/saída)
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-
         request.setCharacterEncoding("UTF-8");
 
         try {
-            // só o admin pode fazer isso
             if (Sessao.admin(request) == null) {
                 exibirErro(request, response, "Acesso permitido apenas ao administrador.", ERROR_PAGE);
                 return;
             }
 
-            // lê os campos do formulário
             String cnpjTexto = request.getParameter("cnpj");
-            String cnpj = null;
-            if (cnpjTexto != null && !cnpjTexto.isBlank()) {
-                cnpj = cnpjTexto.trim();
-            }
+            String cnpj = (cnpjTexto == null || cnpjTexto.isBlank()) ? null : cnpjTexto.trim();
+
             String emailTexto = request.getParameter("email");
-            String email = null;
-            if (emailTexto != null && !emailTexto.isBlank()) {
-                email = emailTexto.trim();
-            }
+            String email = (emailTexto == null || emailTexto.isBlank()) ? null : emailTexto.trim();
+
             String codOrganizacaoTexto = request.getParameter("codOrganizacao");
             Integer codOrganizacao = null;
             if (codOrganizacaoTexto != null && !codOrganizacaoTexto.isBlank()) {
@@ -71,30 +49,27 @@ public class InsertUnidadeServlet extends HttpServlet {
                 return;
             }
             if (cnpj == null || !Regex.validarCNPJ(cnpj)) {
-                exibirErro(request, response, "CNPJ inválido", ERROR_PAGE);
+                exibirErro(request, response, "CNPJ inválido.", ERROR_PAGE);
                 return;
             }
             if (email == null || !Regex.validarEmail(email)) {
-                exibirErro(request, response, "Email inválido", ERROR_PAGE);
+                exibirErro(request, response, "Email inválido.", ERROR_PAGE);
                 return;
             }
 
-            // confere se a organização existe
             new OrganizacaoDAO().findByCodigo(codOrganizacao);
-
             UnidadeDAO dao = new UnidadeDAO();
-            // o CNPJ não pode repetir
             if (cnpjJaCadastrado(dao, cnpj)) {
                 exibirErro(request, response, "Já existe uma unidade com esse CNPJ.", ERROR_PAGE);
                 return;
             }
 
             dao.insert(new Unidade(cnpj, email, codOrganizacao));
-
-            // busca pelo CNPJ para pegar o código gerado e ir para o endereço
             Unidade nova = dao.findByCnpj(cnpj);
-            // redirect
-            response.sendRedirect(request.getContextPath() + "/endereco/perfil?codUnidade=" + nova.getCodigo());
+
+            // Rota dedicada à etapa 2, servida pelo ReadEnderecoServlet.
+            response.sendRedirect(request.getContextPath()
+                    + "/unidade/etapa2?codUnidade=" + nova.getCodigo());
 
         } catch (NotFoundException nfe) {
             nfe.printStackTrace();
@@ -110,13 +85,6 @@ public class InsertUnidadeServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Verifica se já existe uma unidade com o CNPJ informado.
-     *
-     * @param dao DAO de unidade
-     * @param cnpj CNPJ digitado
-     * @return true se o CNPJ já estiver cadastrado
-     */
     private boolean cnpjJaCadastrado(UnidadeDAO dao, String cnpj) {
         try {
             dao.findByCnpj(cnpj);
