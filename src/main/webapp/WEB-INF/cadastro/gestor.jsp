@@ -77,7 +77,7 @@
                         <label for="telefone">Telefone</label>
                         <div class="campo-icone">
                             <img src="${ctx}/images/telefone.svg" class="icone-input" alt="">
-                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000"
+                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" inputmode="numeric" maxlength="15" autocomplete="tel"
                                    value="<c:out value='${telefone}'/>" required>
                             <span class="mensagem-erro"><c:out value="${erroInterno}"/></span>
                         </div>
@@ -136,6 +136,29 @@
             }
         });
     });
+</script>
+<script>
+    // MÁSCARA DO TELEFONE NO CADASTRO
+    (function () {
+        var telefone = document.getElementById('telefone');
+
+        function formatarTelefone() {
+            var digitos = telefone.value.replace(/\D/g, '').slice(0, 11);
+            if (digitos.length === 0) {
+                telefone.value = '';
+            } else if (digitos.length <= 2) {
+                telefone.value = '(' + digitos;
+            } else if (digitos.length <= 7) {
+                telefone.value = '(' + digitos.slice(0, 2) + ') ' + digitos.slice(2);
+            } else {
+                telefone.value = '(' + digitos.slice(0, 2) + ') ' +
+                    digitos.slice(2, 7) + '-' + digitos.slice(7);
+            }
+        }
+
+        telefone.addEventListener('input', formatarTelefone);
+        formatarTelefone();
+    })();
 </script>
 <%@ include file="/WEB-INF/componentes/carregando.jspf" %>
 <script src="${ctx}/js/carregando.js" defer></script>
